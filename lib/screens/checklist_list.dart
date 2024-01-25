@@ -1,0 +1,32 @@
+import "package:flutter/material.dart";
+import "package:forestryapp/components/fab_creation.dart";
+import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/model_list_view.dart";
+
+/// Screen for showing saved checklists from the navigation drawer.
+///
+/// Can view existing checklists or create new checklists from this screen.
+class ChecklistList extends StatelessWidget {
+  // Instance variables ////////////////////////////////////////////////////////
+  final _title = "Checklists";
+  final List<String> _checklists = [
+    "Ash Woodlands",
+    "Birch Grove",
+    "Charred Forest",
+    "Darkwood",
+    "Eagle Copse"
+  ]; // Dummy data to be replaced by model later.
+
+  // Constructors //////////////////////////////////////////////////////////////
+  ChecklistList({super.key});
+
+  // Methods ///////////////////////////////////////////////////////////////////
+  @override
+  Widget build(BuildContext context) {
+    return ForestryScaffold(
+      title: _title,
+      body: ModelListView(modelInstances: _checklists),
+      fab: FABCreation(icon: Icons.list_alt, onPressed: () {}),
+    );
+  }
+}
