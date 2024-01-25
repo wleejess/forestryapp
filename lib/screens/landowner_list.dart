@@ -27,6 +27,12 @@ class LandownerList extends StatelessWidget {
   }
 
   ListTile _buildLandownerBuilder(BuildContext context, int i) {
-    return ListTile(title: Text(landowners[i]));
+    return ListTile(
+      title: Text(landowners[i], style: const TextStyle(fontSize: 36)),
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(width: 1),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
   }
 }
