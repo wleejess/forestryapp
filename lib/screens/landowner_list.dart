@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/model_list_view.dart";
 
 class LandownerList extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
@@ -19,20 +20,8 @@ class LandownerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-        title: _title,
-        body: ListView.builder(
-          itemBuilder: _buildLandownerBuilder,
-          itemCount: landowners.length,
-        ));
-  }
-
-  ListTile _buildLandownerBuilder(BuildContext context, int i) {
-    return ListTile(
-      title: Text(landowners[i], style: const TextStyle(fontSize: 36)),
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(width: 1),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      title: _title,
+      body: ModelListView(modelInstances: landowners),
     );
   }
 }
