@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/model_list_view.dart";
 
@@ -25,6 +26,7 @@ class ChecklistList extends StatelessWidget {
     return ForestryScaffold(
       title: _title,
       body: ModelListView(modelInstances: checklists),
+      fab: FABCreation(icon: Icons.list_alt, onPressed: () {}),
     );
   }
 }

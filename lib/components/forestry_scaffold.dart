@@ -8,11 +8,17 @@ class ForestryScaffold extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
   final String _title;
   final Widget _body;
+  final Widget? _fab;
 
   // Constructor ///////////////////////////////////////////////////////////////
-  const ForestryScaffold({required title, required body, super.key})
-      : _title = title,
-        _body = body;
+  const ForestryScaffold({
+    required title,
+    required body,
+    Widget? fab,
+    super.key,
+  })  : _title = title,
+        _body = body,
+        _fab = fab;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -37,6 +43,7 @@ class ForestryScaffold extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: _fab ?? Container(),
     );
   }
 }

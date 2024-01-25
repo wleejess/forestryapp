@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/model_list_view.dart";
 
@@ -25,6 +26,7 @@ class LandownerList extends StatelessWidget {
     return ForestryScaffold(
       title: _title,
       body: ModelListView(modelInstances: landowners),
+      fab: FABCreation(icon: Icons.person, onPressed: () {}),
     );
   }
 }
