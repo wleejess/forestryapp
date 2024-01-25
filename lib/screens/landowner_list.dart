@@ -8,7 +8,7 @@ import "package:forestryapp/components/model_list_view.dart";
 /// Can view existing landowners or create new landowners from this screen.
 class LandownerList extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
-  final _title = "Landowners"; // Public for the sake of navigation later.
+  final _title = "Landowners";
   final List<String> landowners = [
     "Amy Adams",
     "Bob Bancroft",

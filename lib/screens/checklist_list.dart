@@ -8,7 +8,7 @@ import "package:forestryapp/components/model_list_view.dart";
 /// Can view existing checklists or create new checklists from this screen.
 class ChecklistList extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
-  final _title = "Landowners"; // Public for the sake of navigation later.
+  final _title = "Checklists";
   final List<String> checklists = [
     "Ash Woodlands",
     "Birch Grove",
