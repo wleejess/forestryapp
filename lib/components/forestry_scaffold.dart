@@ -11,9 +11,13 @@ class ForestryScaffold extends StatelessWidget {
   final Widget? _fab;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Creates Material design scaffold with provided [title] and [body].
+  ///
+  /// Can optionally provide a Floating Action Button to shower in lower right
+  /// corner. If not specified, no FAB will be shown.
   const ForestryScaffold({
-    required title,
-    required body,
+    required String title,
+    required Widget body,
     Widget? fab,
     super.key,
   })  : _title = title,

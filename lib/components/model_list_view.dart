@@ -1,9 +1,6 @@
 import "package:flutter/material.dart";
 
 /// [ListView] for displaying models to be selected in the side drawer.
-///
-/// Given a [modelInstances], displays each in its own [ListTile] demarcated
-/// with a solid round border.
 class ModelListView extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
   static const double tileFontSize = 36.0;
@@ -14,6 +11,8 @@ class ModelListView extends StatelessWidget {
   final List<String> modelInstances;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Given a [modelInstances], displays each in its own [ListTile] demarcated
+  /// with a solid round border.
   const ModelListView({required this.modelInstances, super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////

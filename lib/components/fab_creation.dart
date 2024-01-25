@@ -11,6 +11,10 @@ class FABCreation extends StatelessWidget {
   final void Function() _onPressed;
 
   // Constructors //////////////////////////////////////////////////////////////
+  /// Creates a FAB with displaying [icon].
+  ///
+  /// Executes [onPressed] when tapped. This function should presumably take the
+  /// user to an appropriate creation screen.
   const FABCreation(
       {required icon, required void Function() onPressed, super.key})
       : _icon = icon,
