@@ -9,7 +9,7 @@ import "package:forestryapp/components/model_list_view.dart";
 class LandownerList extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
   final _title = "Landowners";
-  final List<String> landowners = [
+  final List<String> _landowners = [
     "Amy Adams",
     "Bob Bancroft",
     "Chet Chapman",
@@ -25,7 +25,7 @@ class LandownerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: ModelListView(modelInstances: landowners),
+      body: ModelListView(modelInstances: _landowners),
       fab: FABCreation(icon: Icons.person, onPressed: () {}),
     );
   }

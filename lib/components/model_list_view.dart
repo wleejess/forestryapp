@@ -8,25 +8,26 @@ class ModelListView extends StatelessWidget {
   static const double borderRadius = 10;
 
   // Instance variables ////////////////////////////////////////////////////////
-  final List<String> modelInstances;
+  final List<String> _modelInstances;
 
   // Constructor ///////////////////////////////////////////////////////////////
-  /// Given a [modelInstances], displays each in its own [ListTile] demarcated
+  /// Given a [_modelInstances], displays each in its own [ListTile] demarcated
   /// with a solid round border.
-  const ModelListView({required this.modelInstances, super.key});
+  const ModelListView({required List<String> modelInstances, super.key})
+      : _modelInstances = modelInstances;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: _buildLandownerBuilder,
-      itemCount: modelInstances.length,
+      itemCount: _modelInstances.length,
     );
   }
 
   ListTile _buildLandownerBuilder(BuildContext context, int i) {
     return ListTile(
-      title: Text(modelInstances[i],
+      title: Text(_modelInstances[i],
           style: const TextStyle(fontSize: tileFontSize)),
       shape: RoundedRectangleBorder(
         side: const BorderSide(width: borderWidth),

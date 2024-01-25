@@ -9,7 +9,7 @@ import "package:forestryapp/components/model_list_view.dart";
 class ChecklistList extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
   final _title = "Checklists";
-  final List<String> checklists = [
+  final List<String> _checklists = [
     "Ash Woodlands",
     "Birch Grove",
     "Charred Forest",
@@ -25,7 +25,7 @@ class ChecklistList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: ModelListView(modelInstances: checklists),
+      body: ModelListView(modelInstances: _checklists),
       fab: FABCreation(icon: Icons.list_alt, onPressed: () {}),
     );
   }
