@@ -2,6 +2,9 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/model_list_view.dart";
 
+/// Screen for showing saved landowners from the navigation drawer.
+///
+/// Can view existing landowners or create new landowners from this screen.
 class LandownerList extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
   final _title = "Landowners"; // Public for the sake of navigation later.
