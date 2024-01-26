@@ -6,7 +6,7 @@ import "package:forestryapp/components/model_list_view.dart";
 /// Screen for showing saved landowners from the navigation drawer.
 ///
 /// Can view existing landowners or create new landowners from this screen.
-class LandownerList extends StatelessWidget {
+class LandownerIndex extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
   final _title = "Landowners";
   final List<String> _landowners = [
@@ -18,7 +18,7 @@ class LandownerList extends StatelessWidget {
   ]; // Dummy data to be replaced by model later.
 
   // Constructors //////////////////////////////////////////////////////////////
-  LandownerList({super.key});
+  LandownerIndex({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override

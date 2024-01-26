@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-/// FAB to use for creating new model (e.g. landowner or checklist) instance
+/// FAB to use for creating new model (e.g. landowner or area) instance
 /// from a list screen.
 class FABCreation extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////

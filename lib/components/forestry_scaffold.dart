@@ -42,7 +42,7 @@ class ForestryScaffold extends StatelessWidget {
         child: ListView(
           children: const [
             ListTile(title: Text('Landowners'), leading: Icon(Icons.person)),
-            ListTile(title: Text('Checklists'), leading: Icon(Icons.list_alt)),
+            ListTile(title: Text('Areas'), leading: Icon(Icons.forest)),
             ListTile(title: Text('Settings'), leading: Icon(Icons.settings))
           ],
         ),
