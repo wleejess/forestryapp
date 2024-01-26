@@ -1,13 +1,14 @@
 import "package:flutter/material.dart";
-import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
-import "package:forestryapp/components/model_list_view.dart";
 import "package:forestryapp/components/free_text.dart";
 
 class OtherIssues extends StatelessWidget {
   // Instance Variables
   final TextEditingController _textController = TextEditingController();
   final _title = "Forest Wellness Checkup";
+
+  OtherIssues({super.key});
+
   @override
   Widget build(BuildContext context) {
       return ForestryScaffold(
@@ -17,15 +18,12 @@ class OtherIssues extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Other Issues',
-              ),
-
-              SizedBox(height: 16.0),
-
+              const Text('Other Issues'),
+              const SizedBox(height: 16.0),
               FreeTextBox(
                 controller: _textController, 
                 hintText: 'Describe any other health related issues you observed.', 
-                onChanged:
+                onChanged: (String value) {},
             ),
           ],
         ),

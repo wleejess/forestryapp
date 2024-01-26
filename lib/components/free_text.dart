@@ -7,10 +7,11 @@ class FreeTextBox extends StatelessWidget {
   final String hintText;
   final void Function(String) onChanged;
 
-  FreeTextBox({
+  const FreeTextBox({
     required this.controller,
     required this.hintText,
     required this.onChanged,
+    super.key,
   });
 
   @override

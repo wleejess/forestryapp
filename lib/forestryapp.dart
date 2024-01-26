@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/screens/other_issues.dart';
 
 class ForestryApp extends StatelessWidget {
   const ForestryApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Forestry Wellness Checkup App',
-      // Replace `Placeholder` with screen widgets while testing until
-      // navigation implemented.
-      home: Placeholder(),
+      home: OtherIssues(),
     );
   }
 }
