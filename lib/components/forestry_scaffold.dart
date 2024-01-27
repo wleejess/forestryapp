@@ -30,41 +30,35 @@ class ForestryScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_title),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: _body,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text('Landowners'),
-              leading: const Icon(Icons.person),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LandownerIndex()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Areas'),
-              leading: const Icon(Icons.forest),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AreaIndex()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: Text(_title), centerTitle: true),
+      body: Padding(padding: const EdgeInsets.all(30), child: _body),
+      drawer: Drawer(child: ListView(children: _buildDrawerItems(context))),
       floatingActionButton: _fab ?? Container(),
     );
+  }
+
+  List<Widget> _buildDrawerItems(BuildContext context) {
+    return [
+      ListTile(
+        title: const Text('Landowners'),
+        leading: const Icon(Icons.person),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LandownerIndex()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Areas'),
+        leading: const Icon(Icons.forest),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AreaIndex()),
+          );
+        },
+      ),
+    ];
   }
 }
