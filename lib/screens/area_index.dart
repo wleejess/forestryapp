@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
-import "package:forestryapp/components/model_list_view.dart";
+import "package:forestryapp/components/navigable_list_tile.dart";
 
 /// Screen for showing saved areas from the navigation drawer.
 ///
@@ -25,8 +25,19 @@ class AreaIndex extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: ModelListView(modelInstances: _areas),
+      body: ListView.builder(
+          itemCount: _areas.length, itemBuilder: _areaIndexListTileBuilder),
       fab: FABCreation(icon: Icons.forest, onPressed: () {}),
+    );
+  }
+
+  Widget _areaIndexListTileBuilder(BuildContext context, int i) {
+    return NavigableListTile(
+      titleText: _areas[i],
+      routeBuilder: (context) => ForestryScaffold(
+        title: _areas[i],
+        body: const Placeholder(),
+      ),
     );
   }
 }
