@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/screens/landowner_index.dart';
 
 class ForestryApp extends StatelessWidget {
   const ForestryApp({super.key});
@@ -7,9 +8,8 @@ class ForestryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Forestry Wellness Checkup App',
-      // Replace `Placeholder` with screen widgets while testing until
-      // navigation implemented.
-      home: Placeholder(),
+      // Use Landowner Index for home page until settings is implemented.
+      home: LandownerIndex(),
     );
   }
 }
