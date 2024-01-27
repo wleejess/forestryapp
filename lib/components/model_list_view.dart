@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 /// [ListView] for displaying models to be selected in the side drawer.
 class ModelListView extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
-  static const double tileFontSize = 36.0;
   static const double borderWidth = 1;
   static const double borderRadius = 10;
 
@@ -28,7 +27,7 @@ class ModelListView extends StatelessWidget {
   ListTile _buildLandownerBuilder(BuildContext context, int i) {
     return ListTile(
       title: Text(_modelInstances[i],
-          style: const TextStyle(fontSize: tileFontSize)),
+          style: Theme.of(context).textTheme.headlineMedium),
       shape: RoundedRectangleBorder(
         side: const BorderSide(width: borderWidth),
         borderRadius: BorderRadius.circular(borderRadius),
