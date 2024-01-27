@@ -45,7 +45,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LandownerIndex()),
+            MaterialPageRoute(builder: (context) => const LandownerIndex()),
           );
         },
       ),
