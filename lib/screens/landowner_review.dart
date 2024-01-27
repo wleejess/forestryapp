@@ -68,19 +68,27 @@ class LandownerReview extends StatelessWidget {
       percentageHeight: _heightContactInfo,
       child: Container(
         alignment: Alignment.centerLeft,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(_name, style: Theme.of(context).textTheme.headlineLarge),
-            Text("Email: $_email",
-                style: Theme.of(context).textTheme.headlineMedium),
-            Text("Address: $_streetAddress",
-                style: Theme.of(context).textTheme.headlineMedium),
-            Text("$_city, $_state $_zipCode",
-                style: Theme.of(context).textTheme.headlineMedium),
-          ],
-        ),
+        // Use `FittedBox` IN ADDITION to `Container` avoid overflow of into the
+        // Area ListView. Do this instead of using it IN PLACE OF `Container` as
+        // that would cause more obvious alignment mismatch with adjacent Area
+        // `ListView`.
+        child: FittedBox(child: _buildContactInfoRows(context)),
       ),
+    );
+  }
+
+  Widget _buildContactInfoRows(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(_name, style: Theme.of(context).textTheme.headlineLarge),
+        Text("Email: $_email",
+            style: Theme.of(context).textTheme.headlineMedium),
+        Text("Address: $_streetAddress",
+            style: Theme.of(context).textTheme.headlineMedium),
+        Text("$_city, $_state $_zipCode",
+            style: Theme.of(context).textTheme.headlineMedium),
+      ],
     );
   }
 
