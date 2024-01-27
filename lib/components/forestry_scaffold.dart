@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/screens/area_index.dart';
+import 'package:forestryapp/screens/landowner_index.dart';
 
 /// A component to ensure common high level layout across screens of the app.
 ///
@@ -36,14 +38,29 @@ class ForestryScaffold extends StatelessWidget {
         padding: const EdgeInsets.all(30),
         child: _body,
       ),
-      // For now use `Drawer` to keep it simple as we haven't implemented routes
-      // yet. May want to switch to `NavigationDrawer` in the future.
       drawer: Drawer(
         child: ListView(
-          children: const [
-            ListTile(title: Text('Landowners'), leading: Icon(Icons.person)),
-            ListTile(title: Text('Areas'), leading: Icon(Icons.forest)),
-            ListTile(title: Text('Settings'), leading: Icon(Icons.settings))
+          children: [
+            ListTile(
+              title: const Text('Landowners'),
+              leading: const Icon(Icons.person),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LandownerIndex()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Areas'),
+              leading: const Icon(Icons.forest),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AreaIndex()),
+                );
+              },
+            ),
           ],
         ),
       ),
