@@ -9,6 +9,8 @@ class OtherIssues extends StatelessWidget {
 
   OtherIssues({super.key});
 
+  OtherIssues({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
