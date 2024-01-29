@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
+import 'package:forestryapp/screens/mistletoe_form.dart';
 
 /// A component to ensure common high level layout across screens of the app.
 ///
@@ -58,6 +59,16 @@ class ForestryScaffold extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AreaIndex()),
           );
         },
+      ),
+      ListTile(
+        title: const Text('Mistletoe'),
+        leading: const Icon(Icons.spa),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MistletoeForm()),
+          );
+        }
       ),
     ];
   }
