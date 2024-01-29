@@ -13,6 +13,9 @@ class SiteCharacteristics extends StatelessWidget {
   final TextEditingController _soilInfoController = TextEditingController();
 
   final _title = "Forest Wellness Checkup";
+
+  SiteCharacteristics({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(

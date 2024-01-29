@@ -6,6 +6,9 @@ class RoadHealth extends StatelessWidget {
   // Instance Variables
   final TextEditingController _textController = TextEditingController();
   final _title = "Forest Wellness Checkup";
+
+  RoadHealth({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
