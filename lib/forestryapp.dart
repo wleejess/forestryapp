@@ -6,7 +6,7 @@ class ForestryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Forestry Wellness Checkup App',
       // Use Landowner Index for home page until settings is implemented.
       home: LandownerIndex(),
