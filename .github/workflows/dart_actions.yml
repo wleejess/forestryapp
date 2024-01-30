@@ -1,0 +1,37 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: GitHub Actions - Dart Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+    
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Note: This workflow uses the latest stable version of the Dart SDK.
+      # You can specify other versions if desired, see documentation here:
+      # https://github.com/dart-lang/setup-dart/blob/main/README.md
+      # - uses: dart-lang/setup-dart@v1
+      
+      - name: Setup Dart on Runner
+        uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+      - name: Install Dependencies
+        run: dart pub get
+
+      # Linter. Note, we can consider passing '--fatal-infos' for slightly stricter analysis.
+      - name: Dart Analyze
+        run: dart analyze
+
+      # Future action when we add tests.
+      # - name: Run tests
+      #  run: dart test
