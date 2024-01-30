@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
+import 'package:forestryapp/screens/site_characteristics.dart';
+import 'package:forestryapp/screens/road_health.dart';
+import 'package:forestryapp/screens/other_issues.dart';
 
 /// A component to ensure common high level layout across screens of the app.
 ///
@@ -51,6 +54,16 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
       ListTile(
+        title: const Text('Site Characteristics'),
+        leading: const Icon(Icons.place),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SiteCharacteristics()),
+          );
+        },
+      ),
+      ListTile(
         title: const Text('Areas'),
         leading: const Icon(Icons.forest),
         onTap: () {
@@ -68,7 +81,27 @@ class ForestryScaffold extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => MistletoeForm()),
           );
-        }
+        },
+      ),
+      ListTile(
+        title: const Text('Road Health'),
+        leading: const Icon(Icons.edit_road),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RoadHealth()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Other Issues'),
+        leading: const Icon(Icons.report),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => OtherIssues()),
+          );
+        },
       ),
     ];
   }
