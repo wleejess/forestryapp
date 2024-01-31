@@ -79,7 +79,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MistletoeForm()),
+            MaterialPageRoute(builder: (context) => const MistletoeForm()),
           );
         },
       ),

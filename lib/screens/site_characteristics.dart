@@ -5,7 +5,6 @@ import "package:forestryapp/components/radio_options.dart";
 
 class SiteCharacteristics extends StatelessWidget {
   // Instance Variables
-  final TextEditingController _textController = TextEditingController();
   final TextEditingController _elevationController = TextEditingController();
   final TextEditingController _aspectController = TextEditingController();
   final TextEditingController _slopePercentageController =
@@ -26,9 +25,7 @@ class SiteCharacteristics extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Title
-            Text(
-              'Site Characteristics',
-            ),
+            const Text('Site Characteristics'),
 
             // Elevation, Aspect, % Slope
             Row(
@@ -59,18 +56,18 @@ class SiteCharacteristics extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
 
             // Slope Position
             RadioOptions(
               header: 'Slope Position:',
-              options: ['Lower', 'Middle', 'Upper', 'Ridgetop'],
+              options: const ['Lower', 'Middle', 'Upper', 'Ridgetop'],
               onSelected: (selectedOption) {
                 // Handle slope position selection
               },
             ),
 
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
 
             // Soil Information
             FreeTextBox(

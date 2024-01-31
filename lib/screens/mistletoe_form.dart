@@ -1,16 +1,15 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/relative_sized_box.dart";
-import "package:forestryapp/util/relative_size.dart";
 
 class MistletoeForm extends StatelessWidget {
   // Static variables ///////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";
-  static const _buttonLabelPrev = "Previous";
-  static const _buttonLabelNext = "Next";
+  // static const _buttonLabelPrev = "Previous"; // Commented out unused for linter.
+  // static const _buttonLabelNext = "Next"; // Commented out unused for linter.
   static const _locationHeading = "Mistletoe location";
 
-  static const double _heightButton = 0.05;
+  // static const double _heightButton = 0.05; // Commented out unused for linter.
   static const double _heightHeading = 0.04;
 
   // Constructor //////////////////////////////////////////
@@ -23,11 +22,11 @@ class MistletoeForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title, 
+      title: _title,
       body: Column(
         children: <Widget>[
           _buildLocationHeading(context),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Enter the mistletoe location(s)',

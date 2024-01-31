@@ -7,11 +7,17 @@ class RadioOptions extends StatefulWidget {
   final List<String> options;
   final void Function(int) onSelected;
 
-  RadioOptions(
-      {required this.header, required this.options, required this.onSelected});
+  const RadioOptions({
+    required this.header,
+    required this.options,
+    required this.onSelected,
+    super.key,
+  });
 
+  // For state we can use a generic of `State` to avoid linter complaining about
+  // private type in public API.  https://stackoverflow.com/a/72567005
   @override
-  _RadioOptionsState createState() => _RadioOptionsState();
+  State<RadioOptions> createState() => _RadioOptionsState();
 }
 
 class _RadioOptionsState extends State<RadioOptions> {
@@ -26,7 +32,7 @@ class _RadioOptionsState extends State<RadioOptions> {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
             widget.header,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
             ),
