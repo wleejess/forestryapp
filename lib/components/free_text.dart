@@ -18,14 +18,14 @@ class FreeTextBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 200, // Constrain the width of the FreeTextBox
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             header,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
             ),
