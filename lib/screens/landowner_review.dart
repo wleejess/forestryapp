@@ -13,10 +13,7 @@ class LandownerReview extends StatelessWidget {
   // NOTE: These will be refactored into a single model class later on.
   final String _name;
   final String _email;
-  final String _streetAddress;
-  final String _city;
-  final String _state;
-  final String _zipCode;
+  final String _combinedAddress;
   final List<String> _areas;
 
   // Constructor ///////////////////////////////////////////////////////////////
@@ -32,10 +29,7 @@ class LandownerReview extends StatelessWidget {
     super.key,
   })  : _name = name,
         _email = email,
-        _streetAddress = streetAddress,
-        _city = city,
-        _state = state,
-        _zipCode = zipCode,
+        _combinedAddress = "$streetAddress $city, $state $zipCode",
         _areas = areas;
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -69,18 +63,35 @@ class LandownerReview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(_name, style: Theme.of(context).textTheme.headlineLarge),
-          Text("Email: $_email",
-              style: Theme.of(context).textTheme.headlineMedium),
-          Text("Address: $_streetAddress",
-              style: Theme.of(context).textTheme.headlineMedium),
-          Text("$_city, $_state $_zipCode",
-              style: Theme.of(context).textTheme.headlineMedium),
+          SelectableText(
+            _name,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          _buildContactInfoTable()
         ],
       ),
     );
   }
 
+  Table _buildContactInfoTable() {
+    return Table(
+      defaultColumnWidth: const IntrinsicColumnWidth(),
+      children: [
+        TableRow(children: _buildTableRow("Email", _email)),
+        TableRow(children: _buildTableRow("Address", _combinedAddress)),
+      ],
+    );
+  }
+
+  List<Widget> _buildTableRow(String label, String info) {
+    return [
+      Container(
+          alignment: Alignment.centerRight,
+          child: Text("$label: ",
+              style: const TextStyle(fontWeight: FontWeight.bold))),
+      SelectableText(info),
+    ];
+  }
   Widget _buildAreasHeading(BuildContext context) {
     return Container(
       alignment: Alignment.bottomLeft,
