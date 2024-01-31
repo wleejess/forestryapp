@@ -75,9 +75,9 @@ class LandownerIndex extends StatelessWidget {
       "Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa, quis varius mi purus non odio.",
     ],
     ["Ash Wood", "Birch Grove", "Chestnut Creek"],
-    [""],
-    [""],
-    [""],
+    <String>[],
+    <String>[],
+    <String>[],
   ];
 
   // Constructors //////////////////////////////////////////////////////////////

@@ -9,7 +9,7 @@ class RelativeSize {
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       return MediaQuery.of(context).size.height * percentage;
     } else {
-      return MediaQuery.of(context).size.width * percentage;
+      return MediaQuery.of(context).size.height * percentage;
     }
   }
 }

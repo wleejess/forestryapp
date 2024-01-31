@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
-import "package:forestryapp/components/relative_sized_box.dart";
-import "package:forestryapp/util/relative_size.dart";
 
 class LandownerReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -11,19 +9,11 @@ class LandownerReview extends StatelessWidget {
   static const _buttonLabelEdit = "Edit";
   static const _buttonLabelDelete = "Delete";
 
-  static const double _heightContactInfo = 0.15;
-  static const double _heightAreasHeading = 0.04;
-  static const double _heightAreas = 0.5;
-  static const double _heightButton = 0.05;
-
   // Instance variables ////////////////////////////////////////////////////////
   // NOTE: These will be refactored into a single model class later on.
   final String _name;
   final String _email;
-  final String _streetAddress;
-  final String _city;
-  final String _state;
-  final String _zipCode;
+  final String _combinedAddress;
   final List<String> _areas;
 
   // Constructor ///////////////////////////////////////////////////////////////
@@ -39,10 +29,7 @@ class LandownerReview extends StatelessWidget {
     super.key,
   })  : _name = name,
         _email = email,
-        _streetAddress = streetAddress,
-        _city = city,
-        _state = state,
-        _zipCode = zipCode,
+        _combinedAddress = "$streetAddress $city, $state $zipCode",
         _areas = areas;
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -54,70 +41,74 @@ class LandownerReview extends StatelessWidget {
         children: <Widget>[
           _buildContactInfo(context),
           _buildAreasHeading(context),
-          _buildAreas(context),
+          // Use `Expanded` to both (1) constrain `ListView` from exceeding
+          // total height and (2) force the "Edit" and "Delete" buttons all the
+          // way down to the bottom of the screen. Unfortunately when the number
+          // of items in the `ListView` cause the ListView to not take up as
+          // much or more than its `Expanded` parent, the "New Area" button is
+          // also forced to bottom instead of being flush with last Area
+          // `ListTile`. This is because the expanded `ListView` expands past its
+          // last `ListTile`.
+          Expanded(child: _buildAreas(context)),
           _buildButtonNewArea(context),
-          Expanded(child: Container()),
           _buildButtonRowEditDelete(context),
         ],
       ),
     );
   }
 
+  // Contact Info //////////////////////////////////////////////////////////////
   Widget _buildContactInfo(BuildContext context) {
-    return RelativeSizedBox(
-      percentageHeight: _heightContactInfo,
-      child: Container(
-        alignment: Alignment.centerLeft,
-        // Use `FittedBox` IN ADDITION to `Container` avoid overflow of into the
-        // Area ListView. Do this instead of using it IN PLACE OF `Container` as
-        // that would cause more obvious alignment mismatch with adjacent Area
-        // `ListView`.
-        child: FittedBox(child: _buildContactInfoRows(context)),
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SelectableText(
+            _name,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          _buildContactInfoTable()
+        ],
       ),
     );
   }
 
-  Widget _buildContactInfoRows(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Table _buildContactInfoTable() {
+    return Table(
+      defaultColumnWidth: const IntrinsicColumnWidth(),
       children: [
-        Text(_name, style: Theme.of(context).textTheme.headlineLarge),
-        Text("Email: $_email",
-            style: Theme.of(context).textTheme.headlineMedium),
-        Text("Address: $_streetAddress",
-            style: Theme.of(context).textTheme.headlineMedium),
-        Text("$_city, $_state $_zipCode",
-            style: Theme.of(context).textTheme.headlineMedium),
+        TableRow(children: _buildTableRow("Email", _email)),
+        TableRow(children: _buildTableRow("Address", _combinedAddress)),
       ],
     );
   }
 
+  List<Widget> _buildTableRow(String label, String info) {
+    return [
+      Container(
+          alignment: Alignment.centerRight,
+          child: Text("$label: ",
+              style: const TextStyle(fontWeight: FontWeight.bold))),
+      SelectableText(info),
+    ];
+  }
+  // Areas Heading /////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
-    return RelativeSizedBox(
-      percentageHeight: _heightAreasHeading,
-      child: Container(
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          _areasHeading,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+    return Container(
+      alignment: Alignment.bottomLeft,
+      child: Text(
+        _areasHeading,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
     );
   }
 
+  // Areas /////////////////////////////////////////////////////////////////////
   Widget _buildAreas(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: RelativeSize.computeHeight(context, _heightAreas),
-        ),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: _areas.length,
-          itemBuilder: _buildAreaListItem,
-        ),
-      ),
+    return ListView.builder(
+      itemCount: _areas.length,
+      itemBuilder: _buildAreaListItem,
     );
   }
 
@@ -134,36 +125,31 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
+  // Buttons ///////////////////////////////////////////////////////////////////
   Widget _buildButtonNewArea(BuildContext context) {
-    return RelativeSizedBox(
-      percentageHeight: _heightButton,
-      child: Container(
-        alignment: Alignment.centerRight,
-        child: OutlinedButton(
-          onPressed: () {},
-          child: const Text(_buttonLabelNewArea),
-        ),
+    return Container(
+      alignment: Alignment.centerRight,
+      child: OutlinedButton(
+        onPressed: () {},
+        child: const Text(_buttonLabelNewArea),
       ),
     );
   }
 
   Widget _buildButtonRowEditDelete(BuildContext context) {
-    return RelativeSizedBox(
-      percentageHeight: _heightButton,
-      child: Row(
-        children: [
-          Expanded(child: Container()),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text(_buttonLabelEdit),
-          ),
-          const SizedBox(width: 20),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text(_buttonLabelDelete),
-          ),
-        ],
-      ),
+    return Row(
+      children: [
+        Expanded(child: Container()),
+        OutlinedButton(
+          onPressed: () {},
+          child: const Text(_buttonLabelEdit),
+        ),
+        const SizedBox(width: 20),
+        OutlinedButton(
+          onPressed: () {},
+          child: const Text(_buttonLabelDelete),
+        ),
+      ],
     );
   }
 }
