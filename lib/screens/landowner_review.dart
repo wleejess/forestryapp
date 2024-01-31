@@ -57,6 +57,7 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
+  // Contact Info //////////////////////////////////////////////////////////////
   Widget _buildContactInfo(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
@@ -92,6 +93,7 @@ class LandownerReview extends StatelessWidget {
       SelectableText(info),
     ];
   }
+  // Areas Heading /////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
     return Container(
       alignment: Alignment.bottomLeft,
@@ -102,6 +104,7 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
+  // Areas /////////////////////////////////////////////////////////////////////
   Widget _buildAreas(BuildContext context) {
     return ListView.builder(
       itemCount: _areas.length,
@@ -122,6 +125,7 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
+  // Buttons ///////////////////////////////////////////////////////////////////
   Widget _buildButtonNewArea(BuildContext context) {
     return Container(
       alignment: Alignment.centerRight,
