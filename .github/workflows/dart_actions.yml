@@ -26,7 +26,7 @@ jobs:
         uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
       - name: Install Dependencies
-        run: dart pub get
+        run: flutter pub get
 
       # Linter. Note, we can consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Dart Analyze
