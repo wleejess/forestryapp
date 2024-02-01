@@ -3,12 +3,14 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: GitHub Actions - Dart Workflow
+name: GitHub Actions - Flutter Workflow
 
 on:
   push:
     branches: [ "main" ]
-    
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -17,20 +19,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      
-      - name: Setup Dart on Runner
-        uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      # Use https://github.com/marketplace/actions/flutter-action for Flutter
+      # environment on runner
+      - name: Flutter action
+        uses: subosito/flutter-action@v2.12.0
 
       - name: Install Dependencies
         run: flutter pub get
 
-      # Linter. Note, we can consider passing '--fatal-infos' for slightly stricter analysis.
-      - name: Dart Analyze
-        run: dart analyze
+      # Linter. Note, we can consider passing '--fatal-infos' for slightly
+      # stricter analysis.
+      - name: Lint project
+        run: flutter analyze
 
       # Future action when we add tests.
       # - name: Run tests
