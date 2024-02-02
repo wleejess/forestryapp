@@ -47,6 +47,7 @@ class MistletoeScreen extends StatelessWidget {
                 options: _hawksworthOptions,
                 onSelected: (i) {},
               ),
+              _buildSpeciesInput(context),
             ],
           ),
           Row(
@@ -67,6 +68,16 @@ class MistletoeScreen extends StatelessWidget {
       decoration: InputDecoration(
         labelText: _locationHeading,
         helperText: _locationDescription,
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+
+  Widget _buildSpeciesInput(BuildContext context) {
+    return const TextField(
+      decoration: InputDecoration(
+        labelText: _speciesHeading,
+        helperText: _speciesDescription,
         border: OutlineInputBorder(),
       ),
     );
