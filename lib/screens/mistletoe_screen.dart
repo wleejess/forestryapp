@@ -34,8 +34,22 @@ class MistletoeScreen extends StatelessWidget {
       title: _title,
       body: Column(
         children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButtonPrevious(context,)
+            ],
+          )
         ],
       ),
+    );
+  }
+
+  // Buttons ///////////////////////////////////////////////////////////////////
+  Widget _buildButtonPrevious(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(_buttonLabelPrevious),
     );
   }
 
