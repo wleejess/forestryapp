@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/util/break_points.dart";
 
 class AreaReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -113,7 +114,7 @@ class AreaReview extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: _buildAreaPropertiesListView(context)),
-          _buildButtonRow(context),
+          LayoutBuilder(builder: _bottomButtonbuilder),
         ],
       ),
     );
@@ -215,7 +216,27 @@ class AreaReview extends StatelessWidget {
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////
-  _buildButtonRow(BuildContext context) {
+
+  Widget _bottomButtonbuilder(
+    BuildContext context,
+    BoxConstraints constraints,
+  ) {
+
+    if (constraints.maxWidth < BreakPoints.widthPhonePortait) {
+      return Table(
+        children: [
+          TableRow(children: [
+            OutlinedButton(onPressed: () {}, child: const Text("Generate PDF")),
+            OutlinedButton(onPressed: () {}, child: const Text("Send Email"))
+          ]),
+          TableRow(children: [
+            OutlinedButton(onPressed: () {}, child: const Text("Edit")),
+            OutlinedButton(onPressed: () {}, child: const Text("Delete"))
+          ]),
+        ],
+      );
+    }
+
     return Row(
       children: [
         OutlinedButton(onPressed: () {}, child: const Text("Generate PDF")),
