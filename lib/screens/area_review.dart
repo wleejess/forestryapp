@@ -202,7 +202,9 @@ class AreaReview extends StatelessWidget {
     String? propertyToDisplay,
   ) {
     return ListTile(
+      // Use `Wrap` to push property down underneath the label when too long.
       title: Wrap(
+        direction: Axis.horizontal,
         alignment: WrapAlignment.start,
         children: [
           Text("$propertyLabel: "),
