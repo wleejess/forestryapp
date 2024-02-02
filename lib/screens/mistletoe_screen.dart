@@ -32,9 +32,13 @@ class MistletoeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Column(
-        children: <Widget>[
-          Wrap(
+      body: CustomScrollView(
+        primary: false,
+        slivers: <Widget>[
+          SliverGrid.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             children: <Widget>[
               RadioOptions(
                 header: _uniformityHeading, 
@@ -43,21 +47,14 @@ class MistletoeScreen extends StatelessWidget {
               ),
               _buildLocationInput(context),
               RadioOptions(
-                header: _hawksworthHeading,
-                options: _hawksworthOptions,
+                header: _hawksworthHeading, 
+                options: _hawksworthOptions, 
                 onSelected: (i) {},
               ),
               _buildSpeciesInput(context),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildButtonPrevious(context),
-              _buildButtonNext(context),
-            ],
-          ),
-        ],
+            ]
+          )
+        ]
       ),
     );
   }
