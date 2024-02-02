@@ -132,7 +132,7 @@ class AreaReview extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
-          title: Text(_name, style: Theme.of(context).textTheme.headlineMedium),
+          title: Text(_name, style: Theme.of(context).textTheme.headlineLarge),
         ),
         _buildAreaPropertyListTile(context, "Landowner", _landowner),
         _buildAreaPropertyListTile(context, "Acres", _acres),
@@ -195,16 +195,20 @@ class AreaReview extends StatelessWidget {
   Widget _buildAreaPropertyListTile(
     BuildContext context,
     String propertyLabel,
-    String? propertyToDisplay,
+    String? property,
   ) {
+    final TextStyle? styleProperty = Theme.of(context).textTheme.headlineSmall;
+    final TextStyle styleLabel =
+        styleProperty!.copyWith(fontWeight: FontWeight.bold);
+
     return ListTile(
       // Use `Wrap` to push property down underneath the label when too long.
       title: Wrap(
         direction: Axis.horizontal,
         alignment: WrapAlignment.start,
         children: [
-          Text("$propertyLabel: "),
-          Text(propertyToDisplay ?? _placeholderForOmitted),
+          Text("$propertyLabel: ", style: styleLabel),
+          Text(property ?? _placeholderForOmitted, style: styleProperty),
         ],
       ),
     );
