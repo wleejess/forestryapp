@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 
 class LandownerReview extends StatelessWidget {
@@ -39,7 +40,11 @@ class LandownerReview extends StatelessWidget {
       title: "$_title: $_name",
       body: Column(
         children: <Widget>[
-          _buildContactInfo(context),
+          ContactInfo(
+            name: _name,
+            email: _email,
+            combinedAddress: _combinedAddress,
+          ),
           _buildAreasHeading(context),
           // Use `Expanded` to both (1) constrain `ListView` from exceeding
           // total height and (2) force the "Edit" and "Delete" buttons all the
@@ -57,42 +62,6 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
-  // Contact Info //////////////////////////////////////////////////////////////
-  Widget _buildContactInfo(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SelectableText(
-            _name,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          _buildContactInfoTable()
-        ],
-      ),
-    );
-  }
-
-  Table _buildContactInfoTable() {
-    return Table(
-      defaultColumnWidth: const IntrinsicColumnWidth(),
-      children: [
-        TableRow(children: _buildTableRow("Email", _email)),
-        TableRow(children: _buildTableRow("Address", _combinedAddress)),
-      ],
-    );
-  }
-
-  List<Widget> _buildTableRow(String label, String info) {
-    return [
-      Container(
-          alignment: Alignment.centerRight,
-          child: Text("$label: ",
-              style: const TextStyle(fontWeight: FontWeight.bold))),
-      SelectableText(info),
-    ];
-  }
   // Areas Heading /////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
     return Container(
