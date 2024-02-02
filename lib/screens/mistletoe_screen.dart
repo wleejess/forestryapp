@@ -37,16 +37,22 @@ class MistletoeScreen extends StatelessWidget {
           children: <Widget>[
             Wrap(
               children: <Widget>[
-                RadioOptions(
-                  header: _uniformityHeading, 
-                  options: _uniformityOptions, 
-                  onSelected: (i) {},
+                FractionallySizedBox(
+                  widthFactor: 0.5,
+                  child: RadioOptions(
+                    header: _uniformityHeading, 
+                    options: _uniformityOptions, 
+                    onSelected: (i) {},
+                  ),
                 ),
                 _buildLocationInput(context),
-                RadioOptions(
-                  header: _hawksworthHeading,
-                  options: _hawksworthOptions,
-                  onSelected: (i) {},
+                FractionallySizedBox(
+                  widthFactor: 0.5,
+                  child: RadioOptions(
+                    header: _hawksworthHeading,
+                    options: _hawksworthOptions,
+                    onSelected: (i) {},
+                  ),
                 ),
                 _buildSpeciesInput(context),
               ],
@@ -66,21 +72,27 @@ class MistletoeScreen extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildLocationInput(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
-        labelText: _locationHeading,
-        helperText: _locationDescription,
-        border: OutlineInputBorder(),
+    return const FractionallySizedBox(
+      widthFactor: 0.5,
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: _locationHeading,
+          helperText: _locationDescription,
+          border: OutlineInputBorder(),
+        ),
       ),
     );
   }
 
   Widget _buildSpeciesInput(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
-        labelText: _speciesHeading,
-        helperText: _speciesDescription,
-        border: OutlineInputBorder(),
+    return const FractionallySizedBox(
+      widthFactor: 0.5,
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: _speciesHeading,
+          helperText: _speciesDescription,
+          border: OutlineInputBorder(),
+        ),
       ),
     );
   }
