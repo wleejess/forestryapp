@@ -35,6 +35,6 @@ class AreaIndex extends StatelessWidget {
   Widget _areaIndexListTileBuilder(BuildContext context, int i) {
     return NavigableListTile(
         titleText: _areas[i],
-        routeBuilder: (context) => AreaReview(area: _areas[i]));
+        routeBuilder: (context) => AreaReview(name: _areas[i]));
   }
 }
