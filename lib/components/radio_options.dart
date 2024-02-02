@@ -12,7 +12,7 @@ class RadioOptions extends StatefulWidget {
     required this.header,
     required this.options,
     required this.onSelected,
-    required this.helperText,
+    this.helperText = "",
     super.key,
   });
 
