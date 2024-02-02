@@ -36,19 +36,24 @@ class AreaReview extends StatelessWidget {
 
   // Area Properties ///////////////////////////////////////////////////////////
   Widget _buildAreaPropertiesListView(BuildContext context) {
-    final identicalItemInList = SizedBox(
-      height: 100,
-      child: Container(
-        color: Colors.green,
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-      ),
-    );
-
     return ListView.builder(
       itemCount: 20,
       itemBuilder: (BuildContext context, int i) {
-        return identicalItemInList;
+        return _buildAreaPropertyListTile(context, "$i", "${i * 1000}");
       },
+    );
+  }
+
+  Widget _buildAreaPropertyListTile(
+    BuildContext context,
+    String propertyLabel,
+    String propertyToDisplay,
+  ) {
+    return ListTile(
+      title: Wrap(
+        alignment: WrapAlignment.start,
+        children: [Text("$propertyLabel: "), Text(propertyToDisplay)],
+      ),
     );
   }
 
