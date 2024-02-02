@@ -41,6 +41,7 @@ class MistletoeScreen extends StatelessWidget {
                 options: _uniformityOptions, 
                 onSelected: (i) {},
               ),
+              _buildLocationInput(context),
               RadioOptions(
                 header: _hawksworthHeading,
                 options: _hawksworthOptions,
@@ -56,6 +57,17 @@ class MistletoeScreen extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  // Inputs ////////////////////////////////////////////////////////////////////
+  Widget _buildLocationInput(BuildContext context) {
+    return const TextField(
+      decoration: InputDecoration(
+        labelText: _locationHeading,
+        helperText: _locationDescription,
+        border: OutlineInputBorder(),
       ),
     );
   }
