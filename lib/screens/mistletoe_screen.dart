@@ -34,13 +34,27 @@ class MistletoeScreen extends StatelessWidget {
       title: _title,
       body: Column(
         children: <Widget>[
+          Wrap(
+            children: <Widget>[
+              RadioOptions(
+                header: _uniformityHeading, 
+                options: _uniformityOptions, 
+                onSelected: (i) {},
+              ),
+              RadioOptions(
+                header: _hawksworthHeading,
+                options: _hawksworthOptions,
+                onSelected: (i) {},
+              ),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildButtonPrevious(context),
               _buildButtonNext(context),
             ],
-          )
+          ),
         ],
       ),
     );
