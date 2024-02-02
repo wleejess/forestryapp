@@ -42,18 +42,18 @@ class _RadioOptionsState extends State<RadioOptions> {
         ),
         ...List.generate(
           widget.options.length,
-          (index) => ListTile(
+          (index) => RadioListTile<int>(
             title: Text(widget.options[index]),
-            leading: Radio<int>(
-              value: index,
-              groupValue: selectedOption,
-              onChanged: (value) {
-                setState(() {
+            value: index,
+            groupValue: selectedOption,
+            onChanged: (int? value) {
+              setState(
+                () {
                   selectedOption = value!;
                   widget.onSelected(selectedOption);
-                });
-              },
-            ),
+                },
+              );
+            },
           ),
         ),
         Text(
