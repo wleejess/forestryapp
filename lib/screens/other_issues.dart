@@ -19,7 +19,7 @@ class OtherIssues extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FreeTextBox(
-              header: "Other Issues:",
+              labelText: "Other Issues:",
               controller: _textController,
               hintText:
                   'Describe any other health related issues you observed.',
