@@ -30,37 +30,54 @@ class _RadioOptionsState extends State<RadioOptions> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            widget.header,
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        ...List.generate(
-          widget.options.length,
-          (index) => ListTile(
-            title: Text(widget.options[index]),
-            leading: Radio<int>(
-              value: index,
-              groupValue: selectedOption,
-              onChanged: (value) {
-                setState(() {
-                  selectedOption = value!;
-                  widget.onSelected(selectedOption);
-                });
-              },
-            ),
-          ),
-        ),
-        Text(
-          widget.helperText,
-          style: Theme.of(context).inputDecorationTheme.helperStyle,
-        ),
+        _buildOptionsHeader(),
+        ..._createRadios(context),
+        _buildHelperText(context),
       ],
+    );
+  }
+
+  // Header ////////////////////////////////////////////////////////////////////
+  Padding _buildOptionsHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        widget.header,
+        style: const TextStyle(
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  // Radio /////////////////////////////////////////////////////////////////////
+  List<Widget> _createRadios(BuildContext context) {
+    return [
+      for (var option in widget.options)
+        RadioListTile<int>(
+          title: Text(option),
+          value: widget.options.indexOf(option),
+          groupValue: selectedOption,
+          onChanged: _onChanged,
+        ),
+    ];
+  }
+
+  void _onChanged(int? value) {
+    setState(
+      () {
+        selectedOption = value!;
+        widget.onSelected(selectedOption);
+      },
+    );
+  }
+
+  // Helper text ///////////////////////////////////////////////////////////////
+  Text _buildHelperText(BuildContext context) {
+    return Text(
+      widget.helperText,
+      style: Theme.of(context).inputDecorationTheme.helperStyle,
     );
   }
 }
