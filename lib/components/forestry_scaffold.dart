@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
+import 'package:forestryapp/screens/settings_review.dart';
 import 'package:forestryapp/screens/site_characteristics.dart';
 import 'package:forestryapp/screens/road_health.dart';
 import 'package:forestryapp/screens/other_issues.dart';
@@ -43,6 +44,16 @@ class ForestryScaffold extends StatelessWidget {
 
   List<Widget> _buildDrawerItems(BuildContext context) {
     return [
+      ListTile(
+        title: const Text('Settings'),
+        leading: const Icon(Icons.settings),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SettingsReview()),
+          );
+        },
+      ),
       ListTile(
         title: const Text('Landowners'),
         leading: const Icon(Icons.person),
