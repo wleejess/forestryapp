@@ -112,7 +112,6 @@ class AreaReview extends StatelessWidget {
       title: "$_titlePrefix: $_name",
       body: Column(
         children: [
-          _buildAreaNameHeading(context),
           Expanded(child: _buildAreaPropertiesListView(context)),
           _buildButtonRow(context),
         ],
@@ -121,12 +120,6 @@ class AreaReview extends StatelessWidget {
   }
 
   // Heading ///////////////////////////////////////////////////////////////////
-  Widget _buildAreaNameHeading(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text(_name, style: Theme.of(context).textTheme.headlineMedium),
-    );
-  }
 
   // Area Properties ///////////////////////////////////////////////////////////
 
@@ -138,6 +131,9 @@ class AreaReview extends StatelessWidget {
     // be displayed in a list).
     return ListView(
       children: [
+        ListTile(
+          title: Text(_name, style: Theme.of(context).textTheme.headlineMedium),
+        ),
         _buildAreaPropertyListTile(context, "Landowner", _landowner),
         _buildAreaPropertyListTile(context, "Acres", _acres),
         _buildAreaPropertyListTile(context, "Goals and Objectives", _goals),
