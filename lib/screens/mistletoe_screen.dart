@@ -32,32 +32,34 @@ class MistletoeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Column(
-        children: <Widget>[
-          Wrap(
-            children: <Widget>[
-              RadioOptions(
-                header: _uniformityHeading, 
-                options: _uniformityOptions, 
-                onSelected: (i) {},
-              ),
-              _buildLocationInput(context),
-              RadioOptions(
-                header: _hawksworthHeading,
-                options: _hawksworthOptions,
-                onSelected: (i) {},
-              ),
-              _buildSpeciesInput(context),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildButtonPrevious(context),
-              _buildButtonNext(context),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Wrap(
+              children: <Widget>[
+                RadioOptions(
+                  header: _uniformityHeading, 
+                  options: _uniformityOptions, 
+                  onSelected: (i) {},
+                ),
+                _buildLocationInput(context),
+                RadioOptions(
+                  header: _hawksworthHeading,
+                  options: _hawksworthOptions,
+                  onSelected: (i) {},
+                ),
+                _buildSpeciesInput(context),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildButtonPrevious(context),
+                _buildButtonNext(context),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
