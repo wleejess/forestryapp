@@ -3,13 +3,15 @@ import "package:flutter/material.dart";
 /// Widget for creating radio options, can be reused in different pages.
 
 class RadioOptions extends StatefulWidget {
-  final String header;
+  final String? header;
   final List<String> options;
   final void Function(int) onSelected;
+  final String labelText;
   final String helperText;
 
   const RadioOptions({
-    required this.header,
+    this.header,
+    required this.labelText,
     required this.options,
     required this.onSelected,
     this.helperText = "",
@@ -30,16 +32,8 @@ class _RadioOptionsState extends State<RadioOptions> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            widget.header,
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        Text(widget.labelText,
+            style: Theme.of(context).inputDecorationTheme.helperStyle),
         ...List.generate(
           widget.options.length,
           (index) => RadioListTile<int>(

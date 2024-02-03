@@ -5,14 +5,14 @@ import "package:flutter/material.dart";
 class FreeTextBox extends StatelessWidget {
   final TextEditingController controller;
   // final String header;
-  final String hintText;
+  final String? helperText;
   final String labelText;
   final void Function(String) onChanged;
 
   const FreeTextBox({
     required this.controller,
     required this.labelText,
-    required this.hintText,
+    this.helperText,
     required this.onChanged,
     super.key,
   });
@@ -35,7 +35,7 @@ class FreeTextBox extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               labelText: labelText,
-              hintText: hintText,
+              helperText: helperText,
             ),
             onChanged: onChanged,
           ),
