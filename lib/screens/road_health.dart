@@ -21,7 +21,7 @@ class RoadHealth extends StatelessWidget {
             FreeTextBox(
               labelText: "Road Health/Conditions:",
               controller: _textController,
-              hintText:
+              helperText:
                   'Make note of any road related problems for the stand or area. This could include erosion, slumps, sediment delivery into streams or other waterways, culvert & ditch problems, etc.',
               onChanged: (text) {},
             ),

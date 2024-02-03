@@ -27,7 +27,6 @@ class VegetativeConditions extends StatelessWidget {
                   FreeTextBox(
                     labelText: 'Cover Type',
                     controller: _coverType,
-                    hintText: '',
                     onChanged: (text) {
                       // Handle elevation text changes
                     },
@@ -37,7 +36,7 @@ class VegetativeConditions extends StatelessWidget {
               const SizedBox(height: 16.0),
               // Slope Position
               RadioOptions(
-                header: 'Stand Structure:',
+                labelText: 'Stand Structure:',
                 options: const ['Even-aged', 'Two-aged', 'Multi-aged'],
                 onSelected: (selectedOption) {
                   // Handle slope position selection
@@ -47,7 +46,7 @@ class VegetativeConditions extends StatelessWidget {
               const SizedBox(height: 16.0),
 
               RadioOptions(
-                header: 'Overstory Stand Density:',
+                labelText: 'Overstory Stand Density:',
                 options: const ['Low', 'Medium', 'High'],
                 onSelected: (selectedOption) {
                   // Handle slope position selection
@@ -57,7 +56,7 @@ class VegetativeConditions extends StatelessWidget {
               const SizedBox(height: 16.0),
 
               RadioOptions(
-                header: 'Understory Stand Density:',
+                labelText: 'Understory Stand Density:',
                 options: const ['Low', 'Medium', 'High'],
                 onSelected: (selectedOption) {
                   // Handle slope position selection

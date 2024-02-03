@@ -21,7 +21,7 @@ class OtherIssues extends StatelessWidget {
             FreeTextBox(
               labelText: "Other Issues:",
               controller: _textController,
-              hintText:
+              helperText:
                   'Describe any other health related issues you observed.',
               onChanged: (text) {},
             ),

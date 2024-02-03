@@ -33,7 +33,6 @@ class SiteCharacteristics extends StatelessWidget {
                   FreeTextBox(
                     labelText: 'Elevation',
                     controller: _elevationController,
-                    hintText: '',
                     onChanged: (text) {
                       // Handle elevation text changes
                     },
@@ -41,7 +40,6 @@ class SiteCharacteristics extends StatelessWidget {
                   FreeTextBox(
                     labelText: 'Aspect',
                     controller: _aspectController,
-                    hintText: '',
                     onChanged: (text) {
                       // Handle aspect text changes
                     },
@@ -49,7 +47,6 @@ class SiteCharacteristics extends StatelessWidget {
                   FreeTextBox(
                     labelText: '% Slope',
                     controller: _slopePercentageController,
-                    hintText: '',
                     onChanged: (text) {},
                   ),
                 ],
@@ -59,7 +56,7 @@ class SiteCharacteristics extends StatelessWidget {
 
               // Slope Position
               RadioOptions(
-                header: 'Slope Position:',
+                labelText: 'Slope Position:',
                 options: const ['Lower', 'Middle', 'Upper', 'Ridgetop'],
                 onSelected: (selectedOption) {
                   // Handle slope position selection
@@ -72,7 +69,7 @@ class SiteCharacteristics extends StatelessWidget {
               FreeTextBox(
                 labelText: 'Soil Information',
                 controller: _soilInfoController,
-                hintText:
+                helperText:
                     'Add any information about the soils that is available to you from either the landowner or obtain it online and add this information after your visit.',
                 onChanged: (text) {
                   // Handle soil information text changes
