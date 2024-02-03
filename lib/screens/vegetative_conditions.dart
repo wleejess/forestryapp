@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/radio_options.dart";
+import "package:forestryapp/enums/stand_density.dart";
+import "package:forestryapp/enums/stand_structure.dart";
 
 class VegetativeConditions extends StatelessWidget {
   // Instance Variables
@@ -37,7 +39,8 @@ class VegetativeConditions extends StatelessWidget {
             // Slope Position
             RadioOptions(
               header: 'Stand Structure:',
-              options: const ['Even-aged', 'Two-aged', 'Multi-aged'],
+              enumValues: StandStructure.values,
+              initialValue: StandStructure.evenAged,
               onSelected: (selectedOption) {
                 // Handle slope position selection
               },
@@ -47,7 +50,8 @@ class VegetativeConditions extends StatelessWidget {
 
             RadioOptions(
               header: 'Overstory Stand Density:',
-              options: const ['Low', 'Medium', 'High'],
+              enumValues: StandDensity.values,
+              initialValue: StandDensity.low,
               onSelected: (selectedOption) {
                 // Handle slope position selection
               },
@@ -57,7 +61,8 @@ class VegetativeConditions extends StatelessWidget {
 
             RadioOptions(
               header: 'Understory Stand Density:',
-              options: const ['Low', 'Medium', 'High'],
+              enumValues: StandDensity.values,
+              initialValue: StandDensity.low,
               onSelected: (selectedOption) {
                 // Handle slope position selection
               },

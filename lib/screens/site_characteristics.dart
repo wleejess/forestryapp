@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/radio_options.dart";
+import "package:forestryapp/enums/slope_position.dart";
 
 class SiteCharacteristics extends StatelessWidget {
   // Instance Variables
@@ -61,7 +62,8 @@ class SiteCharacteristics extends StatelessWidget {
             // Slope Position
             RadioOptions(
               header: 'Slope Position:',
-              options: const ['Lower', 'Middle', 'Upper', 'Ridgetop'],
+              enumValues: SlopePosition.values,
+              initialValue: SlopePosition.lower,
               onSelected: (selectedOption) {
                 // Handle slope position selection
               },
