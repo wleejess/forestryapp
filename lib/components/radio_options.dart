@@ -6,11 +6,13 @@ class RadioOptions extends StatefulWidget {
   final String header;
   final List<String> options;
   final void Function(int) onSelected;
+  final String helperText;
 
   const RadioOptions({
     required this.header,
     required this.options,
     required this.onSelected,
+    this.helperText = "",
     super.key,
   });
 
@@ -53,6 +55,10 @@ class _RadioOptionsState extends State<RadioOptions> {
               },
             ),
           ),
+        ),
+        Text(
+          widget.helperText,
+          style: Theme.of(context).inputDecorationTheme.helperStyle,
         ),
       ],
     );

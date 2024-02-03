@@ -90,13 +90,13 @@ class LandownerIndex extends StatelessWidget {
       title: _title,
       body: ListView.builder(
         itemCount: _landowners.length,
-        itemBuilder: _landowneIndexListTileBuilder,
+        itemBuilder: _landownerIndexListTileBuilder,
       ),
       fab: FABCreation(icon: Icons.person, onPressed: () {}),
     );
   }
 
-  Widget _landowneIndexListTileBuilder(BuildContext context, int i) {
+  Widget _landownerIndexListTileBuilder(BuildContext context, int i) {
     final String name = _landowners[i]["name"] ?? "missing name";
     assert(_landowners.length == _areasByLandowner.length);
     return NavigableListTile(
