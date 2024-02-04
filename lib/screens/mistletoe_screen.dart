@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/radio_options.dart";
-
+ 
 class MistletoeScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";
@@ -24,7 +24,7 @@ class MistletoeScreen extends StatelessWidget {
   static const _buttonLabelNext = "Next";
 
   // Constructor ///////////////////////////////////////////////////////////////
-  /// Creates a screen to enter information on mistletoe infections.
+  /// Creates a screen with a form to add information about mistletoe infections in the area.
   const MistletoeScreen({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -35,6 +35,7 @@ class MistletoeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            // Creates a 4x4 grid, but the height matches the content size.
             Wrap(
               children: <Widget>[
                 _buildHalfWidthBox(context, _buildUniformityInput(context)),
@@ -57,6 +58,7 @@ class MistletoeScreen extends StatelessWidget {
   }
 
   // Layout ////////////////////////////////////////////////////////////////////
+  /// Wraps another widget to limit its width to 50%.
   Widget _buildHalfWidthBox(BuildContext context, contents) {
     return FractionallySizedBox(
       widthFactor: 0.5,
@@ -68,7 +70,7 @@ class MistletoeScreen extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
-
+  /// Builds a TextField with a label, helper text, and an outline.
   Widget _buildTextInput(BuildContext context, label, helper) {
     return TextField(
       decoration: InputDecoration(
@@ -79,6 +81,7 @@ class MistletoeScreen extends StatelessWidget {
     );
   }
   
+  /// Builds a radio form field about mistletoe uniformity.
   Widget _buildUniformityInput(BuildContext context) {
     return RadioOptions(
       header: _uniformityHeading, 
@@ -88,7 +91,8 @@ class MistletoeScreen extends StatelessWidget {
     );
   }
 
-    Widget _buildHawksworthInput(BuildContext context) {
+  /// Builds a radio form field about Hawksworth Infection Rating.
+  Widget _buildHawksworthInput(BuildContext context) {
     return RadioOptions(
       header: _hawksworthHeading,
       options: _hawksworthOptions,
@@ -97,10 +101,12 @@ class MistletoeScreen extends StatelessWidget {
     );
   }
 
+  /// Builds a text input field about mistletoe location.
   Widget _buildLocationInput(BuildContext context) {
     return _buildTextInput(context, _locationHeading, _locationDescription);
   }
 
+  /// Builds a text input field about tree species infected with mistletoe.
   Widget _buildSpeciesInput(BuildContext context) {
     return _buildTextInput(context, _speciesHeading, _speciesDescription);
   }
