@@ -29,8 +29,14 @@ class PestsScreen extends StatelessWidget {
           children: <Widget>[
             Wrap(
               children: <Widget>[
-                _buildInsectsInput(context),
-                _buildDiseasesInput(context),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: _buildInsectsInput(context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: _buildDiseasesInput(context),
+                ),
               ],
             ),
             Row(
