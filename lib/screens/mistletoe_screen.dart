@@ -37,26 +37,10 @@ class MistletoeScreen extends StatelessWidget {
           children: <Widget>[
             Wrap(
               children: <Widget>[
-                FractionallySizedBox(
-                  widthFactor: 0.5,
-                  child: RadioOptions(
-                    header: _uniformityHeading, 
-                    options: _uniformityOptions, 
-                    onSelected: (i) {},
-                    helperText: _uniformityDescription,
-                  ),
-                ),
-                _buildLocationInput(context),
-                FractionallySizedBox(
-                  widthFactor: 0.5,
-                  child: RadioOptions(
-                    header: _hawksworthHeading,
-                    options: _hawksworthOptions,
-                    onSelected: (i) {},
-                    helperText: _hawksworthDescription,
-                  ),
-                ),
-                _buildSpeciesInput(context),
+                _buildHalfWidthBox(context, _buildUniformityInput(context)),
+                _buildHalfWidthBox(context, _buildLocationInput(context)),
+                _buildHalfWidthBox(context, _buildHawksworthInput(context)),
+                _buildHalfWidthBox(context, _buildSpeciesInput(context)),
               ],
             ),
             Row(
@@ -72,31 +56,50 @@ class MistletoeScreen extends StatelessWidget {
     );
   }
 
-  // Inputs ////////////////////////////////////////////////////////////////////
-  Widget _buildLocationInput(BuildContext context) {
-    return const FractionallySizedBox(
+  // Layout ////////////////////////////////////////////////////////////////////
+  Widget _buildHalfWidthBox(BuildContext context, contents) {
+    return FractionallySizedBox(
       widthFactor: 0.5,
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: _locationHeading,
-          helperText: _locationDescription,
-          border: OutlineInputBorder(),
-        ),
-      ),
+      child: contents
     );
   }
 
-  Widget _buildSpeciesInput(BuildContext context) {
-    return const FractionallySizedBox(
-      widthFactor: 0.5,
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: _speciesHeading,
-          helperText: _speciesDescription,
-          border: OutlineInputBorder(),
-        ),
-      ),
+  // Inputs ////////////////////////////////////////////////////////////////////
+
+  Widget _buildTextInput(BuildContext context, label, helper) {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: label,
+        helperText: helper,
+        border: const OutlineInputBorder(),
+      )
     );
+  }
+  
+  Widget _buildUniformityInput(BuildContext context) {
+    return RadioOptions(
+      header: _uniformityHeading, 
+      options: _uniformityOptions, 
+      onSelected: (i) {},
+      helperText: _uniformityDescription,
+    );
+  }
+
+    Widget _buildHawksworthInput(BuildContext context) {
+    return RadioOptions(
+      header: _hawksworthHeading,
+      options: _hawksworthOptions,
+      onSelected: (i) {},
+      helperText: _hawksworthDescription,
+    );
+  }
+
+  Widget _buildLocationInput(BuildContext context) {
+    return _buildTextInput(context, _locationHeading, _locationDescription);
+  }
+
+  Widget _buildSpeciesInput(BuildContext context) {
+    return _buildTextInput(context, _speciesHeading, _speciesDescription);
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////
