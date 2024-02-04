@@ -60,7 +60,10 @@ class MistletoeScreen extends StatelessWidget {
   Widget _buildHalfWidthBox(BuildContext context, contents) {
     return FractionallySizedBox(
       widthFactor: 0.5,
-      child: contents
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: contents
+      )
     );
   }
 
