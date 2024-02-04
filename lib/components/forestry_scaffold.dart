@@ -85,6 +85,17 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
       ListTile(
+        title: const Text('Pests & Damage A'),
+        leading: const Icon(Icons.five_g),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AreaIndex()),
+          );
+        },
+      )
+      ,
+      ListTile(
         title: const Text('Mistletoe'),
         leading: const Icon(Icons.spa),
         onTap: () {
