@@ -52,6 +52,7 @@ class InvasiveScreen extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds a TextField with a label, helper text, and an outline.
   Widget _buildTextInput(BuildContext context, label, helper) {
     return TextField(
       decoration: InputDecoration(
@@ -62,10 +63,12 @@ class InvasiveScreen extends StatelessWidget {
     );
   }
 
+  /// Builds a text input field about invasive plants and animals in the area.
   Widget _buildInvasiveInput(BuildContext context) {
     return _buildTextInput(context, _invasiveHeading, _invasiveDescription);
   }
 
+  /// Builds a text input field about wildlife damage in the area.
   Widget _buildWildlifeInput(BuildContext context) {
     return _buildTextInput(context, _wildlifeHeading, _wildlifeDescription);
   }
