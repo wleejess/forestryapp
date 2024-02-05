@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/area_index.dart';
+import 'package:forestryapp/screens/invasive_screen.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
 import 'package:forestryapp/screens/pests_screen.dart';
@@ -94,8 +95,15 @@ class ForestryScaffold extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const PestsScreen()),
           );
         },
-      )
-      ,
+      ),
+      ListTile(
+        title: const Text('Pests & Damage B'),
+        leading: const Icon(Icons.looks_6),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const InvasiveScreen()));
+        },
+      ),
       ListTile(
         title: const Text('Mistletoe'),
         leading: const Icon(Icons.spa),
