@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
+import 'package:forestryapp/styles.dart';
 
 class ForestryApp extends StatelessWidget {
   const ForestryApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Forestry Wellness Checkup App',
+      theme: Styles.makeTheme(),
       // Use Landowner Index for home page until settings is implemented.
-      home: LandownerIndex(),
+      home: const LandownerIndex(),
     );
   }
 }
