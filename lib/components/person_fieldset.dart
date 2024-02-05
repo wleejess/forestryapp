@@ -12,8 +12,21 @@ class PersonFieldSet extends StatelessWidget {
   static const _paddingBetweenCols = EdgeInsets.all(16);
   static const double _paddingAmountBetweenStateZip = 8;
 
-  // Instance Variables ////////////////////////////////////////////////////////
+  /// Pad only the right since state dropdown is on the left.
+  static const _paddingState =
+      EdgeInsets.fromLTRB(0, 0, _paddingAmountBetweenStateZip, 0);
 
+  /// Pad only the left since zip code field is on the right.
+  static const _paddingZip =
+      EdgeInsets.fromLTRB(_paddingAmountBetweenStateZip, 0, 0, 0);
+
+  /// How much of parent width and state take up.
+  ///
+  /// They should be equal and take a total of 1.0 of their parent as they share
+  /// a line.
+  static const _widthFactorStateZip = 0.5;
+
+  // Instance Variables ////////////////////////////////////////////////////////
   // Constructor ///////////////////////////////////////////////////////////////
   const PersonFieldSet({super.key});
 
@@ -22,63 +35,64 @@ class PersonFieldSet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: <Widget>[
-        PortraitHandlingSizedBox(
-          child: Padding(
-            padding: _paddingBetweenCols,
-            child: Column(
-              children: [
-                TextFormField(decoration: _makeDecoration(_hintName)),
-                TextFormField(decoration: _makeDecoration(_hintEmail))
-              ],
-            ),
-          ),
-        ),
-        PortraitHandlingSizedBox(
-          child: Padding(
-            padding: _paddingBetweenCols,
-            child: Column(
-              children: [
-                TextFormField(decoration: _makeDecoration(_hintAddress)),
-                TextFormField(decoration: _makeDecoration(_hintCity)),
-                Wrap(
-                  children: [
-                    PortraitHandlingSizedBox(
-                        widthFactorOnNarrowDevices: 0.5,
-                        widthFactorOnWideDevices: 0.5,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            0,
-                            0,
-                            _paddingAmountBetweenStateZip,
-                            0,
-                          ),
-                          child: TextFormField(
-                              decoration: _makeDecoration(_hintState)),
-                        )),
-                    PortraitHandlingSizedBox(
-                      widthFactorOnNarrowDevices: 0.5,
-                      widthFactorOnWideDevices: 0.5,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                          _paddingAmountBetweenStateZip,
-                          0,
-                          0,
-                          0,
-                        ),
-                        child: TextFormField(
-                            decoration: _makeDecoration(_hintZip)),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        )
+        _buildNameAndEmailFields(),
+        _buildAddressRelatedFields()
       ],
     );
   }
 
+  // Name and Email Fields /////////////////////////////////////////////////////
+  PortraitHandlingSizedBox _buildNameAndEmailFields() {
+    return PortraitHandlingSizedBox(
+      child: Padding(
+        padding: _paddingBetweenCols,
+        child: Column(
+          children: [
+            TextFormField(decoration: _makeDecoration(_hintName)),
+            TextFormField(decoration: _makeDecoration(_hintEmail))
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Address Related Fields ////////////////////////////////////////////////////
+  PortraitHandlingSizedBox _buildAddressRelatedFields() {
+    return PortraitHandlingSizedBox(
+      child: Padding(
+        padding: _paddingBetweenCols,
+        child: Column(
+          children: [
+            TextFormField(decoration: _makeDecoration(_hintAddress)),
+            TextFormField(decoration: _makeDecoration(_hintCity)),
+            Wrap(children: [_buildState(), _buildZip()])
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildState() {
+    return FractionallySizedBox(
+      widthFactor: _widthFactorStateZip,
+      child: Padding(
+        padding: _paddingState,
+        child: TextFormField(decoration: _makeDecoration(_hintState)),
+      ),
+    );
+  }
+
+  Widget _buildZip() {
+    return FractionallySizedBox(
+      widthFactor: _widthFactorStateZip,
+      child: Padding(
+        padding: _paddingZip,
+        child: TextFormField(decoration: _makeDecoration(_hintZip)),
+      ),
+    );
+  }
+
+  // Form Field Specific ///////////////////////////////////////////////////////
   InputDecoration _makeDecoration(String hint) {
     return InputDecoration(hintText: hint);
   }
