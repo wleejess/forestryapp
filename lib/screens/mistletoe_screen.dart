@@ -1,21 +1,21 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/radio_options.dart";
+import "package:forestryapp/enums/hawksworth.dart";
+import "package:forestryapp/enums/mistletoe_uniformity.dart";
 import "package:forestryapp/util/break_points.dart";
 
 class MistletoeScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";
   static const _uniformityHeading = "Uniformity";
-  static const _uniformityOptions = ['Uniform throughout stand', 'Spotty'];
-  static const _uniformityDescription = 
+  static const _uniformityDescription =
     "Are the mistletoe infections isolated/grouped, or uniform throughout the area?";
   static const _locationHeading = "Mistletoe location";
   static const _locationDescription = 
     "If the mistletoe infections are spotty, record their locations.";
   static const _hawksworthHeading = "Hawksworth infection rating";
-  static const _hawksworthOptions = ['none', 'low', 'medium', 'high'];
-  static const _hawksworthDescription = 
+  static const _hawksworthDescription =
     "Rate the mistletoe infection level and check the appropriate rating. If you "
     "are not familiar with this rating system, write your observations elsewhere, "
     "such as under 'Diagnosis & Suggestions.'";
@@ -88,8 +88,9 @@ class MistletoeScreen extends StatelessWidget {
   /// Builds a radio form field about mistletoe uniformity.
   Widget _buildUniformityInput(BuildContext context) {
     return RadioOptions(
-      header: _uniformityHeading, 
-      options: _uniformityOptions, 
+      header: _uniformityHeading,
+      enumValues: MistletoeUniformity.values,
+      initialValue: MistletoeUniformity.uniform,
       onSelected: (i) {},
       helperText: _uniformityDescription,
     );
@@ -99,7 +100,8 @@ class MistletoeScreen extends StatelessWidget {
   Widget _buildHawksworthInput(BuildContext context) {
     return RadioOptions(
       header: _hawksworthHeading,
-      options: _hawksworthOptions,
+      enumValues: Hawksworth.values,
+      initialValue: Hawksworth.none,
       onSelected: (i) {},
       helperText: _hawksworthDescription,
     );
