@@ -1,7 +1,7 @@
 enum StandStructure {
   evenAged("Even-aged"),
   twoAged("Two-aged"),
-  multiAged("multi-aged");
+  multiAged("Multi-aged");
 
   const StandStructure(this.label);
 

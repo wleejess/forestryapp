@@ -1,7 +1,7 @@
 enum StandDensity {
-  low("low"),
-  medium("medium"),
-  high("high");
+  low("Low"),
+  medium("Medium"),
+  high("High");
 
   const StandDensity(this.label);
 
