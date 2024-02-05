@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
+import "package:forestryapp/enums/us_state.dart";
 
 class PersonFieldSet extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
@@ -7,7 +8,7 @@ class PersonFieldSet extends StatelessWidget {
   static const _hintEmail = "Email";
   static const _hintAddress = "Address";
   static const _hintCity = "City";
-  static const _hintState = "State";
+  static const _hintState = Text("State"); // Dropdown hint takes a widget.
   static const _hintZip = "Zip Code";
   static const _paddingBetweenCols = EdgeInsets.all(16);
   static const double _paddingAmountBetweenStateZip = 8;
@@ -77,7 +78,15 @@ class PersonFieldSet extends StatelessWidget {
       widthFactor: _widthFactorStateZip,
       child: Padding(
         padding: _paddingState,
-        child: TextFormField(decoration: _makeDecoration(_hintState)),
+        child: DropdownButtonFormField(
+          items: <DropdownMenuItem>[
+            for (var state in USState.values)
+              DropdownMenuItem(
+                  value: state, child: Text(state.label.toUpperCase()))
+          ],
+          onChanged: (value) => {},
+          hint: _hintState,
+        ),
       ),
     );
   }
