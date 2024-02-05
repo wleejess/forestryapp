@@ -32,6 +32,7 @@ class _SettingsEditState extends State<SettingsEdit> {
             children: <Widget>[
               const PersonFieldSet(),
               _buildFontSizeSection(context),
+              _buildSaveButton()
             ],
           ),
         ),
@@ -69,6 +70,16 @@ class _SettingsEditState extends State<SettingsEdit> {
       },
       divisions: 8,
       label: _formatFontSize(),
+    );
+  }
+
+  Align _buildSaveButton() {
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: OutlinedButton(
+        onPressed: () {},
+        child: const Text('Save'),
+      ),
     );
   }
 }
