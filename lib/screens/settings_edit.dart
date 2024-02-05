@@ -22,8 +22,28 @@ class _SettingsEditState extends State<SettingsEdit> {
       title: _title,
       body: Form(
         key: _formKey,
-        child: const Column(
-          children: <Widget>[],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              const Wrap(
+                children: [
+                  // TODO: Name and Email
+                  FractionallySizedBox(widthFactor: 0.5, child: Placeholder()),
+                  // TODO: Address, City, State, Zip
+                  FractionallySizedBox(widthFactor: 0.5, child: Placeholder()),
+                ],
+              ),
+              const Placeholder(), // TODO: Font Size Slider
+              Align(
+                alignment: Alignment.bottomRight,
+                child: OutlinedButton(
+                  onPressed: () {},
+                  child: const Text('Save'),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
