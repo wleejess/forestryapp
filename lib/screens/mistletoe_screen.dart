@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/radio_options.dart";
- 
+import "package:forestryapp/util/break_points.dart";
+
 class MistletoeScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";
@@ -58,14 +59,17 @@ class MistletoeScreen extends StatelessWidget {
   }
 
   // Layout ////////////////////////////////////////////////////////////////////
-  /// Wraps another widget to limit its width to 50%.
+  /// Wraps another widget to limit its width to 50%, provided device width is
+  /// sufficiently large.
   Widget _buildHalfWidthBox(BuildContext context, contents) {
-    return FractionallySizedBox(
-      widthFactor: 0.5,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: contents
-      )
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return FractionallySizedBox(
+          widthFactor:
+              constraints.maxWidth < BreakPoints.widthPhonePortait ? 1.0 : 0.5,
+          child: Padding(padding: const EdgeInsets.all(16.0), child: contents),
+        );
+      },
     );
   }
 
