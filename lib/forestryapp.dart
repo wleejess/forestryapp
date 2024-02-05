@@ -6,10 +6,16 @@ class ForestryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Forestry Wellness Checkup App',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+        )
+      ),
       // Use Landowner Index for home page until settings is implemented.
-      home: LandownerIndex(),
+      home: const LandownerIndex(),
     );
   }
 }
