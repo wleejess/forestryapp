@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/radio_options.dart";
+import "package:forestryapp/enums/stand_density.dart";
+import "package:forestryapp/enums/stand_structure.dart";
 
 class VegetativeConditions extends StatelessWidget {
   // Instance Variables
@@ -27,6 +29,7 @@ class VegetativeConditions extends StatelessWidget {
                   FreeTextBox(
                     labelText: 'Cover Type',
                     controller: _coverType,
+                    helperText: '',
                     onChanged: (text) {
                       // Handle elevation text changes
                     },
@@ -36,33 +39,31 @@ class VegetativeConditions extends StatelessWidget {
               const SizedBox(height: 16.0),
               // Slope Position
               RadioOptions(
-                labelText: 'Stand Structure:',
-                options: const ['Even-aged', 'Two-aged', 'Multi-aged'],
+                header: 'Stand Structure:',
+                enumValues: StandStructure.values,
+                initialValue: StandStructure.evenAged,
                 onSelected: (selectedOption) {
                   // Handle slope position selection
                 },
               ),
-
               const SizedBox(height: 16.0),
-
               RadioOptions(
-                labelText: 'Overstory Stand Density:',
-                options: const ['Low', 'Medium', 'High'],
+                header: 'Overstory Stand Density:',
+                enumValues: StandDensity.values,
+                initialValue: StandDensity.low,
                 onSelected: (selectedOption) {
                   // Handle slope position selection
                 },
               ),
-
               const SizedBox(height: 16.0),
-
               RadioOptions(
-                labelText: 'Understory Stand Density:',
-                options: const ['Low', 'Medium', 'High'],
+                header: 'Understory Stand Density:',
+                enumValues: StandDensity.values,
+                initialValue: StandDensity.low,
                 onSelected: (selectedOption) {
                   // Handle slope position selection
                 },
               ),
-
               const SizedBox(height: 16.0),
             ],
           ),

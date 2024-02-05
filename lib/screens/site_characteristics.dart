@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/radio_options.dart";
+import "package:forestryapp/enums/slope_position.dart";
 
 class SiteCharacteristics extends StatelessWidget {
   // Instance Variables
@@ -11,7 +12,7 @@ class SiteCharacteristics extends StatelessWidget {
       TextEditingController();
   final TextEditingController _soilInfoController = TextEditingController();
 
-  final _title = "Site Characteristics";
+  final _title = "Forest Wellness Checkup";
 
   SiteCharacteristics({super.key});
 
@@ -21,62 +22,66 @@ class SiteCharacteristics extends StatelessWidget {
       title: _title,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Elevation, Aspect, % Slope
-              Wrap(
-                spacing: 16.0, // Add some spacing between the text fields
-                runSpacing: 16.0, // Add some spacing between the lines
-                children: [
-                  FreeTextBox(
-                    labelText: 'Elevation',
-                    controller: _elevationController,
-                    onChanged: (text) {
-                      // Handle elevation text changes
-                    },
-                  ),
-                  FreeTextBox(
-                    labelText: 'Aspect',
-                    controller: _aspectController,
-                    onChanged: (text) {
-                      // Handle aspect text changes
-                    },
-                  ),
-                  FreeTextBox(
-                    labelText: '% Slope',
-                    controller: _slopePercentageController,
-                    onChanged: (text) {},
-                  ),
-                ],
-              ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Title
+            const Text('Site Characteristics'),
 
-              const SizedBox(height: 16.0),
+            // Elevation, Aspect, % Slope
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FreeTextBox(
+                  labelText: 'Elevation',
+                  controller: _elevationController,
+                  helperText: '',
+                  onChanged: (text) {
+                    // Handle elevation text changes
+                  },
+                ),
+                FreeTextBox(
+                  labelText: 'Aspect',
+                  controller: _aspectController,
+                  helperText: '',
+                  onChanged: (text) {
+                    // Handle aspect text changes
+                  },
+                ),
+                FreeTextBox(
+                  labelText: '% Slope',
+                  controller: _slopePercentageController,
+                  helperText: '',
+                  onChanged: (text) {},
+                ),
+              ],
+            ),
 
-              // Slope Position
-              RadioOptions(
-                labelText: 'Slope Position:',
-                options: const ['Lower', 'Middle', 'Upper', 'Ridgetop'],
-                onSelected: (selectedOption) {
-                  // Handle slope position selection
-                },
-              ),
+            const SizedBox(height: 16.0),
 
-              const SizedBox(height: 16.0),
+            // Slope Position
+            RadioOptions(
+              header: 'Slope Position:',
+              enumValues: SlopePosition.values,
+              initialValue: SlopePosition.lower,
+              onSelected: (selectedOption) {
+                // Handle slope position selection
+              },
+            ),
 
-              // Soil Information
-              FreeTextBox(
-                labelText: 'Soil Information',
-                controller: _soilInfoController,
-                helperText:
-                    'Add any information about the soils that is available to you from either the landowner or obtain it online and add this information after your visit.',
-                onChanged: (text) {
-                  // Handle soil information text changes
-                },
-              ),
-            ],
-          ),
+            const SizedBox(height: 16.0),
+
+            // Soil Information
+            FreeTextBox(
+              labelText: 'Soil Information',
+              controller: _soilInfoController,
+              helperText:
+                  'Add any information about the soils that is available to you from either the landowner or obtain it online and add this information after your visit.',
+              onChanged: (text) {
+                // Handle soil information text changes
+              },
+            ),
+          ],
         ),
       ),
     );
