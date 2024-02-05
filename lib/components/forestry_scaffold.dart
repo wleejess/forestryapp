@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/invasive_screen.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
-import 'package:forestryapp/screens/mistletoe_form.dart';
+import 'package:forestryapp/screens/mistletoe_screen.dart';
 import 'package:forestryapp/screens/pests_screen.dart';
 import 'package:forestryapp/screens/settings_review.dart';
 import 'package:forestryapp/screens/site_characteristics.dart';
@@ -110,7 +110,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const MistletoeForm()),
+            MaterialPageRoute(builder: (context) => const MistletoeScreen()),
           );
         },
       ),
