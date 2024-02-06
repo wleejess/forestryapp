@@ -13,6 +13,7 @@ class _SettingsEditState extends State<SettingsEdit> {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Settings";
   static const _hintName = "Evaluator Name";
+  static const _labelSaveButton = "Save";
   static const double _minFontSize = 0;
   static const double _maxFontSize = 400;
 
@@ -79,7 +80,7 @@ class _SettingsEditState extends State<SettingsEdit> {
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
         onPressed: () {},
-        child: const Text('Save'),
+        child: const Text(_labelSaveButton),
       ),
     );
   }
