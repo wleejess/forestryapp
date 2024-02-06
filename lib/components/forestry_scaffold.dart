@@ -66,6 +66,16 @@ class ForestryScaffold extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const LandownerIndex()),
           );
         },
+      ),      
+      ListTile(
+        title: const Text('Areas'),
+        leading: const Icon(Icons.forest),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AreaIndex()),
+          );
+        },
       ),
       ListTile(
         title: const Text('Site Characteristics'),
@@ -88,18 +98,8 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
       ListTile(
-        title: const Text('Areas'),
-        leading: const Icon(Icons.forest),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AreaIndex()),
-          );
-        },
-      ),
-      ListTile(
-        title: const Text('Pests & Damage A'),
-        leading: const Icon(Icons.looks_5),
+        title: const Text('Insects & Diseases'),
+        leading: const Icon(Icons.pest_control),
         onTap: () {
           Navigator.push(
             context,
@@ -108,8 +108,8 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
       ListTile(
-        title: const Text('Pests & Damage B'),
-        leading: const Icon(Icons.looks_6),
+        title: const Text('Invasive & Wildlife'),
+        leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const InvasiveScreen()));
