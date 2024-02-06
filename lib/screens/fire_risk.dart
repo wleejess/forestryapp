@@ -7,7 +7,8 @@ class FireRisk extends StatelessWidget {
   static const _title = "Fire Risk";
   static const _fireDescription =
       "Note the level of fuel on the ground (high, medium, low), "
-      "as well as the density and structure of the forest. "
+      "as well as the density and structure of the forest. ";
+  static const _fireExample =
       "Are there abundant ladder fuels? What is the potential for ignition?";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
@@ -47,14 +48,36 @@ class FireRisk extends StatelessWidget {
       keyboardType: TextInputType.multiline, // Specify the keyboard type
       decoration: InputDecoration(
         labelText: label,
-        helperText: helper,
         border: const OutlineInputBorder(),
       ),
     );
   }
 
   Widget _buildFireRiskInput(BuildContext context) {
-    return _buildTextInput(context, _title, _fireDescription);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildTextInput(context, _title, _fireDescription),
+        const SizedBox(
+            height:
+                16.0), // Add some space between the text input and description
+        Text(
+          _fireDescription,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w600), // Customize the font size as needed
+        ),
+        const SizedBox(
+            height:
+                16.0), // Add some space between the text input and description
+        Text(
+          _fireExample,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontStyle: FontStyle.italic), // Customize the font size as needed
+        ),
+      ],
+    );
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////

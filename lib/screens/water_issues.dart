@@ -1,12 +1,17 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/util/break_points.dart';
 
-class OtherIssues extends StatelessWidget {
+class WaterIssues extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
-  static const _title = "Other Issues";
-  static const _otherDescription =
-      "Describe any other health related issues you observed.";
+  static const _title = "Water Health & Issues";
+  static const _waterDescription =
+      "Make note of any issues related to water, streams, and springs in the stand or area.";
+  static const _waterExample =
+      "Example: Erosion, head cutting, cattle grazing effects, "
+      "sedimentation, culverts, ditches, etc.";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
 
@@ -20,7 +25,7 @@ class OtherIssues extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: _buildDescription(context),
+              child: _buildWaterIssuesInput(context),
             ),
           ),
           Row(
@@ -50,15 +55,26 @@ class OtherIssues extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription(BuildContext context) {
+  Widget _buildWaterIssuesInput(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildTextInput(context, _title, _otherDescription),
-        const SizedBox(height: 16.0),
+        _buildTextInput(context, _title, _waterDescription),
+        const SizedBox(
+            height:
+                16.0), // Add some space between the text input and description
         Text(
-          _otherDescription,
-          style: TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic),
+          _waterDescription,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w600), // Customize the font size as needed
+        ),
+        SizedBox(height: 10.0),
+        Text(
+          _waterExample,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontStyle: FontStyle.italic), // Customize the font size as needed
         ),
       ],
     );

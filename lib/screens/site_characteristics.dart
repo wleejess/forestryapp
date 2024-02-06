@@ -26,7 +26,10 @@ class SiteCharacteristics extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Title
-              const Text('Site Characteristics'),
+              const Text(
+                'General Information',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
 
               // Elevation, Aspect, % Slope
               Wrap(
