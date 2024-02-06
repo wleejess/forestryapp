@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/screens/landowner_edit.dart";
 
 class LandownerReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -110,7 +111,12 @@ class LandownerReview extends StatelessWidget {
       children: [
         Expanded(child: Container()),
         OutlinedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LandownerEdit()),
+            );
+          },
           child: const Text(_buttonLabelEdit),
         ),
         const SizedBox(width: 20),
