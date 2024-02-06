@@ -3,7 +3,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 
 class PestsScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
-  static const _title = "Pests & Damages A";
+  static const _title = "Insects & Diseases";
   static const _insectsHeading = "Insects present";
   static const _insectsDescription = 
     "If past or present insect damage is apparent in the stand or area, "
