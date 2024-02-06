@@ -4,7 +4,6 @@ import "package:forestryapp/enums/us_state.dart";
 
 class PersonFieldSet extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
-  static const _hintName = "Landowner Name";
   static const _hintEmail = "Email";
   static const _hintAddress = "Address";
   static const _hintCity = "City";
@@ -28,8 +27,9 @@ class PersonFieldSet extends StatelessWidget {
   static const _widthFactorStateZip = 0.5;
 
   // Instance Variables ////////////////////////////////////////////////////////
+  final String _hintName;
   // Constructor ///////////////////////////////////////////////////////////////
-  const PersonFieldSet({super.key});
+  const PersonFieldSet({required  hintName, super.key}) : _hintName = hintName;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
