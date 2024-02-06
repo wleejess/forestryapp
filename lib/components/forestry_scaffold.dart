@@ -6,6 +6,7 @@ import 'package:forestryapp/screens/mistletoe_screen.dart';
 import 'package:forestryapp/screens/pests_screen.dart';
 import 'package:forestryapp/screens/settings_review.dart';
 import 'package:forestryapp/screens/site_characteristics.dart';
+import 'package:forestryapp/screens/vegetative_conditions.dart';
 import 'package:forestryapp/screens/road_health.dart';
 import 'package:forestryapp/screens/other_issues.dart';
 
@@ -73,6 +74,16 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SiteCharacteristics()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Vegetative Conditions'),
+        leading: const Icon(Icons.grass),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => VegetativeConditions()),
           );
         },
       ),

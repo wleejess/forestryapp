@@ -18,58 +18,55 @@ class VegetativeConditions extends StatelessWidget {
       title: _title,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Cover Type (Free text for now, maybe dropdown?)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FreeTextBox(
-                  header: 'Cover Type',
-                  controller: _coverType,
-                  hintText: '',
-                  onChanged: (text) {
-                    // Handle elevation text changes
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            // Slope Position
-            RadioOptions(
-              header: 'Stand Structure:',
-              enumValues: StandStructure.values,
-              initialValue: StandStructure.evenAged,
-              onSelected: (selectedOption) {
-                // Handle slope position selection
-              },
-            ),
-
-            const SizedBox(height: 16.0),
-
-            RadioOptions(
-              header: 'Overstory Stand Density:',
-              enumValues: StandDensity.values,
-              initialValue: StandDensity.low,
-              onSelected: (selectedOption) {
-                // Handle slope position selection
-              },
-            ),
-
-            const SizedBox(height: 16.0),
-
-            RadioOptions(
-              header: 'Understory Stand Density:',
-              enumValues: StandDensity.values,
-              initialValue: StandDensity.low,
-              onSelected: (selectedOption) {
-                // Handle slope position selection
-              },
-            ),
-
-            const SizedBox(height: 16.0),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Cover Type (Free text for now, maybe dropdown?)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FreeTextBox(
+                    labelText: 'Cover Type',
+                    controller: _coverType,
+                    helperText: '',
+                    onChanged: (text) {
+                      // Handle elevation text changes
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              // Slope Position
+              RadioOptions(
+                header: 'Stand Structure:',
+                enumValues: StandStructure.values,
+                initialValue: StandStructure.evenAged,
+                onSelected: (selectedOption) {
+                  // Handle slope position selection
+                },
+              ),
+              const SizedBox(height: 16.0),
+              RadioOptions(
+                header: 'Overstory Stand Density:',
+                enumValues: StandDensity.values,
+                initialValue: StandDensity.low,
+                onSelected: (selectedOption) {
+                  // Handle slope position selection
+                },
+              ),
+              const SizedBox(height: 16.0),
+              RadioOptions(
+                header: 'Understory Stand Density:',
+                enumValues: StandDensity.values,
+                initialValue: StandDensity.low,
+                onSelected: (selectedOption) {
+                  // Handle slope position selection
+                },
+              ),
+              const SizedBox(height: 16.0),
+            ],
+          ),
         ),
       ),
     );
