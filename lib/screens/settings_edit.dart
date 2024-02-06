@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
+import 'package:forestryapp/components/person_fieldset.dart';
 
 class SettingsEdit extends StatefulWidget {
   const SettingsEdit({super.key});
@@ -26,14 +27,7 @@ class _SettingsEditState extends State<SettingsEdit> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              const Wrap(
-                children: [
-                  // TODO: Name and Email
-                  FractionallySizedBox(widthFactor: 0.5, child: Placeholder()),
-                  // TODO: Address, City, State, Zip
-                  FractionallySizedBox(widthFactor: 0.5, child: Placeholder()),
-                ],
-              ),
+              const PersonFieldSet(),
               const Placeholder(), // TODO: Font Size Slider
               Align(
                 alignment: Alignment.bottomRight,
