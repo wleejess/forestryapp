@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/util/break_points.dart';
 
-class OtherIssues extends StatelessWidget {
+class FireRisk extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
-  static const _title = "Other Issues";
-  static const _otherDescription = "Note any other observations you found";
+  static const _title = "Fire Risk";
+  static const _fireDescription =
+      "Note the level of fuel on the ground (high, medium, low), "
+      "as well as the density and structure of the forest. "
+      "Are there abundant ladder fuels? What is the potential for ignition?";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
 
@@ -19,7 +22,7 @@ class OtherIssues extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: _buildDescription(context),
+              child: _buildFireRiskInput(context),
             ),
           ),
           Row(
@@ -50,8 +53,8 @@ class OtherIssues extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription(BuildContext context) {
-    return _buildTextInput(context, _title, _otherDescription);
+  Widget _buildFireRiskInput(BuildContext context) {
+    return _buildTextInput(context, _title, _fireDescription);
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////
