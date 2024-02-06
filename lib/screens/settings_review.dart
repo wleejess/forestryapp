@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/screens/settings_edit.dart";
 
 class SettingsReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -35,7 +36,7 @@ class SettingsReview extends StatelessWidget {
             child: _buildFontSizeRow(context),
           ),
           Expanded(child: Container()),
-          _buildEditButton()
+          _buildEditButton(context),
         ],
       ),
     );
@@ -55,13 +56,18 @@ class SettingsReview extends StatelessWidget {
     );
   }
 
-  Align _buildEditButton() {
+  Align _buildEditButton(BuildContext context) {
     return Align(
-          alignment: Alignment.centerRight,
-          child: OutlinedButton(
-            onPressed: () {},
-            child: const Text("Edit"),
-          ),
-        );
+      alignment: Alignment.centerRight,
+      child: OutlinedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SettingsEdit()),
+          );
+        },
+        child: const Text("Edit"),
+      ),
+    );
   }
 }
