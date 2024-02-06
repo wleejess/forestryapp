@@ -3,7 +3,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 
 class InvasiveScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
-  static const _title = "Pests & Damages B";
+  static const _title = "Invasive & Wildlife";
   static const _invasiveHeading = "Invasive plants & animals";
   static const _invasiveDescription = "List any invasive plants or animals observed.";
   static const _wildlifeHeading = "Wildlife damage/issues";
