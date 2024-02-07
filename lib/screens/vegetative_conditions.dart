@@ -16,7 +16,7 @@ class VegetativeConditions extends StatelessWidget {
   static const _overstoryInfo = "Overstory Stand Info";
   static const _understoryInfo = "Understory Stand Info";
 
-  VegetativeConditions({Key? key}) : super(key: key);
+  const VegetativeConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class VegetativeConditions extends StatelessWidget {
 }
 
 Widget _buildCoverType(BuildContext context, header) {
-  final TextEditingController _coverType = TextEditingController();
+  final TextEditingController coverType = TextEditingController();
 
   return Wrap(
     spacing: 20.0,
@@ -59,7 +59,7 @@ Widget _buildCoverType(BuildContext context, header) {
       ),
       FreeTextBox(
         labelText: "Other Cover Type",
-        controller: _coverType,
+        controller: coverType,
         helperText: "List cover type if the option is not in the dropdown.",
         onChanged: (text) {
           // Handle elevation text changes

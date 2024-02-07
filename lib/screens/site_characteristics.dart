@@ -8,7 +8,7 @@ class SiteCharacteristics extends StatelessWidget {
   // Static Variables
   static const _title = "Site Characteristics";
 
-  SiteCharacteristics({super.key});
+  const SiteCharacteristics({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ class SiteCharacteristics extends StatelessWidget {
 }
 
 Widget _buildElevationAspectSlope(BuildContext context) {
-  final TextEditingController _elevationController = TextEditingController();
-  final TextEditingController _aspectController = TextEditingController();
-  final TextEditingController _slopePercentageController =
+  final TextEditingController elevationController = TextEditingController();
+  final TextEditingController aspectController = TextEditingController();
+  final TextEditingController slopePercentageController =
       TextEditingController();
   return Wrap(spacing: 10.0, runSpacing: 10.0, children: [
     FreeTextBox(
       labelText: 'Elevation',
-      controller: _elevationController,
+      controller: elevationController,
       helperText: '',
       onChanged: (text) {
         // Handle elevation text changes
@@ -52,7 +52,7 @@ Widget _buildElevationAspectSlope(BuildContext context) {
     ),
     FreeTextBox(
       labelText: 'Aspect',
-      controller: _aspectController,
+      controller: aspectController,
       helperText: '',
       onChanged: (text) {
         // Handle aspect text changes
@@ -60,7 +60,7 @@ Widget _buildElevationAspectSlope(BuildContext context) {
     ),
     FreeTextBox(
       labelText: '% Slope',
-      controller: _slopePercentageController,
+      controller: slopePercentageController,
       helperText: '',
       onChanged: (text) {},
     ),
@@ -80,7 +80,7 @@ Widget _buildSlopePosition(BuildContext context) {
 }
 
 Widget _buildSoilInformation(BuildContext context) {
-  final TextEditingController _soilInfoController = TextEditingController();
+  final TextEditingController soilInfoController = TextEditingController();
   const historyHelp =
       "Add any information about the soils that is available to you."
       " This can be from either the landowner, or from online.";
@@ -90,7 +90,7 @@ Widget _buildSoilInformation(BuildContext context) {
     children: [
       FreeTextBox(
         labelText: 'Soil Information',
-        controller: _soilInfoController,
+        controller: soilInfoController,
         onChanged: (text) {
           // Handle soil information text changes
         },
