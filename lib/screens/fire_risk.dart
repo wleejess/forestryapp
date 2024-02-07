@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
-import 'package:forestryapp/util/break_points.dart';
 
 class FireRisk extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -12,6 +11,8 @@ class FireRisk extends StatelessWidget {
       "Are there abundant ladder fuels? What is the potential for ignition?";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
+
+  FireRisk({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override

@@ -28,7 +28,7 @@ class SiteCharacteristics extends StatelessWidget {
               // Title
               const Text(
                 'General Information',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
 
               // Elevation, Aspect, % Slope

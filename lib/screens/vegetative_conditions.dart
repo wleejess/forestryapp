@@ -69,8 +69,8 @@ class VegetativeConditions extends StatelessWidget {
               const SizedBox(height: 16.0),
               // Overstory Stand Density
               ExpansionTile(
-                title: Text(_overstoryInfo),
-                collapsedBackgroundColor: Color.fromARGB(255, 46, 96, 69),
+                title: const Text(_overstoryInfo),
+                collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
                 collapsedTextColor: Colors.white,
                 collapsedIconColor: Colors.white,
                 children: [
@@ -82,7 +82,7 @@ class VegetativeConditions extends StatelessWidget {
                       // Handle overstory stand density selection
                     },
                   ),
-                  TextField(
+                  const TextField(
                       decoration: InputDecoration(
                     labelText: _composition,
                     hintText: _compHint,
@@ -92,8 +92,8 @@ class VegetativeConditions extends StatelessWidget {
               const SizedBox(height: 16.0),
               // Understory Stand Density
               ExpansionTile(
-                title: Text(_understoryInfo),
-                collapsedBackgroundColor: Color.fromARGB(255, 46, 96, 69),
+                title: const Text(_understoryInfo),
+                collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
                 collapsedTextColor: Colors.white,
                 collapsedIconColor: Colors.white,
                 children: [
@@ -105,7 +105,7 @@ class VegetativeConditions extends StatelessWidget {
                       // Handle understory stand density selection
                     },
                   ),
-                  TextField(
+                  const TextField(
                       decoration: InputDecoration(
                     labelText: _composition,
                     hintText: _compHint,

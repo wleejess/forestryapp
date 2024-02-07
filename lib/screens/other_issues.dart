@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
-import 'package:forestryapp/util/break_points.dart';
 
 class OtherIssues extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -9,6 +8,8 @@ class OtherIssues extends StatelessWidget {
       "Describe any other health related issues you observed.";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
+
+  OtherIssues({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override

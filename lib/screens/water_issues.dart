@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
-import 'package:forestryapp/util/break_points.dart';
 
 class WaterIssues extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -14,6 +11,8 @@ class WaterIssues extends StatelessWidget {
       "sedimentation, culverts, ditches, etc.";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
+
+  WaterIssues({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
