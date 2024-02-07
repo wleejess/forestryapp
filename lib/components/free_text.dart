@@ -24,15 +24,7 @@ class FreeTextBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /* Text(
-            header,
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ), */
           TextField(
-            controller: controller,
             decoration: InputDecoration(
               labelText: labelText,
               helperText: helperText,
