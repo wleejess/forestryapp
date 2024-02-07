@@ -81,13 +81,27 @@ Widget _buildSlopePosition(BuildContext context) {
 
 Widget _buildSoilInformation(BuildContext context) {
   final TextEditingController _soilInfoController = TextEditingController();
-  return FreeTextBox(
-    labelText: 'Soil Information',
-    controller: _soilInfoController,
-    helperText:
-        'Add any information about the soils that is available to you from either the landowner or obtain it online and add this information after your visit.',
-    onChanged: (text) {
-      // Handle soil information text changes
-    },
+  const historyHelp =
+      "Add any information about the soils that is available to you."
+      " This can be from either the landowner, or from online.";
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      FreeTextBox(
+        labelText: 'Soil Information',
+        controller: _soilInfoController,
+        onChanged: (text) {
+          // Handle soil information text changes
+        },
+      ),
+      const SizedBox(height: 16.0),
+      const Text(
+        historyHelp,
+        style: TextStyle(
+            fontSize: 14.0,
+            fontStyle: FontStyle.italic), // Customize the font size as needed
+      )
+    ],
   );
 }
