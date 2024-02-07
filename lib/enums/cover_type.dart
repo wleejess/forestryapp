@@ -3,8 +3,7 @@ enum CoverType {
   meadow("Meadow"),
   wetland("Wetland"),
   rangeland("Rangeland"),
-  juniperwoodlands("Juniper Woodlands"),
-  other("Other, list below");
+  juniperwoodlands("Juniper Woodlands");
 
   const CoverType(this.label);
 

@@ -9,20 +9,12 @@ import "package:forestryapp/enums/cover_type.dart";
 
 class VegetativeConditions extends StatelessWidget {
   // Instance Variables
-  final TextEditingController _coverType = TextEditingController();
-  final TextEditingController _history = TextEditingController();
   final _title = "Vegetative Conditions";
   static const _coverTitle = "Cover Type";
-  static const _composition = "Species Composition";
-  static const _compHint = "Enter a % value";
-  static const _compTitle = "Stand Structure";
+  static const _strucTitle = "Stand Structure";
   static const _standDensity = "Stand Density";
   static const _overstoryInfo = "Overstory Stand Info";
   static const _understoryInfo = "Understory Stand Info";
-  static const _historyTitle = "Stand/Area History";
-  static const _historyHelp =
-      "Describe prior management activities and/or disturbances"
-      "that have shaped or influenced the stand as it appears today";
 
   VegetativeConditions({Key? key}) : super(key: key);
 
@@ -37,95 +29,103 @@ class VegetativeConditions extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Cover Type
-              DropdownOptions(
-                header: _coverTitle,
-                enumValues: CoverType.values,
-                initialValue: CoverType.forest,
-                onSelected: (selectedOption) {},
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FreeTextBox(
-                    labelText: "Other",
-                    controller: _coverType,
-                    helperText: "",
-                    onChanged: (text) {
-                      // Handle elevation text changes
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              // Slope Position
-              RadioOptions(
-                header: _compTitle,
-                enumValues: StandStructure.values,
-                initialValue: StandStructure.evenAged,
-                onSelected: (selectedOption) {
-                  // Handle slope position selection
-                },
-              ),
-              const SizedBox(height: 16.0),
+              _buildCoverType(context, _coverTitle),
+              _buildStandStructure(context, _strucTitle),
               // Overstory Stand Density
-              ExpansionTile(
-                title: const Text(_overstoryInfo),
-                collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
-                collapsedTextColor: Colors.white,
-                collapsedIconColor: Colors.white,
-                children: [
-                  RadioOptions(
-                    header: _standDensity,
-                    enumValues: StandDensity.values,
-                    initialValue: StandDensity.low,
-                    onSelected: (selectedOption) {
-                      // Handle overstory stand density selection
-                    },
-                  ),
-                  const TextField(
-                      decoration: InputDecoration(
-                    labelText: _composition,
-                    hintText: _compHint,
-                  )),
-                ],
-              ),
+              _buildStoryInfo(context, _overstoryInfo, _standDensity),
               const SizedBox(height: 16.0),
-              // Understory Stand Density
-              ExpansionTile(
-                title: const Text(_understoryInfo),
-                collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
-                collapsedTextColor: Colors.white,
-                collapsedIconColor: Colors.white,
-                children: [
-                  RadioOptions(
-                    header: _standDensity,
-                    enumValues: StandDensity.values,
-                    initialValue: StandDensity.low,
-                    onSelected: (selectedOption) {
-                      // Handle understory stand density selection
-                    },
-                  ),
-                  const TextField(
-                      decoration: InputDecoration(
-                    labelText: _composition,
-                    hintText: _compHint,
-                  )),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-
-              FreeTextBox(
-                labelText: _historyTitle,
-                controller: _history,
-                helperText: _historyHelp,
-                onChanged: (text) {
-                  // Handle elevation text changes
-                },
-              ),
+              _buildStoryInfo(context, _understoryInfo, _standDensity),
+              _buildStandHistory(context)
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget _buildCoverType(BuildContext context, header) {
+  final TextEditingController _coverType = TextEditingController();
+
+  return Wrap(
+    spacing: 20.0,
+    runSpacing: 20.0,
+    children: [
+      DropdownOptions(
+        header: header,
+        enumValues: CoverType.values,
+        initialValue: CoverType.forest,
+        onSelected: (selectedOption) {},
+      ),
+      FreeTextBox(
+        labelText: "Other Cover Type",
+        controller: _coverType,
+        helperText: "List cover type if the option is not in the dropdown.",
+        onChanged: (text) {
+          // Handle elevation text changes
+        },
+      ),
+    ],
+  );
+}
+
+Widget _buildStandStructure(BuildContext context, header) {
+  return RadioOptions(
+    header: header,
+    enumValues: StandStructure.values,
+    initialValue: StandStructure.evenAged,
+    onSelected: (selectedOption) {
+      // Handle slope position selection
+    },
+  );
+}
+
+Widget _buildStoryInfo(BuildContext context, title, density) {
+  return ExpansionTile(
+    title: Text(title),
+    collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
+    collapsedTextColor: Colors.white,
+    collapsedIconColor: Colors.white,
+    children: [
+      RadioOptions(
+        header: density,
+        enumValues: StandDensity.values,
+        initialValue: StandDensity.low,
+        onSelected: (selectedOption) {
+          // Handle overstory stand density selection
+        },
+      ),
+      const TextField(
+          decoration: InputDecoration(
+        labelText: "Species Composition",
+        hintText: "Enter a % value",
+      )),
+    ],
+  );
+}
+
+Widget _buildStandHistory(BuildContext context) {
+  final TextEditingController history = TextEditingController();
+  const historyTitle = "Stand/Area History";
+  const historyHelp = "Describe prior management activities and/or disturbances"
+      "that have shaped or influenced the stand as it appears today";
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      FreeTextBox(
+        labelText: historyTitle,
+        controller: history,
+        onChanged: (text) {
+          // Handle elevation text changes
+        },
+      ),
+      const SizedBox(height: 16.0),
+      const Text(
+        historyHelp,
+        style: TextStyle(
+            fontSize: 14.0,
+            fontStyle: FontStyle.italic), // Customize the font size as needed
+      )
+    ],
+  );
 }
