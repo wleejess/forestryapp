@@ -56,7 +56,7 @@ class OtherIssues extends StatelessWidget {
       children: [
         _buildTextInput(context, _title, _otherDescription),
         const SizedBox(height: 16.0),
-        Text(
+        const Text(
           _otherDescription,
           style: TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic),
         ),

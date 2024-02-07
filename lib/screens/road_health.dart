@@ -61,15 +61,15 @@ class RoadHealth extends StatelessWidget {
         const SizedBox(
             height:
                 16.0), // Add some space between the text input and description
-        Text(
+        const Text(
           _roadDescription,
           style: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.w600), // Customize the font size as needed
         ),
-        SizedBox(
+        const SizedBox(
             height: 10.0), // Add space between text input and the description
-        Text(
+        const Text(
           _roadExample,
           style: TextStyle(
               fontSize: 14.0,

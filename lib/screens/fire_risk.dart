@@ -61,7 +61,7 @@ class FireRisk extends StatelessWidget {
         const SizedBox(
             height:
                 16.0), // Add some space between the text input and description
-        Text(
+        const Text(
           _fireDescription,
           style: TextStyle(
               fontSize: 14.0,
@@ -70,7 +70,7 @@ class FireRisk extends StatelessWidget {
         const SizedBox(
             height:
                 16.0), // Add some space between the text input and description
-        Text(
+        const Text(
           _fireExample,
           style: TextStyle(
               fontSize: 14.0,
