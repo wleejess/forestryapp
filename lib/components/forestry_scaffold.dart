@@ -8,6 +8,8 @@ import 'package:forestryapp/screens/settings_review.dart';
 import 'package:forestryapp/screens/site_characteristics.dart';
 import 'package:forestryapp/screens/vegetative_conditions.dart';
 import 'package:forestryapp/screens/road_health.dart';
+import 'package:forestryapp/screens/water_issues.dart';
+import 'package:forestryapp/screens/fire_risk.dart';
 import 'package:forestryapp/screens/other_issues.dart';
 
 /// A component to ensure common high level layout across screens of the app.
@@ -132,6 +134,26 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => RoadHealth()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Water Issues'),
+        leading: const Icon(Icons.water_drop),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => WaterIssues()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Fire Risk'),
+        leading: const Icon(Icons.local_fire_department),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FireRisk()),
           );
         },
       ),
