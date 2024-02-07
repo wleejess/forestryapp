@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
+import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/enums/stand_density.dart";
@@ -48,22 +49,24 @@ Widget _buildCoverType(BuildContext context, header) {
   final TextEditingController coverType = TextEditingController();
 
   return Wrap(
-    spacing: 20.0,
-    runSpacing: 20.0,
     children: [
-      DropdownOptions(
-        header: header,
-        enumValues: CoverType.values,
-        initialValue: CoverType.forest,
-        onSelected: (selectedOption) {},
+      PortraitHandlingSizedBox(
+        child: DropdownOptions(
+          header: header,
+          enumValues: CoverType.values,
+          initialValue: CoverType.forest,
+          onSelected: (selectedOption) {},
+        ),
       ),
-      FreeTextBox(
-        labelText: "Other Cover Type",
-        controller: coverType,
-        helperText: "List cover type if the option is not in the dropdown.",
-        onChanged: (text) {
-          // Handle elevation text changes
-        },
+      PortraitHandlingSizedBox(
+        child: FreeTextBox(
+          labelText: "Other Cover Type",
+          controller: coverType,
+          helperText: "List cover type if the option is not in the dropdown.",
+          onChanged: (text) {
+            // Handle elevation text changes
+          },
+        ),
       ),
     ],
   );
