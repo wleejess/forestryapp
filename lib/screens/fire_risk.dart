@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 
-class OtherIssues extends StatelessWidget {
+class FireRisk extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
-  static const _title = "Other Issues";
-  static const _otherDescription =
-      "Describe any other health related issues you observed.";
+  static const _title = "Fire Risk";
+  static const _fireDescription =
+      "Note the level of fuel on the ground (high, medium, low), "
+      "as well as the density and structure of the forest. ";
+  static const _fireExample =
+      "Are there abundant ladder fuels? What is the potential for ignition?";
   static const _buttonLabelPrevious = "Previous";
   static const _buttonLabelNext = "Next";
 
-  OtherIssues({super.key});
+  FireRisk({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -21,7 +24,7 @@ class OtherIssues extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: _buildDescription(context),
+              child: _buildFireRiskInput(context),
             ),
           ),
           Row(
@@ -51,15 +54,28 @@ class OtherIssues extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription(BuildContext context) {
+  Widget _buildFireRiskInput(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildTextInput(context, _title, _otherDescription),
-        const SizedBox(height: 16.0),
+        _buildTextInput(context, _title, _fireDescription),
+        const SizedBox(
+            height:
+                16.0), // Add some space between the text input and description
         const Text(
-          _otherDescription,
-          style: TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic),
+          _fireDescription,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w600), // Customize the font size as needed
+        ),
+        const SizedBox(
+            height:
+                16.0), // Add some space between the text input and description
+        const Text(
+          _fireExample,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontStyle: FontStyle.italic), // Customize the font size as needed
         ),
       ],
     );
