@@ -3,13 +3,6 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
 
 class SettingsEdit extends StatefulWidget {
-  const SettingsEdit({super.key});
-
-  @override
-  State<SettingsEdit> createState() => _SettingsEditState();
-}
-
-class _SettingsEditState extends State<SettingsEdit> {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Settings";
   static const _labelSaveButton = "Save";
@@ -17,7 +10,15 @@ class _SettingsEditState extends State<SettingsEdit> {
   static const double _maxFontSize = 400;
   static const _msgSubmit = "Settings updated!";
 
-  // Instance variables ////////////////////////////////////////////////////////
+  // Constructor ///////////////////////////////////////////////////////////////
+  const SettingsEdit({super.key});
+
+  @override
+  State<SettingsEdit> createState() => _SettingsEditState();
+}
+
+class _SettingsEditState extends State<SettingsEdit> {
+  // State variables ///////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
   double _fontSize = 100;
 
@@ -31,7 +32,7 @@ class _SettingsEditState extends State<SettingsEdit> {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: SettingsEdit._title,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -76,8 +77,8 @@ class _SettingsEditState extends State<SettingsEdit> {
   Slider _buildFontSizeSlider() {
     return Slider(
       value: _fontSize,
-      min: _minFontSize,
-      max: _maxFontSize,
+      min: SettingsEdit._minFontSize,
+      max: SettingsEdit._maxFontSize,
       onChanged: (newFontSize) => {
         setState(() {
           _fontSize = newFontSize;
@@ -93,7 +94,7 @@ class _SettingsEditState extends State<SettingsEdit> {
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
         onPressed: _submitForm,
-        child: const Text(_labelSaveButton),
+        child: const Text(SettingsEdit._labelSaveButton),
       ),
     );
   }
@@ -101,7 +102,9 @@ class _SettingsEditState extends State<SettingsEdit> {
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(_msgSubmit, textAlign: TextAlign.center)),
+        const SnackBar(
+          content: Text(SettingsEdit._msgSubmit, textAlign: TextAlign.center),
+        ),
       );
     }
   }
