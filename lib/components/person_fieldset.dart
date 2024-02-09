@@ -33,6 +33,8 @@ class PersonFieldSet extends StatelessWidget {
   static const _warnInvalidEmail = 'Supply a valid email address';
   static const _warnEmptyAddress = 'Address is required';
   static const _warnEmptyCity = 'City is required';
+  static const _warnEmptyZip = 'Zip Code is required';
+  static const _warnZipDigitsOnly = "Use only digits and hyphens";
 
   /// Simple email validation pattern.
   ///
@@ -46,6 +48,11 @@ class PersonFieldSet extends StatelessWidget {
   static final _emailValidationRegExp = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
   );
+
+  /// Basic validation for zip code.
+  /// Does not distinguish between basic and extended. Only allows for digits
+  /// and hyphens and does not check length.
+  static final _zipValidationRegExp = RegExp(r'^[0-9\-]+$');
 
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
@@ -160,6 +167,7 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintZip),
       keyboardType: TextInputType.number,
       controller: _zipController,
+      validator: _validateZip,
     );
   }
 
@@ -204,6 +212,18 @@ class PersonFieldSet extends StatelessWidget {
 
     if (!_emailValidationRegExp.hasMatch(email)) {
       return _warnInvalidEmail;
+    }
+
+    return null;
+  }
+
+  String? _validateZip(String? zip) {
+    if (zip == null || zip.isEmpty) {
+      return _warnEmptyZip;
+    }
+
+    if (!zip.contains(_zipValidationRegExp)) {
+      return _warnZipDigitsOnly;
     }
 
     return null;
