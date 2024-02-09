@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
+import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/hawksworth.dart";
 import "package:forestryapp/enums/mistletoe_uniformity.dart";
@@ -31,11 +32,11 @@ class MistletoeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [
-                _buildHalfWidthBox(context, _buildUniformityInput(context)),
-                _buildHalfWidthBox(context, _buildLocationInput(context)),
-                _buildHalfWidthBox(context, _buildHawksworthInput(context)),
-                _buildHalfWidthBox(context, _buildSpeciesInput(context)),
-              ];
+      PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
+      PortraitHandlingSizedBox(child: _buildLocationInput(context)),
+      PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
+      PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
+    ];
 
     return ForestryScaffold(
       title: _title,
