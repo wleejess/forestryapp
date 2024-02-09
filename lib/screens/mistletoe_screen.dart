@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
+import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/hawksworth.dart";
 import "package:forestryapp/enums/mistletoe_uniformity.dart";
-import "package:forestryapp/util/break_points.dart";
 
 class MistletoeScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -46,33 +46,7 @@ class MistletoeScreen extends StatelessWidget {
     );
   }
 
-  // Layout ////////////////////////////////////////////////////////////////////
-  /// Wraps another widget to limit its width to 50%, provided device width is
-  /// sufficiently large.
-  Widget _buildHalfWidthBox(BuildContext context, contents) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return FractionallySizedBox(
-          widthFactor:
-              constraints.maxWidth < BreakPoints.widthPhonePortait ? 1.0 : 0.5,
-          child: Padding(padding: const EdgeInsets.all(16.0), child: contents),
-        );
-      },
-    );
-  }
-
   // Inputs ////////////////////////////////////////////////////////////////////
-  /// Builds a TextField with a label, helper text, and an outline.
-  Widget _buildTextInput(BuildContext context, label, helper) {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: label,
-        helperText: helper,
-        border: const OutlineInputBorder(),
-      )
-    );
-  }
-  
   /// Builds a radio form field about mistletoe uniformity.
   Widget _buildUniformityInput(BuildContext context) {
     return RadioOptions(
@@ -97,11 +71,25 @@ class MistletoeScreen extends StatelessWidget {
 
   /// Builds a text input field about mistletoe location.
   Widget _buildLocationInput(BuildContext context) {
-    return _buildTextInput(context, _locationHeading, _locationDescription);
+    final TextEditingController locationController = TextEditingController();
+
+    return FreeTextBox(
+      controller: locationController, 
+      labelText: _locationHeading, 
+      helperText: _locationDescription,
+      onChanged: (text) {}
+    );
   }
 
   /// Builds a text input field about tree species infected with mistletoe.
   Widget _buildSpeciesInput(BuildContext context) {
-    return _buildTextInput(context, _speciesHeading, _speciesDescription);
+    final TextEditingController speciesController = TextEditingController();
+
+    return FreeTextBox(
+      controller: speciesController, 
+      labelText: _speciesHeading, 
+      helperText: _speciesDescription,
+      onChanged: (text) {}
+    );
   }
 }
