@@ -28,6 +28,23 @@ class _SettingsEditState extends State<SettingsEdit> {
   final _cityController = TextEditingController();
   final _zipController = TextEditingController();
 
+  // Lifecycle Methods /////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState(); // Convention is to execute as first line of body.
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _addressController.dispose();
+    _cityController.dispose();
+    _zipController.dispose();
+
+    super.dispose(); // Convention is to execute this as last line of body.
+  }
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
