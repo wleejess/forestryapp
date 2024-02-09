@@ -7,24 +7,24 @@ class PersonFieldSet extends StatelessWidget {
   static const _hintEmail = "Email";
   static const _hintAddress = "Address";
   static const _hintCity = "City";
-  static const _hintState = Text("State"); // Dropdown hint takes a widget.
+  static const _hintUSState = Text("State"); // Dropdown hint takes a widget.
   static const _hintZip = "Zip Code";
   static const _paddingBetweenCols = EdgeInsets.all(16);
-  static const double _paddingAmountBetweenStateZip = 8;
+  static const double _paddingAmountBetweenUSStateZip = 8;
 
   /// Pad only the right since state dropdown is on the left.
-  static const _paddingState =
-      EdgeInsets.fromLTRB(0, 0, _paddingAmountBetweenStateZip, 0);
+  static const _paddingUSState =
+      EdgeInsets.fromLTRB(0, 0, _paddingAmountBetweenUSStateZip, 0);
 
   /// Pad only the left since zip code field is on the right.
   static const _paddingZip =
-      EdgeInsets.fromLTRB(_paddingAmountBetweenStateZip, 0, 0, 0);
+      EdgeInsets.fromLTRB(_paddingAmountBetweenUSStateZip, 0, 0, 0);
 
   /// How much of parent width and state take up.
   ///
   /// They should be equal and take a total of 1.0 of their parent as they share
   /// a line.
-  static const _widthFactorStateZip = 0.5;
+  static const _widthFactorUSStateZip = 0.5;
 
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
@@ -50,97 +50,106 @@ class PersonFieldSet extends StatelessWidget {
         _cityController = cityController,
         _zipController = zipController;
 
-  // Methods ///////////////////////////////////////////////////////////////////
+  // Layout ////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: <Widget>[
-        _buildNameAndEmailFields(),
-        _buildAddressRelatedFields()
+        _buildNameAndEmailFields(), // Will be on left or on top.
+        _buildAddressRelatedFields() // Will be on right or below.
       ],
     );
   }
 
-  // Name and Email Fields /////////////////////////////////////////////////////
   PortraitHandlingSizedBox _buildNameAndEmailFields() {
     return PortraitHandlingSizedBox(
       child: Padding(
         padding: _paddingBetweenCols,
-        child: Column(
-          children: [
-            TextFormField(
-              decoration: _makeDecoration(_hintName),
-              keyboardType: TextInputType.name,
-              controller: _nameController,
-            ),
-            TextFormField(
-              decoration: _makeDecoration(_hintEmail),
-              keyboardType: TextInputType.emailAddress,
-              controller: _emailController,
-            )
-          ],
-        ),
+        child: Column(children: [_buildName(), _buildEmail()]),
       ),
     );
   }
 
-  // Address Related Fields ////////////////////////////////////////////////////
   PortraitHandlingSizedBox _buildAddressRelatedFields() {
     return PortraitHandlingSizedBox(
       child: Padding(
         padding: _paddingBetweenCols,
         child: Column(
           children: [
-            TextFormField(
-              decoration: _makeDecoration(_hintAddress),
-              keyboardType: TextInputType.streetAddress,
-              controller: _addressController,
-            ),
-            TextFormField(
-              decoration: _makeDecoration(_hintCity),
-              controller: _cityController,
-            ),
-            Wrap(children: [_buildUSState(), _buildZip()])
+            _buildAddress(),
+            _buildCity(),
+            Wrap(children: [
+              _constrainUSStateZipRow(_paddingUSState, _buildUSState()),
+              _constrainUSStateZipRow(_paddingZip, _buildZip()),
+            ])
           ],
         ),
       ),
     );
   }
 
-  Widget _buildUSState() {
+  Widget _constrainUSStateZipRow(EdgeInsets padding, Widget child) {
     return FractionallySizedBox(
-      widthFactor: _widthFactorStateZip,
-      child: Padding(
-        padding: _paddingState,
-        child: DropdownButtonFormField(
-          items: <DropdownMenuItem>[
-            for (var state in USState.values)
-              DropdownMenuItem(
-                  value: state, child: Text(state.label.toUpperCase()))
-          ],
-          onChanged: (value) => {},
-          hint: _hintState,
-        ),
-      ),
+      widthFactor: _widthFactorUSStateZip,
+      child: Padding(padding: padding, child: child),
     );
   }
 
-  Widget _buildZip() {
-    return FractionallySizedBox(
-      widthFactor: _widthFactorStateZip,
-      child: Padding(
-        padding: _paddingZip,
-        child: TextFormField(
-          decoration: _makeDecoration(_hintZip),
-          keyboardType: TextInputType.number,
-          controller: _zipController,
-        ),
-      ),
+  // Input: Text Fields ////////////////////////////////////////////////////////
+  TextFormField _buildName() {
+    return TextFormField(
+      decoration: _makeDecoration(_hintName),
+      keyboardType: TextInputType.name,
+      controller: _nameController,
     );
   }
 
-  // Form Field Specific ///////////////////////////////////////////////////////
-  InputDecoration _makeDecoration(String hint) {
-    return InputDecoration(hintText: hint);
+  TextFormField _buildEmail() {
+    return TextFormField(
+      decoration: _makeDecoration(_hintEmail),
+      keyboardType: TextInputType.emailAddress,
+      controller: _emailController,
+    );
+  }
+
+  TextFormField _buildAddress() {
+    return TextFormField(
+      decoration: _makeDecoration(_hintAddress),
+      keyboardType: TextInputType.streetAddress,
+      controller: _addressController,
+    );
+  }
+
+  TextFormField _buildCity() {
+    return TextFormField(
+      decoration: _makeDecoration(_hintCity),
+      controller: _cityController,
+    );
+  }
+
+  TextFormField _buildZip() {
+    return TextFormField(
+      decoration: _makeDecoration(_hintZip),
+      keyboardType: TextInputType.number,
+      controller: _zipController,
+    );
+  }
+
+  InputDecoration _makeDecoration(String hint) =>
+      InputDecoration(hintText: hint);
+
+  // Input: Dropdowns //////////////////////////////////////////////////////////
+  DropdownButtonFormField _buildUSState() {
+    return DropdownButtonFormField(
+      items: <DropdownMenuItem>[
+        for (var usState in USState.values)
+          DropdownMenuItem(
+            value: usState,
+            child: Text(usState.label.toUpperCase()),
+          )
+      ],
+      onChanged: (value) => {},
+      hint: _hintUSState,
+    );
   }
 }
