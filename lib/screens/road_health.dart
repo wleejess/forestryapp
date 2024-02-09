@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
+import 'package:forestryapp/components/form_scaffold.dart';
+import 'package:forestryapp/components/free_text.dart';
 
 class RoadHealth extends StatelessWidget {
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _roadController = TextEditingController();
   static const _title = "Road Health";
   static const _roadDescription =
-      "Make note of any road related problems for the stand or area.";
-  static const _roadExample =
-      "Example: Erosion, slumps, sediment delviery into streams or other waterways, "
+      "Make note of any road related problems for the stand or area. ";
+  static const _roadExample = 
+      "Erosion, slumps, sediment delviery into streams or other waterways, "
       "culvert & ditch problems, etc";
-  static const _buttonLabelPrevious = "Previous";
-  static const _buttonLabelNext = "Next";
 
   RoadHealth({super.key});
 
@@ -19,79 +19,22 @@ class RoadHealth extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Column(
+      body: FormScaffold(
         children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: _buildDescription(context),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildButtonPrevious(context),
-              _buildButtonNext(context),
-            ],
-          ),
+          _buildDescription(context)
         ],
-      ),
+      )
     );
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
-  /// Builds a TextField with a label, helper text, and an outline.
-  Widget _buildTextInput(BuildContext context, label, helper) {
-    return TextField(
-      controller: _textEditingController,
-      maxLines:
-          null, // Setting this to null allows the TextField to expand as needed
-      keyboardType: TextInputType.multiline, // Specify the keyboard type
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-      ),
-    );
-  }
-
   Widget _buildDescription(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildTextInput(context, _title, _roadDescription),
-        const SizedBox(
-            height:
-                16.0), // Add some space between the text input and description
-        const Text(
-          _roadDescription,
-          style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600), // Customize the font size as needed
-        ),
-        const SizedBox(
-            height: 10.0), // Add space between text input and the description
-        const Text(
-          _roadExample,
-          style: TextStyle(
-              fontSize: 14.0,
-              fontStyle: FontStyle.italic), // Customize the font size as needed
-        ),
-      ],
-    );
-  }
-
-  // Buttons ///////////////////////////////////////////////////////////////////
-  Widget _buildButtonPrevious(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelPrevious),
-    );
-  }
-
-  Widget _buildButtonNext(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelNext),
+    return FreeTextBox(
+      controller: _roadController, 
+      labelText: _title,
+      helperText: _roadDescription,
+      hintText: _roadExample,
+      onChanged: (text) {}
     );
   }
 }
