@@ -6,6 +6,7 @@ class FreeTextBox extends StatelessWidget {
   final TextEditingController controller;
   // final String header;
   final String? helperText;
+  final String? hintText;
   final String labelText;
   final void Function(String) onChanged;
 
@@ -13,6 +14,7 @@ class FreeTextBox extends StatelessWidget {
     required this.controller,
     required this.labelText,
     this.helperText,
+    this.hintText,
     required this.onChanged,
     super.key,
   });
@@ -25,7 +27,8 @@ class FreeTextBox extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         labelText: labelText,
-        helperText: helperText
+        helperText: helperText,
+        hintText: hintText
       ),
       onChanged: onChanged,
       controller: controller,
