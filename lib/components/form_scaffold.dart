@@ -20,23 +20,26 @@ class FormScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // Creates a 4x4 grid, but the height matches the content size.
-          Wrap(
-            children: _children,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildButtonPrevious(context),
-              _buildButtonNext(context),
-            ],
-          ),
-        ],
-      ),
-    );
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            // Creates a 4x4 grid, but the height matches the content size.
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Wrap(
+                children: _children,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildButtonPrevious(context),
+                _buildButtonNext(context),
+              ],
+            ),
+          ],
+        ),
+      );
   }
   // Buttons ///////////////////////////////////////////////////////////////////
   Widget _buildButtonPrevious(BuildContext context) {
