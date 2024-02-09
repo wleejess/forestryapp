@@ -29,7 +29,7 @@ class PersonFieldSet extends StatelessWidget {
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
   // Constructor ///////////////////////////////////////////////////////////////
-  const PersonFieldSet({required  hintName, super.key}) : _hintName = hintName;
+  const PersonFieldSet({required hintName, super.key}) : _hintName = hintName;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
