@@ -12,7 +12,6 @@ class LandownerEdit extends StatefulWidget {
 class _LandownerEditState extends State<LandownerEdit> {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Landowner:";
-  static const _hintName = "Landowner Name";
   static const _labelSaveButton = "Save";
 
   // Instance variables ////////////////////////////////////////////////////////
@@ -35,7 +34,6 @@ class _LandownerEditState extends State<LandownerEdit> {
           child: Column(
             children: <Widget>[
               PersonFieldSet(
-                hintName: _hintName,
                 nameController: _nameController,
                 emailController: _emailController,
                 addressController: _addressController,

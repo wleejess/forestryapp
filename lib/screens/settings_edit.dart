@@ -12,7 +12,6 @@ class SettingsEdit extends StatefulWidget {
 class _SettingsEditState extends State<SettingsEdit> {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Settings";
-  static const _hintName = "Evaluator Name";
   static const _labelSaveButton = "Save";
   static const double _minFontSize = 0;
   static const double _maxFontSize = 400;
@@ -39,12 +38,12 @@ class _SettingsEditState extends State<SettingsEdit> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               PersonFieldSet(
-                hintName: _hintName,
                 nameController: _nameController,
                 emailController: _emailController,
                 addressController: _addressController,
                 cityController: _cityController,
                 zipController: _zipController,
+                editingEvaluator: true,
               ),
               _buildFontSizeSection(context),
               _buildSaveButton()
