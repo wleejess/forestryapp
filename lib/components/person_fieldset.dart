@@ -66,14 +66,14 @@ class PersonFieldSet extends StatelessWidget {
           children: [
             TextFormField(decoration: _makeDecoration(_hintAddress)),
             TextFormField(decoration: _makeDecoration(_hintCity)),
-            Wrap(children: [_buildState(), _buildZip()])
+            Wrap(children: [_buildUSState(), _buildZip()])
           ],
         ),
       ),
     );
   }
 
-  Widget _buildState() {
+  Widget _buildUSState() {
     return FractionallySizedBox(
       widthFactor: _widthFactorStateZip,
       child: Padding(
