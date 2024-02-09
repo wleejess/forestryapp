@@ -52,9 +52,13 @@ class _LandownerEditState extends State<LandownerEdit> {
     return Align(
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: _submitForm,
         child: const Text(_labelSaveButton),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {}
   }
 }
