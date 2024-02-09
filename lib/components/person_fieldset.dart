@@ -28,6 +28,10 @@ class PersonFieldSet extends StatelessWidget {
   /// a line.
   static const _widthFactorUSStateZip = 0.5;
 
+  static const _warnEmptyName = 'Name is required';
+  static const _warnEmptyAddress = 'Address is required';
+  static const _warnEmptyCity = 'City is required';
+
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
   final TextEditingController _nameController;
@@ -103,6 +107,8 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintName),
       keyboardType: TextInputType.name,
       controller: _nameController,
+      // Only check if empty because no other domain specific requirements.
+      validator: _validateToCheckIfEmpty(_warnEmptyName),
     );
   }
 
@@ -119,6 +125,8 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintAddress),
       keyboardType: TextInputType.streetAddress,
       controller: _addressController,
+      // Only check if empty because no other domain specific requirements.
+      validator: _validateToCheckIfEmpty(_warnEmptyAddress),
     );
   }
 
@@ -126,6 +134,8 @@ class PersonFieldSet extends StatelessWidget {
     return TextFormField(
       decoration: _makeDecoration(_hintCity),
       controller: _cityController,
+      // Only check if empty because no other domain specific requirements.
+      validator: _validateToCheckIfEmpty(_warnEmptyCity),
     );
   }
 
@@ -153,5 +163,20 @@ class PersonFieldSet extends StatelessWidget {
       onChanged: (value) => {},
       hint: _hintUSState,
     );
+  }
+
+  // Validators ////////////////////////////////////////////////////////////////
+  /// Higher order function that creates an anonymous validator for a field.
+  ///
+  /// The returned validator only checks to see if the field is empty. If it is,
+  /// then it returns the provided message [validationMessageWhenFieldIsEmpty].
+  String? Function(String? value) _validateToCheckIfEmpty(
+      String validationMessageWhenFieldIsEmpty) {
+    return (String? validationCandidate) {
+      if (validationCandidate == null || validationCandidate.isEmpty) {
+        return validationMessageWhenFieldIsEmpty;
+      }
+      return null;
+    };
   }
 }
