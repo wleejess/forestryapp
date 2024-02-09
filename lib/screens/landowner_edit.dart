@@ -13,6 +13,7 @@ class _LandownerEditState extends State<LandownerEdit> {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Landowner:";
   static const _labelSaveButton = "Save";
+  static const _msgSubmit = "Landowner saved!";
 
   // Instance variables ////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
@@ -59,6 +60,10 @@ class _LandownerEditState extends State<LandownerEdit> {
   }
 
   void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {}
+    if (_formKey.currentState?.validate() ?? false) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text(_msgSubmit, textAlign: TextAlign.center)),
+      );
+    }
   }
 }
