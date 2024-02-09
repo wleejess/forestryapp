@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
@@ -12,60 +13,60 @@ class SiteCharacteristics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ForestryScaffold(
-      title: _title,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+    List<Widget> children = [
               // Title
               const Text(
                 'General Information',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              _buildElevationAspectSlope(context),
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+              )),
+              _buildElevation(context),
+              _buildAspect(context),
+              _buildPercentSlope(context),
               _buildSlopePosition(context),
               _buildSoilInformation(context)
-            ],
-          ),
-        ),
-      ),
+            ];
+
+    return ForestryScaffold(
+      title: _title,
+      body: FormScaffold(children: children,)
     );
   }
 }
 
-Widget _buildElevationAspectSlope(BuildContext context) {
+Widget _buildElevation(BuildContext context) {
   final TextEditingController elevationController = TextEditingController();
+  return FreeTextBox(
+    labelText: 'Elevation',
+    controller: elevationController,
+    helperText: '',
+    onChanged: (text) {
+      // Handle elevation text changes
+    },
+  );
+}
+
+Widget _buildAspect(BuildContext context) {
   final TextEditingController aspectController = TextEditingController();
-  final TextEditingController slopePercentageController =
-      TextEditingController();
-  return Wrap(spacing: 10.0, runSpacing: 10.0, children: [
-    FreeTextBox(
-      labelText: 'Elevation',
-      controller: elevationController,
-      helperText: '',
-      onChanged: (text) {
-        // Handle elevation text changes
-      },
-    ),
-    FreeTextBox(
-      labelText: 'Aspect',
-      controller: aspectController,
-      helperText: '',
-      onChanged: (text) {
-        // Handle aspect text changes
-      },
-    ),
-    FreeTextBox(
-      labelText: '% Slope',
-      controller: slopePercentageController,
-      helperText: '',
-      onChanged: (text) {},
-    ),
-    const SizedBox(height: 16.0)
-  ]);
+  return FreeTextBox(
+    labelText: 'Aspect',
+    controller: aspectController,
+    helperText: 'Write in the direction the stand or area faces.',
+    onChanged: (text) {
+      // Handle aspect text changes
+    },
+  );
+}
+
+Widget _buildPercentSlope(BuildContext context) {
+  final TextEditingController slopePercentageController = TextEditingController();
+  return FreeTextBox(
+    labelText: '% Slope',
+    controller: slopePercentageController,
+    helperText: 'Write in the approximate or average percent slope.',
+    onChanged: (text) {},
+  );
 }
 
 Widget _buildSlopePosition(BuildContext context) {
@@ -81,27 +82,16 @@ Widget _buildSlopePosition(BuildContext context) {
 
 Widget _buildSoilInformation(BuildContext context) {
   final TextEditingController soilInfoController = TextEditingController();
-  const historyHelp =
+  const soilHelp =
       "Add any information about the soils that is available to you."
       " This can be from either the landowner, or from online.";
-
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      FreeTextBox(
-        labelText: 'Soil Information',
-        controller: soilInfoController,
-        onChanged: (text) {
-          // Handle soil information text changes
-        },
-      ),
-      const SizedBox(height: 16.0),
-      const Text(
-        historyHelp,
-        style: TextStyle(
-            fontSize: 14.0,
-            fontStyle: FontStyle.italic), // Customize the font size as needed
-      )
-    ],
+  
+  return FreeTextBox(
+    controller: soilInfoController,
+    helperText: soilHelp,
+    labelText: "Soil Information", 
+    onChanged: (text) {
+      // Handle soil information text changes
+    }
   );
 }

@@ -21,6 +21,7 @@ class FormScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           // Creates a 4x4 grid, but the height matches the content size.
           Wrap(
