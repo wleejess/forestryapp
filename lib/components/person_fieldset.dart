@@ -49,8 +49,14 @@ class PersonFieldSet extends StatelessWidget {
         padding: _paddingBetweenCols,
         child: Column(
           children: [
-            TextFormField(decoration: _makeDecoration(_hintName)),
-            TextFormField(decoration: _makeDecoration(_hintEmail))
+            TextFormField(
+              decoration: _makeDecoration(_hintName),
+              keyboardType: TextInputType.name,
+            ),
+            TextFormField(
+              decoration: _makeDecoration(_hintEmail),
+              keyboardType: TextInputType.emailAddress,
+            )
           ],
         ),
       ),
@@ -64,7 +70,10 @@ class PersonFieldSet extends StatelessWidget {
         padding: _paddingBetweenCols,
         child: Column(
           children: [
-            TextFormField(decoration: _makeDecoration(_hintAddress)),
+            TextFormField(
+              decoration: _makeDecoration(_hintAddress),
+              keyboardType: TextInputType.streetAddress,
+            ),
             TextFormField(decoration: _makeDecoration(_hintCity)),
             Wrap(children: [_buildUSState(), _buildZip()])
           ],
@@ -96,7 +105,10 @@ class PersonFieldSet extends StatelessWidget {
       widthFactor: _widthFactorStateZip,
       child: Padding(
         padding: _paddingZip,
-        child: TextFormField(decoration: _makeDecoration(_hintZip)),
+        child: TextFormField(
+          decoration: _makeDecoration(_hintZip),
+          keyboardType: TextInputType.number,
+        ),
       ),
     );
   }
