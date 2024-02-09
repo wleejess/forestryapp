@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/form_scaffold.dart";
+import "package:forestryapp/components/free_text.dart";
 
 class PestsScreen extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -12,8 +14,6 @@ class PestsScreen extends StatelessWidget {
   static const _diseasesDescription = 
     "If past or present disease damage is apparent in the stand or area, "
     "list diseases observed, if known.";
-  static const _buttonLabelPrevious = "Previous";
-  static const _buttonLabelNext = "Next";
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to enter information on insects and diseases present in the area.
@@ -24,67 +24,33 @@ class PestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Wrap(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: _buildInsectsInput(context),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: _buildDiseasesInput(context),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildButtonPrevious(context),
-                _buildButtonNext(context),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Layout ////////////////////////////////////////////////////////////////////
-
-  // Inputs ////////////////////////////////////////////////////////////////////
-  Widget _buildTextInput(BuildContext context, label, helper) {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: label,
-        helperText: helper,
-        border: const OutlineInputBorder(),
+      body: FormScaffold(
+        children: <Widget>[
+          _buildInsectsInput(context),
+          _buildDiseasesInput(context)          
+        ],
       )
     );
   }
 
+  // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildInsectsInput(BuildContext context) {
-    return _buildTextInput(context, _insectsHeading, _insectsDescription);
-  }
-
-  Widget _buildDiseasesInput(BuildContext context) {
-    return _buildTextInput(context, _diseasesHeading, _diseasesDescription);
-  }
-
-  // Buttons ///////////////////////////////////////////////////////////////////
-  Widget _buildButtonPrevious(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelPrevious),
+    final TextEditingController insectsController = TextEditingController();
+    return FreeTextBox(
+      controller: insectsController, 
+      labelText: _insectsHeading, 
+      helperText: _insectsDescription,
+      onChanged: (text) {}
     );
   }
 
-  Widget _buildButtonNext(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelNext),
+  Widget _buildDiseasesInput(BuildContext context) {
+    final TextEditingController diseasesController = TextEditingController();
+    return FreeTextBox(
+      controller: diseasesController, 
+      labelText: _diseasesHeading, 
+      helperText: _diseasesDescription,
+      onChanged: (text) {}
     );
   }
 }
