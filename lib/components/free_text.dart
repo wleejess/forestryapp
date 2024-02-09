@@ -20,6 +20,9 @@ class FreeTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines:
+          null, // Setting this to null allows the TextField to expand as needed
+      keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         labelText: labelText,
         helperText: helperText
