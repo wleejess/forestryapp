@@ -28,8 +28,27 @@ class PersonFieldSet extends StatelessWidget {
 
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
+  final TextEditingController _nameController;
+  final TextEditingController _emailController;
+  final TextEditingController _addressController;
+  final TextEditingController _cityController;
+  final TextEditingController _zipController;
+
   // Constructor ///////////////////////////////////////////////////////////////
-  const PersonFieldSet({required hintName, super.key}) : _hintName = hintName;
+  const PersonFieldSet({
+    required hintName,
+    required TextEditingController nameController,
+    required TextEditingController emailController,
+    required TextEditingController addressController,
+    required TextEditingController cityController,
+    required TextEditingController zipController,
+    super.key,
+  })  : _hintName = hintName,
+        _nameController = nameController,
+        _emailController = emailController,
+        _addressController = addressController,
+        _cityController = cityController,
+        _zipController = zipController;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -52,10 +71,12 @@ class PersonFieldSet extends StatelessWidget {
             TextFormField(
               decoration: _makeDecoration(_hintName),
               keyboardType: TextInputType.name,
+              controller: _nameController,
             ),
             TextFormField(
               decoration: _makeDecoration(_hintEmail),
               keyboardType: TextInputType.emailAddress,
+              controller: _emailController,
             )
           ],
         ),
@@ -73,8 +94,12 @@ class PersonFieldSet extends StatelessWidget {
             TextFormField(
               decoration: _makeDecoration(_hintAddress),
               keyboardType: TextInputType.streetAddress,
+              controller: _addressController,
             ),
-            TextFormField(decoration: _makeDecoration(_hintCity)),
+            TextFormField(
+              decoration: _makeDecoration(_hintCity),
+              controller: _cityController,
+            ),
             Wrap(children: [_buildUSState(), _buildZip()])
           ],
         ),
@@ -108,6 +133,7 @@ class PersonFieldSet extends StatelessWidget {
         child: TextFormField(
           decoration: _makeDecoration(_hintZip),
           keyboardType: TextInputType.number,
+          controller: _zipController,
         ),
       ),
     );

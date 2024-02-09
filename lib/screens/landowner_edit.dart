@@ -18,6 +18,12 @@ class _LandownerEditState extends State<LandownerEdit> {
   // Instance variables ////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
 
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _zipController = TextEditingController();
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,14 @@ class _LandownerEditState extends State<LandownerEdit> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const PersonFieldSet(hintName: _hintName),
+              PersonFieldSet(
+                hintName: _hintName,
+                nameController: _nameController,
+                emailController: _emailController,
+                addressController: _addressController,
+                cityController: _cityController,
+                zipController: _zipController,
+              ),
               _buildSaveButton(),
             ],
           ),

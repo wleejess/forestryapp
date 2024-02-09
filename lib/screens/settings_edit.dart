@@ -21,6 +21,12 @@ class _SettingsEditState extends State<SettingsEdit> {
   final _formKey = GlobalKey<FormState>();
   double _fontSize = 100;
 
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _zipController = TextEditingController();
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,14 @@ class _SettingsEditState extends State<SettingsEdit> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-               const PersonFieldSet(hintName: _hintName),
+              PersonFieldSet(
+                hintName: _hintName,
+                nameController: _nameController,
+                emailController: _emailController,
+                addressController: _addressController,
+                cityController: _cityController,
+                zipController: _zipController,
+              ),
               _buildFontSizeSection(context),
               _buildSaveButton()
             ],
