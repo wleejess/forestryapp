@@ -12,11 +12,16 @@ class LandownerEdit extends StatefulWidget {
 class _LandownerEditState extends State<LandownerEdit> {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Landowner:";
-  static const _hintName = "Landowner Name";
   static const _labelSaveButton = "Save";
 
   // Instance variables ////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _zipController = TextEditingController();
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -28,7 +33,13 @@ class _LandownerEditState extends State<LandownerEdit> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              const PersonFieldSet(hintName: _hintName),
+              PersonFieldSet(
+                nameController: _nameController,
+                emailController: _emailController,
+                addressController: _addressController,
+                cityController: _cityController,
+                zipController: _zipController,
+              ),
               _buildSaveButton(),
             ],
           ),
