@@ -29,8 +29,23 @@ class PersonFieldSet extends StatelessWidget {
   static const _widthFactorUSStateZip = 0.5;
 
   static const _warnEmptyName = 'Name is required';
+  static const _warnEmptyEmail = 'Email is required';
+  static const _warnInvalidEmail = 'Supply a valid email address';
   static const _warnEmptyAddress = 'Address is required';
   static const _warnEmptyCity = 'City is required';
+
+  /// Simple email validation pattern.
+  ///
+  /// *ATTRIBUTION*
+  /// Source: Stack Overflow
+  /// URL: https://stackoverflow.com/a/50663835
+  /// Question Author: Eric Lavoie
+  /// Question Author Profile: https://stackoverflow.com/users/1478085/eric-lavoie
+  /// Answer Author: Airon Tark
+  /// Answer Author Profile: https://stackoverflow.com/users/1003008/airon-tark
+  static final _emailValidationRegExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
 
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
@@ -117,6 +132,7 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintEmail),
       keyboardType: TextInputType.emailAddress,
       controller: _emailController,
+      validator: _validateEmail,
     );
   }
 
@@ -178,5 +194,18 @@ class PersonFieldSet extends StatelessWidget {
       }
       return null;
     };
+  }
+
+  /// Checks if empty and then if valid email (via Regular Expression).
+  String? _validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return _warnEmptyEmail;
+    }
+
+    if (!_emailValidationRegExp.hasMatch(email)) {
+      return _warnInvalidEmail;
+    }
+
+    return null;
   }
 }
