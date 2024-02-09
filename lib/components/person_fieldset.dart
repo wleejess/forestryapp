@@ -33,6 +33,7 @@ class PersonFieldSet extends StatelessWidget {
   static const _warnInvalidEmail = 'Supply a valid email address';
   static const _warnEmptyAddress = 'Address is required';
   static const _warnEmptyCity = 'City is required';
+  static const _warnEmptyUSState = 'State is required';
   static const _warnEmptyZip = 'Zip Code is required';
   static const _warnZipDigitsOnly = "Use only digits and hyphens";
 
@@ -184,8 +185,9 @@ class PersonFieldSet extends StatelessWidget {
             child: Text(usState.label.toUpperCase()),
           )
       ],
-      onChanged: (value) => {},
       hint: _hintUSState,
+      onChanged: (value) => {},
+      validator: _validateUSState,
     );
   }
 
@@ -224,6 +226,16 @@ class PersonFieldSet extends StatelessWidget {
 
     if (!zip.contains(_zipValidationRegExp)) {
       return _warnZipDigitsOnly;
+    }
+
+    return null;
+  }
+
+  String? _validateUSState(dynamic usState) {
+    if (usState == null ||
+        usState is! Enum ||
+        !USState.values.contains(usState)) {
+      return _warnEmptyUSState;
     }
 
     return null;
