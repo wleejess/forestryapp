@@ -46,7 +46,10 @@ class PortraitHandlingSizedBox extends StatelessWidget {
           widthFactor: constraints.maxWidth < BreakPoints.widthPhonePortait
               ? _widthFactorOnNarrowDevices
               : _widthFactorOnWideDevices,
-          child: _child,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0), 
+            child: _child
+          ),
         );
       },
     );
