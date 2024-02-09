@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/hawksworth.dart";
 import "package:forestryapp/enums/mistletoe_uniformity.dart";
@@ -21,8 +22,6 @@ class MistletoeScreen extends StatelessWidget {
     "such as under 'Diagnosis & Suggestions.'";
   static const _speciesHeading = "Tree species infected";
   static const _speciesDescription = "List the tree species infected with mistletoe.";
-  static const _buttonLabelPrevious = "Previous";
-  static const _buttonLabelNext = "Next";
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen with a form to add information about mistletoe infections in the area.
@@ -31,30 +30,18 @@ class MistletoeScreen extends StatelessWidget {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    return ForestryScaffold(
-      title: _title,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // Creates a 4x4 grid, but the height matches the content size.
-            Wrap(
-              children: <Widget>[
+    List<Widget> children = [
                 _buildHalfWidthBox(context, _buildUniformityInput(context)),
                 _buildHalfWidthBox(context, _buildLocationInput(context)),
                 _buildHalfWidthBox(context, _buildHawksworthInput(context)),
                 _buildHalfWidthBox(context, _buildSpeciesInput(context)),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildButtonPrevious(context),
-                _buildButtonNext(context),
-              ],
-            ),
-          ],
-        ),
-      ),
+              ];
+
+    return ForestryScaffold(
+      title: _title,
+      body: FormScaffold(
+        children: children,
+      )
     );
   }
 
@@ -115,20 +102,5 @@ class MistletoeScreen extends StatelessWidget {
   /// Builds a text input field about tree species infected with mistletoe.
   Widget _buildSpeciesInput(BuildContext context) {
     return _buildTextInput(context, _speciesHeading, _speciesDescription);
-  }
-
-  // Buttons ///////////////////////////////////////////////////////////////////
-  Widget _buildButtonPrevious(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelPrevious),
-    );
-  }
-
-  Widget _buildButtonNext(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelNext),
-    );
   }
 }
