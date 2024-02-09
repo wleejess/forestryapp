@@ -15,6 +15,7 @@ class _SettingsEditState extends State<SettingsEdit> {
   static const _labelSaveButton = "Save";
   static const double _minFontSize = 0;
   static const double _maxFontSize = 400;
+  static const _msgSubmit = "Settings updated!";
 
   // Instance variables ////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
@@ -91,9 +92,17 @@ class _SettingsEditState extends State<SettingsEdit> {
     return Align(
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: _submitForm,
         child: const Text(_labelSaveButton),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text(_msgSubmit, textAlign: TextAlign.center)),
+      );
+    }
   }
 }
