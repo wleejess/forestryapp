@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
-import "package:forestryapp/dependency_injection/inherited_preferences.dart";
+import "package:forestryapp/dependency_injection/inherited_settings.dart";
+
 import "package:forestryapp/screens/settings_edit.dart";
 
 class SettingsReview extends StatelessWidget {
@@ -68,8 +69,7 @@ class SettingsReview extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SettingsEdit(
-                sharedPreferences:
-                    InheritedSharedPreferences.of(context).sharedPreferences,
+                settings: InheritedSettings.of(context).settings,
               ),
             ),
           );

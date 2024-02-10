@@ -3,7 +3,6 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
 import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/settings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsEdit extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -15,11 +14,11 @@ class SettingsEdit extends StatefulWidget {
       "Dropdown US State not of type `USState?` despite validation.";
 
   // Instance Variables ////////////////////////////////////////////////////////
-  final SharedPreferences _sharedPreferences;
+  final Settings _settings;
 
   // Constructor ///////////////////////////////////////////////////////////////
-  const SettingsEdit({required SharedPreferences sharedPreferences, super.key})
-      : _sharedPreferences = sharedPreferences;
+  const SettingsEdit({required Settings settings, super.key})
+      : _settings = settings;
 
   @override
   State<SettingsEdit> createState() => _SettingsEditState();
@@ -28,8 +27,6 @@ class SettingsEdit extends StatefulWidget {
 class _SettingsEditState extends State<SettingsEdit> {
   // State /////////////////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
-
-  late final Settings _settings;
 
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
@@ -42,14 +39,15 @@ class _SettingsEditState extends State<SettingsEdit> {
   void initState() {
     super.initState(); // Convention is to execute as first line of body.
 
-    _settings = Settings(widget._sharedPreferences);
-
-    _nameController = TextEditingController(text: _settings.evaluatorName);
-    _emailController = TextEditingController(text: _settings.evaluatorEmail);
+    _nameController =
+        TextEditingController(text: widget._settings.evaluatorName);
+    _emailController =
+        TextEditingController(text: widget._settings.evaluatorEmail);
     _addressController =
-        TextEditingController(text: _settings.evaluatorAddress);
-    _cityController = TextEditingController(text: _settings.evaluatorCity);
-    _zipController = TextEditingController(text: _settings.evaluatorZip);
+        TextEditingController(text: widget._settings.evaluatorAddress);
+    _cityController =
+        TextEditingController(text: widget._settings.evaluatorCity);
+    _zipController = TextEditingController(text: widget._settings.evaluatorZip);
   }
 
   @override
@@ -80,7 +78,7 @@ class _SettingsEditState extends State<SettingsEdit> {
                 addressController: _addressController,
                 cityController: _cityController,
                 zipController: _zipController,
-                initialUSState: _settings.evaluatorUSState,
+                initialUSState: widget._settings.evaluatorUSState,
                 dropdownOnChanged: _storeUSState,
                 editingEvaluator: true,
               ),
@@ -109,11 +107,11 @@ class _SettingsEditState extends State<SettingsEdit> {
   }
 
   String _formatFontSize() =>
-      "${_settings.fontSize.toStringAsFixed(0).padLeft(3, ' ')} %";
+      "${widget._settings.fontSize.toStringAsFixed(0).padLeft(3, ' ')} %";
 
   Slider _buildFontSizeSlider() {
     return Slider(
-      value: _settings.fontSize,
+      value: widget._settings.fontSize,
       min: Settings.minFontSize,
       max: Settings.maxFontSize,
       onChanged: (newFontSize) => {
@@ -123,7 +121,7 @@ class _SettingsEditState extends State<SettingsEdit> {
             // we can skip middle man state variable and directly use Shared
             // Preferences for state. Save button not needed since slider cannot
             // be validated.
-            _settings.fontSize = newFontSize;
+            widget._settings.fontSize = newFontSize;
           },
         )
       },
@@ -154,17 +152,17 @@ class _SettingsEditState extends State<SettingsEdit> {
   }
 
   void storeContactInfoSettings() {
-    _settings.evaluatorName = _nameController.text;
-    _settings.evaluatorEmail = _emailController.text;
-    _settings.evaluatorAddress = _addressController.text;
-    _settings.evaluatorCity = _cityController.text;
-    _settings.evaluatorZip = _zipController.text;
+    widget._settings.evaluatorName = _nameController.text;
+    widget._settings.evaluatorEmail = _emailController.text;
+    widget._settings.evaluatorAddress = _addressController.text;
+    widget._settings.evaluatorCity = _cityController.text;
+    widget._settings.evaluatorZip = _zipController.text;
   }
 
   /// Immediately stores US State from dropdown to `SavedPreferences`.
   void _storeUSState(dynamic usState) {
     if (usState is USState?) {
-      _settings.evaluatorUSState = usState;
+      widget._settings.evaluatorUSState = usState;
     }
 
     throw Exception(SettingsEdit._warningValidationFailType);
