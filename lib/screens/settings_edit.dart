@@ -42,25 +42,13 @@ class _SettingsEditState extends State<SettingsEdit> {
 
     _settings = Settings(widget._sharedPreferences);
 
-    _nameController =
-        TextEditingController(text: _readSetting(SettingsKey.evaluatorName));
-    _emailController =
-        TextEditingController(text: _readSetting(SettingsKey.evaluatorEmail));
+    _nameController = TextEditingController(text: _settings.evaluatorName);
+    _emailController = TextEditingController(text: _settings.evaluatorEmail);
     _addressController =
-        TextEditingController(text: _readSetting(SettingsKey.evaluatorAddress));
-    _cityController =
-        TextEditingController(text: _readSetting(SettingsKey.evaluatorCity));
-    _zipController =
-        TextEditingController(text: _readSetting(SettingsKey.evaluatorZip));
+        TextEditingController(text: _settings.evaluatorAddress);
+    _cityController = TextEditingController(text: _settings.evaluatorCity);
+    _zipController = TextEditingController(text: _settings.evaluatorZip);
   }
-
-  /// Retrieve value (or fallback) stored in SharedSettings with provided key.
-  ///
-  /// Assumes [settingsKey] is a valid key in `SharedSettings`. Assumes value
-  /// stored with key [settingsKey] is indeed a string. Will return [fallback]
-  /// if [settingsKey] is not found.
-  String _readSetting(String settingsKey, {String fallback = ""}) =>
-      widget._sharedPreferences.getString(settingsKey) ?? fallback;
 
   @override
   void dispose() {
@@ -90,7 +78,7 @@ class _SettingsEditState extends State<SettingsEdit> {
                 addressController: _addressController,
                 cityController: _cityController,
                 zipController: _zipController,
-                initialUSState: _readInitialUSState(),
+                initialUSState: _settings.evaluatorUSState,
                 dropdownOnChanged: _storeUSState,
                 editingEvaluator: true,
               ),
@@ -164,8 +152,7 @@ class _SettingsEditState extends State<SettingsEdit> {
   }
 
   void storeContactInfoSettings() {
-    widget._sharedPreferences
-        .setString(SettingsKey.evaluatorName, _nameController.text);
+    widget._sharedPreferences.setString(SettingsKey.evaluatorName, _nameController.text);
     widget._sharedPreferences
         .setString(SettingsKey.evaluatorEmail, _emailController.text);
     widget._sharedPreferences
@@ -176,14 +163,6 @@ class _SettingsEditState extends State<SettingsEdit> {
         .setString(SettingsKey.evaluatorZip, _zipController.text);
   }
 
-  USState? _readInitialUSState() {
-    final String storedUSStateString =
-        _readSetting(SettingsKey.evaluatorUSState);
-    for (var usState in USState.values) {
-      if (usState.label == storedUSStateString) return usState;
-    }
-    return null;
-  }
 
   /// Immediately stores US State from dropdown to `SavedPreferences`.
   void _storeUSState(dynamic usState) {
