@@ -28,6 +28,33 @@ class PersonFieldSet extends StatelessWidget {
   /// a line.
   static const _widthFactorUSStateZip = 0.5;
 
+  static const _warnEmptyName = 'Name is required';
+  static const _warnEmptyEmail = 'Email is required';
+  static const _warnInvalidEmail = 'Supply a valid email address';
+  static const _warnEmptyAddress = 'Address is required';
+  static const _warnEmptyCity = 'City is required';
+  static const _warnEmptyUSState = 'State is required';
+  static const _warnEmptyZip = 'Zip Code is required';
+  static const _warnZipDigitsOnly = "Use only digits and hyphens";
+
+  /// Simple email validation pattern.
+  ///
+  /// *ATTRIBUTION*
+  /// Source: Stack Overflow
+  /// URL: https://stackoverflow.com/a/50663835
+  /// Question Author: Eric Lavoie
+  /// Question Author Profile: https://stackoverflow.com/users/1478085/eric-lavoie
+  /// Answer Author: Airon Tark
+  /// Answer Author Profile: https://stackoverflow.com/users/1003008/airon-tark
+  static final _emailValidationRegExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
+
+  /// Basic validation for zip code.
+  /// Does not distinguish between basic and extended. Only allows for digits
+  /// and hyphens and does not check length.
+  static final _zipValidationRegExp = RegExp(r'^[0-9\-]+$');
+
   // Instance Variables ////////////////////////////////////////////////////////
   final String _hintName;
   final TextEditingController _nameController;
@@ -103,6 +130,8 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintName),
       keyboardType: TextInputType.name,
       controller: _nameController,
+      // Only check if empty because no other domain specific requirements.
+      validator: _validateToCheckIfEmpty(_warnEmptyName),
     );
   }
 
@@ -111,6 +140,7 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintEmail),
       keyboardType: TextInputType.emailAddress,
       controller: _emailController,
+      validator: _validateEmail,
     );
   }
 
@@ -119,6 +149,8 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintAddress),
       keyboardType: TextInputType.streetAddress,
       controller: _addressController,
+      // Only check if empty because no other domain specific requirements.
+      validator: _validateToCheckIfEmpty(_warnEmptyAddress),
     );
   }
 
@@ -126,6 +158,8 @@ class PersonFieldSet extends StatelessWidget {
     return TextFormField(
       decoration: _makeDecoration(_hintCity),
       controller: _cityController,
+      // Only check if empty because no other domain specific requirements.
+      validator: _validateToCheckIfEmpty(_warnEmptyCity),
     );
   }
 
@@ -134,6 +168,7 @@ class PersonFieldSet extends StatelessWidget {
       decoration: _makeDecoration(_hintZip),
       keyboardType: TextInputType.number,
       controller: _zipController,
+      validator: _validateZip,
     );
   }
 
@@ -150,8 +185,59 @@ class PersonFieldSet extends StatelessWidget {
             child: Text(usState.label.toUpperCase()),
           )
       ],
-      onChanged: (value) => {},
       hint: _hintUSState,
+      onChanged: (value) => {},
+      validator: _validateUSState,
     );
+  }
+
+  // Validators ////////////////////////////////////////////////////////////////
+  /// Higher order function that creates an anonymous validator for a field.
+  ///
+  /// The returned validator only checks to see if the field is empty. If it is,
+  /// then it returns the provided message [validationMessageWhenFieldIsEmpty].
+  String? Function(String? value) _validateToCheckIfEmpty(
+      String validationMessageWhenFieldIsEmpty) {
+    return (String? validationCandidate) {
+      if (validationCandidate == null || validationCandidate.isEmpty) {
+        return validationMessageWhenFieldIsEmpty;
+      }
+      return null;
+    };
+  }
+
+  /// Checks if empty and then if valid email (via Regular Expression).
+  String? _validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return _warnEmptyEmail;
+    }
+
+    if (!_emailValidationRegExp.hasMatch(email)) {
+      return _warnInvalidEmail;
+    }
+
+    return null;
+  }
+
+  String? _validateZip(String? zip) {
+    if (zip == null || zip.isEmpty) {
+      return _warnEmptyZip;
+    }
+
+    if (!zip.contains(_zipValidationRegExp)) {
+      return _warnZipDigitsOnly;
+    }
+
+    return null;
+  }
+
+  String? _validateUSState(dynamic usState) {
+    if (usState == null ||
+        usState is! Enum ||
+        !USState.values.contains(usState)) {
+      return _warnEmptyUSState;
+    }
+
+    return null;
   }
 }
