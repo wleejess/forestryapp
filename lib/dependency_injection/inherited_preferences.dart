@@ -2,13 +2,15 @@ import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 class InheritedSharedPreferences extends InheritedWidget {
-  final SharedPreferences _sharedPreferences;
+  // Make this public or else it will be useless because callers won't be able
+  // to even access it.
+  final SharedPreferences sharedPreferences;
 
   const InheritedSharedPreferences({
-    required SharedPreferences sharedPreferences,
+    required this.sharedPreferences,
     required super.child,
     super.key,
-  }) : _sharedPreferences = sharedPreferences;
+  });
 
   static InheritedSharedPreferences of(BuildContext context) {
     return context
@@ -17,6 +19,6 @@ class InheritedSharedPreferences extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant InheritedSharedPreferences oldWidget) {
-    return _sharedPreferences != oldWidget._sharedPreferences;
+    return sharedPreferences != oldWidget.sharedPreferences;
   }
 }
