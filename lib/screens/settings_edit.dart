@@ -148,6 +148,7 @@ class _SettingsEditState extends State<SettingsEdit> {
           content: Text(SettingsEdit._msgSubmit, textAlign: TextAlign.center),
         ),
       );
+      Navigator.pop(context);
     }
   }
 
