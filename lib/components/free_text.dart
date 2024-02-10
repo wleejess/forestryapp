@@ -28,8 +28,7 @@ class FreeTextBox extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         helperText: helperText,
-        hintText: hintText,
-        helperMaxLines: 4
+        hintText: hintText
       ),
       onChanged: onChanged,
       controller: controller,

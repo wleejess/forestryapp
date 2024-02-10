@@ -10,7 +10,8 @@ class Styles {
 
   static const _inputDecorationTheme = InputDecorationTheme(
     labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-    helperStyle: TextStyle(fontSize: 14.0)
+    helperStyle: TextStyle(fontSize: 14.0),
+    helperMaxLines: 5
   );
 
   static ThemeData makeTheme() {
