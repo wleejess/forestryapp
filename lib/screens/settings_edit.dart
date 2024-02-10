@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsEdit extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -10,8 +11,13 @@ class SettingsEdit extends StatefulWidget {
   static const double _maxFontSize = 400;
   static const _msgSubmit = "Settings updated!";
 
+  // Instance Variables ////////////////////////////////////////////////////////
+  // ignore: unused_field
+  final SharedPreferences _sharedPreferences;
+
   // Constructor ///////////////////////////////////////////////////////////////
-  const SettingsEdit({super.key});
+  const SettingsEdit({required SharedPreferences sharedPreferences, super.key})
+      : _sharedPreferences = sharedPreferences;
 
   @override
   State<SettingsEdit> createState() => _SettingsEditState();

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/dependency_injection/inherited_preferences.dart";
 import "package:forestryapp/screens/settings_edit.dart";
 
 class SettingsReview extends StatelessWidget {
@@ -63,7 +64,12 @@ class SettingsReview extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SettingsEdit()),
+            MaterialPageRoute(
+              builder: (context) => SettingsEdit(
+                sharedPreferences:
+                    InheritedSharedPreferences.of(context).sharedPreferences,
+              ),
+            ),
           );
         },
         child: const Text("Edit"),
