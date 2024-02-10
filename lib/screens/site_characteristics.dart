@@ -3,8 +3,10 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
+import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
+import "package:forestryapp/enums/direction.dart";
 
 class SiteCharacteristics extends StatelessWidget {
   // Static Variables
@@ -19,9 +21,8 @@ class SiteCharacteristics extends StatelessWidget {
       title: _title,
       body: FormScaffold(
         children: <Widget>[
-          _buildSectionTitle(context),
-          _buildElevation(context),
           _buildAspect(context),
+          _buildElevation(context),
           _buildPercentSlope(context),
           _buildSlopePosition(context),
           _buildSoilInformation(context)
@@ -29,19 +30,6 @@ class SiteCharacteristics extends StatelessWidget {
       )
     );
   }
-}
-
-Widget _buildSectionTitle(BuildContext context) {
-  return const PortraitHandlingSizedBox(
-    widthFactorOnWideDevices: 1,
-    child: Text(
-      'General Information',
-      style: TextStyle(
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-      )
-    ),
-  );
 }
 
 Widget _buildElevation(BuildContext context) {
@@ -60,16 +48,13 @@ Widget _buildElevation(BuildContext context) {
 }
 
 Widget _buildAspect(BuildContext context) {
-  final TextEditingController aspectController = TextEditingController();
   return PortraitHandlingSizedBox(
     widthFactorOnWideDevices: 0.3,
-    child: FreeTextBox(
-      labelText: 'Aspect',
-      controller: aspectController,
-      helperText: 'Write in the direction the stand or area faces.',
-      onChanged: (text) {
-        // Handle aspect text changes
-      },
+    child: DropdownOptions(
+      header: 'Aspect',
+      enumValues: Direction.values,
+      initialValue: Direction.north,
+      onSelected: (selectedOption) {},
     ),
   );
 }
