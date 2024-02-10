@@ -46,6 +46,9 @@ class Settings {
   }
 
   String get combinedAddress {
+    if ([evaluatorAddress, evaluatorCity, evaluatorUSStateString, evaluatorZip]
+        .every((element) => element.isEmpty)) return _defaultStringFallback;
+
     return "$evaluatorAddress $evaluatorCity, $evaluatorUSStateString $evaluatorZip";
   }
 
