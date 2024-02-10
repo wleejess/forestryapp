@@ -8,7 +8,8 @@ enum SettingsKey {
   _evaluatorEmail("Evaluator Email"),
   _evaluatorAddress("Evaluator Address"),
   _evaluatorCity("Evaluator City"),
-  _evaluatorZip("Evaluator Zip Code");
+  _evaluatorZip("Evaluator Zip Code"),
+  _fontSize("Font Size");
 
   const SettingsKey(this.key);
 
@@ -19,4 +20,5 @@ enum SettingsKey {
   static String get evaluatorAddress => SettingsKey._evaluatorAddress.key;
   static String get evaluatorCity => SettingsKey._evaluatorCity.key;
   static String get evaluatorZip => SettingsKey._evaluatorZip.key;
+  static String get fontSize => SettingsKey._fontSize.key;
 }
