@@ -88,16 +88,13 @@ Widget _buildPercentSlope(BuildContext context) {
 }
 
 Widget _buildSlopePosition(BuildContext context) {
-  return PortraitHandlingSizedBox(
-    widthFactorOnWideDevices: 1,
-    child: RadioOptions(
-      header: 'Slope Position:',
-      enumValues: SlopePosition.values,
-      initialValue: SlopePosition.lower,
-      onSelected: (selectedOption) {
-        // Handle slope position selection
-      },
-    ),
+  return RadioOptions(
+    header: 'Slope Position:',
+    enumValues: SlopePosition.values,
+    initialValue: SlopePosition.lower,
+    onSelected: (selectedOption) {
+      // Handle slope position selection
+    }
   );
 }
 
@@ -107,15 +104,12 @@ Widget _buildSoilInformation(BuildContext context) {
       "Add any information about the soils that is available to you."
       " This can be from either the landowner, or from online.";
   
-  return PortraitHandlingSizedBox(
-    widthFactorOnWideDevices: 1,
-    child: FreeTextBox(
-      controller: soilInfoController,
-      helperText: soilHelp,
-      labelText: "Soil Information", 
-      onChanged: (text) {
-        // Handle soil information text changes
-      }
-    ),
+  return FreeTextBox(
+    controller: soilInfoController,
+    helperText: soilHelp,
+    labelText: "Soil Information", 
+    onChanged: (text) {
+      // Handle soil information text changes
+    }
   );
 }
