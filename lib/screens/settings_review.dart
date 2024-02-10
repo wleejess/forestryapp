@@ -5,7 +5,7 @@ import "package:forestryapp/models/settings.dart";
 
 import "package:forestryapp/screens/settings_edit.dart";
 
-class SettingsReview extends StatelessWidget {
+class SettingsReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Settings";
   static const _labelFontSize = "Font Size: ";
@@ -20,17 +20,22 @@ class SettingsReview extends StatelessWidget {
   const SettingsReview({required Settings settings, super.key})
       : _settings = settings;
 
+  @override
+  State<SettingsReview> createState() => _SettingsReviewState();
+}
+
+class _SettingsReviewState extends State<SettingsReview> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: SettingsReview._title,
       body: Column(
         children: [
           ContactInfo(
-            name: _settings.evaluatorName,
-            email: _settings.evaluatorEmail,
-            combinedAddress: _settings.combinedAddress,
+            name: widget._settings.evaluatorName,
+            email: widget._settings.evaluatorEmail,
+            combinedAddress: widget._settings.combinedAddress,
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 0),
@@ -51,8 +56,9 @@ class SettingsReview extends StatelessWidget {
 
     return Row(
       children: [
-        Text(_labelFontSize, style: styleLabel),
-        Text("${_settings.fontSize.toStringAsFixed(0)} %", style: styleFontSizeValue)
+        Text(SettingsReview._labelFontSize, style: styleLabel),
+        Text("${widget._settings.fontSize.toStringAsFixed(0)} %",
+            style: styleFontSizeValue)
       ],
     );
   }
@@ -66,12 +72,12 @@ class SettingsReview extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SettingsEdit(
-                settings: _settings,
+                settings: widget._settings,
               ),
             ),
           );
         },
-        child: const Text(_labelEditButton),
+        child: const Text(SettingsReview._labelEditButton),
       ),
     );
   }
