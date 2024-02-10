@@ -47,7 +47,7 @@ class PortraitHandlingSizedBox extends StatelessWidget {
               ? _widthFactorOnNarrowDevices
               : _widthFactorOnWideDevices,
           child: Padding(
-            padding: const EdgeInsets.all(8.0), 
+            padding: const EdgeInsets.only(right: 8.0, bottom: 8.0), 
             child: _child
           ),
         );
