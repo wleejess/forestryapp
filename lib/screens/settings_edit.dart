@@ -9,7 +9,10 @@ class SettingsEdit extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Settings";
   static const _labelSaveButton = "Save";
+  static const _labelFontSize = "Font Size: ";
   static const _msgSubmit = "Settings updated!";
+  static const _warningValidationFailType =
+      "Dropdown US State not of type `USState?` despite validation.";
 
   // Instance Variables ////////////////////////////////////////////////////////
   final SharedPreferences _sharedPreferences;
@@ -96,7 +99,7 @@ class _SettingsEditState extends State<SettingsEdit> {
       child: Row(
         children: [
           Text(
-            "Font Size: ${_formatFontSize()}",
+            "${SettingsEdit._labelFontSize}${_formatFontSize()}",
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           Expanded(child: _buildFontSizeSlider()),
@@ -162,10 +165,8 @@ class _SettingsEditState extends State<SettingsEdit> {
   void _storeUSState(dynamic usState) {
     if (usState is USState?) {
       _settings.evaluatorUSState = usState;
-    } else {
-      throw Exception(
-        "Dropdown US State not of type `USState?` despite validation.",
-      );
     }
+
+    throw Exception(SettingsEdit._warningValidationFailType);
   }
 }

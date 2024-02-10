@@ -7,6 +7,8 @@ import "package:forestryapp/screens/settings_edit.dart";
 class SettingsReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Settings";
+  static const _labelFontSize = "Font Size: ";
+  static const _labelEditButton = "Edit";
 
   // Instance variables ////////////////////////////////////////////////////////
   // Dummy Data for forestry professional until we can implement Shared
@@ -51,7 +53,7 @@ class SettingsReview extends StatelessWidget {
 
     return Row(
       children: [
-        Text("Font Size: ", style: styleLabel),
+        Text(_labelFontSize, style: styleLabel),
         Text("$_fontSize %", style: styleFontSizeValue)
       ],
     );
@@ -72,7 +74,7 @@ class SettingsReview extends StatelessWidget {
             ),
           );
         },
-        child: const Text("Edit"),
+        child: const Text(_labelEditButton),
       ),
     );
   }
