@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
 import 'package:forestryapp/enums/settings_key.dart';
+import 'package:forestryapp/enums/us_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsEdit extends StatefulWidget {
@@ -95,6 +96,7 @@ class _SettingsEditState extends State<SettingsEdit> {
                 addressController: _addressController,
                 cityController: _cityController,
                 zipController: _zipController,
+                initialUSState: _readInitialUSState(),
                 editingEvaluator: true,
               ),
               _buildFontSizeSection(context),
@@ -177,5 +179,14 @@ class _SettingsEditState extends State<SettingsEdit> {
         .setString(SettingsKey.evaluatorCity, _cityController.text);
     widget._sharedPreferences
         .setString(SettingsKey.evaluatorZip, _zipController.text);
+  }
+
+  USState? _readInitialUSState() {
+    final String storedUSStateString =
+        _readSetting(SettingsKey.evaluatorUSState);
+    for (var usState in USState.values) {
+      if (usState.label == storedUSStateString) return usState;
+    }
+    return null;
   }
 }
