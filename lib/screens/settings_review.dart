@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
-import "package:forestryapp/dependency_injection/inherited_settings.dart";
+import "package:forestryapp/models/settings.dart";
 
 import "package:forestryapp/screens/settings_edit.dart";
 
@@ -14,14 +14,11 @@ class SettingsReview extends StatelessWidget {
   // Instance variables ////////////////////////////////////////////////////////
   // Dummy Data for forestry professional until we can implement Shared
   // Preferences.
-  final _surveyorName = "John Doe";
-  final _surveyorEmail = "j_doe@xyz.com";
-  final _surveyorCombinedAddress = "1234 Woodlawn Portland, OR 97211";
-
-  final int _fontSize = 100;
+  final Settings _settings;
 
   // Constructor ///////////////////////////////////////////////////////////////
-  const SettingsReview({super.key});
+  const SettingsReview({required Settings settings, super.key})
+      : _settings = settings;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -31,9 +28,9 @@ class SettingsReview extends StatelessWidget {
       body: Column(
         children: [
           ContactInfo(
-            name: _surveyorName,
-            email: _surveyorEmail,
-            combinedAddress: _surveyorCombinedAddress,
+            name: _settings.evaluatorName,
+            email: _settings.evaluatorEmail,
+            combinedAddress: _settings.combinedAddress,
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(0, 32, 0, 0),
@@ -55,7 +52,7 @@ class SettingsReview extends StatelessWidget {
     return Row(
       children: [
         Text(_labelFontSize, style: styleLabel),
-        Text("$_fontSize %", style: styleFontSizeValue)
+        Text("${_settings.fontSize.toStringAsFixed(0)} %", style: styleFontSizeValue)
       ],
     );
   }
@@ -69,7 +66,7 @@ class SettingsReview extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SettingsEdit(
-                settings: InheritedSettings.of(context).settings,
+                settings: _settings,
               ),
             ),
           );
