@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
@@ -21,54 +22,49 @@ class VegetativeConditions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = [
+      // Cover Type
+      _buildCoverType(context, _coverTitle),
+      _buildOtherCoverType(context),
+      _buildStandStructure(context, _strucTitle),
+      // Overstory Stand Density
+      _buildStoryInfo(context, _overstoryInfo, _standDensity),
+      const SizedBox(height: 16.0),
+      _buildStoryInfo(context, _understoryInfo, _standDensity),
+      _buildStandHistory(context)
+    ];
+
     return ForestryScaffold(
       title: _title,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Cover Type
-              _buildCoverType(context, _coverTitle),
-              _buildStandStructure(context, _strucTitle),
-              // Overstory Stand Density
-              _buildStoryInfo(context, _overstoryInfo, _standDensity),
-              const SizedBox(height: 16.0),
-              _buildStoryInfo(context, _understoryInfo, _standDensity),
-              _buildStandHistory(context)
-            ],
-          ),
-        ),
-      ),
+      body: FormScaffold(
+        children: children,
+      )
     );
   }
 }
 
 Widget _buildCoverType(BuildContext context, header) {
-  final TextEditingController coverType = TextEditingController();
+  return PortraitHandlingSizedBox(
+    child: DropdownOptions(
+      header: header,
+      enumValues: CoverType.values,
+      initialValue: CoverType.forest,
+      onSelected: (selectedOption) {},
+    ),
+  );
+}
 
-  return Wrap(
-    children: [
-      PortraitHandlingSizedBox(
-        child: DropdownOptions(
-          header: header,
-          enumValues: CoverType.values,
-          initialValue: CoverType.forest,
-          onSelected: (selectedOption) {},
-        ),
-      ),
-      PortraitHandlingSizedBox(
-        child: FreeTextBox(
-          labelText: "Other Cover Type",
-          controller: coverType,
-          helperText: "List cover type if the option is not in the dropdown.",
-          onChanged: (text) {
-            // Handle elevation text changes
-          },
-        ),
-      ),
-    ],
+Widget _buildOtherCoverType(BuildContext context) {
+  final TextEditingController coverType = TextEditingController();
+  return PortraitHandlingSizedBox(
+    child: FreeTextBox(
+      labelText: "Other Cover Type",
+      controller: coverType,
+      helperText: "List cover type if the option is not in the dropdown.",
+      onChanged: (text) {
+        // Handle elevation text changes
+      },
+    )
   );
 }
 
@@ -112,23 +108,12 @@ Widget _buildStandHistory(BuildContext context) {
   const historyTitle = "Stand/Area History";
   const historyHelp = "Describe prior management activities and/or disturbances"
       "that have shaped or influenced the stand as it appears today";
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      FreeTextBox(
-        labelText: historyTitle,
-        controller: history,
-        onChanged: (text) {
-          // Handle elevation text changes
-        },
-      ),
-      const SizedBox(height: 16.0),
-      const Text(
-        historyHelp,
-        style: TextStyle(
-            fontSize: 14.0,
-            fontStyle: FontStyle.italic), // Customize the font size as needed
-      )
-    ],
+  return FreeTextBox(
+    labelText: historyTitle,
+    helperText: historyHelp,
+    controller: history,
+    onChanged: (text) {
+      // Handle elevation text changes
+    },
   );
 }
