@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
+import 'package:forestryapp/components/form_scaffold.dart';
+import 'package:forestryapp/components/free_text.dart';
 
 class WaterIssues extends StatelessWidget {
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _waterController = TextEditingController();
   static const _title = "Water Health & Issues";
   static const _waterDescription =
-      "Make note of any issues related to water, streams, and springs in the stand or area.";
-  static const _waterExample =
+      "Make note of any issues related to water, streams, and springs in the stand or area.\n"
       "Example: Erosion, head cutting, cattle grazing effects, "
       "sedimentation, culverts, ditches, etc.";
-  static const _buttonLabelPrevious = "Previous";
-  static const _buttonLabelNext = "Next";
 
   WaterIssues({super.key});
 
@@ -19,78 +18,21 @@ class WaterIssues extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Column(
+      body: FormScaffold(
         children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: _buildWaterIssuesInput(context),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildButtonPrevious(context),
-              _buildButtonNext(context),
-            ],
-          ),
+          _buildDescription(context)
         ],
-      ),
+      )
     );
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
-  /// Builds a TextField with a label, helper text, and an outline.
-  Widget _buildTextInput(BuildContext context, label, helper) {
-    return TextField(
-      controller: _textEditingController,
-      maxLines:
-          null, // Setting this to null allows the TextField to expand as needed
-      keyboardType: TextInputType.multiline, // Specify the keyboard type
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-      ),
-    );
-  }
-
-  Widget _buildWaterIssuesInput(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildTextInput(context, _title, _waterDescription),
-        const SizedBox(
-            height:
-                16.0), // Add some space between the text input and description
-        const Text(
-          _waterDescription,
-          style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600), // Customize the font size as needed
-        ),
-        const SizedBox(height: 10.0),
-        const Text(
-          _waterExample,
-          style: TextStyle(
-              fontSize: 14.0,
-              fontStyle: FontStyle.italic), // Customize the font size as needed
-        ),
-      ],
-    );
-  }
-
-  // Buttons ///////////////////////////////////////////////////////////////////
-  Widget _buildButtonPrevious(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelPrevious),
-    );
-  }
-
-  Widget _buildButtonNext(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelNext),
+  Widget _buildDescription(BuildContext context) {
+    return FreeTextBox(
+      controller: _waterController, 
+      labelText: _title,
+      helperText: _waterDescription,
+      onChanged: (text) {}
     );
   }
 }
