@@ -3,15 +3,13 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
 import 'package:forestryapp/enums/settings_key.dart';
 import 'package:forestryapp/enums/us_state.dart';
+import 'package:forestryapp/models/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsEdit extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Settings";
   static const _labelSaveButton = "Save";
-  static const double _minFontSize = 0;
-  static const double _maxFontSize = 400;
-  static const double _defaultFontSize = 100;
   static const _msgSubmit = "Settings updated!";
 
   // Instance Variables ////////////////////////////////////////////////////////
@@ -29,25 +27,21 @@ class _SettingsEditState extends State<SettingsEdit> {
   // State /////////////////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
 
+  late final Settings _settings;
+
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _addressController;
   late final TextEditingController _cityController;
   late final TextEditingController _zipController;
 
-  double get _fontSize {
-    return widget._sharedPreferences.getDouble(SettingsKey.fontSize) ??
-        SettingsEdit._defaultFontSize;
-  }
-
-  set _fontSize(double newFontSize) {
-    widget._sharedPreferences.setDouble(SettingsKey.fontSize, newFontSize);
-  }
-
   // Lifecycle Methods /////////////////////////////////////////////////////////
   @override
   void initState() {
     super.initState(); // Convention is to execute as first line of body.
+
+    _settings = Settings(widget._sharedPreferences);
+
     _nameController =
         TextEditingController(text: _readSetting(SettingsKey.evaluatorName));
     _emailController =
@@ -125,13 +119,13 @@ class _SettingsEditState extends State<SettingsEdit> {
   }
 
   String _formatFontSize() =>
-      "${_fontSize.toStringAsFixed(0).padLeft(3, ' ')} %";
+      "${_settings.fontSize.toStringAsFixed(0).padLeft(3, ' ')} %";
 
   Slider _buildFontSizeSlider() {
     return Slider(
-      value: _fontSize,
-      min: SettingsEdit._minFontSize,
-      max: SettingsEdit._maxFontSize,
+      value: _settings.fontSize,
+      min: Settings.minFontSize,
+      max: Settings.maxFontSize,
       onChanged: (newFontSize) => {
         setState(
           () {
@@ -139,7 +133,7 @@ class _SettingsEditState extends State<SettingsEdit> {
             // we can skip middle man state variable and directly use Shared
             // Preferences for state. Save button not needed since slider cannot
             // be validated.
-            _fontSize = newFontSize;
+            _settings.fontSize = newFontSize;
           },
         )
       },
