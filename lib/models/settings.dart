@@ -38,6 +38,17 @@ class Settings {
     return null;
   }
 
+  String get evaluatorUSStateString {
+    USState? usState = evaluatorUSState;
+    return usState == null
+        ? _defaultStringFallback
+        : usState.label.toUpperCase();
+  }
+
+  String get combinedAddress {
+    return "$evaluatorAddress $evaluatorCity, $evaluatorUSStateString $evaluatorZip";
+  }
+
   double get fontSize {
     return _sharedPreferences.getDouble(SettingsKey.fontSize) ??
         Settings.defaultFontSize;
