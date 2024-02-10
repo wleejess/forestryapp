@@ -7,9 +7,8 @@ class RoadHealth extends StatelessWidget {
   final TextEditingController _roadController = TextEditingController();
   static const _title = "Road Health";
   static const _roadDescription =
-      "Make note of any road related problems for the stand or area. ";
-  static const _roadExample = 
-      "Erosion, slumps, sediment delviery into streams or other waterways, "
+      "Make note of any road related problems for the stand or area.\n"
+      "Example: Erosion, slumps, sediment delviery into streams or other waterways, "
       "culvert & ditch problems, etc";
 
   RoadHealth({super.key});
@@ -33,7 +32,6 @@ class RoadHealth extends StatelessWidget {
       controller: _roadController, 
       labelText: _title,
       helperText: _roadDescription,
-      hintText: _roadExample,
       onChanged: (text) {}
     );
   }

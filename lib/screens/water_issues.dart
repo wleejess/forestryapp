@@ -7,9 +7,8 @@ class WaterIssues extends StatelessWidget {
   final TextEditingController _waterController = TextEditingController();
   static const _title = "Water Health & Issues";
   static const _waterDescription =
-      "Make note of any issues related to water, streams, and springs in the stand or area.";
-  static const _waterExample =
-      "Erosion, head cutting, cattle grazing effects, "
+      "Make note of any issues related to water, streams, and springs in the stand or area.\n"
+      "Example: Erosion, head cutting, cattle grazing effects, "
       "sedimentation, culverts, ditches, etc.";
 
   WaterIssues({super.key});
@@ -33,7 +32,6 @@ class WaterIssues extends StatelessWidget {
       controller: _waterController, 
       labelText: _title,
       helperText: _waterDescription,
-      hintText: _waterExample,
       onChanged: (text) {}
     );
   }
