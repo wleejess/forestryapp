@@ -75,7 +75,10 @@ class _SettingsReviewState extends State<SettingsReview> {
                 settings: widget._settings,
               ),
             ),
-          );
+            // Force rebuild or else this screen won't show the updated changes
+            // that the evaluator input if they navigate back to this screen
+            // from the Settings Edit page.
+          ).then((_) => setState(() {}));
         },
         child: const Text(SettingsReview._labelEditButton),
       ),
