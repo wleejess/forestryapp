@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
-import 'package:forestryapp/enums/settings_key.dart';
 import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -152,30 +151,21 @@ class _SettingsEditState extends State<SettingsEdit> {
   }
 
   void storeContactInfoSettings() {
-    widget._sharedPreferences.setString(SettingsKey.evaluatorName, _nameController.text);
-    widget._sharedPreferences
-        .setString(SettingsKey.evaluatorEmail, _emailController.text);
-    widget._sharedPreferences
-        .setString(SettingsKey.evaluatorAddress, _addressController.text);
-    widget._sharedPreferences
-        .setString(SettingsKey.evaluatorCity, _cityController.text);
-    widget._sharedPreferences
-        .setString(SettingsKey.evaluatorZip, _zipController.text);
+    _settings.evaluatorName = _nameController.text;
+    _settings.evaluatorEmail = _emailController.text;
+    _settings.evaluatorAddress = _addressController.text;
+    _settings.evaluatorCity = _cityController.text;
+    _settings.evaluatorZip = _zipController.text;
   }
-
 
   /// Immediately stores US State from dropdown to `SavedPreferences`.
   void _storeUSState(dynamic usState) {
-    if (usState is USState) {
-      // Store directly to `SharedPreferences` using it as state to avoid middle
-      // man state variable.
-      widget._sharedPreferences
-          .setString(SettingsKey.evaluatorUSState, usState.label);
-      return;
+    if (usState is USState?) {
+      _settings.evaluatorUSState = usState;
+    } else {
+      throw Exception(
+        "Dropdown US State not of type `USState?` despite validation.",
+      );
     }
-
-    throw Exception(
-      "Dropdown US State not of type `USState` despite validation.",
-    );
   }
 }

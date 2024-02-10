@@ -44,6 +44,27 @@ class Settings {
   }
 
   // Setters ///////////////////////////////////////////////////////////////////
+  set evaluatorName(String name) =>
+      _sharedPreferences.setString(SettingsKey.evaluatorName, name);
+
+  set evaluatorEmail(String email) =>
+      _sharedPreferences.setString(SettingsKey.evaluatorEmail, email);
+
+  set evaluatorAddress(String address) =>
+      _sharedPreferences.setString(SettingsKey.evaluatorAddress, address);
+
+  set evaluatorCity(String city) =>
+      _sharedPreferences.setString(SettingsKey.evaluatorCity, city);
+
+  set evaluatorZip(String zip) =>
+      _sharedPreferences.setString(SettingsKey.evaluatorZip, zip);
+
+  set evaluatorUSState(USState? usState) {
+    String label =
+        (usState != null) ? usState.label : Settings._defaultStringFallback;
+    _sharedPreferences.setString(SettingsKey.evaluatorUSState, label);
+  }
+
   set fontSize(double newFontSize) {
     _sharedPreferences.setDouble(SettingsKey.fontSize, newFontSize);
   }
