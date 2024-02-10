@@ -97,6 +97,7 @@ class _SettingsEditState extends State<SettingsEdit> {
                 cityController: _cityController,
                 zipController: _zipController,
                 initialUSState: _readInitialUSState(),
+                dropdownOnChanged: _storeUSState,
                 editingEvaluator: true,
               ),
               _buildFontSizeSection(context),
@@ -188,5 +189,20 @@ class _SettingsEditState extends State<SettingsEdit> {
       if (usState.label == storedUSStateString) return usState;
     }
     return null;
+  }
+
+  /// Immediately stores US State from dropdown to `SavedPreferences`.
+  void _storeUSState(dynamic usState) {
+    if (usState is USState) {
+      // Store directly to `SharedPreferences` using it as state to avoid middle
+      // man state variable.
+      widget._sharedPreferences
+          .setString(SettingsKey.evaluatorUSState, usState.label);
+      return;
+    }
+
+    throw Exception(
+      "Dropdown US State not of type `USState` despite validation.",
+    );
   }
 }

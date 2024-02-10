@@ -63,6 +63,7 @@ class PersonFieldSet extends StatelessWidget {
   final TextEditingController _cityController;
   final TextEditingController _zipController;
   final USState? _initialUSState;
+  final void Function(dynamic)? _dropdownOnChanged;
 
   // Constructor ///////////////////////////////////////////////////////////////
   const PersonFieldSet({
@@ -72,6 +73,7 @@ class PersonFieldSet extends StatelessWidget {
     required TextEditingController cityController,
     required TextEditingController zipController,
     USState? initialUSState,
+    Function(dynamic)? dropdownOnChanged,
     bool editingEvaluator = false,
     super.key,
   })  : _nameController = nameController,
@@ -80,6 +82,7 @@ class PersonFieldSet extends StatelessWidget {
         _cityController = cityController,
         _zipController = zipController,
         _initialUSState = initialUSState,
+        _dropdownOnChanged = dropdownOnChanged,
         _hintName = editingEvaluator ? _hintNameEvaluator : _hintNameLandowner;
 
   // Layout ////////////////////////////////////////////////////////////////////
@@ -184,7 +187,7 @@ class PersonFieldSet extends StatelessWidget {
       items: _createDropdownItems,
       value: _initialUSState,
       hint: _hintUSState,
-      onChanged: (value) => {},
+      onChanged: _dropdownOnChanged,
       validator: _validateUSState,
     );
   }
