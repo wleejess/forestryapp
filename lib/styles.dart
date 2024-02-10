@@ -8,11 +8,17 @@ class Styles {
     foregroundColor: _colorScheme.onPrimaryContainer,
   );
 
+  static const _inputDecorationTheme = InputDecorationTheme(
+    labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+    helperStyle: TextStyle(fontSize: 14.0)
+  );
+
   static ThemeData makeTheme() {
     return ThemeData(
       useMaterial3: true,
       appBarTheme: _appBarTheme,
       colorScheme: _colorScheme,
+      inputDecorationTheme: _inputDecorationTheme,
     );
   }
 }
