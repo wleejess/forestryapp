@@ -142,11 +142,25 @@ class _SettingsEditState extends State<SettingsEdit> {
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
+      storeContactInfoSettings();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(SettingsEdit._msgSubmit, textAlign: TextAlign.center),
         ),
       );
     }
+  }
+
+  void storeContactInfoSettings() {
+    widget._sharedPreferences
+        .setString(SettingsKey.evaluatorName, _nameController.text);
+    widget._sharedPreferences
+        .setString(SettingsKey.evaluatorEmail, _emailController.text);
+    widget._sharedPreferences
+        .setString(SettingsKey.evaluatorAddress, _addressController.text);
+    widget._sharedPreferences
+        .setString(SettingsKey.evaluatorCity, _cityController.text);
+    widget._sharedPreferences
+        .setString(SettingsKey.evaluatorZip, _zipController.text);
   }
 }
