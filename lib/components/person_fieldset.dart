@@ -178,17 +178,21 @@ class PersonFieldSet extends StatelessWidget {
   // Input: Dropdowns //////////////////////////////////////////////////////////
   DropdownButtonFormField _buildUSState() {
     return DropdownButtonFormField(
-      items: <DropdownMenuItem>[
-        for (var usState in USState.values)
-          DropdownMenuItem(
-            value: usState,
-            child: Text(usState.label.toUpperCase()),
-          )
-      ],
+      items: _createDropdownItems,
       hint: _hintUSState,
       onChanged: (value) => {},
       validator: _validateUSState,
     );
+  }
+
+  List<DropdownMenuItem<dynamic>> get _createDropdownItems {
+    return <DropdownMenuItem>[
+      for (var usState in USState.values)
+        DropdownMenuItem(
+          value: usState,
+          child: Text(usState.label.toUpperCase()),
+        )
+    ];
   }
 
   // Validators ////////////////////////////////////////////////////////////////
