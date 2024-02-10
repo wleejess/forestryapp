@@ -10,6 +10,7 @@ class SettingsEdit extends StatefulWidget {
   static const _labelSaveButton = "Save";
   static const double _minFontSize = 0;
   static const double _maxFontSize = 400;
+  static const double _defaultFontSize = 100;
   static const _msgSubmit = "Settings updated!";
 
   // Instance Variables ////////////////////////////////////////////////////////
@@ -24,15 +25,23 @@ class SettingsEdit extends StatefulWidget {
 }
 
 class _SettingsEditState extends State<SettingsEdit> {
-  // State variables ///////////////////////////////////////////////////////////
+  // State /////////////////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
-  double _fontSize = 100;
 
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _addressController;
   late final TextEditingController _cityController;
   late final TextEditingController _zipController;
+
+  double get _fontSize {
+    return widget._sharedPreferences.getDouble(SettingsKey.fontSize) ??
+        SettingsEdit._defaultFontSize;
+  }
+
+  set _fontSize(double newFontSize) {
+    widget._sharedPreferences.setDouble(SettingsKey.fontSize, newFontSize);
+  }
 
   // Lifecycle Methods /////////////////////////////////////////////////////////
   @override
@@ -121,9 +130,15 @@ class _SettingsEditState extends State<SettingsEdit> {
       min: SettingsEdit._minFontSize,
       max: SettingsEdit._maxFontSize,
       onChanged: (newFontSize) => {
-        setState(() {
-          _fontSize = newFontSize;
-        })
+        setState(
+          () {
+            // Immediately saves font size to shared preferences via setter as
+            // we can skip middle man state variable and directly use Shared
+            // Preferences for state. Save button not needed since slider cannot
+            // be validated.
+            _fontSize = newFontSize;
+          },
+        )
       },
       divisions: 8,
       label: _formatFontSize(),
