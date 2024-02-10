@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
+import 'package:forestryapp/enums/settings_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsEdit extends StatefulWidget {
@@ -12,7 +13,6 @@ class SettingsEdit extends StatefulWidget {
   static const _msgSubmit = "Settings updated!";
 
   // Instance Variables ////////////////////////////////////////////////////////
-  // ignore: unused_field
   final SharedPreferences _sharedPreferences;
 
   // Constructor ///////////////////////////////////////////////////////////////
@@ -28,17 +28,35 @@ class _SettingsEditState extends State<SettingsEdit> {
   final _formKey = GlobalKey<FormState>();
   double _fontSize = 100;
 
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _cityController = TextEditingController();
-  final _zipController = TextEditingController();
+  late final TextEditingController _nameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _addressController;
+  late final TextEditingController _cityController;
+  late final TextEditingController _zipController;
 
   // Lifecycle Methods /////////////////////////////////////////////////////////
   @override
   void initState() {
     super.initState(); // Convention is to execute as first line of body.
+    _nameController =
+        TextEditingController(text: _readSetting(SettingsKey.evaluatorName));
+    _emailController =
+        TextEditingController(text: _readSetting(SettingsKey.evaluatorEmail));
+    _addressController =
+        TextEditingController(text: _readSetting(SettingsKey.evaluatorAddress));
+    _cityController =
+        TextEditingController(text: _readSetting(SettingsKey.evaluatorCity));
+    _zipController =
+        TextEditingController(text: _readSetting(SettingsKey.evaluatorZip));
   }
+
+  /// Retrieve value (or fallback) stored in SharedSettings with provided key.
+  ///
+  /// Assumes [settingsKey] is a valid key in `SharedSettings`. Assumes value
+  /// stored with key [settingsKey] is indeed a string. Will return [fallback]
+  /// if [settingsKey] is not found.
+  String _readSetting(String settingsKey, {String fallback = ""}) =>
+      widget._sharedPreferences.getString(settingsKey) ?? fallback;
 
   @override
   void dispose() {
