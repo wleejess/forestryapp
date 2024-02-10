@@ -10,6 +10,7 @@ class SettingsReview extends StatefulWidget {
   static const _title = "Settings";
   static const _labelFontSize = "Font Size: ";
   static const _labelEditButton = "Edit";
+  static const _fallbackEvaluatormName = "Evaluator Name";
 
   // Instance variables ////////////////////////////////////////////////////////
   // Dummy Data for forestry professional until we can implement Shared
@@ -33,7 +34,9 @@ class _SettingsReviewState extends State<SettingsReview> {
       body: Column(
         children: [
           ContactInfo(
-            name: widget._settings.evaluatorName,
+            name: (widget._settings.evaluatorName.isEmpty)
+                ? SettingsReview._fallbackEvaluatormName
+                : widget._settings.evaluatorName,
             email: widget._settings.evaluatorEmail,
             combinedAddress: widget._settings.combinedAddress,
           ),
