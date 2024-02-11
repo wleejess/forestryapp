@@ -36,6 +36,31 @@ class BasicInformation extends StatefulWidget {
 }
 
 class _BasicInformationState extends State<BasicInformation> {
+  // State /////////////////////////////////////////////////////////////////////
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _nameController;
+  late final TextEditingController _acresController;
+  late final TextEditingController _goalsController;
+
+  // Lifecycle Methods /////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState();
+
+    _nameController = TextEditingController();
+    _acresController = TextEditingController();
+    _goalsController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _acresController.dispose();
+    _goalsController.dispose();
+
+    super.dispose();
+  }
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -54,10 +79,9 @@ class _BasicInformationState extends State<BasicInformation> {
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
-        controller: nameController,
+        controller: _nameController,
         labelText: BasicInformation._nameHeading,
         helperText: BasicInformation._nameDescription,
         onChanged: (text) {}
@@ -67,7 +91,6 @@ class _BasicInformationState extends State<BasicInformation> {
 
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
-    final TextEditingController acresController = TextEditingController();
     return PortraitHandlingSizedBox(
       child: TextFormField(
         keyboardType: TextInputType.number,
@@ -75,7 +98,7 @@ class _BasicInformationState extends State<BasicInformation> {
           labelText: BasicInformation._acresHeading,
           helperText: BasicInformation._acresDescription,
         ),
-        controller: acresController,
+        controller: _acresController,
       ),
     );
   }
@@ -131,10 +154,8 @@ class _BasicInformationState extends State<BasicInformation> {
 
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
-    final TextEditingController goalsController = TextEditingController();
-
     return FreeTextBox(
-      controller: goalsController,
+      controller: _goalsController,
       labelText: BasicInformation._goalsHeading,
       helperText: BasicInformation._goalDescription,
       onChanged: (text) {}
