@@ -3,7 +3,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 
-class PestsScreen extends StatelessWidget {
+class PestsScreen extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Insects & Diseases";
   static const _insectsHeading = "Insects present";
@@ -19,12 +19,41 @@ class PestsScreen extends StatelessWidget {
   /// Creates a screen to enter information on insects and diseases present in the area.
   const PestsScreen({super.key});
 
+  @override
+  State<PestsScreen> createState() => _PestsScreenState();
+}
+
+class _PestsScreenState extends State<PestsScreen> {
+  // State /////////////////////////////////////////////////////////////////////
+  final _formKey = GlobalKey<FormState>();
+
+  late final TextEditingController _insectsController;
+  late final TextEditingController _diseasesController;
+
+// Lifecycle Methods /////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState();
+
+    _insectsController = TextEditingController();
+    _diseasesController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _insectsController.dispose();
+    _diseasesController.dispose();
+
+    super.dispose();
+  }
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: PestsScreen._title,
       body: FormScaffold(
+        formKey: _formKey,
         children: <Widget>[
           _buildInsectsInput(context),
           _buildDiseasesInput(context)          
@@ -35,21 +64,19 @@ class PestsScreen extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildInsectsInput(BuildContext context) {
-    final TextEditingController insectsController = TextEditingController();
     return FreeTextBox(
-      controller: insectsController, 
-      labelText: _insectsHeading, 
-      helperText: _insectsDescription,
+      controller: _insectsController, 
+      labelText: PestsScreen._insectsHeading, 
+      helperText: PestsScreen._insectsDescription,
       onChanged: (text) {}
     );
   }
 
   Widget _buildDiseasesInput(BuildContext context) {
-    final TextEditingController diseasesController = TextEditingController();
     return FreeTextBox(
-      controller: diseasesController, 
-      labelText: _diseasesHeading, 
-      helperText: _diseasesDescription,
+      controller: _diseasesController, 
+      labelText: PestsScreen._diseasesHeading, 
+      helperText: PestsScreen._diseasesDescription,
       onChanged: (text) {}
     );
   }
