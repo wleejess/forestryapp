@@ -7,7 +7,7 @@ import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/hawksworth.dart";
 import "package:forestryapp/enums/mistletoe_uniformity.dart";
 
-class MistletoeScreen extends StatelessWidget {
+class MistletoeScreen extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";
   static const _uniformityHeading = "Uniformity";
@@ -28,6 +28,33 @@ class MistletoeScreen extends StatelessWidget {
   /// Creates a screen with a form to add information about mistletoe infections in the area.
   const MistletoeScreen({super.key});
 
+  @override
+  State<MistletoeScreen> createState() => _MistletoeScreenState();
+}
+
+class _MistletoeScreenState extends State<MistletoeScreen> {
+  // State /////////////////////////////////////////////////////////////////////
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _speciesController;
+  late final TextEditingController _locationController;
+
+  // Lifecycle Methods /////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState();
+
+    _speciesController = TextEditingController();
+    _locationController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _speciesController.dispose();
+    _locationController.dispose();
+
+    super.dispose();
+  }
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -39,56 +66,52 @@ class MistletoeScreen extends StatelessWidget {
     ];
 
     return ForestryScaffold(
-      title: _title,
+      title: MistletoeScreen._title,
       body: FormScaffold(
+        formKey: _formKey,
         children: children,
       )
     );
   }
 
-  // Inputs ////////////////////////////////////////////////////////////////////
   /// Builds a radio form field about mistletoe uniformity.
   Widget _buildUniformityInput(BuildContext context) {
     return RadioOptions(
-      header: _uniformityHeading,
+      header: MistletoeScreen._uniformityHeading,
       enumValues: MistletoeUniformity.values,
       initialValue: MistletoeUniformity.uniform,
       onSelected: (i) {},
-      helperText: _uniformityDescription,
+      helperText: MistletoeScreen._uniformityDescription,
     );
   }
 
   /// Builds a radio form field about Hawksworth Infection Rating.
   Widget _buildHawksworthInput(BuildContext context) {
     return RadioOptions(
-      header: _hawksworthHeading,
+      header: MistletoeScreen._hawksworthHeading,
       enumValues: Hawksworth.values,
       initialValue: Hawksworth.none,
       onSelected: (i) {},
-      helperText: _hawksworthDescription,
+      helperText: MistletoeScreen._hawksworthDescription,
     );
   }
 
   /// Builds a text input field about mistletoe location.
   Widget _buildLocationInput(BuildContext context) {
-    final TextEditingController locationController = TextEditingController();
-
     return FreeTextBox(
-      controller: locationController, 
-      labelText: _locationHeading, 
-      helperText: _locationDescription,
+      controller: _locationController, 
+      labelText: MistletoeScreen._locationHeading, 
+      helperText: MistletoeScreen._locationDescription,
       onChanged: (text) {}
     );
   }
 
   /// Builds a text input field about tree species infected with mistletoe.
   Widget _buildSpeciesInput(BuildContext context) {
-    final TextEditingController speciesController = TextEditingController();
-
     return FreeTextBox(
-      controller: speciesController, 
-      labelText: _speciesHeading, 
-      helperText: _speciesDescription,
+      controller: _speciesController, 
+      labelText: MistletoeScreen._speciesHeading, 
+      helperText: MistletoeScreen._speciesDescription,
       onChanged: (text) {}
     );
   }
