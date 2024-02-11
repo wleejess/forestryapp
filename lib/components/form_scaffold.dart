@@ -8,13 +8,16 @@ class FormScaffold extends StatelessWidget {
 
   // Instance variables ////////////////////////////////////////////////////////
   final List<Widget> _children;
+  final GlobalKey _formKey;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// 
   const FormScaffold({
     required List<Widget> children,
+    required GlobalKey formKey,
     super.key,
-  })  : _children = children;
+  })  : _children = children,
+        _formKey = formKey;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -26,8 +29,11 @@ class FormScaffold extends StatelessWidget {
             // Creates a 4x4 grid, but the height matches the content size.
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Wrap(
-                children: _children,
+              child: Form(
+                key: _formKey,
+                child: Wrap(
+                  children: _children,
+                ),
               ),
             ),
             Row(
