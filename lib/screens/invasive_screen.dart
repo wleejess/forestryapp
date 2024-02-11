@@ -3,7 +3,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 
-class InvasiveScreen extends StatelessWidget {
+class InvasiveScreen extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Invasive & Wildlife";
   static const _invasiveHeading = "Invasive plants & animals";
@@ -18,12 +18,41 @@ class InvasiveScreen extends StatelessWidget {
   /// and wildlife damage present in the area.
   const InvasiveScreen({super.key});
 
+  @override
+  State<InvasiveScreen> createState() => _InvasiveScreenState();
+}
+
+class _InvasiveScreenState extends State<InvasiveScreen> {
+  // State /////////////////////////////////////////////////////////////////////
+  final _formKey = GlobalKey<FormState>();
+
+  late final TextEditingController _invasiveController;
+  late final TextEditingController _wildlifeController;
+
+  // Lifecycle Methods /////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState();
+
+    _invasiveController = TextEditingController();
+    _wildlifeController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _invasiveController.dispose();
+    _wildlifeController.dispose();
+
+    super.dispose();
+  }
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: InvasiveScreen._title,
       body: FormScaffold(
+        formKey: _formKey,
         children: <Widget>[
           _buildInvasiveInput(context),
           _buildWildlifeInput(context),
@@ -32,25 +61,22 @@ class InvasiveScreen extends StatelessWidget {
     );
   }
 
-  // Inputs ////////////////////////////////////////////////////////////////////
   /// Builds a text input field about invasive plants and animals in the area.
   Widget _buildInvasiveInput(BuildContext context) {
-    final TextEditingController invasiveController = TextEditingController();
     return FreeTextBox(
-      controller: invasiveController, 
-      labelText: _invasiveHeading, 
-      helperText: _invasiveDescription,
+      controller: _invasiveController, 
+      labelText: InvasiveScreen._invasiveHeading, 
+      helperText: InvasiveScreen._invasiveDescription,
       onChanged: (text) {}
     );
   }
 
   /// Builds a text input field about wildlife damage in the area.
   Widget _buildWildlifeInput(BuildContext context) {
-    final TextEditingController wildlifeController = TextEditingController();
     return FreeTextBox(
-      controller: wildlifeController, 
-      labelText: _wildlifeHeading, 
-      helperText: _wildlifeDescription,
+      controller: _wildlifeController, 
+      labelText: InvasiveScreen._wildlifeHeading, 
+      helperText: InvasiveScreen._wildlifeDescription,
       onChanged: (text) {}
     );
   }
