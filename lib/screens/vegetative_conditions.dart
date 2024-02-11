@@ -11,7 +11,7 @@ import "package:forestryapp/enums/cover_type.dart";
 
 class VegetativeConditions extends StatelessWidget {
   // Instance Variables
-  final _title = "Vegetative Conditions";
+  static const _title = "Vegetative Conditions";
   static const _coverTitle = "Cover Type";
   static const _strucTitle = "Stand Structure";
   static const _standDensity = "Stand Density";
@@ -22,22 +22,20 @@ class VegetativeConditions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [
-      // Cover Type
-      _buildCoverType(context, _coverTitle),
-      _buildOtherCoverType(context),
-      _buildStandStructure(context, _strucTitle),
-      // Overstory Stand Density
-      _buildStoryInfo(context, _overstoryInfo, _standDensity),
-      const SizedBox(height: 16.0),
-      _buildStoryInfo(context, _understoryInfo, _standDensity),
-      _buildStandHistory(context)
-    ];
-
     return ForestryScaffold(
       title: _title,
       body: FormScaffold(
-        children: children,
+        children: <Widget>[
+          // Cover Type
+          _buildCoverType(context, _coverTitle),
+          _buildOtherCoverType(context),
+          _buildStandStructure(context, _strucTitle),
+          // Overstory Stand Density
+          _buildStoryInfo(context, _overstoryInfo, _standDensity),
+          const SizedBox(height: 16.0),
+          _buildStoryInfo(context, _understoryInfo, _standDensity),
+          _buildStandHistory(context)
+        ],
       )
     );
   }
