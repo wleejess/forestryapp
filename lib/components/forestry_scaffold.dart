@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/screens/area_index.dart';
+import 'package:forestryapp/screens/basic_information.dart';
 import 'package:forestryapp/screens/invasive_screen.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_screen.dart';
@@ -76,6 +77,17 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AreaIndex()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Basic Information'),
+        leading: const Icon(Icons.badge),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const BasicInformation()),
           );
         },
       ),
