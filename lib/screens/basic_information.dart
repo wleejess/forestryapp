@@ -37,7 +37,6 @@ class BasicInformation extends StatefulWidget {
 
 class _BasicInformationState extends State<BasicInformation> {
   // State /////////////////////////////////////////////////////////////////////
-  final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _acresController;
   late final TextEditingController _goalsController;
