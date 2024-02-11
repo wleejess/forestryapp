@@ -135,7 +135,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RoadHealth()),
+            MaterialPageRoute(builder: (context) => const RoadHealth()),
           );
         },
       ),
@@ -145,7 +145,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WaterIssues()),
+            MaterialPageRoute(builder: (context) => const WaterIssues()),
           );
         },
       ),
@@ -155,7 +155,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FireRisk()),
+            MaterialPageRoute(builder: (context) => const FireRisk()),
           );
         },
       ),
@@ -165,7 +165,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OtherIssues()),
+            MaterialPageRoute(builder: (context) => const OtherIssues()),
           );
         },
       ),
