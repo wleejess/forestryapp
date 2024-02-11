@@ -8,14 +8,14 @@ class BasicInformation extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Basic Information";
   static const _nameHeading = "Area name";
-  static const _nameDescription = "If the landowner does not have a name for the"
+  static const _nameDescription = "If the landowner does not have a name for the "
     "area, make up a descriptive name (meadow, young DF stand, etc.).";
   static const _acresHeading = "Acres";
   static const _acresDescription = "Approximate acres for the stand or area.";
   static const _landownerHeading = "Landowner";
   static const _landownerHint = "John Doe";
   static const _goalsHeading = "Landowner Goals and Objectives";
-  static const _goalDescription = "The landowner's goals and objectives for this"
+  static const _goalDescription = "The landowner's goals and objectives for this "
     "specific stand/area.";
 
   // Constructor ///////////////////////////////////////////////////////////////
