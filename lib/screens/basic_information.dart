@@ -4,7 +4,7 @@ import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 
-class BasicInformation extends StatelessWidget {
+class BasicInformation extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Basic Information";
   static const _nameHeading = "Area name";
@@ -18,51 +18,114 @@ class BasicInformation extends StatelessWidget {
   static const _goalDescription = "The landowner's goals and objectives for this "
     "specific stand/area.";
 
+  /// Dummy data to be replaced by model later.
+  static const _landowners = [
+    "Amy Adams",
+    "Bob Bancroft",
+    "Chet Chapman",
+    "Donna Dawson",
+    "Edgar Edmonds",
+  ];
+
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen with a form to add name, landowner, and acres to the area.
   const BasicInformation({super.key});
 
+  @override
+  State<BasicInformation> createState() => _BasicInformationState();
+}
+
+class _BasicInformationState extends State<BasicInformation> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: BasicInformation._title,
       body: FormScaffold(
         children: <Widget>[
           _buildNameInput(context),
           _buildAcresInput(context),
+          _buildLandownerInput(context),
           _buildGoalsInput(context),
         ],
       )
     );
   }
 
-  // Inputs ////////////////////////////////////////////////////////////////////
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
     final TextEditingController nameController = TextEditingController();
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
         controller: nameController,
-        labelText: _nameHeading,
-        helperText: _nameDescription,
+        labelText: BasicInformation._nameHeading,
+        helperText: BasicInformation._nameDescription,
         onChanged: (text) {}
       ),
     );
   }
 
-  // Builds a numeric input field to enter the acres for the area.
+  /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
     final TextEditingController acresController = TextEditingController();
     return PortraitHandlingSizedBox(
       child: TextFormField(
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          labelText: _acresHeading,
-          helperText: _acresDescription,
+          labelText: BasicInformation._acresHeading,
+          helperText: BasicInformation._acresDescription,
         ),
         controller: acresController,
       ),
+    );
+  }
+
+  /// Builds a Search bar to select a Landowner for the area.
+  Widget _buildLandownerInput(BuildContext context) {
+    return SearchAnchor(
+      builder: (BuildContext context, SearchController controller) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  BasicInformation._landownerHeading,
+                  style: Theme.of(context).inputDecorationTheme.labelStyle,
+                ),
+              ),
+              SearchBar(
+                controller: controller,
+                onTap: () {
+                  controller.openView();
+                },
+                onChanged: (_) {
+                  controller.openView();
+                },
+                onSubmitted: (_) {
+                  controller.closeView(controller.text);
+                },
+                hintText: BasicInformation._landownerHint,
+                leading: const Icon(Icons.search),
+              ),
+            ],
+          ),
+        );
+      }, 
+      suggestionsBuilder: (BuildContext context, SearchController controller) {
+        return BasicInformation._landowners.map((name) {
+          return ListTile(
+            title: Text(name),
+            onTap: () {
+              setState(() {
+                controller.closeView(name);
+              });
+            }
+          );
+        });
+      },
     );
   }
 
@@ -72,8 +135,8 @@ class BasicInformation extends StatelessWidget {
 
     return FreeTextBox(
       controller: goalsController,
-      labelText: _goalsHeading,
-      helperText: _goalDescription,
+      labelText: BasicInformation._goalsHeading,
+      helperText: BasicInformation._goalDescription,
       onChanged: (text) {}
     );
   }
