@@ -62,6 +62,8 @@ class PersonFieldSet extends StatelessWidget {
   final TextEditingController _addressController;
   final TextEditingController _cityController;
   final TextEditingController _zipController;
+  final USState? _initialUSState;
+  final void Function(dynamic)? _dropdownOnChanged;
 
   // Constructor ///////////////////////////////////////////////////////////////
   const PersonFieldSet({
@@ -70,6 +72,8 @@ class PersonFieldSet extends StatelessWidget {
     required TextEditingController addressController,
     required TextEditingController cityController,
     required TextEditingController zipController,
+    USState? initialUSState,
+    Function(dynamic)? dropdownOnChanged,
     bool editingEvaluator = false,
     super.key,
   })  : _nameController = nameController,
@@ -77,6 +81,8 @@ class PersonFieldSet extends StatelessWidget {
         _addressController = addressController,
         _cityController = cityController,
         _zipController = zipController,
+        _initialUSState = initialUSState,
+        _dropdownOnChanged = dropdownOnChanged,
         _hintName = editingEvaluator ? _hintNameEvaluator : _hintNameLandowner;
 
   // Layout ////////////////////////////////////////////////////////////////////
@@ -178,17 +184,22 @@ class PersonFieldSet extends StatelessWidget {
   // Input: Dropdowns //////////////////////////////////////////////////////////
   DropdownButtonFormField _buildUSState() {
     return DropdownButtonFormField(
-      items: <DropdownMenuItem>[
-        for (var usState in USState.values)
-          DropdownMenuItem(
-            value: usState,
-            child: Text(usState.label.toUpperCase()),
-          )
-      ],
+      items: _createDropdownItems,
+      value: _initialUSState,
       hint: _hintUSState,
-      onChanged: (value) => {},
+      onChanged: _dropdownOnChanged,
       validator: _validateUSState,
     );
+  }
+
+  List<DropdownMenuItem<dynamic>> get _createDropdownItems {
+    return <DropdownMenuItem>[
+      for (var usState in USState.values)
+        DropdownMenuItem(
+          value: usState,
+          child: Text(usState.label.toUpperCase()),
+        )
+    ];
   }
 
   // Validators ////////////////////////////////////////////////////////////////

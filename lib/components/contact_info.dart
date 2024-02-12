@@ -27,29 +27,34 @@ class ContactInfo extends StatelessWidget {
             _name,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          _buildContactInfoTable()
+          _buildContactInfoTable(context)
         ],
       ),
     );
   }
 
-  Table _buildContactInfoTable() {
+  Table _buildContactInfoTable(BuildContext context) {
     return Table(
       defaultColumnWidth: const IntrinsicColumnWidth(),
       children: [
-        TableRow(children: _buildTableRow("Email", _email)),
-        TableRow(children: _buildTableRow("Address", _combinedAddress)),
+        TableRow(children: _buildTableRow(context, "Email", _email)),
+        TableRow(
+            children: _buildTableRow(context, "Address", _combinedAddress)),
       ],
     );
   }
 
-  List<Widget> _buildTableRow(String label, String info) {
+  List<Widget> _buildTableRow(BuildContext context, String label, String info) {
+    final TextStyle? styleValue = Theme.of(context).textTheme.headlineSmall;
+    final TextStyle styleLabel =
+        styleValue!.copyWith(fontWeight: FontWeight.bold);
+
     return [
       Container(
-          alignment: Alignment.centerRight,
-          child: Text("$label: ",
-              style: const TextStyle(fontWeight: FontWeight.bold))),
-      SelectableText(info),
+        alignment: Alignment.centerRight,
+        child: Text("$label: ", style: styleLabel),
+      ),
+      SelectableText(info, style: styleValue),
     ];
   }
 }

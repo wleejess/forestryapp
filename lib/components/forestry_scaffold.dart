@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information.dart';
 import 'package:forestryapp/screens/invasive_screen.dart';
@@ -56,7 +57,11 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SettingsReview()),
+            MaterialPageRoute(
+              builder: (context) => SettingsReview(
+                settings: InheritedSettings.of(context).settings,
+              ),
+            ),
           );
         },
       ),
@@ -69,7 +74,7 @@ class ForestryScaffold extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const LandownerIndex()),
           );
         },
-      ),      
+      ),
       ListTile(
         title: const Text('Areas'),
         leading: const Icon(Icons.forest),
