@@ -38,6 +38,7 @@ class BasicInformation extends StatefulWidget {
 class _BasicInformationState extends State<BasicInformation> {
   // State /////////////////////////////////////////////////////////////////////
   late final TextEditingController _nameController;
+  final _formKey = GlobalKey<FormState>();
   late final TextEditingController _acresController;
   late final TextEditingController _goalsController;
 
@@ -66,6 +67,7 @@ class _BasicInformationState extends State<BasicInformation> {
     return ForestryScaffold(
       title: BasicInformation._title,
       body: FormScaffold(
+        formKey: _formKey,
         children: <Widget>[
           _buildNameInput(context),
           _buildAcresInput(context),
