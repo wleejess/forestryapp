@@ -161,11 +161,17 @@ class _SettingsEditState extends State<SettingsEdit> {
   }
 
   /// Immediately stores US State from dropdown to `SavedPreferences`.
-  void _storeUSState(dynamic usState) {
-    if (usState is USState?) {
-      widget._settings.evaluatorUSState = usState;
+  _storeUSState(dynamic usState) {
+    if (usState is! USState?) {
+      // Sanity check: `usState` should have type `USState` otherwise user
+      // somehow managed to force the dropdown to take some other unexpected
+      // type (which should not be possible). This should not be caught but
+      // instead addressed by the programmer if thrown. See Exceptions vs Errors
+      // https://stackoverflow.com/a/58361954 for the difference between the two
+      // Dart types.
+      throw AssertionError(SettingsEdit._warningValidationFailType);
     }
 
-    throw Exception(SettingsEdit._warningValidationFailType);
+    widget._settings.evaluatorUSState = usState;
   }
 }
