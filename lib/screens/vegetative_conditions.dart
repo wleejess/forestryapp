@@ -137,7 +137,6 @@ class _VegetativeConditionsState extends State<VegetativeConditions> {
           hintText: historyHelp,
           labelText: historyTitle,
         ),
-        onSaved: (String? value) {},
-        validator: (String? value) {});
+        onSaved: (String? value) {});
   }
 }
