@@ -50,22 +50,22 @@ class _VegetativeConditionsState extends State<VegetativeConditions> {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: VegetativeConditions._title,
-      body: FormScaffold(
-        formKey: _formKey,
-        children: <Widget>[
-          // Cover Type
-          _buildCoverType(context, VegetativeConditions._coverTitle),
-          _buildOtherCoverType(context),
-          _buildStandStructure(context, VegetativeConditions._strucTitle),
-          // Overstory Stand Density
-          _buildStoryInfo(context, VegetativeConditions._overstoryInfo, VegetativeConditions._standDensity),
-          const SizedBox(height: 16.0),
-          _buildStoryInfo(context, VegetativeConditions._understoryInfo, VegetativeConditions._standDensity),
-          _buildStandHistory(context)
-        ],
-      )
-    );
+        title: VegetativeConditions._title,
+        body: FormScaffold(
+          formKey: _formKey,
+          children: <Widget>[
+            // Cover Type
+            _buildCoverType(context, VegetativeConditions._coverTitle),
+            _buildOtherCoverType(context),
+            _buildStandStructure(context, VegetativeConditions._strucTitle),
+            // Overstory Stand Density
+            _buildStoryInfo(context, VegetativeConditions._overstoryInfo,
+                VegetativeConditions._standDensity),
+            _buildStoryInfo(context, VegetativeConditions._understoryInfo,
+                VegetativeConditions._standDensity),
+            _buildStandHistory(context)
+          ],
+        ));
   }
 
   Widget _buildCoverType(BuildContext context, header) {
@@ -81,15 +81,14 @@ class _VegetativeConditionsState extends State<VegetativeConditions> {
 
   Widget _buildOtherCoverType(BuildContext context) {
     return PortraitHandlingSizedBox(
-      child: FreeTextBox(
-        labelText: "Other Cover Type",
-        controller: _coverTypeController,
-        helperText: "List cover type if the option is not in the dropdown.",
-        onChanged: (text) {
-          // Handle elevation text changes
-        },
-      )
-    );
+        child: FreeTextBox(
+      labelText: "Other Cover Type",
+      controller: _coverTypeController,
+      helperText: "List cover type if the option is not in the dropdown.",
+      onChanged: (text) {
+        // Handle elevation text changes
+      },
+    ));
   }
 
   Widget _buildStandStructure(BuildContext context, header) {
@@ -109,6 +108,7 @@ class _VegetativeConditionsState extends State<VegetativeConditions> {
       collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
       collapsedTextColor: Colors.white,
       collapsedIconColor: Colors.white,
+      childrenPadding: const EdgeInsets.all(32.0),
       children: [
         RadioOptions(
           header: density,
@@ -118,26 +118,25 @@ class _VegetativeConditionsState extends State<VegetativeConditions> {
             // Handle overstory stand density selection
           },
         ),
-        const TextField(
-            decoration: InputDecoration(
-          labelText: "Species Composition",
-          hintText: "Enter a % value",
-        )),
+        TextFormField(
+            decoration: const InputDecoration(
+                labelText: "Species Composition", hintText: "Enter a % value"),
+            onSaved: (String? value) {},
+            keyboardType: const TextInputType.numberWithOptions(decimal: true))
       ],
     );
   }
 
   Widget _buildStandHistory(BuildContext context) {
     const historyTitle = "Stand/Area History";
-    const historyHelp = "Describe prior management activities and/or disturbances"
+    const historyHelp =
+        "Describe prior management activities and/or disturbances"
         "that have shaped or influenced the stand as it appears today";
-    return FreeTextBox(
-      labelText: historyTitle,
-      helperText: historyHelp,
-      controller: _standHistoryController,
-      onChanged: (text) {
-        // Handle elevation text changes
-      },
-    );
+    return TextFormField(
+        decoration: const InputDecoration(
+          hintText: historyHelp,
+          labelText: historyTitle,
+        ),
+        onSaved: (String? value) {});
   }
 }
