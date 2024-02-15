@@ -121,9 +121,9 @@ CREATE TABLE if NOT EXISTS areas(
   cover_type TEXT,
 
   stand_structure TEXT CHECK(stand_structure IN (
-    'even-aged',
-    'two-aged',
-    'multi-aged'
+    'Even-aged',
+    'Two-aged',
+    'Multi-aged'
   )),
 
   overstory_stand_density TEXT CHECK(overstory_stand_density IN (
