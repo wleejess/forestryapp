@@ -100,3 +100,50 @@ INSERT INTO damages(category, name) VALUES(
 INSERT INTO damages(category, name) VALUES(
   'insects', 'Oystershell scale'
 );
+
+-- Known Diseases
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Laminated root rot'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Armillaria root rot'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Annosus root rot'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Black stain'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Port-Orford-cedar root disease'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Schweinitzii root & butt rot'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Phellinus pini'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Indian paint fungus'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Swiss needle CAST'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Dothistroma needle blight (of pines)'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Elytroderma disease (of ponderosa pine)'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Diplodia'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Western gall rust'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'White pine blister rust'
+);
+INSERT INTO damages(category, name) VALUES(
+  'diseases', 'Commandra rust'
+);
