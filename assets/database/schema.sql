@@ -76,6 +76,13 @@ CREATE TABLE if NOT EXISTS landowners(
 -- Areas ----------------------------------------------------------------------
 CREATE TABLE if NOT EXISTS areas(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+  -- Many (areas) to one (landowner) relation.
+  landowner_id INTEGER REFERENCES landowners(id)
+  -- Update/delete areas when their associated landowner is updated/deleted.
+  ON DELETE CASCADE
+  DEFERRABLE INITIALLY IMMEDIATE,
+
   name TEXT NOT NULL,
   acres INTEGER CHECK(0 <= acres),
   goals TEXT,
