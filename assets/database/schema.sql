@@ -147,3 +147,35 @@ INSERT INTO damages(category, name) VALUES(
 INSERT INTO damages(category, name) VALUES(
   'diseases', 'Commandra rust'
 );
+
+-- Known Invasives
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'False-brome'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Cheatgrass'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Scotch broom'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Gorse'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Holly'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Blackberries'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Honey suckle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Ivy'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Knapweed'
+);
+INSERT INTO damages(category, name) VALUES(
+  'invasives', 'Shiny-leaf gerannium'
+);
