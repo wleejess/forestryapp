@@ -87,7 +87,9 @@ CREATE TABLE if NOT EXISTS areas(
     'W',
     'NW'
   )),
-  slope_percentage INTEGER,
+  slope_percentage INTEGER CHECK(
+    0 <= slope_percentage AND slope_percentage <= 100
+  ),
   slope_position TEXT CHECK(slope_position IN (
     'lower',
     'middle',
@@ -108,13 +110,18 @@ CREATE TABLE if NOT EXISTS areas(
     'medium',
     'high'
   )),
-  overstory_species_composition INTEGER,
+  overstory_species_composition INTEGER CHECK(
+    0 <= overstory_species_composition AND overstory_species_composition <= 100
+  ),
   understory_stand_density TEXT CHECK(understory_stand_density IN (
     'low',
     'medium',
     'high'
   )),
-  understory_species_composition INTEGER,
+  understory_species_composition INTEGER CHECK(
+    0 <= understory_species_composition AND
+    understory_species_composition <= 100
+  ),
   history TEXT,
   wildlife_damage TEXT,
   mistletoe_uniformity TEXT CHECK(mistletoe_uniformity IN (
@@ -133,7 +140,6 @@ CREATE TABLE if NOT EXISTS areas(
   fire_risk TEXT,
   diagnosis TEXT
 );
-
 
 -- Damages --------------------------------------------------------------------
 CREATE TABLE if NOT EXISTS damages(
