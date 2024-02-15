@@ -1,3 +1,7 @@
+-- ASSUMES: foreign key support is turned on in sqflite as well. See
+-- https://stackoverflow.com/a/58901851
+PRAGMA foreign_keys = ON;
+
 -- Landowners -----------------------------------------------------------------
 CREATE TABLE if NOT EXISTS landowners(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
