@@ -3,13 +3,13 @@ import "package:forestryapp/enums/us_state.dart";
 
 class LandownerDataModel extends ChangeNotifier {
   LandownerDataModel({
-    required id,
-    required name,
-    required email,
-    required address,
-    required city,
-    required state,
-    required zip,
+    id = 0,
+    name = '',
+    email = '',
+    address = '',
+    city = '',
+    state = USState.alabama,
+    zip = '',
   }) : _id = id,
       _name = name,
       _email = email,
