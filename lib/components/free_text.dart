@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 /// Widget for entering free text, can be reused in different pages.
 
 class FreeTextBox extends StatelessWidget {
-  final TextEditingController controller;
   // final String header;
   final String? helperText;
   final String? hintText;
@@ -11,7 +10,6 @@ class FreeTextBox extends StatelessWidget {
   final void Function(String) onChanged;
 
   const FreeTextBox({
-    required this.controller,
     required this.labelText,
     this.helperText,
     this.hintText,
@@ -31,7 +29,6 @@ class FreeTextBox extends StatelessWidget {
         hintText: hintText
       ),
       onChanged: onChanged,
-      controller: controller,
     );
   }
 }

@@ -8,41 +8,13 @@ import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
 
-class SiteCharacteristics extends StatefulWidget {
+class SiteCharacteristics extends StatelessWidget {
   // Static Variables
   static const _title = "Site Characteristics";
 
-  const SiteCharacteristics({super.key});
-
-  @override
-  State<SiteCharacteristics> createState() => _SiteCharacteristicsState();
-}
-
-class _SiteCharacteristicsState extends State<SiteCharacteristics> {
-  // State /////////////////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _elevationController;
-  late final TextEditingController _slopePercentageController;
-  late final TextEditingController _soilInfoController;
 
-  // Lifecycle Methods /////////////////////////////////////////////////////////
-  @override
-  void initState() {
-    super.initState();
-
-    _elevationController = TextEditingController();
-    _slopePercentageController = TextEditingController();
-    _soilInfoController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _elevationController.dispose();
-    _slopePercentageController.dispose();
-    _soilInfoController.dispose();
-
-    super.dispose();
-  }
+  SiteCharacteristics({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +39,6 @@ class _SiteCharacteristicsState extends State<SiteCharacteristics> {
       widthFactorOnWideDevices: 0.3,
       child: FreeTextBox(
         labelText: 'Elevation',
-        controller: _elevationController,
         helperText: '',
         onChanged: (text) {
           // Handle elevation text changes
@@ -93,7 +64,6 @@ class _SiteCharacteristicsState extends State<SiteCharacteristics> {
       widthFactorOnWideDevices: 0.3,
       child: FreeTextBox(
         labelText: '% Slope',
-        controller: _slopePercentageController,
         helperText: 'Write in the approximate or average percent slope.',
         onChanged: (text) {},
       ),
@@ -117,7 +87,6 @@ class _SiteCharacteristicsState extends State<SiteCharacteristics> {
         " This can be from either the landowner, or from online.";
     
     return FreeTextBox(
-      controller: _soilInfoController,
       helperText: soilHelp,
       labelText: "Soil Information", 
       onChanged: (text) {
