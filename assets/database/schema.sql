@@ -11,6 +11,72 @@ CREATE TABLE if NOT EXISTS landowners(
   zip TEXT NOT NULL
 );
 
+-- Areas ----------------------------------------------------------------------
+CREATE TABLE if NOT EXISTS areas(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  acres INTEGER,
+  goals TEXT,
+  -- Elevation is measured in feet.
+  elevation INTEGER,
+  aspect TEXT CHECK(aspect IN (
+    'N',
+    'NE',
+    'E',
+    'SE',
+    'S',
+    'SW',
+    'W',
+    'NW'
+  )),
+  slope_percentage INTEGER,
+  slope_position TEXT CHECK(slope_position IN (
+    'lower',
+    'middle',
+    'upper',
+    'ridgetop'
+  )),
+  soil_information TEXT,
+  -- Cover type has no `CHECK` because although there are known cover types the
+  -- app also allows users to input their own.
+  cover_type TEXT,
+  stand_structure TEXT CHECK(stand_structure IN (
+    'even-aged',
+    'two-aged',
+    'multi-aged'
+  )),
+  overstory_stand_density TEXT CHECK(overstory_stand_density IN (
+    'low',
+    'medium',
+    'high'
+  )),
+  overstory_species_composition INTEGER,
+  understory_stand_density TEXT CHECK(understory_stand_density IN (
+    'low',
+    'medium',
+    'high'
+  )),
+  understory_species_composition INTEGER,
+  history TEXT,
+  wildlife_damage TEXT,
+  mistletoe_uniformity TEXT CHECK(mistletoe_uniformity IN (
+    'uniform',
+    'spotty'
+  )),
+  mistletoe_location TEXT,
+  hawksworth TEXT CHECK(hawksworth IN (
+    'None (0)',
+    'Low (1-2)',
+    'Medium (3-4)',
+    'High (5-6)'
+  )),
+  other_issues TEXT,
+  water_issues TEXT,
+  fire_risk TEXT,
+  diagnosis TEXT
+);
+
+
 -- Damages --------------------------------------------------------------------
 CREATE TABLE if NOT EXISTS damages(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
