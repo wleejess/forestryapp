@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/dependency_injection/inherited_settings.dart';
+import 'package:forestryapp/models/basic_info_data.dart';
+import 'package:forestryapp/models/landowner_data.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/models/veg_conditions_data.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
@@ -19,8 +21,12 @@ class ForestryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => VegConditionsDataModel(),
+    return MultiProvider(
+      providers: [
+        Provider<VegConditionsDataModel>(create: (context) => VegConditionsDataModel()),
+        Provider<LandownerDataModel>(create: (context) => LandownerDataModel()),
+        Provider<BasicInfoDataModel>(create:(context) => BasicInfoDataModel()),
+      ],
       child: MaterialApp(
         title: 'Forestry Wellness Checkup App',
         theme: Styles.makeTheme(),
