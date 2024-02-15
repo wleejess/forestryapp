@@ -22,3 +22,81 @@ CREATE TABLE if NOT EXISTS damages(
     'invasives'
   )) NOT NULL
 );
+
+-- Pre-populated Data ---------------------------------------------------------
+-- Known Insects
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Douglas-fir beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Mt pine Beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Western pine beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Pine engraver (Ips) beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Turpentine beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Spruce beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Fir engraver beetle'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Flat-headed wood borer'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Long-horned wood borer'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Emerald ash borer (invasive)'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Mediterranean oak borer (invasive)'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Asian longhorned beetle (invasive)'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Western spruce budworm'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Tussock moth'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Pandora moth'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Pine butterfly'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Larch casebearer'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Oak Looper'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Spruce aphid'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Balsam woolly adelgid'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Pine needle SCALE'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Elongated hemlock scale (invasive)'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Western pine shoot borer'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Sequoia pitch moth'
+);
+INSERT INTO damages(category, name) VALUES(
+  'insects', 'Oystershell scale'
+);
