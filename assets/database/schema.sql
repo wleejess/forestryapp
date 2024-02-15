@@ -73,10 +73,10 @@ CREATE TABLE if NOT EXISTS landowners(
 CREATE TABLE if NOT EXISTS areas(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  acres INTEGER,
+  acres INTEGER CHECK(0 <= acres),
   goals TEXT,
   -- Elevation is measured in feet.
-  elevation INTEGER,
+  elevation INTEGER CHECK(0 <= elevation),
   aspect TEXT CHECK(aspect IN (
     'N',
     'NE',
