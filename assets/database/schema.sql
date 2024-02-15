@@ -186,6 +186,19 @@ CREATE TABLE if NOT EXISTS damages(
   )) NOT NULL
 );
 
+-- Many-to-Many Relationship: Areas to Damages --------------------------------
+CREATE TABLE if NOT EXISTS areas_damages(
+  area_id INTEGER REFERENCES areas(id)
+  ON DELETE CASCADE
+  DEFERRABLE INITIALLY IMMEDIATE
+  NOT NULL,
+  damage_id INTEGER REFERENCES damages(id)
+  ON DELETE CASCADE
+  DEFERRABLE INITIALLY IMMEDIATE
+  NOT NULL,
+  PRIMARY KEY (area_id, damage_id)
+);
+
 -- Pre-populated Data ---------------------------------------------------------
 -- Known Insects
 INSERT INTO damages(category, name) VALUES(
