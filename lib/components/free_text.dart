@@ -24,10 +24,7 @@ class FreeTextBox extends StatelessWidget {
           null, // Setting this to null allows the TextField to expand as needed
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
-        labelText: labelText,
-        helperText: helperText,
-        hintText: hintText
-      ),
+          labelText: labelText, helperText: helperText, hintText: hintText),
       onChanged: onChanged,
     );
   }
