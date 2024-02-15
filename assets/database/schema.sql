@@ -93,14 +93,14 @@ CREATE TABLE if NOT EXISTS areas(
   elevation INTEGER CHECK(0 <= elevation),
 
   aspect TEXT CHECK(aspect IN (
-    'N',
-    'NE',
-    'E',
-    'SE',
-    'S',
-    'SW',
-    'W',
-    'NW'
+    'North',
+    'North East',
+    'East',
+    'South East',
+    'South',
+    'South West',
+    'West',
+    'North West'
   )),
 
   slope_percentage INTEGER CHECK(
