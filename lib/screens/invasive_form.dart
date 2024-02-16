@@ -3,7 +3,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 
-class InvasiveScreen extends StatelessWidget {
+class InvasiveForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Invasive & Wildlife";
   static const _invasiveHeading = "Invasive plants & animals";
@@ -18,13 +18,13 @@ class InvasiveScreen extends StatelessWidget {
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to enter information on invasive plants and animals,
   /// and wildlife damage present in the area.
-  InvasiveScreen({super.key});
+  InvasiveForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: InvasiveScreen._title,
+      title: InvasiveForm._title,
       body: FormScaffold(
         formKey: _formKey,
         children: <Widget>[
@@ -38,8 +38,8 @@ class InvasiveScreen extends StatelessWidget {
   /// Builds a text input field about invasive plants and animals in the area.
   Widget _buildInvasiveInput(BuildContext context) {
     return FreeTextBox(
-      labelText: InvasiveScreen._invasiveHeading, 
-      helperText: InvasiveScreen._invasiveDescription,
+      labelText: InvasiveForm._invasiveHeading, 
+      helperText: InvasiveForm._invasiveDescription,
       onChanged: (text) {}
     );
   }
@@ -47,8 +47,8 @@ class InvasiveScreen extends StatelessWidget {
   /// Builds a text input field about wildlife damage in the area.
   Widget _buildWildlifeInput(BuildContext context) {
     return FreeTextBox(
-      labelText: InvasiveScreen._wildlifeHeading, 
-      helperText: InvasiveScreen._wildlifeDescription,
+      labelText: InvasiveForm._wildlifeHeading, 
+      helperText: InvasiveForm._wildlifeDescription,
       onChanged: (text) {}
     );
   }

@@ -3,7 +3,7 @@ import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information_form.dart';
 import 'package:forestryapp/screens/confirmation_test.dart';
-import 'package:forestryapp/screens/invasive_screen.dart';
+import 'package:forestryapp/screens/invasive_form.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
 import 'package:forestryapp/screens/pests_screen.dart';
@@ -132,7 +132,7 @@ class ForestryScaffold extends StatelessWidget {
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => InvasiveScreen()));
+              MaterialPageRoute(builder: (context) => InvasiveForm()));
         },
       ),
       ListTile(
