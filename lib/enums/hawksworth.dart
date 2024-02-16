@@ -1,4 +1,5 @@
 enum Hawksworth {
+  na("N/A"),
   none("None (0)"),
   low("Low (1-2)"),
   medium("Medium (3-4)"),

@@ -14,7 +14,7 @@ CREATE TABLE if NOT EXISTS areas(
   goals TEXT,
 
   -- Elevation is measured in feet.
-  elevation INTEGER CHECK(0 <= elevation),
+  elevation INTEGER,
 
   aspect TEXT CHECK(aspect IN (
     'North',
@@ -83,6 +83,7 @@ CREATE TABLE if NOT EXISTS areas(
   mistletoe_location TEXT,
 
   hawksworth TEXT CHECK(hawksworth IN (
+    'N/A',
     'None (0)',
     'Low (1-2)',
     'Medium (3-4)',
