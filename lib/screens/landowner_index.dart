@@ -7,10 +7,7 @@ import "package:forestryapp/screens/landowner_review.dart";
 /// Screen for showing saved landowners from the navigation drawer.
 ///
 /// Can view existing landowners or create new landowners from this screen.
-class LandownerIndex extends StatelessWidget {
-  // Instance variables ////////////////////////////////////////////////////////
-  final _title = "Landowners";
-
+class LandownerIndex extends StatefulWidget {
   /// Dummy data to be replaced by model later.
   static const _landowners = [
     {
@@ -80,16 +77,23 @@ class LandownerIndex extends StatelessWidget {
     <String>[],
   ];
 
+  static const _title = "Landowners";
+
   // Constructors //////////////////////////////////////////////////////////////
   const LandownerIndex({super.key});
 
+  @override
+  State<LandownerIndex> createState() => _LandownerIndexState();
+}
+
+class _LandownerIndexState extends State<LandownerIndex> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: LandownerIndex._title,
       body: ListView.builder(
-        itemCount: _landowners.length,
+        itemCount: LandownerIndex._landowners.length,
         itemBuilder: _landownerIndexListTileBuilder,
       ),
       fab: FABCreation(icon: Icons.person, onPressed: () {}),
@@ -97,8 +101,9 @@ class LandownerIndex extends StatelessWidget {
   }
 
   Widget _landownerIndexListTileBuilder(BuildContext context, int i) {
-    final String name = _landowners[i]["name"] ?? "missing name";
-    assert(_landowners.length == _areasByLandowner.length);
+    final String name = LandownerIndex._landowners[i]["name"] ?? "missing name";
+    assert(LandownerIndex._landowners.length ==
+        LandownerIndex._areasByLandowner.length);
     return NavigableListTile(
       // WARNING: This is hacky and only here for the sake of passing dummy data
       // to the Landowner Review screen. Replace with something more robust when
@@ -106,12 +111,13 @@ class LandownerIndex extends StatelessWidget {
       titleText: name,
       routeBuilder: (context) => LandownerReview(
         name: name,
-        email: _landowners[i]["email"] ?? "missing email",
-        streetAddress: _landowners[i]["streetAddress"] ?? "missing address",
-        city: _landowners[i]["city"] ?? "missing city",
-        state: _landowners[i]["state"] ?? "missing state",
-        zipCode: _landowners[i]["zipCode"] ?? "missing zip code",
-        areas: _areasByLandowner[i],
+        email: LandownerIndex._landowners[i]["email"] ?? "missing email",
+        streetAddress:
+            LandownerIndex._landowners[i]["streetAddress"] ?? "missing address",
+        city: LandownerIndex._landowners[i]["city"] ?? "missing city",
+        state: LandownerIndex._landowners[i]["state"] ?? "missing state",
+        zipCode: LandownerIndex._landowners[i]["zipCode"] ?? "missing zip code",
+        areas: LandownerIndex._areasByLandowner[i],
       ),
     );
   }
