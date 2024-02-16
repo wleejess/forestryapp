@@ -6,9 +6,9 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
-import "package:forestryapp/models/basic_info_data.dart";
+import "package:forestryapp/models/basic_information.dart";
 
-class BasicInformation extends StatelessWidget {
+class BasicInformationForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Basic Information";
   static const _nameHeading = "Area name";
@@ -25,13 +25,13 @@ class BasicInformation extends StatelessWidget {
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen with a form to add name, landowner, and acres to the area.
-  BasicInformation({super.key});
+  BasicInformationForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: BasicInformation._title,
+      title: BasicInformationForm._title,
       body: FormScaffold(
         formKey: _formKey,
         children: <Widget>[
@@ -46,12 +46,12 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
-        labelText: BasicInformation._nameHeading,
-        helperText: BasicInformation._nameDescription,
+        labelText: BasicInformationForm._nameHeading,
+        helperText: BasicInformationForm._nameDescription,
         initialValue: basicInfoData.name,
         onChanged: (text) {
           basicInfoData.name = text;
@@ -62,14 +62,14 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     return PortraitHandlingSizedBox(
       child: TextFormField(
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         decoration: const InputDecoration(
-          labelText: BasicInformation._acresHeading,
-          helperText: BasicInformation._acresDescription,
+          labelText: BasicInformationForm._acresHeading,
+          helperText: BasicInformationForm._acresDescription,
         ),
         initialValue: basicInfoData.acres.toString(),
         onChanged: (text) {
@@ -83,7 +83,7 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a Search bar to select a Landowner for the area.
   Widget _buildLandownerInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     List<Landowner> landownerOptions = <Landowner>[
       Landowner(id: 0, name: "Amy Adams", email: "a@gmail.com", address: "1234 Alpha Street", city: "Acton", state: USState.alabama, zip: "1"),
@@ -123,11 +123,11 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     return FreeTextBox(
-      labelText: BasicInformation._goalsHeading,
-      helperText: BasicInformation._goalDescription,
+      labelText: BasicInformationForm._goalsHeading,
+      helperText: BasicInformationForm._goalDescription,
       initialValue: basicInfoData.goals,
       onChanged: (text) {
         basicInfoData.goals = text;

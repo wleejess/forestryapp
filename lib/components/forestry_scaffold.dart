@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
-import 'package:forestryapp/screens/basic_information.dart';
+import 'package:forestryapp/screens/basic_information_form.dart';
 import 'package:forestryapp/screens/confirmation_test.dart';
-import 'package:forestryapp/screens/invasive_screen.dart';
+import 'package:forestryapp/screens/invasive_form.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
-import 'package:forestryapp/screens/mistletoe_screen.dart';
-import 'package:forestryapp/screens/pests_screen.dart';
+import 'package:forestryapp/screens/mistletoe_form.dart';
+import 'package:forestryapp/screens/insects_form.dart';
 import 'package:forestryapp/screens/settings_review.dart';
 import 'package:forestryapp/screens/site_characteristics.dart';
 import 'package:forestryapp/screens/vegetative_conditions.dart';
@@ -93,7 +93,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BasicInformation()),
+            MaterialPageRoute(builder: (context) => BasicInformationForm()),
           );
         },
       ),
@@ -124,7 +124,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PestsScreen()),
+            MaterialPageRoute(builder: (context) => InsectsForm()),
           );
         },
       ),
@@ -133,7 +133,7 @@ class ForestryScaffold extends StatelessWidget {
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => InvasiveScreen()));
+              MaterialPageRoute(builder: (context) => InvasiveForm()));
         },
       ),
       ListTile(
@@ -142,7 +142,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MistletoeScreen()),
+            MaterialPageRoute(builder: (context) => MistletoeForm()),
           );
         },
       ),
