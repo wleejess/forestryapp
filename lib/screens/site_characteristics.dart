@@ -58,7 +58,7 @@ class SiteCharacteristics extends StatelessWidget {
       child: DropdownOptions(
         header: 'Aspect',
         enumValues: Direction.values,
-        initialValue: Direction.north,
+        initialValue: aspectData.aspect,
         onSelected: (selectedOption) {
           aspectData.aspect = selectedOption;
         },
@@ -90,7 +90,7 @@ class SiteCharacteristics extends StatelessWidget {
     return RadioOptions(
         header: 'Slope Position:',
         enumValues: SlopePosition.values,
-        initialValue: SlopePosition.lower,
+        initialValue: slopePositionData.slopePosition,
         onSelected: (selectedOption) {
           slopePositionData.slopePosition = selectedOption;
         });
