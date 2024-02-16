@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
+import "package:forestryapp/models/basic_info_data.dart";
 
 class BasicInformation extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -52,30 +54,45 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
         labelText: BasicInformation._nameHeading,
         helperText: BasicInformation._nameDescription,
-        onChanged: (text) {}
+        initialValue: basicInfoData.name,
+        onChanged: (text) {
+          basicInfoData.name = text;
+        }
       ),
     );
   }
 
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return PortraitHandlingSizedBox(
       child: TextFormField(
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
         decoration: const InputDecoration(
           labelText: BasicInformation._acresHeading,
           helperText: BasicInformation._acresDescription,
         ),
+        initialValue: basicInfoData.acres.toString(),
+        onChanged: (text) {
+          if (text.isNotEmpty) {
+            basicInfoData.acres = double.tryParse(text);
+          }
+        },
       ),
     );
   }
 
   /// Builds a Search bar to select a Landowner for the area.
   Widget _buildLandownerInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return SearchAnchor(
       builder: (BuildContext context, SearchController controller) {
         return Padding(
@@ -119,10 +136,15 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return FreeTextBox(
       labelText: BasicInformation._goalsHeading,
       helperText: BasicInformation._goalDescription,
-      onChanged: (text) {}
+      initialValue: basicInfoData.goals,
+      onChanged: (text) {
+        basicInfoData.goals = text;
+      }
     );
   }
 }
