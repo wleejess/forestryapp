@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
+import 'package:provider/provider.dart';
+import 'package:forestryapp/models/water_issues_data.dart';
 
 class WaterIssues extends StatelessWidget {
   static const _title = "Water Health & Issues";
@@ -18,22 +20,22 @@ class WaterIssues extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: WaterIssues._title,
-      body: FormScaffold(
-        formKey: _formKey,
-        children: <Widget>[
-          _buildDescription(context)
-        ],
-      )
-    );
+        title: WaterIssues._title,
+        body: FormScaffold(
+          formKey: _formKey,
+          children: <Widget>[_buildDescription(context)],
+        ));
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
+    final waterIssuesData = Provider.of<WaterIssuesDataModel>(context);
+
     return FreeTextBox(
-      labelText: WaterIssues._title,
-      helperText: WaterIssues._waterDescription,
-      onChanged: (text) {}
-    );
+        labelText: WaterIssues._title,
+        helperText: WaterIssues._waterDescription,
+        onChanged: (text) {
+          waterIssuesData.waterInfo = text;
+        });
   }
 }

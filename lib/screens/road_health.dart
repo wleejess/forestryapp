@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
+import 'package:provider/provider.dart';
+import 'package:forestryapp/models/road_health_data.dart';
 
 class RoadHealth extends StatelessWidget {
   static const _title = "Road Health";
@@ -18,22 +20,21 @@ class RoadHealth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: RoadHealth._title,
-      body: FormScaffold(
-        formKey: _formKey,
-        children: <Widget>[
-          _buildDescription(context)
-        ],
-      )
-    );
+        title: RoadHealth._title,
+        body: FormScaffold(
+          formKey: _formKey,
+          children: <Widget>[_buildDescription(context)],
+        ));
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
+    final roadHealthData = Provider.of<RoadHealthDataModel>(context);
     return FreeTextBox(
-      labelText: RoadHealth._title,
-      helperText: RoadHealth._roadDescription,
-      onChanged: (text) {}
-    );
+        labelText: RoadHealth._title,
+        helperText: RoadHealth._roadDescription,
+        onChanged: (text) {
+          roadHealthData.roadInfo;
+        });
   }
 }

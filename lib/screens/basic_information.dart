@@ -1,8 +1,12 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/enums/us_state.dart";
+import "package:forestryapp/models/landowner.dart";
+import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
+import "package:forestryapp/models/basic_info_data.dart";
 
 class BasicInformation extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -13,19 +17,9 @@ class BasicInformation extends StatelessWidget {
   static const _acresHeading = "Acres";
   static const _acresDescription = "Approximate acres for the stand or area.";
   static const _landownerHeading = "Landowner";
-  static const _landownerHint = "John Doe";
   static const _goalsHeading = "Landowner Goals and Objectives";
   static const _goalDescription = "The landowner's goals and objectives for this "
     "specific stand/area.";
-
-  /// Dummy data to be replaced by model later.
-  static const _landowners = [
-    "Amy Adams",
-    "Bob Bancroft",
-    "Chet Chapman",
-    "Donna Dawson",
-    "Edgar Edmonds",
-  ];
 
   final _formKey = GlobalKey<FormState>();
 
@@ -52,77 +46,92 @@ class BasicInformation extends StatelessWidget {
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
         labelText: BasicInformation._nameHeading,
         helperText: BasicInformation._nameDescription,
-        onChanged: (text) {}
+        initialValue: basicInfoData.name,
+        onChanged: (text) {
+          basicInfoData.name = text;
+        }
       ),
     );
   }
 
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return PortraitHandlingSizedBox(
       child: TextFormField(
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
         decoration: const InputDecoration(
           labelText: BasicInformation._acresHeading,
           helperText: BasicInformation._acresDescription,
         ),
+        initialValue: basicInfoData.acres.toString(),
+        onChanged: (text) {
+          if (text.isNotEmpty) {
+            basicInfoData.acres = double.tryParse(text);
+          }
+        },
       ),
     );
   }
 
   /// Builds a Search bar to select a Landowner for the area.
   Widget _buildLandownerInput(BuildContext context) {
-    return SearchAnchor(
-      builder: (BuildContext context, SearchController controller) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  BasicInformation._landownerHeading,
-                  style: Theme.of(context).inputDecorationTheme.labelStyle,
-                ),
-              ),
-              SearchBar(
-                controller: controller,
-                onTap: () {
-                  controller.openView();
-                },
-                onChanged: (_) {
-                  controller.openView();
-                },
-                onSubmitted: (_) {},
-                hintText: BasicInformation._landownerHint,
-                leading: const Icon(Icons.search),
-              ),
-            ],
-          ),
-        );
-      }, 
-      suggestionsBuilder: (BuildContext context, SearchController controller) {
-        return BasicInformation._landowners.map((name) {
-          return ListTile(
-            title: Text(name),
-            onTap: () {}
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
+    List<Landowner> landownerOptions = <Landowner>[
+      Landowner(id: 0, name: "Amy Adams", email: "a@gmail.com", address: "1234 Alpha Street", city: "Acton", state: USState.alabama, zip: "1"),
+      Landowner(id: 1, name: "Bob Bancroft", email: "b@gmail.com", address: "1234 Beta Street", city: "Burne", state: USState.arizona, zip: "2"),
+      Landowner(id: 2, name: "Chet Chapman", email: "c@gmail.com", address: "1234 Gamma Street", city: "Chico", state: USState.california, zip: "3"),
+      Landowner(id: 3, name: "Donna Dawson", email: "d@gmail.com", address: "1234 Delta Street", city: "Davis", state: USState.delaware, zip: "4"),
+      Landowner(id: 4, name: "Edgar Edmonds", email: "e@gmail.com", address: "1234 Epsilon Street", city: "Empire", state: USState.oregon, zip: "5"),
+    ];
+
+    Landowner? getInitialValue() {
+      if (basicInfoData.landowner != null) {
+        return landownerOptions.firstWhere((element) => basicInfoData.landowner!.id == element.id);
+      }
+      return null;
+    }
+
+    return DropdownMenu(
+      enableFilter: true,
+      requestFocusOnTap: true,
+      expandedInsets: EdgeInsets.zero,
+      leadingIcon: const Icon(Icons.search),
+      label: const Text(_landownerHeading),
+      initialSelection: getInitialValue(),
+      dropdownMenuEntries: landownerOptions.map<DropdownMenuEntry<Landowner>>(
+        (Landowner landowner) {
+          return DropdownMenuEntry(
+            value: landowner, 
+            label: landowner.name
           );
-        });
+        },
+      ).toList(),
+      onSelected: (Landowner? value) {
+        basicInfoData.landowner = value;
       },
     );
   }
 
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
+    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+
     return FreeTextBox(
       labelText: BasicInformation._goalsHeading,
       helperText: BasicInformation._goalDescription,
-      onChanged: (text) {}
+      initialValue: basicInfoData.goals,
+      onChanged: (text) {
+        basicInfoData.goals = text;
+      }
     );
   }
 }

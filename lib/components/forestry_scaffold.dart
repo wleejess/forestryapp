@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information.dart';
+import 'package:forestryapp/screens/confirmation_test.dart';
 import 'package:forestryapp/screens/invasive_screen.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_screen.dart';
@@ -91,8 +92,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => BasicInformation()),
+            MaterialPageRoute(builder: (context) => BasicInformation()),
           );
         },
       ),
@@ -102,8 +102,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => SiteCharacteristics()),
+            MaterialPageRoute(builder: (context) => SiteCharacteristics()),
           );
         },
       ),
@@ -114,7 +113,7 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => VegetativeConditions()),
+                builder: (context) => const VegetativeConditions()),
           );
         },
       ),
@@ -183,6 +182,16 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => OtherIssues()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Test | Confirmation'),
+        leading: const Icon(Icons.check_circle),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ConfirmationScreen()),
           );
         },
       ),
