@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:forestryapp/enums/us_state.dart";
 
-class LandownerDataModel extends ChangeNotifier {
-  LandownerDataModel({
+class Landowner extends ChangeNotifier {
+  Landowner({
     id = 0,
     name = '',
     email = '',
