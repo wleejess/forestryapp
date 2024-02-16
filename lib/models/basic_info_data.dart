@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/models/landowner_data.dart';
 
 class BasicInfoDataModel extends ChangeNotifier {
   String _name = '';
   double? _acres;
-  int _landownerId = 0;
+  Landowner? _landowner;
   String? _goals;
 
   String get name => _name;
@@ -20,10 +21,10 @@ class BasicInfoDataModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get landownerId => _landownerId;
+  Landowner? get landowner => _landowner;
 
-  set landowerId(int value) {
-    _landownerId = value;
+  set landowner(Landowner? value) {
+    _landowner = value;
     notifyListeners();
   }
 
@@ -33,5 +34,4 @@ class BasicInfoDataModel extends ChangeNotifier {
     _goals = value;
     notifyListeners();
   }
-
 }
