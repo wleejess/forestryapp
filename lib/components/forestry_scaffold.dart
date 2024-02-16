@@ -6,7 +6,7 @@ import 'package:forestryapp/screens/confirmation_test.dart';
 import 'package:forestryapp/screens/invasive_form.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
-import 'package:forestryapp/screens/pests_screen.dart';
+import 'package:forestryapp/screens/pests_form.dart';
 import 'package:forestryapp/screens/settings_review.dart';
 import 'package:forestryapp/screens/site_characteristics.dart';
 import 'package:forestryapp/screens/vegetative_conditions.dart';
@@ -123,7 +123,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PestsScreen()),
+            MaterialPageRoute(builder: (context) => PestsForm()),
           );
         },
       ),
