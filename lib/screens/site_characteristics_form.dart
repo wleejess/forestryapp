@@ -7,20 +7,20 @@ import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
 import 'package:provider/provider.dart';
-import "package:forestryapp/models/site_characteristics_data.dart";
+import 'package:forestryapp/models/site_characteristics.dart';
 
-class SiteCharacteristics extends StatelessWidget {
+class SiteCharacteristicsForm extends StatelessWidget {
   // Static Variables
   static const _title = "Site Characteristics";
 
   final _formKey = GlobalKey<FormState>();
 
-  SiteCharacteristics({super.key});
+  SiteCharacteristicsForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-        title: SiteCharacteristics._title,
+        title: SiteCharacteristicsForm._title,
         body: FormScaffold(
           formKey: _formKey,
           children: <Widget>[
