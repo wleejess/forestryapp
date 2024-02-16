@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WaterIssuesDataModel extends ChangeNotifier {
+class WaterIssues extends ChangeNotifier {
   String _waterInfo = '';
 
   String get waterInfo => _waterInfo;

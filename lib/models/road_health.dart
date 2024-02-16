@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RoadHealthDataModel extends ChangeNotifier {
+class RoadHealth extends ChangeNotifier {
   String _roadInfo = '';
 
   String get roadInfo => _roadInfo;

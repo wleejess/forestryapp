@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OtherIssuesDataModel extends ChangeNotifier {
+class OtherIssues extends ChangeNotifier {
   String _otherIssues = '';
 
   String get otherIssues => _otherIssues;

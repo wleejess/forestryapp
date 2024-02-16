@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FireRiskDataModel extends ChangeNotifier {
+class FireRisk extends ChangeNotifier {
   String _fireInfo = '';
 
   String get fireInfo => _fireInfo;
