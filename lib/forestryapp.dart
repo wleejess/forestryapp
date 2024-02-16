@@ -18,14 +18,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 class ForestryApp extends StatelessWidget {
-  // Instance variables  ///////////////////////////////////////////////////////
-  final SharedPreferences _sharedPreferences;
+  final SharedPreferences sharedPreferences;
 
-  // Constructor ///////////////////////////////////////////////////////////////
   const ForestryApp({
-    required SharedPreferences sharedPreferences,
-    super.key,
-  }) : _sharedPreferences = sharedPreferences;
+    Key? key,
+    required this.sharedPreferences,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +61,15 @@ class ForestryApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<SiteCharDataModel>(
           create: (_) => SiteCharDataModel(),
-        )
+        ),
       ],
-      child: MaterialApp(
-        title: 'Forestry Wellness Checkup App',
-        theme: Styles.makeTheme(),
-        // Use Landowner Index for home page until settings is implemented.
-        home: const LandownerIndex(),
+      child: InheritedSettings(
+        settings: Settings(sharedPreferences),
+        child: MaterialApp(
+          title: 'Forestry Wellness Checkup App',
+          theme: Styles.makeTheme(),
+          home: const LandownerIndex(),
+        ),
       ),
     );
   }
