@@ -17,8 +17,6 @@ class DatabaseManager {
   static const String _filenameDatabase = 'forestryapp.db';
   static const _pathSchemas = [
     'assets/database/schema/areas.sql',
-    'assets/database/schema/areas_damages.sql',
-    'assets/database/schema/damages.sql',
     'assets/database/schema/landowners.sql',
   ];
 
