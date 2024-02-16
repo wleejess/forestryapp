@@ -17,7 +17,6 @@ class BasicInformation extends StatelessWidget {
   static const _acresHeading = "Acres";
   static const _acresDescription = "Approximate acres for the stand or area.";
   static const _landownerHeading = "Landowner";
-  static const _landownerHint = "John Doe";
   static const _goalsHeading = "Landowner Goals and Objectives";
   static const _goalDescription = "The landowner's goals and objectives for this "
     "specific stand/area.";
