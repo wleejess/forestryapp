@@ -3,7 +3,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 
-class PestsForm extends StatelessWidget {
+class InsectsForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Insects & Diseases";
   static const _insectsHeading = "Insects present";
@@ -19,13 +19,13 @@ class PestsForm extends StatelessWidget {
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to enter information on insects and diseases present in the area.
-  PestsForm({super.key});
+  InsectsForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: PestsForm._title,
+      title: InsectsForm._title,
       body: FormScaffold(
         formKey: _formKey,
         children: <Widget>[
@@ -39,16 +39,16 @@ class PestsForm extends StatelessWidget {
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildInsectsInput(BuildContext context) {
     return FreeTextBox(
-      labelText: PestsForm._insectsHeading, 
-      helperText: PestsForm._insectsDescription,
+      labelText: InsectsForm._insectsHeading, 
+      helperText: InsectsForm._insectsDescription,
       onChanged: (text) {}
     );
   }
 
   Widget _buildDiseasesInput(BuildContext context) {
     return FreeTextBox(
-      labelText: PestsForm._diseasesHeading, 
-      helperText: PestsForm._diseasesDescription,
+      labelText: InsectsForm._diseasesHeading, 
+      helperText: InsectsForm._diseasesDescription,
       onChanged: (text) {}
     );
   }
