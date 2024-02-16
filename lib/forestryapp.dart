@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/dependency_injection/inherited_settings.dart';
+import 'package:forestryapp/models/basic_information.dart';
+import 'package:forestryapp/models/insects.dart';
+import 'package:forestryapp/models/invasive.dart';
+import 'package:forestryapp/models/landowner.dart';
+import 'package:forestryapp/models/mistletoe.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/models/veg_conditions_data.dart';
 import 'package:forestryapp/models/road_health_data.dart';
@@ -26,6 +31,12 @@ class ForestryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<Landowner>(
+          create: (_) => Landowner(),
+        ),
+        ChangeNotifierProvider<BasicInformation>(
+          create: (_) => BasicInformation(),
+        ),
         ChangeNotifierProvider<VegConditionsDataModel>(
           create: (_) => VegConditionsDataModel(),
         ),
@@ -40,6 +51,15 @@ class ForestryApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<FireRiskDataModel>(
           create: (_) => FireRiskDataModel(),
+        ),
+        ChangeNotifierProvider<Mistletoe>(
+          create: (_) => Mistletoe(),
+        ),
+        ChangeNotifierProvider<Invasive>(
+          create: (_) => Invasive(),
+        ),
+        ChangeNotifierProvider<Insects>(
+          create: (_) => Insects(),
         ),
         ChangeNotifierProvider<SiteCharDataModel>(
           create: (_) => SiteCharDataModel(),
