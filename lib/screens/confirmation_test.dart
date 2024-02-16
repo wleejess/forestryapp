@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/veg_conditions_data.dart';
+import 'package:forestryapp/models/other_issues_data.dart';
 
 class ConfirmationScreen extends StatelessWidget {
   const ConfirmationScreen({super.key});
@@ -9,7 +10,8 @@ class ConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formData = Provider.of<VegConditionsDataModel>(context);
+    final vegConData = Provider.of<VegConditionsDataModel>(context);
+    final otherIssuesData = Provider.of<OtherIssuesDataModel>(context);
 
     return ForestryScaffold(
       title: _confirmationTitle,
@@ -19,19 +21,21 @@ class ConfirmationScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Cover Type: ${formData.coverType.label}'),
+              Text('Cover Type: ${vegConData.coverType.label}'),
               const SizedBox(height: 10),
-              Text('Stand Structure: ${formData.standStructure.label}'),
+              Text('Stand Structure: ${vegConData.standStructure.label}'),
               const SizedBox(height: 10),
-              // Text('Overstory Density: ${formData.overstoryDensity}'),
+              Text('Overstory Density: ${vegConData.overstoryDensity}'),
               const SizedBox(height: 10),
-              Text('Overstory Slope: ${formData.overstorySlope}'),
+              Text('Overstory Slope: ${vegConData.overstorySlope}'),
               const SizedBox(height: 10),
-              // Text('Understory Density: ${formData.understoryDensity}'),
+              Text('Understory Density: ${vegConData.understoryDensity}'),
               const SizedBox(height: 10),
-              Text('Understory Slope: ${formData.understorySlope}'),
+              Text('Understory Slope: ${vegConData.understorySlope}'),
               const SizedBox(height: 10),
-              Text('Stand History: ${formData.standHistory}'),
+              Text('Stand History: ${vegConData.standHistory}'),
+              const SizedBox(height: 10),
+              Text('OtherIssues: ${otherIssuesData.otherIssues}'),
             ],
           ),
         ),

@@ -4,8 +4,6 @@ import 'package:forestryapp/enums/cover_type.dart';
 import 'package:forestryapp/enums/stand_density.dart';
 
 class VegConditionsDataModel extends ChangeNotifier {
-  String _name = '';
-  String _email = '';
   CoverType _coverType = CoverType.forest;
   StandStructure _standStructure = StandStructure.evenAged;
   StandDensity _overstoryDensity = StandDensity.low;
@@ -13,20 +11,6 @@ class VegConditionsDataModel extends ChangeNotifier {
   StandDensity _understoryDensity = StandDensity.low;
   String _understorySlope = '';
   String _standHistory = '';
-
-  String get name => _name;
-
-  set name(String value) {
-    _name = value;
-    notifyListeners();
-  }
-
-  String get email => _email;
-
-  set email(String value) {
-    _email = value;
-    notifyListeners();
-  }
 
   CoverType get coverType => _coverType;
 
