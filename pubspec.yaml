@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^5.0.0
   # Use shared_preferences for storing settings like Evaluator contact info and
   # font size.
   shared_preferences: ^2.2.2
