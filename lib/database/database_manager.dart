@@ -1,0 +1,13 @@
+class DatabaseManager {
+  // Constructor ///////////////////////////////////////////////////////////////
+  DatabaseManager._();
+
+  // Static Variables //////////////////////////////////////////////////////////
+  // ignore: unnecessary_late
+  static late final DatabaseManager _instance = DatabaseManager._();
+
+  // Methods ///////////////////////////////////////////////////////////////////
+  factory DatabaseManager.getInstance() {
+    return _instance;
+  }
+}
