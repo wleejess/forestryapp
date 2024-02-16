@@ -18,10 +18,13 @@ class DatabaseManager {
   static const String _filenameDatabase = 'forestryapp.db';
   static const String _pathCreateSchema = 'assets/database/schema.sql';
   static const String _pathDummyData = 'assets/database/dummy_data.sql';
+  static const String _pathReadAllLandowners =
+      'assets/database/read_all_landowners.sql';
 
   // Queries
   static late final String _sqlCreateSchema;
   static late final String _sqlDummyData;
+  static late final String _sqlReadAllLandowners;
 
   /// The single instance of the database manager.
   ///
@@ -29,7 +32,6 @@ class DatabaseManager {
   static late final DatabaseManager _instance;
 
   // Instance Variables ////////////////////////////////////////////////////////
-  // ignore: unused_field
   late final Database _db;
 
   // Constructor ///////////////////////////////////////////////////////////////
@@ -61,10 +63,15 @@ class DatabaseManager {
   static void _readQueriesFromFile() async {
     _sqlCreateSchema = await rootBundle.loadString(_pathCreateSchema);
     _sqlDummyData = await rootBundle.loadString(_pathDummyData);
+    _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
   }
 
   static FutureOr<void> _createFromSchema(Database db, int version) async {
     await db.execute(_sqlCreateSchema);
     await db.execute(_sqlDummyData);
+  }
+
+  Future<List<Map<String, dynamic>>> readLandowners() async {
+    return await _db.rawQuery(DatabaseManager._sqlReadAllLandowners);
   }
 }
