@@ -6,6 +6,7 @@ import 'package:forestryapp/models/road_health_data.dart';
 import 'package:forestryapp/models/water_issues_data.dart';
 import 'package:forestryapp/models/fire_risk_data.dart';
 import 'package:forestryapp/models/other_issues_data.dart';
+import "package:forestryapp/models/site_characteristics_data.dart";
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,6 +40,9 @@ class ForestryApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<FireRiskDataModel>(
           create: (_) => FireRiskDataModel(),
+        ),
+        ChangeNotifierProvider<SiteCharDataModel>(
+          create: (_) => SiteCharDataModel(),
         )
       ],
       child: MaterialApp(
