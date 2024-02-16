@@ -60,4 +60,12 @@ enum USState {
 
   const USState(this.label);
   final String label;
+
+  static USState? fromString(String string) {
+    for (var usState in USState.values) {
+      if (string == usState.label) return usState;
+    }
+
+    return null;
+  }
 }

@@ -25,7 +25,7 @@ class Landowner extends ChangeNotifier {
           name: dbRecord[DAOLandowner.colName],
           address: dbRecord[DAOLandowner.colAddress],
           city: dbRecord[DAOLandowner.colCity],
-          state: dbRecord[DAOLandowner.colUSState],
+          state: USState.fromString(dbRecord[DAOLandowner.colUSState]),
           zip: dbRecord[DAOLandowner.colZip],
         );
 
@@ -34,7 +34,7 @@ class Landowner extends ChangeNotifier {
   String _email;
   String _address;
   String _city;
-  USState _state;
+  USState? _state;
   String _zip;
 
   int get id => _id;
@@ -72,9 +72,9 @@ class Landowner extends ChangeNotifier {
     notifyListeners();
   }
 
-  USState get state => _state;
+  USState? get state => _state;
 
-  set state(USState value) {
+  set state(USState? value) {
     _state = value;
     notifyListeners();
   }
