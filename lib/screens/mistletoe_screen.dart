@@ -9,7 +9,7 @@ import "package:forestryapp/enums/mistletoe_uniformity.dart";
 import "package:forestryapp/models/mistletoe.dart";
 import "package:provider/provider.dart";
 
-class MistletoeScreen extends StatelessWidget {
+class MistletoeForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";
   static const _uniformityHeading = "Uniformity";
@@ -30,7 +30,7 @@ class MistletoeScreen extends StatelessWidget {
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen with a form to add information about mistletoe infections in the area.
-  MistletoeScreen({super.key});
+  MistletoeForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -43,7 +43,7 @@ class MistletoeScreen extends StatelessWidget {
     ];
 
     return ForestryScaffold(
-      title: MistletoeScreen._title,
+      title: MistletoeForm._title,
       body: FormScaffold(
         formKey: _formKey,
         children: children,
@@ -55,13 +55,13 @@ class MistletoeScreen extends StatelessWidget {
   Widget _buildUniformityInput(BuildContext context) {
     final mistletoeData = Provider.of<Mistletoe>(context);
     return RadioOptions(
-      header: MistletoeScreen._uniformityHeading,
+      header: MistletoeForm._uniformityHeading,
       enumValues: MistletoeUniformity.values,
       initialValue: mistletoeData.uniformity,
       onSelected: (selectedOption) {
         mistletoeData.uniformity = selectedOption;
       },
-      helperText: MistletoeScreen._uniformityDescription,
+      helperText: MistletoeForm._uniformityDescription,
     );
   }
 
@@ -69,13 +69,13 @@ class MistletoeScreen extends StatelessWidget {
   Widget _buildHawksworthInput(BuildContext context) {
     final mistletoeData = Provider.of<Mistletoe>(context);
     return RadioOptions(
-      header: MistletoeScreen._hawksworthHeading,
+      header: MistletoeForm._hawksworthHeading,
       enumValues: Hawksworth.values,
       initialValue: mistletoeData.hawksworth,
       onSelected: (selectedOption) {
         mistletoeData.hawksworth = selectedOption;
       },
-      helperText: MistletoeScreen._hawksworthDescription,
+      helperText: MistletoeForm._hawksworthDescription,
     );
   }
 
@@ -83,8 +83,8 @@ class MistletoeScreen extends StatelessWidget {
   Widget _buildLocationInput(BuildContext context) {
     final mistletoeData = Provider.of<Mistletoe>(context);
     return FreeTextBox(
-      labelText: MistletoeScreen._locationHeading, 
-      helperText: MistletoeScreen._locationDescription,
+      labelText: MistletoeForm._locationHeading, 
+      helperText: MistletoeForm._locationDescription,
       initialValue: mistletoeData.location,
       onChanged: (text) {
         mistletoeData.location = text;
@@ -96,8 +96,8 @@ class MistletoeScreen extends StatelessWidget {
   Widget _buildSpeciesInput(BuildContext context) {
     final mistletoeData = Provider.of<Mistletoe>(context);
     return FreeTextBox(
-      labelText: MistletoeScreen._speciesHeading, 
-      helperText: MistletoeScreen._speciesDescription,
+      labelText: MistletoeForm._speciesHeading, 
+      helperText: MistletoeForm._speciesDescription,
       initialValue: mistletoeData.treeSpecies,
       onChanged: (text) {
         mistletoeData.treeSpecies = text;
