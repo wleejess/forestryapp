@@ -14,7 +14,7 @@ CREATE TABLE if NOT EXISTS areas(
   goals TEXT,
 
   -- Elevation is measured in feet.
-  elevation INTEGER CHECK(0 <= elevation),
+  elevation INTEGER,
 
   aspect TEXT CHECK(aspect IN (
     'North',
