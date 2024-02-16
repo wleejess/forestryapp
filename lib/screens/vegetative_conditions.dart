@@ -7,6 +7,7 @@ import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/enums/stand_density.dart";
 import "package:forestryapp/enums/stand_structure.dart";
 import "package:forestryapp/enums/cover_type.dart";
+import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/veg_conditions_data.dart';
 
@@ -107,9 +108,14 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
           }
         },
       ),
-      TextField(
+      TextFormField(
         decoration: const InputDecoration(
-            labelText: "Species Composition", hintText: "Enter a % value"),
+            labelText: "Species Composition", 
+            hintText: "Enter a % value",
+            suffix: Text('%'),
+        ),
+        keyboardType: TextInputType.number,
+        validator: Validation.isValidPercentage,
         onChanged: (text) {
           if (title == 'Overstory Stand Info') {
             vegConData.overstorySlope = text;
