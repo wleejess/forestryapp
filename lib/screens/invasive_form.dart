@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
+import "package:forestryapp/models/invasive.dart";
+import "package:provider/provider.dart";
 
 class InvasiveForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -37,19 +39,27 @@ class InvasiveForm extends StatelessWidget {
 
   /// Builds a text input field about invasive plants and animals in the area.
   Widget _buildInvasiveInput(BuildContext context) {
+    final invasiveData = Provider.of<Invasive>(context);
     return FreeTextBox(
       labelText: InvasiveForm._invasiveHeading, 
       helperText: InvasiveForm._invasiveDescription,
-      onChanged: (text) {}
+      initialValue: invasiveData.invasiveSpecies,
+      onChanged: (text) {
+        invasiveData.invasiveSpecies = text;
+      }
     );
   }
 
   /// Builds a text input field about wildlife damage in the area.
   Widget _buildWildlifeInput(BuildContext context) {
+    final invasiveData = Provider.of<Invasive>(context);
     return FreeTextBox(
       labelText: InvasiveForm._wildlifeHeading, 
       helperText: InvasiveForm._wildlifeDescription,
-      onChanged: (text) {}
+      initialValue: invasiveData.wildlifeDamage,
+      onChanged: (text) {
+        invasiveData.wildlifeDamage = text;
+      }
     );
   }
 }
