@@ -31,8 +31,8 @@ class ForestryApp extends StatelessWidget {
         Provider<Landowner>(
           create: (_) => Landowner(),
         ),
-        ChangeNotifierProvider<BasicInfoDataModel>(
-          create:(_) => BasicInfoDataModel(),
+        ChangeNotifierProvider<BasicInformation>(
+          create:(_) => BasicInformation(),
         ),
         ChangeNotifierProvider<VegConditionsDataModel>(
           create: (_) => VegConditionsDataModel(),

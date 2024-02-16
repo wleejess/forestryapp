@@ -46,7 +46,7 @@ class BasicInformationForm extends StatelessWidget {
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
@@ -62,7 +62,7 @@ class BasicInformationForm extends StatelessWidget {
 
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     return PortraitHandlingSizedBox(
       child: TextFormField(
@@ -83,7 +83,7 @@ class BasicInformationForm extends StatelessWidget {
 
   /// Builds a Search bar to select a Landowner for the area.
   Widget _buildLandownerInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     List<Landowner> landownerOptions = <Landowner>[
       Landowner(id: 0, name: "Amy Adams", email: "a@gmail.com", address: "1234 Alpha Street", city: "Acton", state: USState.alabama, zip: "1"),
@@ -123,7 +123,7 @@ class BasicInformationForm extends StatelessWidget {
 
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInfoDataModel>(context);
+    final basicInfoData = Provider.of<BasicInformation>(context);
 
     return FreeTextBox(
       labelText: BasicInformationForm._goalsHeading,

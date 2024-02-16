@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/models/landowner.dart';
 
-class BasicInfoDataModel extends ChangeNotifier {
+class BasicInformation extends ChangeNotifier {
   String _name = '';
   double? _acres;
   Landowner? _landowner;
