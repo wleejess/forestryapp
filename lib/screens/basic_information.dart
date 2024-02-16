@@ -6,7 +6,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
-import "package:forestryapp/models/basic_info_data.dart";
+import "package:forestryapp/models/basic_information.dart";
 
 class BasicInformationForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
