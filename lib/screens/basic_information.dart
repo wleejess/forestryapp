@@ -4,7 +4,7 @@ import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 
-class BasicInformation extends StatefulWidget {
+class BasicInformation extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Basic Information";
   static const _nameHeading = "Area name";
@@ -27,39 +27,11 @@ class BasicInformation extends StatefulWidget {
     "Edgar Edmonds",
   ];
 
+  final _formKey = GlobalKey<FormState>();
+
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen with a form to add name, landowner, and acres to the area.
-  const BasicInformation({super.key});
-
-  @override
-  State<BasicInformation> createState() => _BasicInformationState();
-}
-
-class _BasicInformationState extends State<BasicInformation> {
-  // State /////////////////////////////////////////////////////////////////////
-  late final TextEditingController _nameController;
-  final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _acresController;
-  late final TextEditingController _goalsController;
-
-  // Lifecycle Methods /////////////////////////////////////////////////////////
-  @override
-  void initState() {
-    super.initState();
-
-    _nameController = TextEditingController();
-    _acresController = TextEditingController();
-    _goalsController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _acresController.dispose();
-    _goalsController.dispose();
-
-    super.dispose();
-  }
+  BasicInformation({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -82,7 +54,6 @@ class _BasicInformationState extends State<BasicInformation> {
   Widget _buildNameInput(BuildContext context) {
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
-        controller: _nameController,
         labelText: BasicInformation._nameHeading,
         helperText: BasicInformation._nameDescription,
         onChanged: (text) {}
@@ -99,7 +70,6 @@ class _BasicInformationState extends State<BasicInformation> {
           labelText: BasicInformation._acresHeading,
           helperText: BasicInformation._acresDescription,
         ),
-        controller: _acresController,
       ),
     );
   }
@@ -128,9 +98,7 @@ class _BasicInformationState extends State<BasicInformation> {
                 onChanged: (_) {
                   controller.openView();
                 },
-                onSubmitted: (_) {
-                  controller.closeView(controller.text);
-                },
+                onSubmitted: (_) {},
                 hintText: BasicInformation._landownerHint,
                 leading: const Icon(Icons.search),
               ),
@@ -142,11 +110,7 @@ class _BasicInformationState extends State<BasicInformation> {
         return BasicInformation._landowners.map((name) {
           return ListTile(
             title: Text(name),
-            onTap: () {
-              setState(() {
-                controller.closeView(name);
-              });
-            }
+            onTap: () {}
           );
         });
       },
@@ -156,7 +120,6 @@ class _BasicInformationState extends State<BasicInformation> {
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
     return FreeTextBox(
-      controller: _goalsController,
       labelText: BasicInformation._goalsHeading,
       helperText: BasicInformation._goalDescription,
       onChanged: (text) {}

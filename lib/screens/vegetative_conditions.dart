@@ -9,7 +9,7 @@ import "package:forestryapp/enums/stand_density.dart";
 import "package:forestryapp/enums/stand_structure.dart";
 import "package:forestryapp/enums/cover_type.dart";
 
-class VegetativeConditions extends StatefulWidget {
+class VegetativeConditions extends StatelessWidget {
   // Instance Variables
   static const _title = "Vegetative Conditions";
   static const _coverTitle = "Cover Type";
@@ -18,34 +18,9 @@ class VegetativeConditions extends StatefulWidget {
   static const _overstoryInfo = "Overstory Stand Info";
   static const _understoryInfo = "Understory Stand Info";
 
-  const VegetativeConditions({super.key});
-
-  @override
-  State<VegetativeConditions> createState() => _VegetativeConditionsState();
-}
-
-class _VegetativeConditionsState extends State<VegetativeConditions> {
-  // State /////////////////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _coverTypeController;
-  late final TextEditingController _standHistoryController;
 
-  // Lifecycle Methods /////////////////////////////////////////////////////////
-  @override
-  void initState() {
-    super.initState();
-
-    _coverTypeController = TextEditingController();
-    _standHistoryController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _coverTypeController.dispose();
-    _standHistoryController.dispose();
-
-    super.dispose();
-  }
+  VegetativeConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +58,6 @@ class _VegetativeConditionsState extends State<VegetativeConditions> {
     return PortraitHandlingSizedBox(
         child: FreeTextBox(
       labelText: "Other Cover Type",
-      controller: _coverTypeController,
       helperText: "List cover type if the option is not in the dropdown.",
       onChanged: (text) {
         // Handle elevation text changes
