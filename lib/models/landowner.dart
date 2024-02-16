@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/database/dao_landowner.dart';
 import "package:forestryapp/enums/us_state.dart";
 
 class Landowner extends ChangeNotifier {
@@ -10,13 +11,23 @@ class Landowner extends ChangeNotifier {
     city = '',
     state = USState.alabama,
     zip = '',
-  }) : _id = id,
-      _name = name,
-      _email = email,
-      _address = address,
-      _city = city,
-      _state = state,
-      _zip = zip;
+  })  : _id = id,
+        _name = name,
+        _email = email,
+        _address = address,
+        _city = city,
+        _state = state,
+        _zip = zip;
+
+  Landowner.fromMap(Map dbRecord)
+      : this(
+          id: dbRecord[DAOLandowner.colID],
+          name: dbRecord[DAOLandowner.colName],
+          address: dbRecord[DAOLandowner.colAddress],
+          city: dbRecord[DAOLandowner.colCity],
+          state: dbRecord[DAOLandowner.colUSState],
+          zip: dbRecord[DAOLandowner.colZip],
+        );
 
   int _id;
   String _name;
