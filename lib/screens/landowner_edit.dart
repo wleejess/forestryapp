@@ -3,6 +3,10 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
 
 class LandownerEdit extends StatefulWidget {
+  static const _title = "Edit Landowner:";
+  static const _labelSaveButton = "Save";
+  static const _msgSubmit = "Landowner saved!";
+
   const LandownerEdit({super.key});
 
   @override
@@ -10,12 +14,7 @@ class LandownerEdit extends StatefulWidget {
 }
 
 class _LandownerEditState extends State<LandownerEdit> {
-  // Static variables //////////////////////////////////////////////////////////
-  static const _title = "Edit Landowner:";
-  static const _labelSaveButton = "Save";
-  static const _msgSubmit = "Landowner saved!";
-
-  // Instance variables ////////////////////////////////////////////////////////
+  // State Variables ///////////////////////////////////////////////////////////
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
@@ -45,7 +44,7 @@ class _LandownerEditState extends State<LandownerEdit> {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
+      title: LandownerEdit._title,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -71,7 +70,7 @@ class _LandownerEditState extends State<LandownerEdit> {
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
         onPressed: _submitForm,
-        child: const Text(_labelSaveButton),
+        child: const Text(LandownerEdit._labelSaveButton),
       ),
     );
   }
@@ -79,7 +78,9 @@ class _LandownerEditState extends State<LandownerEdit> {
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(_msgSubmit, textAlign: TextAlign.center)),
+        const SnackBar(
+            content:
+                Text(LandownerEdit._msgSubmit, textAlign: TextAlign.center)),
       );
     }
   }
