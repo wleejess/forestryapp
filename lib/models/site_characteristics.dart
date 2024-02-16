@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
 
-class SiteCharDataModel extends ChangeNotifier {
+class SiteCharacteristics extends ChangeNotifier {
   String _elevation = '';
   SlopePosition _slopePosition = SlopePosition.lower;
   Direction _aspect = Direction.north;

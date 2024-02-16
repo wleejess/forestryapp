@@ -34,7 +34,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildElevation(BuildContext context) {
-    final elevationData = Provider.of<SiteCharDataModel>(context);
+    final elevationData = Provider.of<SiteCharacteristics>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -51,7 +51,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildAspect(BuildContext context) {
-    final aspectData = Provider.of<SiteCharDataModel>(context);
+    final aspectData = Provider.of<SiteCharacteristics>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -67,7 +67,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildPercentSlope(BuildContext context) {
-    final percentSlopeData = Provider.of<SiteCharDataModel>(context);
+    final percentSlopeData = Provider.of<SiteCharacteristics>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -85,7 +85,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildSlopePosition(BuildContext context) {
-    final slopePositionData = Provider.of<SiteCharDataModel>(context);
+    final slopePositionData = Provider.of<SiteCharacteristics>(context);
 
     return RadioOptions(
         header: 'Slope Position:',
@@ -101,7 +101,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         "Add any information about the soils that is available to you."
         " This can be from either the landowner, or from online.";
 
-    final soilInfoData = Provider.of<SiteCharDataModel>(context);
+    final soilInfoData = Provider.of<SiteCharacteristics>(context);
 
     return TextFormField(
         decoration: const InputDecoration(

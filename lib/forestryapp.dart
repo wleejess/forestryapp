@@ -59,8 +59,8 @@ class ForestryApp extends StatelessWidget {
         ChangeNotifierProvider<Insects>(
           create: (_) => Insects(),
         ),
-        ChangeNotifierProvider<SiteCharDataModel>(
-          create: (_) => SiteCharDataModel(),
+        ChangeNotifierProvider<SiteCharacteristics>(
+          create: (_) => SiteCharacteristics(),
         ),
       ],
       child: InheritedSettings(
