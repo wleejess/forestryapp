@@ -48,7 +48,7 @@ class VegetativeConditions extends StatelessWidget {
 }
 
 Widget _buildCoverType(BuildContext context, header) {
-  final formData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegConditionsDataModel>(context);
 
   return Wrap(
     children: [
@@ -56,9 +56,9 @@ Widget _buildCoverType(BuildContext context, header) {
         child: DropdownOptions(
           header: header,
           enumValues: CoverType.values,
-          initialValue: formData.coverType,
+          initialValue: vegConData.coverType,
           onSelected: (selectedOption) {
-            formData.coverType = selectedOption;
+            vegConData.coverType = selectedOption;
           },
         ),
       ),
@@ -74,20 +74,20 @@ Widget _buildCoverType(BuildContext context, header) {
 }
 
 Widget _buildStandStructure(BuildContext context, header) {
-  final formData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegConditionsDataModel>(context);
 
   return RadioOptions(
     header: header,
     enumValues: StandStructure.values,
-    initialValue: formData.standHistory,
+    initialValue: vegConData.standHistory,
     onSelected: (selectedOption) {
-      formData.standStructure = selectedOption;
+      vegConData.standStructure = selectedOption;
     },
   );
 }
 
 Widget _buildStoryInfo(BuildContext context, title, density) {
-  final formData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegConditionsDataModel>(context);
 
   return ExpansionTile(
     title: Text(title),
@@ -101,9 +101,9 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
         initialValue: StandDensity.low,
         onSelected: (selectedOption) {
           if (title == 'Overstory Stand Info') {
-            formData.overstoryDensity = selectedOption;
+            vegConData.overstoryDensity = selectedOption;
           } else if (title == 'Understory Stand Info') {
-            formData.understoryDensity = selectedOption;
+            vegConData.understoryDensity = selectedOption;
           }
         },
       ),
@@ -112,9 +112,9 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
             labelText: "Species Composition", hintText: "Enter a % value"),
         onChanged: (text) {
           if (title == 'Overstory Stand Info') {
-            formData.overstorySlope = text;
+            vegConData.overstorySlope = text;
           } else if (title == 'Understory Stand Info') {
-            formData.understorySlope = text;
+            vegConData.understorySlope = text;
           }
         },
       ),
@@ -123,7 +123,7 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
 }
 
 Widget _buildStandHistory(BuildContext context) {
-  final formData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegConditionsDataModel>(context);
 
   const historyTitle = "Stand/Area History";
   const historyHelp = "Describe prior management activities and/or disturbances"
@@ -134,7 +134,7 @@ Widget _buildStandHistory(BuildContext context) {
       FreeTextBox(
         labelText: historyTitle,
         onChanged: (text) {
-          formData.standHistory = text;
+          vegConData.standHistory = text;
         },
       ),
       const SizedBox(height: 16.0),
