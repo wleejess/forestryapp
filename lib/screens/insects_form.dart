@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
+import "package:forestryapp/models/insects.dart";
+import "package:provider/provider.dart";
 
 class InsectsForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -38,18 +40,26 @@ class InsectsForm extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildInsectsInput(BuildContext context) {
+    final insectsData = Provider.of<Insects>(context);
     return FreeTextBox(
       labelText: InsectsForm._insectsHeading, 
       helperText: InsectsForm._insectsDescription,
-      onChanged: (text) {}
+      initialValue: insectsData.insects,
+      onChanged: (text) {
+        insectsData.insects = text;
+      }
     );
   }
 
   Widget _buildDiseasesInput(BuildContext context) {
+    final insectsData = Provider.of<Insects>(context);
     return FreeTextBox(
       labelText: InsectsForm._diseasesHeading, 
       helperText: InsectsForm._diseasesDescription,
-      onChanged: (text) {}
+      initialValue: insectsData.diseases,
+      onChanged: (text) {
+        insectsData.diseases = text;
+      }
     );
   }
 }
