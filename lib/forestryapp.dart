@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/models/basic_info_data.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/mistletoe.dart';
@@ -32,7 +31,7 @@ class ForestryApp extends StatelessWidget {
           create: (_) => Landowner(),
         ),
         ChangeNotifierProvider<BasicInfoDataModel>(
-          create:(_) => BasicInfoDataModel(),
+          create: (_) => BasicInfoDataModel(),
         ),
         ChangeNotifierProvider<VegConditionsDataModel>(
           create: (_) => VegConditionsDataModel(),
@@ -51,7 +50,10 @@ class ForestryApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<Mistletoe>(
           create: (_) => Mistletoe(),
-        )
+        ),
+        Provider<Settings>(
+          create: (_) => Settings(_sharedPreferences),
+        ),
       ],
       child: MaterialApp(
         title: 'Forestry Wellness Checkup App',

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forestryapp/dependency_injection/inherited_settings.dart';
+import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information.dart';
 import 'package:forestryapp/screens/confirmation_test.dart';
@@ -14,6 +14,7 @@ import 'package:forestryapp/screens/road_health.dart';
 import 'package:forestryapp/screens/water_issues.dart';
 import 'package:forestryapp/screens/fire_risk.dart';
 import 'package:forestryapp/screens/other_issues.dart';
+import 'package:provider/provider.dart';
 
 /// A component to ensure common high level layout across screens of the app.
 ///
@@ -60,7 +61,7 @@ class ForestryScaffold extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => SettingsReview(
-                settings: InheritedSettings.of(context).settings,
+                settings: Provider.of<Settings>(context),
               ),
             ),
           );
