@@ -17,9 +17,11 @@ class DatabaseManager {
   // File paths
   static const String _filenameDatabase = 'forestryapp.db';
   static const String _pathCreateSchema = 'assets/database/schema.sql';
+  static const String _pathDummyData = 'assets/database/dummy_data.sql';
 
   // Queries
   static late final String _sqlCreateSchema;
+  static late final String _sqlDummyData;
 
   /// The single instance of the database manager.
   ///
@@ -58,9 +60,11 @@ class DatabaseManager {
 
   static void _readQueriesFromFile() async {
     _sqlCreateSchema = await rootBundle.loadString(_pathCreateSchema);
+    _sqlDummyData = await rootBundle.loadString(_pathDummyData);
   }
 
   static FutureOr<void> _createFromSchema(Database db, int version) async {
     await db.execute(_sqlCreateSchema);
+    await db.execute(_sqlDummyData);
   }
 }
