@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/enums/us_state.dart";
+import "package:forestryapp/models/landowner_data.dart";
 import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
@@ -93,43 +95,38 @@ class BasicInformation extends StatelessWidget {
   Widget _buildLandownerInput(BuildContext context) {
     final basicInfoData = Provider.of<BasicInfoDataModel>(context);
 
-    return SearchAnchor(
-      builder: (BuildContext context, SearchController controller) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  BasicInformation._landownerHeading,
-                  style: Theme.of(context).inputDecorationTheme.labelStyle,
-                ),
-              ),
-              SearchBar(
-                controller: controller,
-                onTap: () {
-                  controller.openView();
-                },
-                onChanged: (_) {
-                  controller.openView();
-                },
-                onSubmitted: (_) {},
-                hintText: BasicInformation._landownerHint,
-                leading: const Icon(Icons.search),
-              ),
-            ],
-          ),
-        );
-      }, 
-      suggestionsBuilder: (BuildContext context, SearchController controller) {
-        return BasicInformation._landowners.map((name) {
-          return ListTile(
-            title: Text(name),
-            onTap: () {}
+    List<Landowner> landownerOptions = <Landowner>[
+      Landowner(id: 0, name: "Amy Adams", email: "a@gmail.com", address: "1234 Alpha Street", city: "Acton", state: USState.alabama, zip: "1"),
+      Landowner(id: 1, name: "Bob Bancroft", email: "b@gmail.com", address: "1234 Beta Street", city: "Burne", state: USState.arizona, zip: "2"),
+      Landowner(id: 2, name: "Chet Chapman", email: "c@gmail.com", address: "1234 Gamma Street", city: "Chico", state: USState.california, zip: "3"),
+      Landowner(id: 3, name: "Donna Dawson", email: "d@gmail.com", address: "1234 Delta Street", city: "Davis", state: USState.delaware, zip: "4"),
+      Landowner(id: 4, name: "Edgar Edmonds", email: "e@gmail.com", address: "1234 Epsilon Street", city: "Empire", state: USState.oregon, zip: "5"),
+    ];
+
+    Landowner? getInitialValue() {
+      if (basicInfoData.landowner != null) {
+        return landownerOptions.firstWhere((element) => basicInfoData.landowner!.id == element.id);
+      }
+      return null;
+    }
+
+    return DropdownMenu(
+      enableFilter: true,
+      requestFocusOnTap: true,
+      expandedInsets: EdgeInsets.zero,
+      leadingIcon: const Icon(Icons.search),
+      label: const Text(_landownerHeading),
+      initialSelection: getInitialValue(),
+      dropdownMenuEntries: landownerOptions.map<DropdownMenuEntry<Landowner>>(
+        (Landowner landowner) {
+          return DropdownMenuEntry(
+            value: landowner, 
+            label: landowner.name
           );
-        });
+        },
+      ).toList(),
+      onSelected: (Landowner? value) {
+        basicInfoData.landowner = value;
       },
     );
   }
