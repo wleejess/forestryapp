@@ -22,15 +22,6 @@ class BasicInformation extends StatelessWidget {
   static const _goalDescription = "The landowner's goals and objectives for this "
     "specific stand/area.";
 
-  /// Dummy data to be replaced by model later.
-  static const _landowners = [
-    "Amy Adams",
-    "Bob Bancroft",
-    "Chet Chapman",
-    "Donna Dawson",
-    "Edgar Edmonds",
-  ];
-
   final _formKey = GlobalKey<FormState>();
 
   // Constructor ///////////////////////////////////////////////////////////////
