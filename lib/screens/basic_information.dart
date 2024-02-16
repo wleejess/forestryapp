@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/enums/us_state.dart";
-import "package:forestryapp/models/landowner_data.dart";
+import "package:forestryapp/models/landowner.dart";
 import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";

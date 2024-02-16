@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/models/basic_info_data.dart';
-import 'package:forestryapp/models/landowner_data.dart';
-import 'package:forestryapp/models/mistletoe_data.dart';
+import 'package:forestryapp/models/landowner.dart';
+import 'package:forestryapp/models/mistletoe.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/models/veg_conditions_data.dart';
 import 'package:forestryapp/models/road_health_data.dart';
