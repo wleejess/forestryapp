@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/services.dart';
 
-
 /// Singleton used for interacting with SQLite database via [sqflite] and
 /// centralizing database code.
 ///
@@ -16,13 +15,19 @@ class DatabaseManager {
   // Static Variables //////////////////////////////////////////////////////////
   // File paths
   static const String _filenameDatabase = 'forestryapp.db';
-  static const String _pathCreateSchema = 'assets/database/schema.sql';
+  static const _pathSchemas = [
+    'assets/database/schema/areas.sql',
+    'assets/database/schema/areas_damages.sql',
+    'assets/database/schema/damages.sql',
+    'assets/database/schema/landowners.sql',
+  ];
+
   static const String _pathDummyData = 'assets/database/dummy_data.sql';
   static const String _pathReadAllLandowners =
       'assets/database/read_all_landowners.sql';
 
   // Queries
-  static late final String _sqlCreateSchema;
+  static final List<String> _sqlSchemas = [];
   static late final String _sqlDummyData;
   static late final String _sqlReadAllLandowners;
 
@@ -62,14 +67,17 @@ class DatabaseManager {
   }
 
   static void _readQueriesFromFile() async {
-    _sqlCreateSchema = await rootBundle.loadString(_pathCreateSchema);
+    for (var path in _pathSchemas) {
+      _sqlSchemas.add(await rootBundle.loadString(path));
+    }
     _sqlDummyData = await rootBundle.loadString(_pathDummyData);
     _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
   }
 
   static FutureOr<void> _createFromSchema(Database db, int version) async {
-    await deleteDatabase(_filenameDatabase); // TODO: Just during development.
-    await db.execute(_sqlCreateSchema);
+    for (var schemaStatement in _sqlSchemas) {
+      await db.execute(schemaStatement);
+    }
     await db.execute(_sqlDummyData);
   }
 
