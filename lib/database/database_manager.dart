@@ -56,6 +56,7 @@ class DatabaseManager {
       _filenameDatabase,
       version: 1,
       onCreate: _createFromSchema,
+      onConfigure: (db) async => await db.execute('PRAGMA foreign_keys = ON'),
     );
     _instance = DatabaseManager._(database: db);
   }
