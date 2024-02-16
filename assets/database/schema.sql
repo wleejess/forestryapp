@@ -3,13 +3,6 @@
 
 PRAGMA foreign_keys = ON;
 
--- TEMPORARY FOR DUMMY DATA ---------------------------------------------------
-
-DROP TABLE IF EXISTS landowners;
-DROP TABLE IF EXISTS areas;
-DROP TABLE IF EXISTS damages;
-DROP TABLE IF EXISTS areas_damages;
-
 -- Landowners -----------------------------------------------------------------
 CREATE TABLE if NOT EXISTS landowners(
   id INTEGER PRIMARY KEY AUTOINCREMENT,

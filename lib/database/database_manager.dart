@@ -68,6 +68,7 @@ class DatabaseManager {
   }
 
   static FutureOr<void> _createFromSchema(Database db, int version) async {
+    await deleteDatabase(_filenameDatabase); // TODO: Just during development.
     await db.execute(_sqlCreateSchema);
     await db.execute(_sqlDummyData);
   }
