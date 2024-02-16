@@ -30,7 +30,7 @@ class ForestryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<Landowner>(
+        ChangeNotifierProvider<Landowner>(
           create: (_) => Landowner(),
         ),
         ChangeNotifierProvider<BasicInformation>(
