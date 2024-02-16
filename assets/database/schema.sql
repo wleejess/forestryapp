@@ -1,6 +1,14 @@
 -- ASSUMES: foreign key support is turned on in sqflite as well. See
 -- https://stackoverflow.com/a/58901851
+
 PRAGMA foreign_keys = ON;
+
+-- TEMPORARY FOR DUMMY DATA ---------------------------------------------------
+
+DROP TABLE IF EXISTS landowners;
+DROP TABLE IF EXISTS areas;
+DROP TABLE IF EXISTS damages;
+DROP TABLE IF EXISTS areas_damages;
 
 -- Landowners -----------------------------------------------------------------
 CREATE TABLE if NOT EXISTS landowners(
