@@ -54,10 +54,10 @@ class ForestryApp extends StatelessWidget {
         ChangeNotifierProvider<Mistletoe>(
           create: (_) => Mistletoe(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<Invasive>(
           create: (_) => Invasive(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<Insects>(
           create: (_) => Insects(),
         )
       ],
