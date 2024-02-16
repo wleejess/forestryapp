@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information_form.dart';
-import 'package:forestryapp/screens/confirmation_test.dart';
 import 'package:forestryapp/screens/invasive_form.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
 import 'package:forestryapp/screens/insects_form.dart';
 import 'package:forestryapp/screens/settings_review.dart';
-import 'package:forestryapp/screens/site_characteristics.dart';
-import 'package:forestryapp/screens/vegetative_conditions.dart';
-import 'package:forestryapp/screens/road_health.dart';
-import 'package:forestryapp/screens/water_issues.dart';
-import 'package:forestryapp/screens/fire_risk.dart';
-import 'package:forestryapp/screens/other_issues.dart';
+import 'package:forestryapp/screens/site_characteristics_form.dart';
+import 'package:forestryapp/screens/vegetative_conditions_form.dart';
+import 'package:forestryapp/screens/road_health_form.dart';
+import 'package:forestryapp/screens/water_issues_form.dart';
+import 'package:forestryapp/screens/fire_risk_form.dart';
+import 'package:forestryapp/screens/other_issues_form.dart';
 
 /// A component to ensure common high level layout across screens of the app.
 ///
@@ -102,7 +101,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SiteCharacteristics()),
+            MaterialPageRoute(builder: (context) => SiteCharacteristicsForm()),
           );
         },
       ),
@@ -113,7 +112,7 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const VegetativeConditions()),
+                builder: (context) => const VegetativeConditionsForm()),
           );
         },
       ),
@@ -131,8 +130,8 @@ class ForestryScaffold extends StatelessWidget {
         title: const Text('Invasive & Wildlife'),
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => InvasiveForm()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => InvasiveForm()));
         },
       ),
       ListTile(
@@ -151,7 +150,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RoadHealth()),
+            MaterialPageRoute(builder: (context) => RoadHealthForm()),
           );
         },
       ),
@@ -161,7 +160,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WaterIssues()),
+            MaterialPageRoute(builder: (context) => WaterIssuesForm()),
           );
         },
       ),
@@ -171,7 +170,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FireRisk()),
+            MaterialPageRoute(builder: (context) => FireRiskForm()),
           );
         },
       ),
@@ -181,17 +180,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OtherIssues()),
-          );
-        },
-      ),
-      ListTile(
-        title: const Text('Test | Confirmation'),
-        leading: const Icon(Icons.check_circle),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ConfirmationScreen()),
+            MaterialPageRoute(builder: (context) => OtherIssuesForm()),
           );
         },
       ),

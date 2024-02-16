@@ -6,12 +6,12 @@ import 'package:forestryapp/models/invasive.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/mistletoe.dart';
 import 'package:forestryapp/models/settings.dart';
-import 'package:forestryapp/models/veg_conditions_data.dart';
-import 'package:forestryapp/models/road_health_data.dart';
-import 'package:forestryapp/models/water_issues_data.dart';
-import 'package:forestryapp/models/fire_risk_data.dart';
-import 'package:forestryapp/models/other_issues_data.dart';
-import "package:forestryapp/models/site_characteristics_data.dart";
+import 'package:forestryapp/models/vegetative_conditions.dart';
+import 'package:forestryapp/models/road_health.dart';
+import 'package:forestryapp/models/water_issues.dart';
+import 'package:forestryapp/models/fire_risk.dart';
+import 'package:forestryapp/models/other_issues.dart';
+import 'package:forestryapp/models/site_characteristics.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,20 +37,20 @@ class ForestryApp extends StatelessWidget {
         ChangeNotifierProvider<BasicInformation>(
           create: (_) => BasicInformation(),
         ),
-        ChangeNotifierProvider<VegConditionsDataModel>(
-          create: (_) => VegConditionsDataModel(),
+        ChangeNotifierProvider<VegetativeConditions>(
+          create: (_) => VegetativeConditions(),
         ),
-        ChangeNotifierProvider<OtherIssuesDataModel>(
-          create: (_) => OtherIssuesDataModel(),
+        ChangeNotifierProvider<OtherIssues>(
+          create: (_) => OtherIssues(),
         ),
-        ChangeNotifierProvider<RoadHealthDataModel>(
-          create: (_) => RoadHealthDataModel(),
+        ChangeNotifierProvider<RoadHealth>(
+          create: (_) => RoadHealth(),
         ),
-        ChangeNotifierProvider<WaterIssuesDataModel>(
-          create: (_) => WaterIssuesDataModel(),
+        ChangeNotifierProvider<WaterIssues>(
+          create: (_) => WaterIssues(),
         ),
-        ChangeNotifierProvider<FireRiskDataModel>(
-          create: (_) => FireRiskDataModel(),
+        ChangeNotifierProvider<FireRisk>(
+          create: (_) => FireRisk(),
         ),
         ChangeNotifierProvider<Mistletoe>(
           create: (_) => Mistletoe(),
