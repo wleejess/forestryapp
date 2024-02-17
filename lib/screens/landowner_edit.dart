@@ -134,6 +134,7 @@ class _LandownerEditState extends State<LandownerEdit> {
 
   void _submitForm(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
+      _persist(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -143,5 +144,18 @@ class _LandownerEditState extends State<LandownerEdit> {
         ),
       );
     }
+  }
+
+  void _persist(BuildContext context) async {
+    _collectFormData();
+  }
+
+  void _collectFormData() {
+    _dto.name = _nameController.text;
+    _dto.email = _emailController.text;
+    _dto.address = _addressController.text;
+    _dto.city = _cityController.text;
+    _dto.usState = _currentDropdownUSState!; // Won't be null due to validation.
+    _dto.zip = _zipController.text;
   }
 }
