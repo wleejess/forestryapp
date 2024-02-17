@@ -3,9 +3,9 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/road_health_data.dart';
+import 'package:forestryapp/models/road_health.dart';
 
-class RoadHealth extends StatelessWidget {
+class RoadHealthForm extends StatelessWidget {
   static const _title = "Road Health";
   static const _roadDescription =
       "Make note of any road related problems for the stand or area.\n"
@@ -14,13 +14,13 @@ class RoadHealth extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  RoadHealth({super.key});
+  RoadHealthForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-        title: RoadHealth._title,
+        title: RoadHealthForm._title,
         body: FormScaffold(
           formKey: _formKey,
           children: <Widget>[_buildDescription(context)],
@@ -29,10 +29,10 @@ class RoadHealth extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
-    final roadHealthData = Provider.of<RoadHealthDataModel>(context);
+    final roadHealthData = Provider.of<RoadHealth>(context);
     return FreeTextBox(
-        labelText: RoadHealth._title,
-        helperText: RoadHealth._roadDescription,
+        labelText: RoadHealthForm._title,
+        helperText: RoadHealthForm._roadDescription,
         onChanged: (text) {
           roadHealthData.roadInfo;
         });

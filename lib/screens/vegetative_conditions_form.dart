@@ -8,9 +8,9 @@ import "package:forestryapp/enums/stand_density.dart";
 import "package:forestryapp/enums/stand_structure.dart";
 import "package:forestryapp/enums/cover_type.dart";
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/veg_conditions_data.dart';
+import 'package:forestryapp/models/vegetative_conditions.dart';
 
-class VegetativeConditions extends StatelessWidget {
+class VegetativeConditionsForm extends StatelessWidget {
   // Instance Variables
   final _title = "Vegetative Conditions";
   static const _coverTitle = "Cover Type";
@@ -19,7 +19,7 @@ class VegetativeConditions extends StatelessWidget {
   static const _overstoryInfo = "Overstory Stand Info";
   static const _understoryInfo = "Understory Stand Info";
 
-  const VegetativeConditions({super.key});
+  const VegetativeConditionsForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class VegetativeConditions extends StatelessWidget {
 }
 
 Widget _buildCoverType(BuildContext context, header) {
-  final vegConData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegetativeConditions>(context);
 
   return Wrap(
     children: [
@@ -74,7 +74,7 @@ Widget _buildCoverType(BuildContext context, header) {
 }
 
 Widget _buildStandStructure(BuildContext context, header) {
-  final vegConData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegetativeConditions>(context);
 
   return RadioOptions(
     header: header,
@@ -87,7 +87,7 @@ Widget _buildStandStructure(BuildContext context, header) {
 }
 
 Widget _buildStoryInfo(BuildContext context, title, density) {
-  final vegConData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegetativeConditions>(context);
 
   return ExpansionTile(
     title: Text(title),
@@ -123,7 +123,7 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
 }
 
 Widget _buildStandHistory(BuildContext context) {
-  final vegConData = Provider.of<VegConditionsDataModel>(context);
+  final vegConData = Provider.of<VegetativeConditions>(context);
 
   const historyTitle = "Stand/Area History";
   const historyHelp = "Describe prior management activities and/or disturbances"

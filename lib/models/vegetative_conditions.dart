@@ -3,7 +3,7 @@ import 'package:forestryapp/enums/stand_structure.dart';
 import 'package:forestryapp/enums/cover_type.dart';
 import 'package:forestryapp/enums/stand_density.dart';
 
-class VegConditionsDataModel extends ChangeNotifier {
+class VegetativeConditions extends ChangeNotifier {
   CoverType _coverType = CoverType.forest;
   StandStructure _standStructure = StandStructure.evenAged;
   StandDensity _overstoryDensity = StandDensity.low;

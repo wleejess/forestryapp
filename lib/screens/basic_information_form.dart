@@ -71,10 +71,17 @@ class BasicInformationForm extends StatelessWidget {
           labelText: BasicInformationForm._acresHeading,
           helperText: BasicInformationForm._acresDescription,
         ),
-        initialValue: basicInfoData.acres.toString(),
+        initialValue: () {
+          if (basicInfoData.acres == null) {
+            return '';
+          } 
+          return basicInfoData.acres.toString();
+        }(),
         onChanged: (text) {
           if (text.isNotEmpty) {
             basicInfoData.acres = double.tryParse(text);
+          } else {
+            basicInfoData.acres = null;
           }
         },
       ),
