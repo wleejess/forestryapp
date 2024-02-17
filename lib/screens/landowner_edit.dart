@@ -156,7 +156,7 @@ class _LandownerEditState extends State<LandownerEdit> {
     if (widget._landowner == null) {
       DAOLandowner.saveNewLandowner(_dto); // Save new landowner.
     } else {
-      // TODO: update existing landowner
+      _dto.id = widget._landowner!.id; // non-null because of [if] condition.
     }
 
     // Update landowners to include newly saved landowner.
