@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
+import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
@@ -13,6 +14,9 @@ class LandownerReview extends StatelessWidget {
   static const _buttonLabelNewArea = "New Area";
   static const _buttonLabelEdit = "Edit";
   static const _buttonLabelDelete = "Delete";
+
+  static const _notFoundTitle = "Landowner not found!";
+  static const _notFoundBodyText = "Could not find that landowner!";
 
   // Instance variables ////////////////////////////////////////////////////////
   // NOTE: These will be refactored into a single model class later on.
@@ -42,12 +46,19 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
-  ForestryScaffold _buildForestryScaffold(BuildContext context) {
+  Widget _buildForestryScaffold(BuildContext context) {
     final Landowner? landowner = Provider.of<LandownerCollection>(context)
         .getLandownerByID(_landownerID);
 
+    if (landowner == null) {
+      return const ErrorScaffold(
+        title: _notFoundTitle,
+        bodyText: _notFoundBodyText,
+      );
+    }
+
     return ForestryScaffold(
-      title: "$_title: ${landowner!.name}",
+      title: "$_title: ${landowner.name}",
       body: Column(
         children: <Widget>[
           ContactInfo(
