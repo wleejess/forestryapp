@@ -20,7 +20,14 @@ class DAOLandowner {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static void saveJournalEntry(DTOLandowner dto) {
-    DatabaseManager.getInstance().saveNewLandowner(dto.formQueryArguments());
+  static void saveNewLandowner(DTOLandowner dto) {
+    DatabaseManager.getInstance().saveNewLandowner([
+      dto.name,
+      dto.email,
+      dto.address,
+      dto.city,
+      dto.usState.label,
+      dto.zip
+    ]);
   }
 }

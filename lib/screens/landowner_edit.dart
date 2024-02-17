@@ -154,7 +154,7 @@ class _LandownerEditState extends State<LandownerEdit> {
     _collectFormData();
 
     if (widget._landowner == null) {
-      DAOLandowner.saveJournalEntry(_dto); // Save new landowner.
+      DAOLandowner.saveNewLandowner(_dto); // Save new landowner.
     } else {
       // TODO: update existing landowner
     }

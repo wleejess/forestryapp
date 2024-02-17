@@ -5,7 +5,7 @@ import 'package:forestryapp/enums/us_state.dart';
 /// Intermediate class to act as a bucket for collecting model data to send off
 /// to DB.
 ///
-/// Not responsible for any state functionality, only data transfer.
+/// Not responsible for any behavior only state.
 class DTOLandowner {
   // Public Fields //////////////////////////////////////////////////////////////
   late String name;
@@ -30,9 +30,5 @@ class DTOLandowner {
         'city: $city,' +
         'state: $usState,' +
         'zip: $zip';
-  }
-
-  List<String> formQueryArguments() {
-    return [name, email, address, city, usState.label, zip];
   }
 }
