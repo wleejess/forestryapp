@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
+import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/landowner.dart';
 
 class LandownerEdit extends StatefulWidget {
@@ -15,8 +16,8 @@ class LandownerEdit extends StatefulWidget {
   final Landowner? _landowner;
 
   // Constructor ///////////////////////////////////////////////////////////////
-  const LandownerEdit({Landowner? landowner, super.key})
-      : _landowner = landowner;
+  const LandownerEdit({Landowner? landownerToEdit, super.key})
+      : _landowner = landownerToEdit;
 
   @override
   State<LandownerEdit> createState() => _LandownerEditState();
@@ -59,18 +60,42 @@ class _LandownerEditState extends State<LandownerEdit> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              PersonFieldSet(
-                nameController: _nameController,
-                emailController: _emailController,
-                addressController: _addressController,
-                cityController: _cityController,
-                zipController: _zipController,
-              ),
+              _buildFields(context),
               _buildSaveButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Build input fields for contact info.
+  ///
+  /// When editing an existing landowner, populate fields with their
+  /// data. Otherwise just leave the fields blank.
+  Widget _buildFields(BuildContext context) {
+    final landowner = widget._landowner;
+    late final USState? initialUSState;
+
+
+    if (landowner != null) {
+      _nameController.text = landowner.name;
+      _emailController.text = landowner.email;
+      _addressController.text = landowner.address;
+      _cityController.text = landowner.city;
+      _zipController.text = landowner.zip;
+      initialUSState = landowner.state;
+    } else {
+      initialUSState = null;
+    }
+
+    return PersonFieldSet(
+      nameController: _nameController,
+      emailController: _emailController,
+      addressController: _addressController,
+      cityController: _cityController,
+      zipController: _zipController,
+      initialUSState: initialUSState,
     );
   }
 
