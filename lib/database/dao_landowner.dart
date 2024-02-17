@@ -28,6 +28,9 @@ class DAOLandowner {
         [..._getNonIDFields(dto), dto.id],
       );
 
+  static void deleteLandowner(int id) =>
+      DatabaseManager.getInstance().deleteLandowner([id]);
+
   // Helpers ///////////////////////////////////////////////////////////////////
   static List<String> _getNonIDFields(DTOLandowner dto) =>
       [dto.name, dto.email, dto.address, dto.city, dto.usState.label, dto.zip];
