@@ -20,9 +20,10 @@ class DatabaseManager {
     'assets/database/schema/landowners.sql',
   ];
 
-  static const String _pathDummyData = 'assets/database/dummy_data.sql';
+  static const String _pathDummyData =
+      'assets/database/ddl_statements/dummy_data.sql';
   static const String _pathReadAllLandowners =
-      'assets/database/read_all_landowners.sql';
+      'assets/database/queries/read_all_landowners.sql';
 
   // Queries
   static final List<String> _sqlSchemas = [];
@@ -53,7 +54,7 @@ class DatabaseManager {
 
   /// This must be run before starting the app.
   static Future initialize() async {
-    _readQueriesFromFile();
+    _readSQLFromFile();
 
     final db = await openDatabase(
       _filenameDatabase,
@@ -64,7 +65,7 @@ class DatabaseManager {
     _instance = DatabaseManager._(database: db);
   }
 
-  static void _readQueriesFromFile() async {
+  static void _readSQLFromFile() async {
     for (var path in _pathSchemas) {
       _sqlSchemas.add(await rootBundle.loadString(path));
     }
