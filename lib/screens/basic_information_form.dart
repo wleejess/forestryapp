@@ -92,32 +92,44 @@ class BasicInformationForm extends StatelessWidget {
   Widget _buildLandownerInput(BuildContext context) {
     final basicInfoData = Provider.of<BasicInformation>(context);
 
-    List<Landowner> landownerOptions = Provider.of<LandownerCollection>(context).landowners;
+    final landownersListenable = Provider.of<LandownerCollection>(context);
+
+    List<Landowner> landownerOptions =
+        Provider.of<LandownerCollection>(context).landowners;
 
     Landowner? getInitialValue() {
       if (basicInfoData.landowner != null) {
-        return landownerOptions.firstWhere((element) => basicInfoData.landowner!.id == element.id);
+        return landownerOptions
+            .firstWhere((element) => basicInfoData.landowner!.id == element.id);
       }
       return null;
     }
 
-    return DropdownMenu(
-      enableFilter: true,
-      requestFocusOnTap: true,
-      expandedInsets: EdgeInsets.zero,
-      leadingIcon: const Icon(Icons.search),
-      label: const Text(_landownerHeading),
-      initialSelection: getInitialValue(),
-      dropdownMenuEntries: landownerOptions.map<DropdownMenuEntry<Landowner>>(
-        (Landowner landowner) {
-          return DropdownMenuEntry(
-            value: landowner, 
-            label: landowner.name
-          );
-        },
-      ).toList(),
-      onSelected: (Landowner? value) {
-        basicInfoData.landowner = value;
+    // Use [ListenableBuilder] here because if there is an option to create a
+    // new user, saving that user to the database would change the state of the
+    // listenable which would in turn force this to rebuild. This is needed in
+    // the event we do a `Navigator.pop(context)` from the creation screen to
+    // get back here, otherwise the list of landowners will be out of date.
+    return ListenableBuilder(
+      listenable: landownersListenable,
+      builder: (context, _) {
+        return DropdownMenu(
+          enableFilter: true,
+          requestFocusOnTap: true,
+          expandedInsets: EdgeInsets.zero,
+          leadingIcon: const Icon(Icons.search),
+          label: const Text(_landownerHeading),
+          initialSelection: getInitialValue(),
+          dropdownMenuEntries:
+              landownerOptions.map<DropdownMenuEntry<Landowner>>(
+            (Landowner landowner) {
+              return DropdownMenuEntry(value: landowner, label: landowner.name);
+            },
+          ).toList(),
+          onSelected: (Landowner? value) {
+            basicInfoData.landowner = value;
+          },
+        );
       },
     );
   }
