@@ -2,7 +2,9 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/models/landowner.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
+import "package:provider/provider.dart";
 
 class LandownerReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -14,29 +16,44 @@ class LandownerReview extends StatelessWidget {
 
   // Instance variables ////////////////////////////////////////////////////////
   // NOTE: These will be refactored into a single model class later on.
-  final Landowner _landowner;
+  final int _landownerID;
   final List<String> _areas;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to see details on a single landowner.
   const LandownerReview({
-    required Landowner landowner,
+    // Pass ID instead an actual landowner because it is possible the model
+    // object could be out of date after the user edited the given landowner and
+    // saved their changes to the database.
+    required int landownerID,
     required List<String> areas,
     super.key,
-  })  : _landowner = landowner,
+  })  : _landownerID = landownerID,
         _areas = areas;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: Provider.of<LandownerCollection>(context),
+      builder: (context, child) {
+        return _buildForestryScaffold(context);
+      },
+    );
+  }
+
+  ForestryScaffold _buildForestryScaffold(BuildContext context) {
+    final Landowner? landowner = Provider.of<LandownerCollection>(context)
+        .getLandownerByID(_landownerID);
+
     return ForestryScaffold(
-      title: "$_title: ${_landowner.name}",
+      title: "$_title: ${landowner!.name}",
       body: Column(
         children: <Widget>[
           ContactInfo(
-            name: _landowner.name,
-            email: _landowner.email,
-            combinedAddress: formatAddress,
+            name: landowner.name,
+            email: landowner.email,
+            combinedAddress: formatAddress(landowner),
           ),
           _buildAreasHeading(context),
           // Use `Expanded` to both (1) constrain `ListView` from exceeding
@@ -49,24 +66,23 @@ class LandownerReview extends StatelessWidget {
           // last `ListTile`.
           Expanded(child: _buildAreas(context)),
           _buildButtonNewArea(context),
-          _buildButtonRowEditDelete(context),
+          _buildButtonRowEditDelete(context, landowner),
         ],
       ),
     );
   }
 
-  String get formatAddress {
+  String formatAddress(Landowner landowner) {
     final String state;
 
-    if (_landowner.state == null) {
+    if (landowner.state == null) {
       state = '';
     } else {
-      state = _landowner.state!.label.toUpperCase();
+      state = landowner.state!.label.toUpperCase();
     }
 
-    return "${_landowner.address} ${_landowner.city}, $state ${_landowner.zip}";
+    return "${landowner.address} ${landowner.city}, $state ${landowner.zip}";
   }
-
 
   // Areas Heading /////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
@@ -111,7 +127,7 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
-  Widget _buildButtonRowEditDelete(BuildContext context) {
+  Widget _buildButtonRowEditDelete(BuildContext context, Landowner landowner) {
     return Row(
       children: [
         Expanded(child: Container()),
@@ -120,8 +136,7 @@ class LandownerReview extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    LandownerEdit(landownerToEdit: _landowner),
+                builder: (context) => LandownerEdit(landownerToEdit: landowner),
               ),
             );
           },

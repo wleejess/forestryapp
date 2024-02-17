@@ -53,7 +53,7 @@ class LandownerIndex extends StatelessWidget {
     return NavigableListTile(
       titleText: name,
       routeBuilder: (context) => LandownerReview(
-        landowner: landowners[i],
+        landownerID: landowners[i].id,
         // TODO: The areas should actually be queried from `LandownerReview` and
         // this parameter should be removed entirely.
         areas: const [],
