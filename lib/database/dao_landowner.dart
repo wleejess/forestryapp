@@ -20,26 +20,15 @@ class DAOLandowner {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static void saveNewLandowner(DTOLandowner dto) {
-    DatabaseManager.getInstance().saveNewLandowner([
-      dto.name,
-      dto.email,
-      dto.address,
-      dto.city,
-      dto.usState.label,
-      dto.zip
-    ]);
-  }
+  static void saveNewLandowner(DTOLandowner dto) =>
+      DatabaseManager.getInstance().saveNewLandowner(_getNonIDFields(dto));
 
-  static void updateExistingLandowner(DTOLandowner dto) {
-    DatabaseManager.getInstance().updateExistingLandowner([
-      dto.name,
-      dto.email,
-      dto.address,
-      dto.city,
-      dto.usState.label,
-      dto.zip,
-      dto.id,
-    ]);
-  }
+  static void updateExistingLandowner(DTOLandowner dto) =>
+      DatabaseManager.getInstance().updateExistingLandowner(
+        [..._getNonIDFields(dto), dto.id],
+      );
+
+  // Helpers ///////////////////////////////////////////////////////////////////
+  static List<String> _getNonIDFields(DTOLandowner dto) =>
+      [dto.name, dto.email, dto.address, dto.city, dto.usState.label, dto.zip];
 }
