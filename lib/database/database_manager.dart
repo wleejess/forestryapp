@@ -168,4 +168,17 @@ class DatabaseManager {
       },
     );
   }
+
+
+  /// Delete an existing landowner on the database.
+  ///
+  /// [queryArgs] Should be list of ALL values specified in
+  /// [_sqlDeleteLandowner] in the correct order.
+  void deleteLandowner(List<dynamic> queryArgs) async {
+    return _db.transaction(
+      (txn) async {
+        await txn.rawDelete(_sqlDeleteLandowner, queryArgs);
+      },
+    );
+  }
 }
