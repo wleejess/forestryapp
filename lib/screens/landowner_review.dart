@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
 
 class LandownerReview extends StatelessWidget {
@@ -13,38 +14,29 @@ class LandownerReview extends StatelessWidget {
 
   // Instance variables ////////////////////////////////////////////////////////
   // NOTE: These will be refactored into a single model class later on.
-  final String _name;
-  final String _email;
-  final String _combinedAddress;
+  final Landowner _landowner;
   final List<String> _areas;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to see details on a single landowner.
   const LandownerReview({
-    required String name,
-    required String email,
-    required String streetAddress,
-    required String city,
-    required String state,
-    required String zipCode,
+    required Landowner landowner,
     required List<String> areas,
     super.key,
-  })  : _name = name,
-        _email = email,
-        _combinedAddress = "$streetAddress $city, $state $zipCode",
+  })  : _landowner = landowner,
         _areas = areas;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: "$_title: $_name",
+      title: "$_title: ${_landowner.name}",
       body: Column(
         children: <Widget>[
           ContactInfo(
-            name: _name,
-            email: _email,
-            combinedAddress: _combinedAddress,
+            name: _landowner.name,
+            email: _landowner.email,
+            combinedAddress: formatAddress,
           ),
           _buildAreasHeading(context),
           // Use `Expanded` to both (1) constrain `ListView` from exceeding
@@ -62,6 +54,19 @@ class LandownerReview extends StatelessWidget {
       ),
     );
   }
+
+  String get formatAddress {
+    final String state;
+
+    if (_landowner.state == null) {
+      state = '';
+    } else {
+      state = _landowner.state!.label.toUpperCase();
+    }
+
+    return "${_landowner.address} ${_landowner.city}, $state ${_landowner.zip}";
+  }
+
 
   // Areas Heading /////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
