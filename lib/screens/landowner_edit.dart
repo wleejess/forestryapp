@@ -32,6 +32,7 @@ class _LandownerEditState extends State<LandownerEdit> {
   final _emailController = TextEditingController();
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
+  USState? _currentDropdownUSState;
   final _zipController = TextEditingController();
 
   /// Keep single DTO object for data collection from forms.
@@ -43,6 +44,12 @@ class _LandownerEditState extends State<LandownerEdit> {
   @override
   void initState() {
     super.initState(); // Convention is to execute as first line of body.
+
+    if (widget._landowner != null) {
+      _currentDropdownUSState = widget._landowner!.state;
+    } else {
+      _currentDropdownUSState = null;
+    }
   }
 
   @override
@@ -102,6 +109,8 @@ class _LandownerEditState extends State<LandownerEdit> {
       cityController: _cityController,
       zipController: _zipController,
       initialUSState: initialUSState,
+      dropdownOnChanged: (usState) =>
+          setState(() => _currentDropdownUSState = usState),
     );
   }
 
