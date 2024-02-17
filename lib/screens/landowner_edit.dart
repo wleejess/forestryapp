@@ -35,7 +35,6 @@ class _LandownerEditState extends State<LandownerEdit> {
   final _emailController = TextEditingController();
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
-  USState? _currentDropdownUSState;
   final _zipController = TextEditingController();
 
   /// Keep single DTO object for data collection from forms.
@@ -44,16 +43,6 @@ class _LandownerEditState extends State<LandownerEdit> {
   final _dto = DTOLandowner();
 
   // Lifecycle Methods /////////////////////////////////////////////////////////
-  @override
-  void initState() {
-    super.initState(); // Convention is to execute as first line of body.
-
-    if (widget._landowner != null) {
-      _currentDropdownUSState = widget._landowner!.state;
-    } else {
-      _currentDropdownUSState = null;
-    }
-  }
 
   @override
   void dispose() {
@@ -111,8 +100,7 @@ class _LandownerEditState extends State<LandownerEdit> {
       cityController: _cityController,
       zipController: _zipController,
       initialUSState: initialUSState,
-      dropdownOnChanged: (usState) =>
-          setState(() => _currentDropdownUSState = usState),
+      dropdownOnChanged: (usState) => _dto.usState = usState,
     );
   }
 
@@ -169,7 +157,6 @@ class _LandownerEditState extends State<LandownerEdit> {
     _dto.email = _emailController.text;
     _dto.address = _addressController.text;
     _dto.city = _cityController.text;
-    _dto.usState = _currentDropdownUSState!; // Won't be null due to validation.
     _dto.zip = _zipController.text;
   }
 }
