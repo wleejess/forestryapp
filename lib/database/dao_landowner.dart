@@ -30,4 +30,16 @@ class DAOLandowner {
       dto.zip
     ]);
   }
+
+  static void updateExistingLandowner(DTOLandowner dto) {
+    DatabaseManager.getInstance().updateExistingLandowner([
+      dto.name,
+      dto.email,
+      dto.address,
+      dto.city,
+      dto.usState.label,
+      dto.zip,
+      dto.id,
+    ]);
+  }
 }
