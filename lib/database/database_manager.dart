@@ -152,4 +152,16 @@ class DatabaseManager {
       await txn.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
   }
+
+  /// Edit an existing landowner on the database.
+  ///
+  /// [queryArgs] Should be list of ALL values specified in
+  /// [_sqlUpdateExitsingLandowner] in the correct order.
+  void updateExistingLandowner(List<dynamic> queryArgs) async {
+    return _db.transaction(
+      (txn) async {
+        await txn.rawUpdate(_sqlUpdateExitsingLandowner, queryArgs);
+      },
+    );
+  }
 }
