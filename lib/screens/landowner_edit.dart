@@ -104,7 +104,7 @@ class _LandownerEditState extends State<LandownerEdit> {
 
     return (landowner == null)
         ? LandownerEdit._titleNew
-        : "${LandownerEdit._titleEdit}${landowner.name}";
+        : "${LandownerEdit._titleEdit} ${landowner.name}";
   }
 
   Align _buildSaveButton() {
