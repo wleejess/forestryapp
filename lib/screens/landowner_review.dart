@@ -119,7 +119,10 @@ class LandownerReview extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LandownerEdit()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    LandownerEdit(landownerToEdit: _landowner),
+              ),
             );
           },
           child: const Text(_buttonLabelEdit),
