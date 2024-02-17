@@ -61,7 +61,7 @@ class _LandownerEditState extends State<LandownerEdit> {
           child: Column(
             children: <Widget>[
               _buildFields(context),
-              _buildSaveButton(),
+              _buildSaveButton(context),
             ],
           ),
         ),
@@ -107,17 +107,17 @@ class _LandownerEditState extends State<LandownerEdit> {
         : "${LandownerEdit._titleEdit} ${landowner.name}";
   }
 
-  Align _buildSaveButton() {
+  Align _buildSaveButton(BuildContext context) {
     return Align(
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
-        onPressed: _submitForm,
+        onPressed: () => _submitForm(context),
         child: const Text(LandownerEdit._labelSaveButton),
       ),
     );
   }
 
-  void _submitForm() {
+  void _submitForm(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
