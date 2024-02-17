@@ -1,4 +1,5 @@
 import 'package:forestryapp/database/database_manager.dart';
+import 'package:forestryapp/database/dto_landowner.dart';
 import 'package:forestryapp/models/landowner.dart';
 
 class DAOLandowner {
@@ -16,5 +17,10 @@ class DAOLandowner {
   static Future<List<Landowner>> fetchFromDatabase() async {
     final dbRecords = await DatabaseManager.getInstance().readLandowners();
     return dbRecords.map((Map record) => Landowner.fromMap(record)).toList();
+  }
+
+  // Writing to Database ///////////////////////////////////////////////////////
+  static void saveJournalEntry(DTOLandowner dto) {
+    DatabaseManager.getInstance().saveNewLandowner(dto.formQueryArguments());
   }
 }
