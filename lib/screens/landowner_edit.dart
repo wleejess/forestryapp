@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
+import 'package:forestryapp/database/dto_landowner.dart';
 import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/landowner.dart';
 
@@ -32,6 +33,11 @@ class _LandownerEditState extends State<LandownerEdit> {
   final _addressController = TextEditingController();
   final _cityController = TextEditingController();
   final _zipController = TextEditingController();
+
+  /// Keep single DTO object for data collection from forms.
+  ///
+  /// Reuse it to avoid reinitializating each time.
+  final _dto = DTOLandowner();
 
   // Lifecycle Methods /////////////////////////////////////////////////////////
   @override
