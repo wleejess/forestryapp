@@ -23,6 +23,7 @@ class Landowner extends ChangeNotifier {
       : this(
           id: dbRecord[DAOLandowner.colID],
           name: dbRecord[DAOLandowner.colName],
+          email: dbRecord[DAOLandowner.colEmail],
           address: dbRecord[DAOLandowner.colAddress],
           city: dbRecord[DAOLandowner.colCity],
           state: USState.fromString(dbRecord[DAOLandowner.colUSState]),

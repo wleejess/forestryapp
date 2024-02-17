@@ -4,6 +4,7 @@ CREATE TABLE if NOT EXISTS landowners(
   -- landowner only have single name field. May want to change this if we
   -- implement sorting by last name on Landowner Index screen.
   name TEXT NOT NULL,
+  email TEXT NOT NULL,
   address TEXT NOT NULL,
   city TEXT NOT NULL,
   -- Validate `us_state` off existing values in `lib/enums/us_state.dart`.

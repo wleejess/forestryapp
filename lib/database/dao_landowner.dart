@@ -6,6 +6,7 @@ class DAOLandowner {
   // Column names in from database when converted to Dart [Map] keys.
   static const colID = 'id';
   static const colName = 'name';
+  static const colEmail = 'email';
   static const colAddress = 'address';
   static const colCity = 'city';
   static const colUSState = 'us_state';
