@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
+import 'package:forestryapp/database/dao_landowner.dart';
 import 'package:forestryapp/database/dto_landowner.dart';
 import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/landowner.dart';
+import 'package:forestryapp/models/landowner_collection.dart';
+import 'package:provider/provider.dart';
 
 class LandownerEdit extends StatefulWidget {
   // Static Variables //////////////////////////////////////////////////////////
@@ -149,6 +152,9 @@ class _LandownerEditState extends State<LandownerEdit> {
 
   void _persist(BuildContext context) async {
     _collectFormData();
+    // Update landowners to include newly saved landowner.
+    Provider.of<LandownerCollection>(context, listen: false).landowners =
+        await DAOLandowner.fetchFromDatabase();
   }
 
   void _collectFormData() {
