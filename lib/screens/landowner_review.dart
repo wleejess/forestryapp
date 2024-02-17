@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/database/dao_landowner.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
@@ -155,10 +156,19 @@ class LandownerReview extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         OutlinedButton(
-          onPressed: () {},
+          onPressed: () {
+            _deleteLandowner(context, landowner);
+            Navigator.pop(context);
+          },
           child: const Text(_buttonLabelDelete),
         ),
       ],
     );
+  }
+
+  void _deleteLandowner(BuildContext context, Landowner landowner) async {
+    DAOLandowner.deleteLandowner(landowner.id);
+    Provider.of<LandownerCollection>(context, listen: false).landowners =
+        await DAOLandowner.fetchFromDatabase();
   }
 }
