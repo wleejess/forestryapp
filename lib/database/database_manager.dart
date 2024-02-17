@@ -47,6 +47,8 @@ class DatabaseManager {
       'assets/database/ddl_statements/save_new_landowner.sql';
   static const String _pathUpdateExistingLandowner =
       'assets/database/ddl_statements/update_existing_landowner.sql';
+  static const String _pathDeleteLandowner =
+      'assets/database/ddl_statements/delete_landowner.sql';
 
   // SQL strings (read from the above SQLite files).
   /// List of SQL statements needed to create schema.
@@ -56,6 +58,7 @@ class DatabaseManager {
   static late final String _sqlReadAllLandowners;
   static late final String _sqlSaveNewLandowner;
   static late final String _sqlUpdateExitsingLandowner;
+  static late final String _sqlDeleteLandowner;
 
   /// The single instance of the database manager.
   ///
@@ -100,6 +103,7 @@ class DatabaseManager {
     _sqlUpdateExitsingLandowner = await rootBundle.loadString(
       _pathUpdateExistingLandowner,
     );
+    _sqlDeleteLandowner = await rootBundle.loadString(_pathDeleteLandowner);
   }
 
   static void _readMultipleSQLFilesIntoList(
