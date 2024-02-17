@@ -8,6 +8,7 @@ import 'package:forestryapp/enums/us_state.dart';
 /// Not responsible for any behavior only state.
 class DTOLandowner {
   // Public Fields //////////////////////////////////////////////////////////////
+  late int id; // For updating/deletion only. Don't use for landowner creation.
   late String name;
   late String email;
   late String address;
