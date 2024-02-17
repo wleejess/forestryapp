@@ -3,6 +3,7 @@ import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/landowner_edit.dart";
 import "package:forestryapp/screens/landowner_review.dart";
 import "package:provider/provider.dart";
 
@@ -24,7 +25,15 @@ class LandownerIndex extends StatelessWidget {
         listenable: Provider.of<LandownerCollection>(context),
         builder: _buildListViewOfAllLandownersFromDB,
       ),
-      fab: FABCreation(icon: Icons.person, onPressed: () {}),
+      fab: FABCreation(
+        icon: Icons.person,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LandownerEdit()),
+          );
+        },
+      ),
     );
   }
 
