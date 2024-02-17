@@ -93,7 +93,6 @@ class _LandownerEditState extends State<LandownerEdit> {
     final landowner = widget._landowner;
     late final USState? initialUSState;
 
-
     if (landowner != null) {
       _nameController.text = landowner.name;
       _emailController.text = landowner.email;
@@ -157,6 +156,7 @@ class _LandownerEditState extends State<LandownerEdit> {
       DAOLandowner.saveNewLandowner(_dto); // Save new landowner.
     } else {
       _dto.id = widget._landowner!.id; // non-null because of [if] condition.
+      DAOLandowner.updateExistingLandowner(_dto);
     }
 
     // Update landowners to include newly saved landowner.
