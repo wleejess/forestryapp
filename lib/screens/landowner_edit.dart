@@ -143,6 +143,7 @@ class _LandownerEditState extends State<LandownerEdit> {
           ),
         ),
       );
+      Navigator.pop(context);
     }
   }
 
