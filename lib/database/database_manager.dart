@@ -19,15 +19,17 @@ class DatabaseManager {
     'assets/database/schema/areas.sql',
     'assets/database/schema/landowners.sql',
   ];
-
   static const String _pathDummyData =
       'assets/database/ddl_statements/dummy_data.sql';
+  static const String _pathSaveNewLandowner =
+      'assets/database/ddl_statements/save_new_landowner.sql';
   static const String _pathReadAllLandowners =
       'assets/database/queries/read_all_landowners.sql';
 
-  // Queries
+  // SQL
   static final List<String> _sqlSchemas = [];
   static late final String _sqlDummyData;
+  static late final String _sqlSaveNewLandowner;
   static late final String _sqlReadAllLandowners;
 
   /// The single instance of the database manager.
@@ -70,6 +72,7 @@ class DatabaseManager {
       _sqlSchemas.add(await rootBundle.loadString(path));
     }
     _sqlDummyData = await rootBundle.loadString(_pathDummyData);
+    _sqlSaveNewLandowner = await rootBundle.loadString(_pathSaveNewLandowner);
     _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
   }
 
@@ -78,6 +81,12 @@ class DatabaseManager {
       await db.execute(schemaStatement);
     }
     await db.execute(_sqlDummyData);
+  }
+
+  void saveNewLandowner(List queryArgs) async {
+    return _db.transaction((txn) async {
+      await txn.rawInsert(_sqlSaveNewLandowner, queryArgs);
+    });
   }
 
   Future<List<Map<String, dynamic>>> readLandowners() async {
