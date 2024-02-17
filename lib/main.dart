@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/database/dao_landowner.dart';
+import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "forestryapp.dart";
 import 'package:forestryapp/database/database_manager.dart';
@@ -11,6 +13,9 @@ void main() async {
   await DatabaseManager.initialize();
 
   runApp(
-    ForestryApp(sharedPreferences: await SharedPreferences.getInstance()),
+    ForestryApp(
+      sharedPreferences: await SharedPreferences.getInstance(),
+      initialLandowners: LandownerCollection(await DAOLandowner.fetchFromDatabase()),
+    ),
   );
 }
