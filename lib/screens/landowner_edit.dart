@@ -79,8 +79,11 @@ class _LandownerEditState extends State<LandownerEdit> {
     if (_formKey.currentState?.validate() ?? false) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content:
-                Text(LandownerEdit._msgSubmit, textAlign: TextAlign.center)),
+          content: Text(
+            LandownerEdit._msgSubmit,
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
     }
   }
