@@ -152,6 +152,13 @@ class _LandownerEditState extends State<LandownerEdit> {
 
   void _persist(BuildContext context) async {
     _collectFormData();
+
+    if (widget._landowner == null) {
+      DAOLandowner.saveJournalEntry(_dto); // Save new landowner.
+    } else {
+      // TODO: update existing landowner
+    }
+
     // Update landowners to include newly saved landowner.
     Provider.of<LandownerCollection>(context, listen: false).landowners =
         await DAOLandowner.fetchFromDatabase();
