@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/person_fieldset.dart';
+import 'package:forestryapp/models/landowner.dart';
 
 class LandownerEdit extends StatefulWidget {
-  static const _title = "Edit Landowner:";
+  // Static Variables //////////////////////////////////////////////////////////
+  static const _titleEdit = "Edit Landowner:";
+  static const _titleNew = "New Landowner";
   static const _labelSaveButton = "Save";
   static const _msgSubmit = "Landowner saved!";
 
-  const LandownerEdit({super.key});
+  // Instance Variables ////////////////////////////////////////////////////////
+
+  final Landowner? _landowner;
+
+  // Constructor ///////////////////////////////////////////////////////////////
+  const LandownerEdit({Landowner? landowner, super.key})
+      : _landowner = landowner;
 
   @override
   State<LandownerEdit> createState() => _LandownerEditState();
@@ -44,7 +53,7 @@ class _LandownerEditState extends State<LandownerEdit> {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: LandownerEdit._title,
+      title: _buildTitle,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -63,6 +72,14 @@ class _LandownerEditState extends State<LandownerEdit> {
         ),
       ),
     );
+  }
+
+  String get _buildTitle {
+    Landowner? landowner = widget._landowner;
+
+    return (landowner == null)
+        ? LandownerEdit._titleNew
+        : "${LandownerEdit._titleEdit}${landowner.name}";
   }
 
   Align _buildSaveButton() {
