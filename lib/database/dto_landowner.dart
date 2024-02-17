@@ -32,7 +32,7 @@ class DTOLandowner {
         'zip: $zip';
   }
 
-  List formQueryArguments() {
+  List<String> formQueryArguments() {
     return [name, email, address, city, usState.label, zip];
   }
 }

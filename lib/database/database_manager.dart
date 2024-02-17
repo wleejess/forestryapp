@@ -83,7 +83,7 @@ class DatabaseManager {
     await db.execute(_sqlDummyData);
   }
 
-  void saveNewLandowner(List queryArgs) async {
+  void saveNewLandowner(List<String> queryArgs) async {
     return _db.transaction((txn) async {
       await txn.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
