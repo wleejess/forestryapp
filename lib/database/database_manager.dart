@@ -31,21 +31,26 @@ class DatabaseManager {
   /// $ cd /data/data/com.example.forestryapp/databases
   static const String _filenameDatabase = 'forestryapp.db';
 
-  /// SQLite Files. These must each contain at most 1 statement per file.
+  // SQLite Files. These must each contain at most 1 statement per file.
+  /// List of paths for SQL statements needed to create schema.
   static const _pathSchemas = [
     'assets/database/schema/areas.sql',
     'assets/database/schema/landowners.sql',
   ];
-  static const String _pathDummyData =
-      'assets/database/ddl_statements/dummy_data.sql';
+  /// List of paths SQL statements needed to populate database with dummy data.
+  static const _pathDummyData = [
+    'assets/database/ddl_statements/dummy_landowners.sql',
+  ];
   static const String _pathReadAllLandowners =
       'assets/database/queries/read_all_landowners.sql';
   static const String _pathSaveNewLandowner =
       'assets/database/ddl_statements/save_new_landowner.sql';
 
   // SQL strings (read from the above SQLite files).
+  /// List of SQL statements needed to create schema.
   static final List<String> _sqlSchemas = [];
-  static late final String _sqlDummyData;
+  /// List of SQL statements needed to populate database with dummy data.
+  static final List<String> _sqlDummyData = [];
   static late final String _sqlReadAllLandowners;
   static late final String _sqlSaveNewLandowner;
 
@@ -85,7 +90,11 @@ class DatabaseManager {
     for (var path in _pathSchemas) {
       _sqlSchemas.add(await rootBundle.loadString(path));
     }
-    _sqlDummyData = await rootBundle.loadString(_pathDummyData);
+
+    for (var path in _pathDummyData) {
+      _sqlDummyData.add(await rootBundle.loadString(path));
+    }
+
     _sqlSaveNewLandowner = await rootBundle.loadString(_pathSaveNewLandowner);
     _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
   }
@@ -102,7 +111,9 @@ class DatabaseManager {
     for (var schemaStatement in _sqlSchemas) {
       await db.execute(schemaStatement);
     }
-    await db.execute(_sqlDummyData);
+    for (var dummyDataStatement in _sqlDummyData) {
+      await db.execute(dummyDataStatement);
+    }
   }
 
   // Public API For Use with DAOs //////////////////////////////////////////////
