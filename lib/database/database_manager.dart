@@ -87,16 +87,20 @@ class DatabaseManager {
 
   /// Read queries/DDL-statements from SQL files declared assets.
   static void _readSQLFromFile() async {
-    for (var path in _pathSchemas) {
-      _sqlSchemas.add(await rootBundle.loadString(path));
-    }
+    // One Time Initialization Statements
+    _readMultipleSQLFilesIntoList(_pathSchemas, _sqlSchemas);
+    _readMultipleSQLFilesIntoList(_pathDummyData, _sqlDummyData);
 
-    for (var path in _pathDummyData) {
-      _sqlDummyData.add(await rootBundle.loadString(path));
-    }
-
+    // Typical Usage Statements
     _sqlSaveNewLandowner = await rootBundle.loadString(_pathSaveNewLandowner);
     _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
+  }
+
+  static void _readMultipleSQLFilesIntoList(
+      List<String> paths, List<String> statementStorageList) async {
+    for (var path in paths) {
+      statementStorageList.add(await rootBundle.loadString(path));
+    }
   }
 
   /// Create the schema for each table.
@@ -108,11 +112,18 @@ class DatabaseManager {
     // IMPORTANT: `db.execute()` only executes the first SQL statement in a
     // string. Hence it is important to declare the SQL assets with only a
     // single SQL statement per file.
-    for (var schemaStatement in _sqlSchemas) {
-      await db.execute(schemaStatement);
-    }
-    for (var dummyDataStatement in _sqlDummyData) {
-      await db.execute(dummyDataStatement);
+
+    // NOTE: Due to asynchronicity, do not run multiple loops calling
+    // `db.execute()` in their body as the execution of the loops may get of
+    // sync. This is especially important if later statements depend on the
+    // results of earlier statements (e.g. dummy data depending on tables being
+    // created).
+
+    /// Execute in the order they appear in the list.
+    List<String> statements = [..._sqlSchemas, ..._sqlDummyData];
+
+    for (var statement in statements) {
+      await db.execute(statement);
     }
   }
 
