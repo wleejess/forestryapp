@@ -120,9 +120,7 @@ class DatabaseManager {
     // created).
 
     /// Execute in the order they appear in the list.
-    List<String> statements = [..._sqlSchemas, ..._sqlDummyData];
-
-    for (var statement in statements) {
+    for (var statement in [..._sqlSchemas, ..._sqlDummyData]) {
       await db.execute(statement);
     }
   }
