@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:forestryapp/dependency_injection/inherited_settings.dart';
 import 'package:forestryapp/models/basic_information.dart';
 import 'package:forestryapp/models/insects.dart';
 import 'package:forestryapp/models/invasive.dart';
 import 'package:forestryapp/models/landowner.dart';
+import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:forestryapp/models/mistletoe.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/models/vegetative_conditions.dart';
@@ -18,12 +18,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 class ForestryApp extends StatelessWidget {
-  final SharedPreferences sharedPreferences;
+  // Instance variables  ///////////////////////////////////////////////////////
+  final SharedPreferences _sharedPreferences;
+  final LandownerCollection _initialLandowners;
 
   const ForestryApp({
-    Key? key,
-    required this.sharedPreferences,
-  }) : super(key: key);
+    required SharedPreferences sharedPreferences,
+    required LandownerCollection initialLandowners,
+    super.key,
+  })  : _sharedPreferences = sharedPreferences,
+        _initialLandowners = initialLandowners;
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +66,17 @@ class ForestryApp extends StatelessWidget {
         ChangeNotifierProvider<SiteCharacteristics>(
           create: (_) => SiteCharacteristics(),
         ),
-      ],
-      child: InheritedSettings(
-        settings: Settings(sharedPreferences),
-        child: MaterialApp(
-          title: 'Forestry Wellness Checkup App',
-          theme: Styles.makeTheme(),
-          home: const LandownerIndex(),
+        Provider<Settings>(
+          create: (_) => Settings(_sharedPreferences),
         ),
+        ChangeNotifierProvider<LandownerCollection>.value(
+          value: _initialLandowners,
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Forestry Wellness Checkup App',
+        theme: Styles.makeTheme(),
+        home: const LandownerIndex(),
       ),
     );
   }
