@@ -40,6 +40,7 @@ class DatabaseManager {
   /// List of paths SQL statements needed to populate database with dummy data.
   static const _pathDummyData = [
     'assets/database/ddl_statements/dummy_landowners.sql',
+    'assets/database/ddl_statements/dummy_areas.sql',
   ];
   static const String _pathReadAllLandowners =
       'assets/database/queries/read_all_landowners.sql';
