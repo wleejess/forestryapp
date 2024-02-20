@@ -11,6 +11,11 @@ class AreaReview extends StatelessWidget {
   static const _unitSlopePercentage = "%";
   static const _unitSpeciesComposition = "%";
 
+  static const _buttonTextEmail = "Email";
+  static const _buttonTextPDF = "Create PDF";
+  static const _buttonTextEdit = "Edit";
+  static const _buttonTextDelete = "Delete";
+
   // Instance variables ////////////////////////////////////////////////////////
 
   final String _name;
@@ -215,23 +220,22 @@ class AreaReview extends StatelessWidget {
     );
   }
 
-  // Buttons ///////////////////////////////////////////////////////////////////
+  // Button Layout /////////////////////////////////////////////////////////////
 
   Widget _bottomButtonbuilder(
     BuildContext context,
     BoxConstraints constraints,
   ) {
-
     if (constraints.maxWidth < BreakPoints.widthPhonePortait) {
       return Table(
         children: [
           TableRow(children: [
-            OutlinedButton(onPressed: () {}, child: const Text("Generate PDF")),
-            OutlinedButton(onPressed: () {}, child: const Text("Send Email"))
+            _buildButtonPDF(context),
+            _buildButtonEmail(context),
           ]),
           TableRow(children: [
-            OutlinedButton(onPressed: () {}, child: const Text("Edit")),
-            OutlinedButton(onPressed: () {}, child: const Text("Delete"))
+            _buildButtonEdit(context),
+            _buildButtonDelete(context),
           ]),
         ],
       );
@@ -239,12 +243,40 @@ class AreaReview extends StatelessWidget {
 
     return Row(
       children: [
-        OutlinedButton(onPressed: () {}, child: const Text("Generate PDF")),
-        OutlinedButton(onPressed: () {}, child: const Text("Send Email")),
+        _buildButtonPDF(context),
+        _buildButtonEmail(context),
         Expanded(child: Container()),
-        OutlinedButton(onPressed: () {}, child: const Text("Edit")),
-        OutlinedButton(onPressed: () {}, child: const Text("Delete")),
+        _buildButtonEdit(context),
+        _buildButtonDelete(context),
       ],
+    );
+  }
+
+  Widget _buildButtonEmail(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(AreaReview._buttonTextEmail),
+    );
+  }
+
+  Widget _buildButtonPDF(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(AreaReview._buttonTextPDF),
+    );
+  }
+
+  Widget _buildButtonEdit(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(AreaReview._buttonTextEdit),
+    );
+  }
+
+  Widget _buildButtonDelete(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(AreaReview._buttonTextDelete),
     );
   }
 }
