@@ -89,6 +89,12 @@ class _LandownerEditState extends State<LandownerEdit> {
       _cityController.text = landowner.city;
       _zipController.text = landowner.zip;
       initialUSState = landowner.state;
+
+      // ASSUMPTION: Since [landowner] is non-null that means it must originate
+      // from a valid database record. From that, it follows that since the
+      // schema enforces non-null US State it is safe to assume that
+      // `landowner.state` is ilkewise non-null.
+      _dto.usState = landowner.state!;
     } else {
       initialUSState = null;
     }
