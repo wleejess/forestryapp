@@ -8,6 +8,8 @@ import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:provider/provider.dart';
 
+/// Screen for either inserting a new landowner into the database or editing an
+/// existing one.
 class LandownerEdit extends StatefulWidget {
   // Static Variables //////////////////////////////////////////////////////////
   static const _titleEdit = "Edit Landowner:";
@@ -16,10 +18,14 @@ class LandownerEdit extends StatefulWidget {
   static const _msgSubmit = "Landowner saved!";
 
   // Instance Variables ////////////////////////////////////////////////////////
-
   final Landowner? _landowner;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Create a screen to show a form to enter landowner information.
+  ///
+  /// Assumes that if [landownerToEdit] is [null] then the screen is being used
+  /// for creating a new landowner. Otherwise the screen is being used to update
+  /// an existing landowner.
   const LandownerEdit({Landowner? landownerToEdit, super.key})
       : _landowner = landownerToEdit;
 
@@ -83,6 +89,7 @@ class _LandownerEditState extends State<LandownerEdit> {
     late final USState? initialUSState;
 
     if (landowner != null) {
+      // Updating an existing landowner.
       _nameController.text = landowner.name;
       _emailController.text = landowner.email;
       _addressController.text = landowner.address;
@@ -93,9 +100,11 @@ class _LandownerEditState extends State<LandownerEdit> {
       // ASSUMPTION: Since [landowner] is non-null that means it must originate
       // from a valid database record. From that, it follows that since the
       // schema enforces non-null US State it is safe to assume that
-      // `landowner.state` is ilkewise non-null.
+      // [landowner.state] is likewise non-null.  Make sure [_dto.usState
+      // initialized]. This is not an issue when
       _dto.usState = landowner.state!;
     } else {
+      // Creating a new landowner.
       initialUSState = null;
     }
 
@@ -147,7 +156,7 @@ class _LandownerEditState extends State<LandownerEdit> {
     _collectFormData();
 
     if (widget._landowner == null) {
-      DAOLandowner.saveNewLandowner(_dto); // Save new landowner.
+      DAOLandowner.saveNewLandowner(_dto);
     } else {
       _dto.id = widget._landowner!.id; // non-null because of [if] condition.
       DAOLandowner.updateExistingLandowner(_dto);
@@ -158,7 +167,11 @@ class _LandownerEditState extends State<LandownerEdit> {
         await DAOLandowner.fetchFromDatabase();
   }
 
+  /// Transfer form field data into the DTO to prepare it for sendoff to DAO.
   void _collectFormData() {
+    // ASSUMPTION: Note that US State is not collected here as it is assumed to
+    // be automatically updated by the callback passed to
+    // [PersonFieldSet.dropdownOnChanged].
     _dto.name = _nameController.text;
     _dto.email = _emailController.text;
     _dto.address = _addressController.text;

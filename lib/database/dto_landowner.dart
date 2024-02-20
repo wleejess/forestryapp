@@ -5,7 +5,7 @@ import 'package:forestryapp/enums/us_state.dart';
 /// Intermediate class to act as a bucket for collecting model data to send off
 /// to DB.
 ///
-/// Not responsible for any behavior only state.
+/// Not responsible for any behavior (i.e. methods) only state.
 class DTOLandowner {
   // Public Fields //////////////////////////////////////////////////////////////
   late int id; // For updating/deletion only. Don't use for landowner creation.
@@ -22,7 +22,7 @@ class DTOLandowner {
 
   // Methods //////////////////////////////////////////////////////////////////
 
-  // Helper function for debugging purposes.
+  // Helper function for debugging purposes only.
   @override
   String toString() {
     return 'name: $name,' +

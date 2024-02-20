@@ -37,6 +37,12 @@ class LandownerReview extends StatelessWidget {
         _areas = areas;
 
   // Methods ///////////////////////////////////////////////////////////////////
+  /// Conditionally rebuild entire screen.
+  ///
+  /// While listening for changes in the known landowners, rebuild when
+  /// detecting a change (i.e. landowners created/updated/deleted). Do this to
+  /// avoid having [_landowner] having out of date data (i.e. not showing
+  /// changes that have been already made on the database.)
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -47,6 +53,10 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
+  /// Layout the entire screen of the landowne review screen.
+  ///
+  /// Show an error page if the [_landowner] is [null] for whatever reason.
+  /// Otherwise show the landowner's information.
   Widget _buildForestryScaffold(BuildContext context) {
     final Landowner? landowner = Provider.of<LandownerCollection>(context)
         .getLandownerByID(_landownerID);
@@ -88,6 +98,9 @@ class LandownerReview extends StatelessWidget {
     final String state;
 
     if (landowner.state == null) {
+      // This should not be null for landowners coming from database because
+      // schema enforces non-null on said field, but check it just for null
+      // safety linting's sake.
       state = '';
     } else {
       state = landowner.state!.label.toUpperCase();
@@ -129,6 +142,10 @@ class LandownerReview extends StatelessWidget {
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////
+  /// Layout the button for creating a new area associated with landowner being
+  /// reviewed.
+  ///
+  /// The button will be layed out on the right of its parent.
   Widget _buildButtonNewArea(BuildContext context) {
     return Container(
       alignment: Alignment.centerRight,
@@ -139,6 +156,10 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
+  /// Layout buttons so they are on the right side of their parent.
+  ///
+  /// [landowner] should be the landowner being reviewed so that it can be
+  /// edited or deleted.
   Widget _buildButtonRowEditDelete(BuildContext context, Landowner landowner) {
     return Row(
       children: [
