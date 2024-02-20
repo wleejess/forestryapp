@@ -165,26 +165,40 @@ class LandownerReview extends StatelessWidget {
       children: [
         Expanded(child: Container()),
         OutlinedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LandownerEdit(landownerToEdit: landowner),
-              ),
-            );
-          },
+          onPressed: () => _navigateEdit(context, landowner),
           child: const Text(_buttonLabelEdit),
         ),
         const SizedBox(width: 20),
         OutlinedButton(
-          onPressed: () {
-            _deleteLandowner(context, landowner);
-            Navigator.pop(context);
-          },
+          onPressed: () => _navigateDelete(context, landowner),
           child: const Text(_buttonLabelDelete),
         ),
       ],
     );
+  }
+
+  /// Navigate to the screen for editing [landowner].
+  ///
+  /// ASSUMPTION: [landowner] represents a valid record existing in the
+  /// database.
+  void _navigateEdit(BuildContext context, Landowner landowner) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LandownerEdit(landownerToEdit: landowner),
+      ),
+    );
+  }
+
+  /// Delete the landowner being reviewed and navigate back to previous screen.
+  ///
+  /// ASSUMPTION: Previous screen needs to be listening to [LandownerCollection]
+  /// or else it won't show that the landowner was deleted.
+  void _navigateDelete(BuildContext context, Landowner landowner) {
+    // Keep as separate method to avoid using context across async gap.
+    _deleteLandowner(context, landowner);
+
+    Navigator.pop(context);
   }
 
   void _deleteLandowner(BuildContext context, Landowner landowner) async {
