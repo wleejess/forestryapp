@@ -13,6 +13,7 @@ class AreaReview extends StatelessWidget {
 
   static const _buttonTextEmail = "Email";
   static const _buttonTextPDF = "Create PDF";
+  static const _buttonTextDOCX = "Create DOCX";
   static const _buttonTextEdit = "Edit";
   static const _buttonTextDelete = "Delete";
 
@@ -230,11 +231,15 @@ class AreaReview extends StatelessWidget {
       return Table(
         children: [
           TableRow(children: [
-            _buildButtonPDF(context),
+            _buildButtonDOCX(context),
             _buildButtonEmail(context),
           ]),
           TableRow(children: [
+            _buildButtonPDF(context),
             _buildButtonEdit(context),
+          ]),
+          TableRow(children: [
+            Container(),
             _buildButtonDelete(context),
           ]),
         ],
@@ -244,8 +249,9 @@ class AreaReview extends StatelessWidget {
     return Row(
       children: [
         _buildButtonPDF(context),
-        _buildButtonEmail(context),
+        _buildButtonDOCX(context),
         Expanded(child: Container()),
+        _buildButtonEmail(context),
         _buildButtonEdit(context),
         _buildButtonDelete(context),
       ],
@@ -263,6 +269,13 @@ class AreaReview extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(AreaReview._buttonTextPDF),
+    );
+  }
+
+  Widget _buildButtonDOCX(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(AreaReview._buttonTextDOCX),
     );
   }
 
