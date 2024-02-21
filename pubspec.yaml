@@ -69,6 +69,7 @@ flutter:
     - assets/database/schema/
     - assets/database/ddl_statements/
     - assets/database/queries/
+    - assets/templates/ # Templates for DOCX and PDF file creation.
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
