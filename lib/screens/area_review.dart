@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/util/break_points.dart";
 
 class AreaReview extends StatefulWidget {
@@ -117,6 +118,20 @@ class AreaReview extends StatefulWidget {
 }
 
 class _AreaReviewState extends State<AreaReview> {
+  // State Variables ///////////////////////////////////////////////////////////
+  late final DOCXConverter _docxConverter;
+
+  // Lifecycle Methods /////////////////////////////////////////////////////////
+  @override
+  void initState() {
+    super.initState();
+    _initializeConverters();
+  }
+
+  void _initializeConverters() async {
+    _docxConverter = await DOCXConverter.create();
+  }
+
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
@@ -288,7 +303,7 @@ class _AreaReviewState extends State<AreaReview> {
 
   Widget _buildButtonDOCX(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () => debugPrint("${_docxConverter.contentControlTags}\n"),
       child: const Text(AreaReview._buttonTextDOCX),
     );
   }
