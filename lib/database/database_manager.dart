@@ -67,7 +67,7 @@ class DatabaseManager {
 
   // Instance Variables ////////////////////////////////////////////////////////
   // The actual sqflite database.
-  late final Database _db;
+  final Database _db;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Private constructor in order to avoid accidental creation of more than one
