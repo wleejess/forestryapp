@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/util/break_points.dart";
 
-class AreaReview extends StatelessWidget {
+class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Area Review";
 
@@ -112,11 +112,16 @@ class AreaReview extends StatelessWidget {
         _otherIssues = otherIssues,
         _diagnosis = diagnosis;
 
+  @override
+  State<AreaReview> createState() => _AreaReviewState();
+}
+
+class _AreaReviewState extends State<AreaReview> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: "$_titlePrefix: $_name",
+      title: "${AreaReview._titlePrefix}: ${widget._name}",
       body: Column(
         children: [
           Expanded(child: _buildAreaPropertiesListView(context)),
@@ -127,9 +132,6 @@ class AreaReview extends StatelessWidget {
   }
 
   // Heading ///////////////////////////////////////////////////////////////////
-
-  // Area Properties ///////////////////////////////////////////////////////////
-
   Widget _buildAreaPropertiesListView(BuildContext context) {
     // For now, use `ListView` instead of `ListView.builder` to give finer
     // control over order in which checklist items appear as well as allowing
@@ -139,54 +141,66 @@ class AreaReview extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
-          title: Text(_name, style: Theme.of(context).textTheme.headlineLarge),
+          title: Text(widget._name,
+              style: Theme.of(context).textTheme.headlineLarge),
         ),
-        _buildAreaPropertyListTile(context, "Landowner", _landowner),
-        _buildAreaPropertyListTile(context, "Acres", _acres),
-        _buildAreaPropertyListTile(context, "Goals and Objectives", _goals),
-        _buildAreaPropertyListTile(context, "Elevation",
-            _appendUnitsToValue(_elevation, _unitElevation)),
-        _buildAreaPropertyListTile(context, "Aspect", _aspect),
-        _buildAreaPropertyListTile(context, "Slope",
-            _appendUnitsToValue(_slopePercentage, _unitSlopePercentage)),
-        _buildAreaPropertyListTile(context, "Slope Position", _slopePosition),
-        _buildAreaPropertyListTile(context, "Soil Information", _soilInfo),
-        _buildAreaPropertyListTile(context, "Cover Type", _coverType),
-        _buildAreaPropertyListTile(context, "Stand Structure", _standStructure),
+        _buildAreaPropertyListTile(context, "Landowner", widget._landowner),
+        _buildAreaPropertyListTile(context, "Acres", widget._acres),
         _buildAreaPropertyListTile(
-            context, "Overstory Stand Density", _overstoryDensity),
+            context, "Goals and Objectives", widget._goals),
+        _buildAreaPropertyListTile(context, "Elevation",
+            _appendUnitsToValue(widget._elevation, AreaReview._unitElevation)),
+        _buildAreaPropertyListTile(context, "Aspect", widget._aspect),
+        _buildAreaPropertyListTile(
+            context,
+            "Slope",
+            _appendUnitsToValue(
+                widget._slopePercentage, AreaReview._unitSlopePercentage)),
+        _buildAreaPropertyListTile(
+            context, "Slope Position", widget._slopePosition),
+        _buildAreaPropertyListTile(
+            context, "Soil Information", widget._soilInfo),
+        _buildAreaPropertyListTile(context, "Cover Type", widget._coverType),
+        _buildAreaPropertyListTile(
+            context, "Stand Structure", widget._standStructure),
+        _buildAreaPropertyListTile(
+            context, "Overstory Stand Density", widget._overstoryDensity),
         _buildAreaPropertyListTile(
           context,
           "Overstory Species Composition",
-          _appendUnitsToValue(
-              _overstorySpeciesComposition, _unitSpeciesComposition),
+          _appendUnitsToValue(widget._overstorySpeciesComposition,
+              AreaReview._unitSpeciesComposition),
         ),
         _buildAreaPropertyListTile(
-            context, "Understory Stand Density", _understoryDensity),
+            context, "Understory Stand Density", widget._understoryDensity),
         _buildAreaPropertyListTile(
           context,
           "Understory Species Composition",
-          _appendUnitsToValue(
-              _understorySpeciesComposition, _unitSpeciesComposition),
+          _appendUnitsToValue(widget._understorySpeciesComposition,
+              AreaReview._unitSpeciesComposition),
         ),
-        _buildAreaPropertyListTile(context, "Site History", _siteHistory),
-        _buildAreaPropertyListTile(context, "Insects", _insects),
-        _buildAreaPropertyListTile(context, "Diseases", _diseases),
-        _buildAreaPropertyListTile(context, "Ivasives", _ivasives),
-        _buildAreaPropertyListTile(context, "Wildlife Damage", _wildlifeDamage),
         _buildAreaPropertyListTile(
-            context, "Mistletoe Uniformity", _mistletoeUniformity),
+            context, "Site History", widget._siteHistory),
+        _buildAreaPropertyListTile(context, "Insects", widget._insects),
+        _buildAreaPropertyListTile(context, "Diseases", widget._diseases),
+        _buildAreaPropertyListTile(context, "Ivasives", widget._ivasives),
         _buildAreaPropertyListTile(
-            context, "Mistletoe Location", _mistletoeLocation),
+            context, "Wildlife Damage", widget._wildlifeDamage),
         _buildAreaPropertyListTile(
-            context, "Hawksworth Infectino Rating", _hawksworth),
+            context, "Mistletoe Uniformity", widget._mistletoeUniformity),
         _buildAreaPropertyListTile(
-            context, "Mistletoe Tree Species", _mistletoeTreeSpecies),
-        _buildAreaPropertyListTile(context, "Road Health", _roadHealth),
-        _buildAreaPropertyListTile(context, "Water Health", _waterHealth),
-        _buildAreaPropertyListTile(context, "Fire Risk", _fireRisk),
-        _buildAreaPropertyListTile(context, "Other Issues", _otherIssues),
-        _buildAreaPropertyListTile(context, "Diagnosis", _diagnosis),
+            context, "Mistletoe Location", widget._mistletoeLocation),
+        _buildAreaPropertyListTile(
+            context, "Hawksworth Infectino Rating", widget._hawksworth),
+        _buildAreaPropertyListTile(
+            context, "Mistletoe Tree Species", widget._mistletoeTreeSpecies),
+        _buildAreaPropertyListTile(context, "Road Health", widget._roadHealth),
+        _buildAreaPropertyListTile(
+            context, "Water Health", widget._waterHealth),
+        _buildAreaPropertyListTile(context, "Fire Risk", widget._fireRisk),
+        _buildAreaPropertyListTile(
+            context, "Other Issues", widget._otherIssues),
+        _buildAreaPropertyListTile(context, "Diagnosis", widget._diagnosis),
       ],
     );
   }
@@ -215,14 +229,14 @@ class AreaReview extends StatelessWidget {
         alignment: WrapAlignment.start,
         children: [
           Text("$propertyLabel: ", style: styleLabel),
-          Text(property ?? _placeholderForOmitted, style: styleProperty),
+          Text(property ?? AreaReview._placeholderForOmitted,
+              style: styleProperty),
         ],
       ),
     );
   }
 
   // Button Layout /////////////////////////////////////////////////////////////
-
   Widget _bottomButtonbuilder(
     BuildContext context,
     BoxConstraints constraints,
