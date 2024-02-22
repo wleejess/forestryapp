@@ -50,11 +50,12 @@ class ContactInfo extends StatelessWidget {
         styleValue!.copyWith(fontWeight: FontWeight.bold);
 
     return [
-      Container(
-        alignment: Alignment.centerRight,
-        child: Text("$label: ", style: styleLabel),
+      Wrap(
+        children: [
+          Text("$label: ", style: styleLabel),
+          SelectableText(info, style: styleValue)
+        ],
       ),
-      SelectableText(info, style: styleValue),
     ];
   }
 }
