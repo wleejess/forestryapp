@@ -1,5 +1,6 @@
 INSERT INTO areas(
   -- Basic Information
+  landowner_id,
   name,
   acres,
   goals,
@@ -41,6 +42,7 @@ INSERT INTO areas(
 ) VALUES
  (
    -- Basic Information
+   ?,
    ?,
    ?,
    ?,
