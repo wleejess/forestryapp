@@ -51,7 +51,7 @@ class ContactInfo extends StatelessWidget {
 
     return [
       Container(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.centerRight,
         child: Text("$label: ", style: styleLabel),
       ),
       SelectableText(info, style: styleValue),
