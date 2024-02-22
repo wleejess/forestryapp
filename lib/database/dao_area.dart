@@ -4,7 +4,9 @@ import 'package:forestryapp/models/area.dart';
 
 class DAOArea {
   // Static Variables //////////////////////////////////////////////////////////
-  // Column names in from database when converted to Dart [Map] keys.
+  // Column names in from database when converted to Dart [Map] keys. See
+  // [assets/database/schema/areas.sql] for details.
+
   // Basic Information
   static const colLandowner = 'landowner_id';
   static const colName = 'name';
@@ -29,19 +31,19 @@ class DAOArea {
   static const colStandHistory = 'history';
 
   // Damages
-  static const colInsects = 'insects'; // MISSING!
-  static const colDiseases = 'diseases'; // MISSING!
-  static const colInvasives = 'invasives'; // MISSING!
+  static const colInsects = 'insects';
+  static const colDiseases = 'diseases';
+  static const colInvasives = 'invasives';
   static const colWildlifeDamage = 'wildlife_damage';
 
   // Mistletoe
   static const colMistletoeUniformity = 'mistletoe_uniformity';
   static const colMistletoeLocation = 'mistletoe_location';
   static const colHawksworth = 'hawksworth';
-  static const colMistletoeTreeSpecies = 'mistletoe_tree_species'; // MISSING!
+  static const colMistletoeTreeSpecies = 'mistletoe_tree_species';
 
   // Free responses
-  static const colRoadHealth = 'road_issues'; // MISSING!
+  static const colRoadHealth = 'road_issues';
   static const colWaterHealth = 'water_issues';
   static const colFireRisk = 'fire_risk';
   static const colOtherIssues = 'other_issues';
