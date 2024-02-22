@@ -33,7 +33,7 @@ class Area extends ChangeNotifier {
     int? understorySpeciesComposition,
     String? standHistory,
 
-    // Insects and Diseases
+    // Damages
     String? insects,
     String? diseases,
     String? invasives,
@@ -73,7 +73,7 @@ class Area extends ChangeNotifier {
         _understorySpeciesComposition = understorySpeciesComposition,
         _standHistory = standHistory,
 
-        // Insects and Diseases
+        // Damages
         _insects = insects,
         _diseases = diseases,
         _invasives = invasives,
@@ -94,14 +94,20 @@ class Area extends ChangeNotifier {
 
   Area.fromMap(Map dbRecord)
       : this(
-            landowner: dbRecord[DAOArea.colLandowner],
+            // Basic Information
+            name: dbRecord[DAOArea.colName],
             acres: dbRecord[DAOArea.colAcres],
+            landowner: dbRecord[DAOArea.colLandowner],
             goals: dbRecord[DAOArea.colGoals],
+
+            // Site Characteristics
             elevation: dbRecord[DAOArea.colElevation],
             aspect: dbRecord[DAOArea.colAspect],
             slopePercentage: dbRecord[DAOArea.colSlopePercentage],
             slopePosition: dbRecord[DAOArea.colSlopePosition],
             soilInfo: dbRecord[DAOArea.colSoilInfo],
+
+            // Vegetative Conditions
             coverType: dbRecord[DAOArea.colCoverType],
             standStructure: dbRecord[DAOArea.colStandStructure],
             overstoryDensity: dbRecord[DAOArea.colOverstoryDensity],
@@ -111,14 +117,20 @@ class Area extends ChangeNotifier {
             understorySpeciesComposition:
                 dbRecord[DAOArea.colUnderstorySpeciesComposition],
             standHistory: dbRecord[DAOArea.colStandHistory],
+
+            // Damages
             insects: dbRecord[DAOArea.colInsects],
             diseases: dbRecord[DAOArea.colDiseases],
             invasives: dbRecord[DAOArea.colInvasives],
             wildlifeDamage: dbRecord[DAOArea.colWildlifeDamage],
+
+            // Mistletoe
             mistletoeUniformity: dbRecord[DAOArea.colMistletoeUniformity],
             mistletoeLocation: dbRecord[DAOArea.colMistletoeLocation],
             hawksworth: dbRecord[DAOArea.colHawksworth],
             mistletoeTreeSpecies: dbRecord[DAOArea.colMistletoeTreeSpecies],
+
+            // Free responses
             roadHealth: dbRecord[DAOArea.colRoadHealth],
             waterHealth: dbRecord[DAOArea.colWaterHealth],
             fireRisk: dbRecord[DAOArea.colFireRisk],
@@ -149,7 +161,7 @@ class Area extends ChangeNotifier {
   int? _understorySpeciesComposition;
   String? _standHistory;
 
-  // Insects and Diseases
+  // Damages
   String? _insects;
   String? _diseases;
   String? _invasives;
