@@ -6,6 +6,7 @@ class DAOArea {
   // Static Variables //////////////////////////////////////////////////////////
   // Column names in from database when converted to Dart [Map] keys.
   static const colLandowner = 'landowner';
+  static const colName = 'name';
   static const colAcres = 'acres';
   static const colGoals = 'goals';
   static const colElevation = 'elevation';
@@ -42,31 +43,31 @@ class DAOArea {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static void saveNewLandowner(DTOArea dto) {
+  static void saveNewArea(DTOArea dto) {
     DatabaseManager.getInstance().saveNewArea([
-      // dto.usState.label,
       dto.landowner,
+      dto.name,
       dto.acres,
       dto.goals,
       dto.elevation,
-      dto.aspect,
+      dto.direction.label,
       dto.slopePercentage,
-      dto.slopePosition,
+      dto.slopePosition.label,
       dto.soilInfo,
-      dto.coverType,
-      dto.standStructure,
-      dto.overstoryDensity,
+      dto.coverType.label,
+      dto.standStructure.label,
+      dto.overstoryDensity.label,
       dto.overstorySpeciesComposition,
-      dto.understoryDensity,
+      dto.understoryDensity.label,
       dto.understorySpeciesComposition,
       dto.standHistory,
       dto.insects,
       dto.diseases,
       dto.invasives,
-      dto.widlifeDamage,
-      dto.mistletoeUniformity,
+      dto.wildlifeDamage,
+      dto.mistletoeUniformity.label,
       dto.mistletoeLocation,
-      dto.hawksworth,
+      dto.hawksworth.label,
       dto.mistletoeTreeSpecies,
       dto.roadHealth,
       dto.waterHealth,

@@ -15,10 +15,11 @@ import 'package:forestryapp/enums/stand_structure.dart';
 class DTOArea {
   // Public Fields //////////////////////////////////////////////////////////////
   late String landowner;
+  late String name;
   late String acres;
   late String goals;
   late String elevation;
-  late Direction aspect;
+  late Direction direction;
   late String slopePercentage;
   late SlopePosition slopePosition;
   late String soilInfo;
