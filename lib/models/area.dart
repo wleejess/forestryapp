@@ -13,8 +13,8 @@ class Area extends ChangeNotifier {
   Area({
     // Basic Information
     name = '',
-    Landowner? landowner,
     acres = '',
+    Landowner? landowner,
     goals = '',
 
     // Site Characteristics
@@ -113,37 +113,49 @@ class Area extends ChangeNotifier {
             otherIssues: dbRecord[DAOArea.colOtherIssues],
             diagnosis: dbRecord[DAOArea.colDiagnosis]);
 
+  // Basic Information
   String? _name;
   double? _acres;
   Landowner? _landowner;
   String? _goals;
+
+
+  // Site Characteristics
   String? _elevation;
-  SlopePosition _slopePosition = SlopePosition.lower;
   Direction _aspect = Direction.north;
   String _slopePercentage = '';
+  SlopePosition _slopePosition = SlopePosition.lower;
   String _soilInfo = '';
+
+  // Vegetative Conditions
   CoverType _coverType = CoverType.forest;
   StandStructure _standStructure = StandStructure.evenAged;
   StandDensity _overstoryDensity = StandDensity.low;
   String? _overstorySpeciesComposition;
-  String? _overstorySlope;
   StandDensity _understoryDensity = StandDensity.low;
   String? _understorySpeciesComposition;
-  String _understorySlope = '';
   String _standHistory = '';
+
+  // Insects and Diseases
   String? _insects;
   String? _diseases;
   String? _invasives;
   String? _wildlifeDamage;
+
+  // Mistletoe
   MistletoeUniformity _mistletoeUniformity = MistletoeUniformity.uniform;
-  Hawksworth _hawksworth = Hawksworth.none;
   String? _mistletoeLocation;
+  Hawksworth _hawksworth = Hawksworth.none;
   String? _mistletoeTreeSpecies;
+
+  // Free responses
   String? _roadHealth;
   String? _waterHealth;
   String? _fireRisk;
   String? _otherIssues;
   String? _diagnosis;
+
+  // Getters and Setters ///////////////////////////////////////////////////////
 
   String? get name => _name;
 
@@ -236,12 +248,6 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get overstorySlope => _overstorySlope;
-
-  set overstorySlope(String? value) {
-    _overstorySlope = value;
-    notifyListeners();
-  }
 
   StandDensity get understoryDensity => _understoryDensity;
 
@@ -254,13 +260,6 @@ class Area extends ChangeNotifier {
 
   set understorySpeciesComposition(String? value) {
     _understorySpeciesComposition = value;
-    notifyListeners();
-  }
-
-  String get understorySlope => _understorySlope;
-
-  set understorySlope(String value) {
-    _understorySlope = value;
     notifyListeners();
   }
 

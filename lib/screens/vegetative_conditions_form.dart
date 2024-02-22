@@ -112,9 +112,9 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
             labelText: "Species Composition", hintText: "Enter a % value"),
         onChanged: (text) {
           if (title == 'Overstory Stand Info') {
-            vegConData.overstorySlope = text;
+            vegConData.overstorySpeciesComposition = text;
           } else if (title == 'Understory Stand Info') {
-            vegConData.understorySlope = text;
+            vegConData.understorySpeciesComposition = text;
           }
         },
       ),
