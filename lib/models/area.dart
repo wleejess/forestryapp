@@ -19,17 +19,17 @@ class Area extends ChangeNotifier {
 
     // Site Characteristics
     String? elevation,
-    Direction aspect = Direction.north,
+    Direction aspect = Direction.na,
     int? slopePercentage,
-    SlopePosition slopePosition = SlopePosition.lower,
+    SlopePosition slopePosition = SlopePosition.na,
     String? soilInfo,
 
     // Vegetative Conditions
     CoverType coverType = CoverType.forest,
-    StandStructure standStructure = StandStructure.evenAged,
-    StandDensity overstoryDensity = StandDensity.low,
+    StandStructure standStructure = StandStructure.na,
+    StandDensity overstoryDensity = StandDensity.na,
     int? overstorySpeciesComposition,
-    StandDensity understoryDensity = StandDensity.low,
+    StandDensity understoryDensity = StandDensity.na,
     int? understorySpeciesComposition,
     String? standHistory,
 
@@ -40,9 +40,9 @@ class Area extends ChangeNotifier {
     String? wildlifeDamage,
 
     // Mistletoe
-    MistletoeUniformity mistletoeUniformity = MistletoeUniformity.uniform,
+    MistletoeUniformity mistletoeUniformity = MistletoeUniformity.na,
     String? mistletoeLocation,
-    Hawksworth hawksworth = Hawksworth.low,
+    Hawksworth hawksworth = Hawksworth.na,
     String? mistletoeTreeSpecies,
 
     // Free responses
@@ -147,17 +147,17 @@ class Area extends ChangeNotifier {
 
   // Site Characteristics
   String? _elevation;
-  Direction _aspect;
+  Direction _aspect = Direction.na;
   int? _slopePercentage;
   SlopePosition _slopePosition;
   String? _soilInfo;
 
   // Vegetative Conditions
-  CoverType _coverType = CoverType.forest;
-  StandStructure _standStructure = StandStructure.evenAged;
+  CoverType _coverType = CoverType.na;
+  StandStructure _standStructure = StandStructure.na;
   StandDensity _overstoryDensity;
   int? _overstorySpeciesComposition;
-  StandDensity _understoryDensity = StandDensity.low;
+  StandDensity _understoryDensity = StandDensity.na;
   int? _understorySpeciesComposition;
   String? _standHistory;
 
@@ -168,7 +168,7 @@ class Area extends ChangeNotifier {
   String? _wildlifeDamage;
 
   // Mistletoe
-  MistletoeUniformity _mistletoeUniformity = MistletoeUniformity.uniform;
+  MistletoeUniformity _mistletoeUniformity = MistletoeUniformity.na;
   String? _mistletoeLocation;
   Hawksworth _hawksworth;
   String? _mistletoeTreeSpecies;
