@@ -1,4 +1,5 @@
 enum Direction {
+  na("N/A"),
   north("North"),
   northeast("North East"),
   east("East"),

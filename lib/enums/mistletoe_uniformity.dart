@@ -1,4 +1,5 @@
 enum MistletoeUniformity {
+  na("N/A"),
   uniform("Uniform throughout stand"),
   spotty("Spotty");
 
