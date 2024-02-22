@@ -51,15 +51,20 @@ class Area extends ChangeNotifier {
     String? fireRisk,
     String? otherIssues,
     String? diagnosis,
-  })  : _landowner = landowner,
+  })  : // Basic Information
         _name = name,
         _acres = acres,
+        _landowner = landowner,
         _goals = goals,
+
+        // Site Characteristics
         _elevation = elevation,
         _aspect = aspect,
         _slopePercentage = slopePercentage,
         _slopePosition = slopePosition,
         _soilInfo = soilInfo,
+
+        // Vegetative Conditions
         _coverType = coverType,
         _standStructure = standStructure,
         _overstoryDensity = overstoryDensity,
@@ -67,13 +72,20 @@ class Area extends ChangeNotifier {
         _understoryDensity = understoryDensity,
         _understorySpeciesComposition = understorySpeciesComposition,
         _standHistory = standHistory,
+
+        // Insects and Diseases
         _insects = insects,
+        _diseases = diseases,
         _invasives = invasives,
         _wildlifeDamage = wildlifeDamage,
+
+        // Mistletoe
         _mistletoeUniformity = mistletoeUniformity,
         _mistletoeLocation = mistletoeLocation,
         _hawksworth = hawksworth,
         _mistletoeTreeSpecies = mistletoeTreeSpecies,
+
+        // Free responses
         _roadHealth = roadHealth,
         _waterHealth = waterHealth,
         _fireRisk = fireRisk,
