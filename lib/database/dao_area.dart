@@ -5,35 +5,46 @@ import 'package:forestryapp/models/area.dart';
 class DAOArea {
   // Static Variables //////////////////////////////////////////////////////////
   // Column names in from database when converted to Dart [Map] keys.
-  static const colLandowner = 'landowner';
+  // Basic Information
+  static const colLandowner = 'landowner_id';
   static const colName = 'name';
   static const colAcres = 'acres';
   static const colGoals = 'goals';
+
+  // Site Characteristics
   static const colElevation = 'elevation';
   static const colAspect = 'aspect';
-  static const colSlopePercentage = 'slope percentage';
-  static const colSlopePosition = 'slope position';
-  static const colSoilInfo = 'soil info';
-  static const colCoverType = 'cover type';
-  static const colStandStructure = 'stand structure';
-  static const colOverstoryDensity = 'overstory density';
-  static const colOverstorySpeciesComposition = 'overstory species composition';
-  static const colUnderstoryDensity = 'understory density';
+  static const colSlopePercentage = 'slope_percentage';
+  static const colSlopePosition = 'slope_position';
+  static const colSoilInfo = 'soil_information';
+
+  // Vegetative Conditions
+  static const colCoverType = 'cover_type';
+  static const colStandStructure = 'stand_structure';
+  static const colOverstoryDensity = 'overstory_stand_density';
+  static const colOverstorySpeciesComposition = 'overstory_species_composition';
+  static const colUnderstoryDensity = 'understory_stand_density';
   static const colUnderstorySpeciesComposition =
-      'understory species composition';
-  static const colStandHistory = 'stand history';
-  static const colInsects = 'insects';
-  static const colDiseases = 'diseases';
-  static const colInvasives = 'invasives';
-  static const colWildlifeDamage = 'wildlife damage';
-  static const colMistletoeUniformity = 'mistletoe uniformity';
-  static const colMistletoeLocation = 'mistletoe location';
+      'understory_species_composition';
+  static const colStandHistory = 'history';
+
+  // Damages
+  static const colInsects = 'insects'; // MISSING!
+  static const colDiseases = 'diseases'; // MISSING!
+  static const colInvasives = 'invasives'; // MISSING!
+  static const colWildlifeDamage = 'wildlife_damage';
+
+  // Mistletoe
+  static const colMistletoeUniformity = 'mistletoe_uniformity';
+  static const colMistletoeLocation = 'mistletoe_location';
   static const colHawksworth = 'hawksworth';
-  static const colMistletoeTreeSpecies = 'mistletoe tree species';
-  static const colRoadHealth = 'road health';
-  static const colWaterHealth = 'water health';
-  static const colFireRisk = 'fire risk';
-  static const colOtherIssues = 'other issues';
+  static const colMistletoeTreeSpecies = 'mistletoe_tree_species'; // MISSING!
+
+  // Free responses
+  static const colRoadHealth = 'road_issues'; // MISSING!
+  static const colWaterHealth = 'water_issues';
+  static const colFireRisk = 'fire_risk';
+  static const colOtherIssues = 'other_issues';
   static const colDiagnosis = 'diagnosis';
 
   // Reading from database /////////////////////////////////////////////////////
