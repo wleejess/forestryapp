@@ -32,10 +32,10 @@ CREATE TABLE if NOT EXISTS areas(
   ),
 
   slope_position TEXT CHECK(slope_position IN (
-    'lower',
-    'middle',
-    'upper',
-    'ridgetop'
+    'Lower',
+    'Middle',
+    'Upper',
+    'Ridgetop'
   )),
 
   soil_information TEXT,
@@ -51,9 +51,9 @@ CREATE TABLE if NOT EXISTS areas(
   )),
 
   overstory_stand_density TEXT CHECK(overstory_stand_density IN (
-    'low',
-    'medium',
-    'high'
+    'Low',
+    'Medium',
+    'High'
   )),
 
   overstory_species_composition INTEGER CHECK(
@@ -61,9 +61,9 @@ CREATE TABLE if NOT EXISTS areas(
   ),
 
   understory_stand_density TEXT CHECK(understory_stand_density IN (
-    'low',
-    'medium',
-    'high'
+    'Low',
+    'Medium',
+    'High'
   )),
 
   understory_species_composition INTEGER CHECK(
@@ -73,11 +73,17 @@ CREATE TABLE if NOT EXISTS areas(
 
   history TEXT,
 
+  insects TEXT,
+
+  diseases TEXT,
+
+  invasives TEXT,
+
   wildlife_damage TEXT,
 
   mistletoe_uniformity TEXT CHECK(mistletoe_uniformity IN (
-    'uniform',
-    'spotty'
+    'Uniform throughout stand',
+    'Spotty'
   )),
 
   mistletoe_location TEXT,
@@ -90,11 +96,15 @@ CREATE TABLE if NOT EXISTS areas(
     'High (5-6)'
   )),
 
-  other_issues TEXT,
+  mistletoe_tree_species TEXT,
+
+  road_issues TEXT,
 
   water_issues TEXT,
 
   fire_risk TEXT,
+
+  other_issues TEXT,
 
   diagnosis TEXT
 );

@@ -77,7 +77,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: 'Write in the approximate or average percent slope.',
         ),
         onChanged: (text) {
-          percentSlopeData.slopePercentage = text;
+          percentSlopeData.slopePercentage = int.tryParse(text);
         },
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
       ),
