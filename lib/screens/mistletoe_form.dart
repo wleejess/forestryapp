@@ -6,7 +6,7 @@ import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/hawksworth.dart";
 import "package:forestryapp/enums/mistletoe_uniformity.dart";
-import "package:forestryapp/models/mistletoe.dart";
+import "package:forestryapp/models/area.dart";
 import "package:provider/provider.dart";
 
 class MistletoeForm extends StatelessWidget {
@@ -14,17 +14,18 @@ class MistletoeForm extends StatelessWidget {
   static const _title = "Mistletoe Infections";
   static const _uniformityHeading = "Uniformity";
   static const _uniformityDescription =
-    "Are the mistletoe infections isolated/grouped, or uniform throughout the area?";
+      "Are the mistletoe infections isolated/grouped, or uniform throughout the area?";
   static const _locationHeading = "Mistletoe location";
-  static const _locationDescription = 
-    "If the mistletoe infections are spotty, record their locations.";
+  static const _locationDescription =
+      "If the mistletoe infections are spotty, record their locations.";
   static const _hawksworthHeading = "Hawksworth infection rating";
   static const _hawksworthDescription =
-    "Rate the mistletoe infection level and check the appropriate rating. If you "
-    "are not familiar with this rating system, write your observations elsewhere, "
-    "such as under 'Diagnosis & Suggestions.'";
+      "Rate the mistletoe infection level and check the appropriate rating. If you "
+      "are not familiar with this rating system, write your observations elsewhere, "
+      "such as under 'Diagnosis & Suggestions.'";
   static const _speciesHeading = "Tree species infected";
-  static const _speciesDescription = "List the tree species infected with mistletoe.";
+  static const _speciesDescription =
+      "List the tree species infected with mistletoe.";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -43,23 +44,22 @@ class MistletoeForm extends StatelessWidget {
     ];
 
     return ForestryScaffold(
-      title: MistletoeForm._title,
-      body: FormScaffold(
-        formKey: _formKey,
-        children: children,
-      )
-    );
+        title: MistletoeForm._title,
+        body: FormScaffold(
+          formKey: _formKey,
+          children: children,
+        ));
   }
 
   /// Builds a radio form field about mistletoe uniformity.
   Widget _buildUniformityInput(BuildContext context) {
-    final mistletoeData = Provider.of<Mistletoe>(context);
+    final mistletoeData = Provider.of<Area>(context);
     return RadioOptions(
       header: MistletoeForm._uniformityHeading,
       enumValues: MistletoeUniformity.values,
-      initialValue: mistletoeData.uniformity,
+      initialValue: mistletoeData.mistletoeUniformity,
       onSelected: (selectedOption) {
-        mistletoeData.uniformity = selectedOption;
+        mistletoeData.mistletoeUniformity = selectedOption;
       },
       helperText: MistletoeForm._uniformityDescription,
     );
@@ -67,7 +67,7 @@ class MistletoeForm extends StatelessWidget {
 
   /// Builds a radio form field about Hawksworth Infection Rating.
   Widget _buildHawksworthInput(BuildContext context) {
-    final mistletoeData = Provider.of<Mistletoe>(context);
+    final mistletoeData = Provider.of<Area>(context);
     return RadioOptions(
       header: MistletoeForm._hawksworthHeading,
       enumValues: Hawksworth.values,
@@ -81,27 +81,25 @@ class MistletoeForm extends StatelessWidget {
 
   /// Builds a text input field about mistletoe location.
   Widget _buildLocationInput(BuildContext context) {
-    final mistletoeData = Provider.of<Mistletoe>(context);
+    final mistletoeData = Provider.of<Area>(context);
     return FreeTextBox(
-      labelText: MistletoeForm._locationHeading, 
-      helperText: MistletoeForm._locationDescription,
-      initialValue: mistletoeData.location,
-      onChanged: (text) {
-        mistletoeData.location = text;
-      }
-    );
+        labelText: MistletoeForm._locationHeading,
+        helperText: MistletoeForm._locationDescription,
+        initialValue: mistletoeData.mistletoeLocation,
+        onChanged: (text) {
+          mistletoeData.mistletoeLocation = text;
+        });
   }
 
   /// Builds a text input field about tree species infected with mistletoe.
   Widget _buildSpeciesInput(BuildContext context) {
-    final mistletoeData = Provider.of<Mistletoe>(context);
+    final mistletoeData = Provider.of<Area>(context);
     return FreeTextBox(
-      labelText: MistletoeForm._speciesHeading, 
-      helperText: MistletoeForm._speciesDescription,
-      initialValue: mistletoeData.treeSpecies,
-      onChanged: (text) {
-        mistletoeData.treeSpecies = text;
-      }
-    );
+        labelText: MistletoeForm._speciesHeading,
+        helperText: MistletoeForm._speciesDescription,
+        initialValue: mistletoeData.mistletoeTreeSpecies,
+        onChanged: (text) {
+          mistletoeData.mistletoeTreeSpecies = text;
+        });
   }
 }

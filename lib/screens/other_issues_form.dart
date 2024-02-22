@@ -3,7 +3,7 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/other_issues.dart';
+import 'package:forestryapp/models/area.dart';
 
 class OtherIssuesForm extends StatelessWidget {
   static const _title = "Other Issues";
@@ -27,7 +27,7 @@ class OtherIssuesForm extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
-    final otherIssuesData = Provider.of<OtherIssues>(context);
+    final otherIssuesData = Provider.of<Area>(context);
 
     return FreeTextBox(
         labelText: OtherIssuesForm._title,
