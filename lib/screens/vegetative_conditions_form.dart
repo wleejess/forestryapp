@@ -112,9 +112,9 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
             labelText: "Species Composition", hintText: "Enter a % value"),
         onChanged: (text) {
           if (title == 'Overstory Stand Info') {
-            vegConData.overstorySpeciesComposition = text;
+            vegConData.overstorySpeciesComposition = int.tryParse(text);
           } else if (title == 'Understory Stand Info') {
-            vegConData.understorySpeciesComposition = text;
+            vegConData.understorySpeciesComposition = int.tryParse(text);
           }
         },
       ),

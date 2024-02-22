@@ -12,67 +12,67 @@ import 'package:forestryapp/database/dao_area.dart';
 class Area extends ChangeNotifier {
   Area({
     // Basic Information
-    name = '',
-    acres = '',
+    String? name,
+    double? acres,
     Landowner? landowner,
-    goals = '',
+    String? goals,
 
     // Site Characteristics
-    elevation = '',
-    Direction? aspect,
-    slopePercentage = '',
-    SlopePosition? slopePosition,
-    soilInfo = '',
+    String? elevation,
+    Direction aspect = Direction.north,
+    int? slopePercentage,
+    SlopePosition slopePosition = SlopePosition.lower,
+    String? soilInfo,
 
     // Vegetative Conditions
-    CoverType? coverType,
-    StandStructure? standStructure,
-    StandDensity? overstoryDensity,
-    overstorySpeciesComposition = '',
-    StandDensity? understoryDensity,
-    understorySpeciesComposition = '',
-    standHistory = '',
+    CoverType coverType = CoverType.forest,
+    StandStructure standStructure = StandStructure.evenAged,
+    StandDensity overstoryDensity = StandDensity.low,
+    int? overstorySpeciesComposition,
+    StandDensity understoryDensity = StandDensity.low,
+    int? understorySpeciesComposition,
+    String? standHistory,
 
     // Insects and Diseases
-    insects = '',
-    diseases = '',
-    invasives = '',
-    wildlifeDamage = '',
+    String? insects,
+    String? diseases,
+    String? invasives,
+    String? wildlifeDamage,
 
     // Mistletoe
-    MistletoeUniformity? mistletoeUniformity,
-    mistletoeLocation = '',
-    Hawksworth? hawksworth,
-    mistletoeTreeSpecies = '',
+    MistletoeUniformity mistletoeUniformity = MistletoeUniformity.uniform,
+    String? mistletoeLocation,
+    Hawksworth hawksworth = Hawksworth.low,
+    String? mistletoeTreeSpecies,
 
     // Free responses
-    roadHealth = '',
-    waterHealth = '',
-    fireRisk = '',
-    otherIssues = '',
-    diagnosis = '',
+    String? roadHealth,
+    String? waterHealth,
+    String? fireRisk,
+    String? otherIssues,
+    String? diagnosis,
   })  : _landowner = landowner,
         _name = name,
         _acres = acres,
         _goals = goals,
         _elevation = elevation,
-        _aspect = Direction.east,
+        _aspect = aspect,
         _slopePercentage = slopePercentage,
-        _slopePosition = SlopePosition.lower,
+        _slopePosition = slopePosition,
         _soilInfo = soilInfo,
-        _coverType = CoverType.forest,
-        _standStructure = StandStructure.evenAged,
-        _overstoryDensity = StandDensity.low,
+        _coverType = coverType,
+        _standStructure = standStructure,
+        _overstoryDensity = overstoryDensity,
         _overstorySpeciesComposition = overstorySpeciesComposition,
-        _understoryDensity = StandDensity.low,
+        _understoryDensity = understoryDensity,
         _understorySpeciesComposition = understorySpeciesComposition,
         _standHistory = standHistory,
         _insects = insects,
         _invasives = invasives,
         _wildlifeDamage = wildlifeDamage,
-        _mistletoeUniformity = MistletoeUniformity.uniform,
+        _mistletoeUniformity = mistletoeUniformity,
         _mistletoeLocation = mistletoeLocation,
-        _hawksworth = Hawksworth.low,
+        _hawksworth = hawksworth,
         _mistletoeTreeSpecies = mistletoeTreeSpecies,
         _roadHealth = roadHealth,
         _waterHealth = waterHealth,
@@ -113,28 +113,29 @@ class Area extends ChangeNotifier {
             otherIssues: dbRecord[DAOArea.colOtherIssues],
             diagnosis: dbRecord[DAOArea.colDiagnosis]);
 
+  // Instance Variables ////////////////////////////////////////////////////////
+
   // Basic Information
   String? _name;
   double? _acres;
   Landowner? _landowner;
   String? _goals;
 
-
   // Site Characteristics
   String? _elevation;
-  Direction _aspect = Direction.north;
-  String _slopePercentage = '';
-  SlopePosition _slopePosition = SlopePosition.lower;
-  String _soilInfo = '';
+  Direction _aspect;
+  int? _slopePercentage;
+  SlopePosition _slopePosition;
+  String? _soilInfo;
 
   // Vegetative Conditions
   CoverType _coverType = CoverType.forest;
   StandStructure _standStructure = StandStructure.evenAged;
-  StandDensity _overstoryDensity = StandDensity.low;
-  String? _overstorySpeciesComposition;
+  StandDensity _overstoryDensity;
+  int? _overstorySpeciesComposition;
   StandDensity _understoryDensity = StandDensity.low;
-  String? _understorySpeciesComposition;
-  String _standHistory = '';
+  int? _understorySpeciesComposition;
+  String? _standHistory;
 
   // Insects and Diseases
   String? _insects;
@@ -145,7 +146,7 @@ class Area extends ChangeNotifier {
   // Mistletoe
   MistletoeUniformity _mistletoeUniformity = MistletoeUniformity.uniform;
   String? _mistletoeLocation;
-  Hawksworth _hawksworth = Hawksworth.none;
+  Hawksworth _hawksworth;
   String? _mistletoeTreeSpecies;
 
   // Free responses
@@ -206,16 +207,16 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get slopePercentage => _slopePercentage;
+  int? get slopePercentage => _slopePercentage;
 
-  set slopePercentage(String value) {
+  set slopePercentage(int? value) {
     _slopePercentage = value;
     notifyListeners();
   }
 
-  String get soilInfo => _soilInfo;
+  String? get soilInfo => _soilInfo;
 
-  set soilInfo(String value) {
+  set soilInfo(String? value) {
     _soilInfo = value;
     notifyListeners();
   }
@@ -241,13 +242,12 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get overstorySpeciesComposition => _overstorySpeciesComposition;
+  int? get overstorySpeciesComposition => _overstorySpeciesComposition;
 
-  set overstorySpeciesComposition(String? value) {
+  set overstorySpeciesComposition(int? value) {
     _overstorySpeciesComposition = value;
     notifyListeners();
   }
-
 
   StandDensity get understoryDensity => _understoryDensity;
 
@@ -256,16 +256,16 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get understorySpeciesComposition => _understorySpeciesComposition;
+  int? get understorySpeciesComposition => _understorySpeciesComposition;
 
-  set understorySpeciesComposition(String? value) {
+  set understorySpeciesComposition(int? value) {
     _understorySpeciesComposition = value;
     notifyListeners();
   }
 
-  String get standHistory => _standHistory;
+  String? get standHistory => _standHistory;
 
-  set standHistory(String value) {
+  set standHistory(String? value) {
     _standHistory = value;
     notifyListeners();
   }
