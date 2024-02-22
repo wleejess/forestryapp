@@ -112,6 +112,7 @@ class LandownerReview extends StatelessWidget {
   // Areas Heading /////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
       alignment: Alignment.bottomLeft,
       child: Text(
         _areasHeading,
