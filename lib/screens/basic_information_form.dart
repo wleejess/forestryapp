@@ -93,7 +93,7 @@ class BasicInformationForm extends StatelessWidget {
     final basicInfoData = Provider.of<Area>(context);
 
     final landownersListenable = Provider.of<LandownerCollection>(context);
-
+    
     List<Landowner> landownerOptions =
         Provider.of<LandownerCollection>(context).landowners;
 

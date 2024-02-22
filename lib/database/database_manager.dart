@@ -46,6 +46,10 @@ class DatabaseManager {
       'assets/database/queries/read_all_landowners.sql';
   static const String _pathSaveNewLandowner =
       'assets/database/ddl_statements/save_new_landowner.sql';
+  static const String _pathUpdateExistingLandowner =
+      'assets/database/ddl_statements/update_existing_landowner.sql';
+  static const String _pathDeleteLandowner =
+      'assets/database/ddl_statements/delete_landowner.sql';
 
   static const String _pathReadArea =
       'assets/database/queries/read_all_areas.sql';
@@ -60,6 +64,8 @@ class DatabaseManager {
   static final List<String> _sqlDummyData = [];
   static late final String _sqlReadAllLandowners;
   static late final String _sqlSaveNewLandowner;
+  static late final String _sqlUpdateExitsingLandowner;
+  static late final String _sqlDeleteLandowner;
   static late final String _sqlReadArea;
   static late final String _sqlSaveNewArea;
 
@@ -70,7 +76,7 @@ class DatabaseManager {
 
   // Instance Variables ////////////////////////////////////////////////////////
   // The actual sqflite database.
-  late final Database _db;
+  final Database _db;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Private constructor in order to avoid accidental creation of more than one
@@ -105,6 +111,10 @@ class DatabaseManager {
     _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
     _sqlSaveNewArea = await rootBundle.loadString(_pathSaveNewArea);
     _sqlReadArea = await rootBundle.loadString(_pathReadArea);
+    _sqlUpdateExitsingLandowner = await rootBundle.loadString(
+      _pathUpdateExistingLandowner,
+    );
+    _sqlDeleteLandowner = await rootBundle.loadString(_pathDeleteLandowner);
   }
 
   static void _readMultipleSQLFilesIntoList(
@@ -157,13 +167,37 @@ class DatabaseManager {
       await txn.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
   }
-
-  // Fetch all landowners from the database.
+  
+  /// Edit an existing landowner on the database.
+  ///
+  /// [queryArgs] Should be list of ALL values specified in
+  /// [_sqlUpdateExitsingLandowner] in the correct order.
+  void updateExistingLandowner(List<dynamic> queryArgs) async {
+    return _db.transaction(
+      (txn) async {
+        await txn.rawUpdate(_sqlUpdateExitsingLandowner, queryArgs);
+      },
+    );
+  }
+  
+   /// Delete an existing landowner on the database.
+  ///
+  /// [queryArgs] Should be list of ALL values specified in
+  /// [_sqlDeleteLandowner] in the correct order.
+  void deleteLandowner(List<dynamic> queryArgs) async {
+    return _db.transaction(
+      (txn) async {
+        await txn.rawDelete(_sqlDeleteLandowner, queryArgs);
+      },
+    );
+  }
+  
+  // Fetch areas from the database.
   Future<List<Map<String, dynamic>>> readArea() async {
     return await _db.rawQuery(DatabaseManager._sqlReadArea);
   }
 
-  /// Create a landowner on the database.
+  /// Create an area on the database.
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.

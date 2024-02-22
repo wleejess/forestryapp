@@ -12,4 +12,11 @@ class LandownerCollection extends ChangeNotifier {
     _landowners = newLandowners;
     notifyListeners();
   }
+
+  Landowner? getLandownerByID(int id) {
+    final matches =
+        _landowners.where((landowner) => landowner.id == id).toList();
+
+    return (matches.isNotEmpty) ? matches[0] : null;
+  }
 }
