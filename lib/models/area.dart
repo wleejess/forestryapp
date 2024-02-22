@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forestryapp/database/dao_landowner.dart';
 import 'package:forestryapp/models/landowner.dart';
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
@@ -8,10 +7,12 @@ import 'package:forestryapp/enums/cover_type.dart';
 import 'package:forestryapp/enums/stand_density.dart';
 import 'package:forestryapp/enums/hawksworth.dart';
 import 'package:forestryapp/enums/mistletoe_uniformity.dart';
+import 'package:forestryapp/database/dao_area.dart';
 
 class Area extends ChangeNotifier {
   Area({
     // Basic Information
+    name = '',
     landowner = '',
     acres = '',
     goals = '',
@@ -81,8 +82,7 @@ class Area extends ChangeNotifier {
 
   Area.fromMap(Map dbRecord)
       : this(
-            // state: USState.fromString(dbRecord[DAOLandowner.colUSState]),
-            landowner: dbRecord[DAOArea.landowner],
+            landowner: dbRecord[DAOArea.colLandowner],
             acres: dbRecord[DAOArea.colAcres],
             goals: dbRecord[DAOArea.colGoals],
             elevation: dbRecord[DAOArea.colElevation],

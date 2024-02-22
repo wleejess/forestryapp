@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/util/break_points.dart";
+import "package:forestryapp/models/area.dart";
+import "package:provider/provider.dart";
 
 class AreaReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -221,7 +223,6 @@ class AreaReview extends StatelessWidget {
     BuildContext context,
     BoxConstraints constraints,
   ) {
-
     if (constraints.maxWidth < BreakPoints.widthPhonePortait) {
       return Table(
         children: [
