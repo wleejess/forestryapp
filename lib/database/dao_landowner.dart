@@ -2,9 +2,12 @@ import 'package:forestryapp/database/database_manager.dart';
 import 'package:forestryapp/database/dto_landowner.dart';
 import 'package:forestryapp/models/landowner.dart';
 
+/// Class to facilitate communication between layout code and [DatabaseManager].
+///
+/// This class should contain no instance data.
 class DAOLandowner {
   // Static Variables //////////////////////////////////////////////////////////
-  // Column names in from database when converted to Dart [Map] keys.
+  // Column names for incoming data from database for use in Dart [Map] keys.
   static const colID = 'id';
   static const colName = 'name';
   static const colEmail = 'email';
@@ -20,14 +23,29 @@ class DAOLandowner {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static void saveNewLandowner(DTOLandowner dto) {
-    DatabaseManager.getInstance().saveNewLandowner([
-      dto.name,
-      dto.email,
-      dto.address,
-      dto.city,
-      dto.usState.label,
-      dto.zip
-    ]);
-  }
+  /// Insert a new landowner record to the database.
+  ///
+  /// Assumes all fields except of [dto] are set with the exception of
+  /// [dto.id]. The latter can take any value as it has no bearing on the
+  /// behavior of this method.
+  static void saveNewLandowner(DTOLandowner dto) =>
+      DatabaseManager.getInstance().saveNewLandowner(_getNonIDFields(dto));
+
+  /// Edit an existing landowner record alreay on the database.
+  ///
+  /// Assumes [dto.id] is a valid ID for an existing landowner.
+  static void updateExistingLandowner(DTOLandowner dto) =>
+      DatabaseManager.getInstance().updateExistingLandowner(
+        [..._getNonIDFields(dto), dto.id],
+      );
+
+  /// Remove an existing landowner record from the database.
+  ///
+  /// Assumes [id] is a valid ID of an existing landowner record.
+  static void deleteLandowner(int id) =>
+      DatabaseManager.getInstance().deleteLandowner([id]);
+
+  // Helpers ///////////////////////////////////////////////////////////////////
+  static List<String> _getNonIDFields(DTOLandowner dto) =>
+      [dto.name, dto.email, dto.address, dto.city, dto.usState.label, dto.zip];
 }
