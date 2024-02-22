@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:forestryapp/enums/us_state.dart";
 import "package:forestryapp/models/landowner.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
@@ -92,38 +92,44 @@ class BasicInformationForm extends StatelessWidget {
   Widget _buildLandownerInput(BuildContext context) {
     final basicInfoData = Provider.of<BasicInformation>(context);
 
-    List<Landowner> landownerOptions = <Landowner>[
-      Landowner(id: 0, name: "Amy Adams", email: "a@gmail.com", address: "1234 Alpha Street", city: "Acton", state: USState.alabama, zip: "1"),
-      Landowner(id: 1, name: "Bob Bancroft", email: "b@gmail.com", address: "1234 Beta Street", city: "Burne", state: USState.arizona, zip: "2"),
-      Landowner(id: 2, name: "Chet Chapman", email: "c@gmail.com", address: "1234 Gamma Street", city: "Chico", state: USState.california, zip: "3"),
-      Landowner(id: 3, name: "Donna Dawson", email: "d@gmail.com", address: "1234 Delta Street", city: "Davis", state: USState.delaware, zip: "4"),
-      Landowner(id: 4, name: "Edgar Edmonds", email: "e@gmail.com", address: "1234 Epsilon Street", city: "Empire", state: USState.oregon, zip: "5"),
-    ];
+    final landownersListenable = Provider.of<LandownerCollection>(context);
+
+    List<Landowner> landownerOptions =
+        Provider.of<LandownerCollection>(context).landowners;
 
     Landowner? getInitialValue() {
       if (basicInfoData.landowner != null) {
-        return landownerOptions.firstWhere((element) => basicInfoData.landowner!.id == element.id);
+        return landownerOptions
+            .firstWhere((element) => basicInfoData.landowner!.id == element.id);
       }
       return null;
     }
 
-    return DropdownMenu(
-      enableFilter: true,
-      requestFocusOnTap: true,
-      expandedInsets: EdgeInsets.zero,
-      leadingIcon: const Icon(Icons.search),
-      label: const Text(_landownerHeading),
-      initialSelection: getInitialValue(),
-      dropdownMenuEntries: landownerOptions.map<DropdownMenuEntry<Landowner>>(
-        (Landowner landowner) {
-          return DropdownMenuEntry(
-            value: landowner, 
-            label: landowner.name
-          );
-        },
-      ).toList(),
-      onSelected: (Landowner? value) {
-        basicInfoData.landowner = value;
+    // Use [ListenableBuilder] here because if there is an option to create a
+    // new user, saving that user to the database would change the state of the
+    // listenable which would in turn force this to rebuild. This is needed in
+    // the event we do a `Navigator.pop(context)` from the creation screen to
+    // get back here, otherwise the list of landowners will be out of date.
+    return ListenableBuilder(
+      listenable: landownersListenable,
+      builder: (context, _) {
+        return DropdownMenu(
+          enableFilter: true,
+          requestFocusOnTap: true,
+          expandedInsets: EdgeInsets.zero,
+          leadingIcon: const Icon(Icons.search),
+          label: const Text(_landownerHeading),
+          initialSelection: getInitialValue(),
+          dropdownMenuEntries:
+              landownerOptions.map<DropdownMenuEntry<Landowner>>(
+            (Landowner landowner) {
+              return DropdownMenuEntry(value: landowner, label: landowner.name);
+            },
+          ).toList(),
+          onSelected: (Landowner? value) {
+            basicInfoData.landowner = value;
+          },
+        );
       },
     );
   }
