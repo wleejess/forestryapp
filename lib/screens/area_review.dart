@@ -3,9 +3,9 @@ import "dart:io";
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
+import "package:forestryapp/document_converters/pdf_converter.dart";
 import "package:forestryapp/util/break_points.dart";
 import "package:pdf/pdf.dart";
-import "package:pdf/widgets.dart" as pdfWidget;
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 
@@ -304,27 +304,51 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () async {
         // Build the PDF widget tree
-        final pdf = pdfWidget.Document();
-        pdf.addPage(pdfWidget.Page(
-          pageFormat: PdfPageFormat.a4,
-          build: _buildPdf
-        ));
+        final pdf = PdfConverter().create(
+          widget._name,
+          widget._landowner,
+          widget._acres,
+          widget._goals,
+          widget._elevation,
+          widget._aspect,
+          widget._slopePercentage,
+          widget._slopePosition,
+          widget._soilInfo,
+          widget._coverType,
+          widget._standStructure,
+          widget._overstoryDensity,
+          widget._overstorySpeciesComposition,
+          widget._understoryDensity,
+          widget._understorySpeciesComposition,
+          widget._siteHistory,
+          widget._insects,
+          widget._diseases,
+          widget._ivasives,
+          widget._wildlifeDamage,
+          widget._mistletoeUniformity,
+          widget._mistletoeLocation,
+          widget._hawksworth,
+          widget._mistletoeTreeSpecies,
+          widget._roadHealth,
+          widget._waterHealth,
+          widget._fireRisk,
+          widget._otherIssues,
+          widget._diagnosis,);
 
-      // Get the path of the folder in which to store the pdf file.
-      // On Android, you must access external storage in order to open the file outside of the app.
-      // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
-      final directory = await getExternalStorageDirectory();
-      if (directory != null) {
-        final file = File("${directory.absolute.path}/forest_wellness_checkup.pdf");
-        await file.writeAsBytes(await pdf.save());
-        OpenFile.open(file.path);
-      } else {
-        // Change this to display an error message.
-        print("External storage directory is null.");
-      }
+        // Get the path of the folder in which to store the pdf file.
+        // On Android, you must access external storage in order to open the file outside of the app.
+        // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
+        final directory = await getExternalStorageDirectory();
 
-
-
+        // Need to add an alternative if using iOS
+        if (directory != null) {
+          final file = File("${directory.absolute.path}/forest_wellness_checkup.pdf");
+          await file.writeAsBytes(await pdf.save());
+          OpenFile.open(file.path);
+        } else {
+          // Change this to display an error message.
+          print("External storage directory is null.");
+        }
       },
       child: const Text(AreaReview._buttonTextPDF),
     );
@@ -348,14 +372,6 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(AreaReview._buttonTextDelete),
-    );
-  }
-
-  pdfWidget.Column _buildPdf(pdfWidget.Context context) {
-    return pdfWidget.Column(
-      children: [
-        pdfWidget.Text("Forest Wellness Checkup"),
-      ],
     );
   }
 }
