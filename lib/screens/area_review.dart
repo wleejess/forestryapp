@@ -2,6 +2,8 @@ import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import 'package:provider/provider.dart';
+import 'package:forestryapp/models/settings.dart';
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/document_converters/pdf_converter.dart";
 import "package:forestryapp/util/break_points.dart";
@@ -332,7 +334,9 @@ class _AreaReviewState extends State<AreaReview> {
           widget._waterHealth,
           widget._fireRisk,
           widget._otherIssues,
-          widget._diagnosis,);
+          widget._diagnosis,
+          context.read<Settings>.toString()
+          );
 
         // Get the path of the folder in which to store the pdf file.
         // On Android, you must access external storage in order to open the file outside of the app.
