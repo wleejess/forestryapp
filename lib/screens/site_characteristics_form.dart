@@ -7,7 +7,7 @@ import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/site_characteristics.dart';
+import 'package:forestryapp/models/area.dart';
 
 class SiteCharacteristicsForm extends StatelessWidget {
   // Static Variables
@@ -34,7 +34,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildElevation(BuildContext context) {
-    final elevationData = Provider.of<SiteCharacteristics>(context);
+    final elevationData = Provider.of<Area>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -44,14 +44,14 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: '',
         ),
         onChanged: (text) {
-          elevationData.elevation = text;
+          elevationData.elevation = int.tryParse(text);
         },
       ),
     );
   }
 
   Widget _buildAspect(BuildContext context) {
-    final aspectData = Provider.of<SiteCharacteristics>(context);
+    final aspectData = Provider.of<Area>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -67,7 +67,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildPercentSlope(BuildContext context) {
-    final percentSlopeData = Provider.of<SiteCharacteristics>(context);
+    final percentSlopeData = Provider.of<Area>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -77,7 +77,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: 'Write in the approximate or average percent slope.',
         ),
         onChanged: (text) {
-          percentSlopeData.percentSlope = text;
+          percentSlopeData.slopePercentage = int.tryParse(text);
         },
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
       ),
@@ -85,7 +85,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
   }
 
   Widget _buildSlopePosition(BuildContext context) {
-    final slopePositionData = Provider.of<SiteCharacteristics>(context);
+    final slopePositionData = Provider.of<Area>(context);
 
     return RadioOptions(
         header: 'Slope Position:',
@@ -101,7 +101,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         "Add any information about the soils that is available to you."
         " This can be from either the landowner, or from online.";
 
-    final soilInfoData = Provider.of<SiteCharacteristics>(context);
+    final soilInfoData = Provider.of<Area>(context);
 
     return TextFormField(
         decoration: const InputDecoration(

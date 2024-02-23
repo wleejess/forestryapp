@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import 'package:provider/provider.dart';
@@ -6,20 +7,21 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
-import "package:forestryapp/models/basic_information.dart";
 
 class BasicInformationForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Basic Information";
   static const _nameHeading = "Area name";
-  static const _nameDescription = "If the landowner does not have a name for the "
-    "area, make up a descriptive name (meadow, young DF stand, etc.).";
+  static const _nameDescription =
+      "If the landowner does not have a name for the "
+      "area, make up a descriptive name (meadow, young DF stand, etc.).";
   static const _acresHeading = "Acres";
   static const _acresDescription = "Approximate acres for the stand or area.";
   static const _landownerHeading = "Landowner";
   static const _goalsHeading = "Landowner Goals and Objectives";
-  static const _goalDescription = "The landowner's goals and objectives for this "
-    "specific stand/area.";
+  static const _goalDescription =
+      "The landowner's goals and objectives for this "
+      "specific stand/area.";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -31,38 +33,36 @@ class BasicInformationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: BasicInformationForm._title,
-      body: FormScaffold(
-        formKey: _formKey,
-        children: <Widget>[
-          _buildNameInput(context),
-          _buildAcresInput(context),
-          _buildLandownerInput(context),
-          _buildGoalsInput(context),
-        ],
-      )
-    );
+        title: BasicInformationForm._title,
+        body: FormScaffold(
+          formKey: _formKey,
+          children: <Widget>[
+            _buildNameInput(context),
+            _buildAcresInput(context),
+            _buildLandownerInput(context),
+            _buildGoalsInput(context),
+          ],
+        ));
   }
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInformation>(context);
+    final basicInfoData = Provider.of<Area>(context);
 
     return PortraitHandlingSizedBox(
       child: FreeTextBox(
-        labelText: BasicInformationForm._nameHeading,
-        helperText: BasicInformationForm._nameDescription,
-        initialValue: basicInfoData.name,
-        onChanged: (text) {
-          basicInfoData.name = text;
-        }
-      ),
+          labelText: BasicInformationForm._nameHeading,
+          helperText: BasicInformationForm._nameDescription,
+          initialValue: basicInfoData.name,
+          onChanged: (text) {
+            basicInfoData.name = text;
+          }),
     );
   }
 
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInformation>(context);
+    final basicInfoData = Provider.of<Area>(context);
 
     return PortraitHandlingSizedBox(
       child: TextFormField(
@@ -74,7 +74,7 @@ class BasicInformationForm extends StatelessWidget {
         initialValue: () {
           if (basicInfoData.acres == null) {
             return '';
-          } 
+          }
           return basicInfoData.acres.toString();
         }(),
         onChanged: (text) {
@@ -90,17 +90,17 @@ class BasicInformationForm extends StatelessWidget {
 
   /// Builds a Search bar to select a Landowner for the area.
   Widget _buildLandownerInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInformation>(context);
+    final basicInfoData = Provider.of<Area>(context);
 
     final landownersListenable = Provider.of<LandownerCollection>(context);
-
+    
     List<Landowner> landownerOptions =
         Provider.of<LandownerCollection>(context).landowners;
 
     Landowner? getInitialValue() {
-      if (basicInfoData.landowner != null) {
+      if (basicInfoData.landownerID != null) {
         return landownerOptions
-            .firstWhere((element) => basicInfoData.landowner!.id == element.id);
+            .firstWhere((element) => basicInfoData.landownerID == element.id);
       }
       return null;
     }
@@ -127,7 +127,9 @@ class BasicInformationForm extends StatelessWidget {
             },
           ).toList(),
           onSelected: (Landowner? value) {
-            basicInfoData.landowner = value;
+            if (value != null) {
+              basicInfoData.landownerID = value.id;
+            }
           },
         );
       },
@@ -136,15 +138,14 @@ class BasicInformationForm extends StatelessWidget {
 
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
-    final basicInfoData = Provider.of<BasicInformation>(context);
+    final basicInfoData = Provider.of<Area>(context);
 
     return FreeTextBox(
-      labelText: BasicInformationForm._goalsHeading,
-      helperText: BasicInformationForm._goalDescription,
-      initialValue: basicInfoData.goals,
-      onChanged: (text) {
-        basicInfoData.goals = text;
-      }
-    );
+        labelText: BasicInformationForm._goalsHeading,
+        helperText: BasicInformationForm._goalDescription,
+        initialValue: basicInfoData.goals,
+        onChanged: (text) {
+          basicInfoData.goals = text;
+        });
   }
 }

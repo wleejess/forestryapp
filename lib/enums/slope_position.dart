@@ -1,4 +1,5 @@
 enum SlopePosition {
+  na("N/A"),
   lower("Lower"),
   middle("Middle"),
   upper("Upper"),

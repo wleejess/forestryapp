@@ -37,6 +37,7 @@ class DatabaseManager {
     'assets/database/schema/areas.sql',
     'assets/database/schema/landowners.sql',
   ];
+
   /// List of paths SQL statements needed to populate database with dummy data.
   static const _pathDummyData = [
     'assets/database/ddl_statements/dummy_landowners.sql',
@@ -50,15 +51,23 @@ class DatabaseManager {
   static const String _pathDeleteLandowner =
       'assets/database/ddl_statements/delete_landowner.sql';
 
+  static const String _pathReadArea =
+      'assets/database/queries/read_area.sql';
+  static const String _pathSaveNewArea =
+      'assets/database/ddl_statements/save_new_area.sql';
+
   // SQL strings (read from the above SQLite files).
   /// List of SQL statements needed to create schema.
   static final List<String> _sqlSchemas = [];
+
   /// List of SQL statements needed to populate database with dummy data.
   static final List<String> _sqlDummyData = [];
   static late final String _sqlReadAllLandowners;
   static late final String _sqlSaveNewLandowner;
   static late final String _sqlUpdateExitsingLandowner;
   static late final String _sqlDeleteLandowner;
+  static late final String _sqlReadArea;
+  static late final String _sqlSaveNewArea;
 
   /// The single instance of the database manager.
   ///
@@ -100,6 +109,8 @@ class DatabaseManager {
     // Typical Usage Statements
     _sqlSaveNewLandowner = await rootBundle.loadString(_pathSaveNewLandowner);
     _sqlReadAllLandowners = await rootBundle.loadString(_pathReadAllLandowners);
+    _sqlSaveNewArea = await rootBundle.loadString(_pathSaveNewArea);
+    _sqlReadArea = await rootBundle.loadString(_pathReadArea);
     _sqlUpdateExitsingLandowner = await rootBundle.loadString(
       _pathUpdateExistingLandowner,
     );
@@ -156,7 +167,7 @@ class DatabaseManager {
       await txn.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
   }
-
+  
   /// Edit an existing landowner on the database.
   ///
   /// [queryArgs] Should be list of ALL values specified in
@@ -168,9 +179,8 @@ class DatabaseManager {
       },
     );
   }
-
-
-  /// Delete an existing landowner on the database.
+  
+   /// Delete an existing landowner on the database.
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlDeleteLandowner] in the correct order.
@@ -180,5 +190,20 @@ class DatabaseManager {
         await txn.rawDelete(_sqlDeleteLandowner, queryArgs);
       },
     );
+  }
+  
+  // Fetch areas from the database.
+  Future<List<Map<String, dynamic>>> readArea() async {
+    return await _db.rawQuery(DatabaseManager._sqlReadArea);
+  }
+
+  /// Create an area on the database.
+  ///
+  /// [queryArgs] Should be list of ALL values specified in
+  /// [_sqlSaveNewLandowner] in the correct order.
+  void saveNewArea(List<dynamic> queryArgs) async {
+    return _db.transaction((txn) async {
+      await txn.rawInsert(_sqlSaveNewArea, queryArgs);
+    });
   }
 }

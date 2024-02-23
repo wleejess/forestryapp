@@ -3,7 +3,7 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/water_issues.dart';
+import 'package:forestryapp/models/area.dart';
 
 class WaterIssuesForm extends StatelessWidget {
   static const _title = "Water Health & Issues";
@@ -29,13 +29,13 @@ class WaterIssuesForm extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
-    final waterIssuesData = Provider.of<WaterIssues>(context);
+    final waterIssuesData = Provider.of<Area>(context);
 
     return FreeTextBox(
         labelText: WaterIssuesForm._title,
         helperText: WaterIssuesForm._waterDescription,
         onChanged: (text) {
-          waterIssuesData.waterInfo = text;
+          waterIssuesData.waterHealth = text;
         });
   }
 }

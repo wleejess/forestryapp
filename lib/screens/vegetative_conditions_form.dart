@@ -8,7 +8,7 @@ import "package:forestryapp/enums/stand_density.dart";
 import "package:forestryapp/enums/stand_structure.dart";
 import "package:forestryapp/enums/cover_type.dart";
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/vegetative_conditions.dart';
+import 'package:forestryapp/models/area.dart';
 
 class VegetativeConditionsForm extends StatelessWidget {
   // Instance Variables
@@ -48,7 +48,7 @@ class VegetativeConditionsForm extends StatelessWidget {
 }
 
 Widget _buildCoverType(BuildContext context, header) {
-  final vegConData = Provider.of<VegetativeConditions>(context);
+  final vegConData = Provider.of<Area>(context);
 
   return Wrap(
     children: [
@@ -74,7 +74,7 @@ Widget _buildCoverType(BuildContext context, header) {
 }
 
 Widget _buildStandStructure(BuildContext context, header) {
-  final vegConData = Provider.of<VegetativeConditions>(context);
+  final vegConData = Provider.of<Area>(context);
 
   return RadioOptions(
     header: header,
@@ -87,7 +87,7 @@ Widget _buildStandStructure(BuildContext context, header) {
 }
 
 Widget _buildStoryInfo(BuildContext context, title, density) {
-  final vegConData = Provider.of<VegetativeConditions>(context);
+  final vegConData = Provider.of<Area>(context);
 
   return ExpansionTile(
     title: Text(title),
@@ -112,9 +112,9 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
             labelText: "Species Composition", hintText: "Enter a % value"),
         onChanged: (text) {
           if (title == 'Overstory Stand Info') {
-            vegConData.overstorySlope = text;
+            vegConData.overstorySpeciesComposition = int.tryParse(text);
           } else if (title == 'Understory Stand Info') {
-            vegConData.understorySlope = text;
+            vegConData.understorySpeciesComposition = int.tryParse(text);
           }
         },
       ),
@@ -123,7 +123,7 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
 }
 
 Widget _buildStandHistory(BuildContext context) {
-  final vegConData = Provider.of<VegetativeConditions>(context);
+  final vegConData = Provider.of<Area>(context);
 
   const historyTitle = "Stand/Area History";
   const historyHelp = "Describe prior management activities and/or disturbances"
