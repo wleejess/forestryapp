@@ -52,7 +52,7 @@ class DatabaseManager {
       'assets/database/ddl_statements/delete_landowner.sql';
 
   static const String _pathReadArea =
-      'assets/database/queries/read_all_areas.sql';
+      'assets/database/queries/read_area.sql';
   static const String _pathSaveNewArea =
       'assets/database/ddl_statements/save_new_area.sql';
 
