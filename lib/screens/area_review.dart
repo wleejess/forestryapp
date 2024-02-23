@@ -7,7 +7,7 @@ class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Area Review";
 
-  static const _placeholderForOmitted = "Omitted";
+  static const _placeholderForOmitted = "N/A";
   static const _unitElevation = 'ft';
   static const _unitSlopePercentage = "%";
   static const _unitSpeciesComposition = "%";
