@@ -11,6 +11,8 @@ import 'package:forestryapp/database/dao_area.dart';
 
 class Area extends ChangeNotifier {
   Area({
+    int? id,
+
     // Basic Information
     Landowner? landowner,
     String? name,
@@ -51,7 +53,8 @@ class Area extends ChangeNotifier {
     String? fireRisk,
     String? otherIssues,
     String? diagnosis,
-  })  : // Basic Information
+  })  : _id = id,
+        // Basic Information
         _landowner = landowner,
         _name = name,
         _acres = acres,
@@ -94,6 +97,8 @@ class Area extends ChangeNotifier {
 
   Area.fromMap(Map dbRecord)
       : this(
+            id: dbRecord[DAOArea.colID],
+
             // Basic Information
             landowner: dbRecord[DAOArea.colLandowner],
             name: dbRecord[DAOArea.colName],
@@ -138,6 +143,7 @@ class Area extends ChangeNotifier {
             diagnosis: dbRecord[DAOArea.colDiagnosis]);
 
   // Instance Variables ////////////////////////////////////////////////////////
+  int? _id;
 
   // Basic Information
   Landowner? _landowner;
@@ -181,6 +187,13 @@ class Area extends ChangeNotifier {
   String? _diagnosis;
 
   // Getters and Setters ///////////////////////////////////////////////////////
+
+  int? get id => _id;
+
+  set id(int? value) {
+    _id = value;
+    notifyListeners();
+  }
 
   String? get name => _name;
 

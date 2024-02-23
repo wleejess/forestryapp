@@ -6,6 +6,7 @@ class DAOArea {
   // Static Variables //////////////////////////////////////////////////////////
   // Column names in from database when converted to Dart [Map] keys. See
   // [assets/database/schema/areas.sql] for details.
+  static const colID = 'id';
 
   // Basic Information
   static const colLandowner = 'landowner_id';
