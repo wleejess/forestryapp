@@ -96,45 +96,52 @@ class Area extends ChangeNotifier {
 
   Area.fromMap(Map dbRecord)
       : this(
-            id: int.tryParse(dbRecord[DAOArea.colID]),
+            id: dbRecord[DAOArea.colID],
 
             // Basic Information
-            landowner: dbRecord[DAOArea.colLandowner], // TODO: Change to int
+            landownerID:
+                dbRecord[DAOArea.colLandownerID],
             name: dbRecord[DAOArea.colName],
-            acres: double.tryParse(dbRecord[DAOArea.colAcres]),
+            acres: dbRecord[DAOArea.colAcres],
             goals: dbRecord[DAOArea.colGoals],
 
             // Site Characteristics
-            elevation: int.tryParse(dbRecord[DAOArea.colElevation]),
-            aspect: _convertDBToEnum(dbRecord[DAOArea.colAspect], Direction),
-            slopePercentage: int.tryParse(dbRecord[DAOArea.colSlopePercentage]),
+            elevation: dbRecord[DAOArea.colElevation],
+            aspect: _convertDBToEnum(
+                dbRecord[DAOArea.colAspect], Direction.values, Direction.na),
+            slopePercentage: dbRecord[DAOArea.colSlopePercentage],
             slopePosition: _convertDBToEnum(
               dbRecord[DAOArea.colSlopePosition],
-              SlopePosition,
+              SlopePosition.values,
+              SlopePosition.na,
             ),
             soilInfo: dbRecord[DAOArea.colSoilInfo],
 
             // Vegetative Conditions
             coverType: _convertDBToEnum(
               dbRecord[DAOArea.colCoverType],
-              CoverType,
+              CoverType.values,
+              CoverType.na,
             ),
             standStructure: _convertDBToEnum(
-                dbRecord[DAOArea.colStandStructure], StandStructure),
+              dbRecord[DAOArea.colStandStructure],
+              StandStructure.values,
+              StandStructure.na,
+            ),
             overstoryDensity: _convertDBToEnum(
               dbRecord[DAOArea.colOverstoryDensity],
-              StandDensity,
+              StandDensity.values,
+              StandDensity.na,
             ),
-            overstorySpeciesComposition: int.tryParse(
-              dbRecord[DAOArea.colOverstorySpeciesComposition],
-            ),
+            overstorySpeciesComposition:
+                dbRecord[DAOArea.colOverstorySpeciesComposition],
             understoryDensity: _convertDBToEnum(
               dbRecord[DAOArea.colUnderstoryDensity],
-              StandDensity,
+              StandDensity.values,
+              StandDensity.na,
             ),
-            understorySpeciesComposition: int.tryParse(
-              dbRecord[DAOArea.colUnderstorySpeciesComposition],
-            ),
+            understorySpeciesComposition:
+                dbRecord[DAOArea.colUnderstorySpeciesComposition],
             standHistory: dbRecord[DAOArea.colStandHistory],
 
             // Damages
@@ -146,12 +153,14 @@ class Area extends ChangeNotifier {
             // Mistletoe
             mistletoeUniformity: _convertDBToEnum(
               dbRecord[DAOArea.colMistletoeUniformity],
-              MistletoeUniformity,
+              MistletoeUniformity.values,
+              MistletoeUniformity.na,
             ),
             mistletoeLocation: dbRecord[DAOArea.colMistletoeLocation],
             hawksworth: _convertDBToEnum(
               dbRecord[DAOArea.colHawksworth],
-              Hawksworth,
+              Hawksworth.values,
+              Hawksworth.na,
             ),
             mistletoeTreeSpecies: dbRecord[DAOArea.colMistletoeTreeSpecies],
 
@@ -164,17 +173,18 @@ class Area extends ChangeNotifier {
 
   /// Gets appropriate enum for a given database column.
   ///
-  /// Assumes each [enumForCol] has a [na] member representing an "N/A" option.
+  /// Assumes each [enum] has a [na] member representing an "N/A" option.
   /// Should only be used in [.fromMap()]. [databaseValue] will be the string
   /// returned from a given record for one of the columns that uses
-  /// [enum]s. [enumForCol] is said [enum] class
+  /// [enum]s. [enumValues] is said [enum] class's [.values] member
   /// (e.g. [/lib/enums/hawksworth.dart]).
-  static dynamic _convertDBToEnum(String? databaseValue, dynamic enumForCol) {
-    if (databaseValue == null) return enumForCol.na;
-    for (var enumValue in enumForCol.values) {
+  static dynamic _convertDBToEnum(
+      String? databaseValue, dynamic enumValues, dynamic na) {
+    if (databaseValue == null) return na;
+    for (var enumValue in enumValues) {
       if (databaseValue == enumValue.label) return enumValue;
     }
-    return enumForCol.na;
+    return na;
   }
 
   // Instance Variables ////////////////////////////////////////////////////////
