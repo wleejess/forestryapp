@@ -18,7 +18,7 @@ class DTOArea {
   late String name;
   late String acres;
   late String goals;
-  late String elevation;
+  late int elevation;
   late Direction direction;
   late String slopePercentage;
   late SlopePosition slopePosition;
