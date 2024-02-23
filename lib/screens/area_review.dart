@@ -1,3 +1,5 @@
+import "dart:io";
+
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
@@ -312,7 +314,9 @@ class _AreaReviewState extends State<AreaReview> {
       // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
       final directory = await getExternalStorageDirectory();
       if (directory != null) {
-        
+        final file = File("${directory.absolute.path}/forest_wellness_checkup.pdf");
+        await file.writeAsBytes(await pdf.save());
+
       } else {
         // Change this to display an error message.
         print("External storage directory is null.");
