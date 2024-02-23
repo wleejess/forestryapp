@@ -20,15 +20,24 @@ class AreaIndex extends StatelessWidget {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    final areas = Provider.of<AreaCollection>(context).areas;
+    final areasListenable = Provider.of<AreaCollection>(context);
 
     return ForestryScaffold(
       title: _title,
-      body: ListView.builder(
-          itemCount: areas.length,
-          itemBuilder: (BuildContext context, int i) => _areaIndexListTileBuilder(context, i, areas) ,
-        ),
+      body: ListenableBuilder(
+        listenable: areasListenable,
+        builder: (BuildContext _, Widget? __) =>
+            _buildListViewOfAllAreasFromDB(areasListenable.areas),
+      ),
       fab: FABCreation(icon: Icons.forest, onPressed: () {}),
+    );
+  }
+
+  ListView _buildListViewOfAllAreasFromDB(List<Area> areas) {
+    return ListView.builder(
+      itemCount: areas.length,
+      itemBuilder: (BuildContext context, int i) =>
+          _areaIndexListTileBuilder(context, i, areas),
     );
   }
 
