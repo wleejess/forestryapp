@@ -201,7 +201,7 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
-  void saveNewArea(List<String> queryArgs) async {
+  void saveNewArea(List<dynamic> queryArgs) async {
     return _db.transaction((txn) async {
       await txn.rawInsert(_sqlSaveNewArea, queryArgs);
     });

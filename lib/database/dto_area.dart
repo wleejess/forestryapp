@@ -7,42 +7,47 @@ import 'package:forestryapp/enums/mistletoe_uniformity.dart';
 import 'package:forestryapp/enums/slope_position.dart';
 import 'package:forestryapp/enums/stand_density.dart';
 import 'package:forestryapp/enums/stand_structure.dart';
+import 'package:forestryapp/models/landowner.dart';
+
 
 /// Intermediate class to act as a bucket for collecting model data to send off
 /// to DB.
 ///
 /// Not responsible for any behavior only state.
 class DTOArea {
+  /// Only needed if updating an area (DB will auto generate an id on creation).
+  late int id;
+
   // Public Fields //////////////////////////////////////////////////////////////
-  late String landowner;
+  Landowner? landowner;
   late String name;
-  late String acres;
-  late String goals;
-  late int elevation;
+  double? acres;
+  String? goals;
+  int? elevation;
   late Direction direction;
-  late String slopePercentage;
+  int? slopePercentage;
   late SlopePosition slopePosition;
-  late String soilInfo;
+  String? soilInfo;
   late CoverType coverType;
   late StandStructure standStructure;
   late StandDensity overstoryDensity;
-  late String overstorySpeciesComposition;
+  int? overstorySpeciesComposition;
   late StandDensity understoryDensity;
-  late String understorySpeciesComposition;
-  late String standHistory;
-  late String insects;
-  late String diseases;
-  late String invasives;
-  late String wildlifeDamage;
+  int? understorySpeciesComposition;
+  String? standHistory;
+  String? insects;
+  String? diseases;
+  String? invasives;
+  String? wildlifeDamage;
   late MistletoeUniformity mistletoeUniformity;
-  late String mistletoeLocation;
+  String? mistletoeLocation;
   late Hawksworth hawksworth;
-  late String mistletoeTreeSpecies;
-  late String roadHealth;
-  late String waterHealth;
-  late String fireRisk;
-  late String otherIssues;
-  late String diagnosis;
+  String? mistletoeTreeSpecies;
+  String? roadHealth;
+  String? waterHealth;
+  String? fireRisk;
+  String? otherIssues;
+  String? diagnosis;
 
   // Constructor ///////////////////////////////////////////////////////////////
   // No parameters. Set attribute values publicly.

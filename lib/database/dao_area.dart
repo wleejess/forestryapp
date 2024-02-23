@@ -59,7 +59,7 @@ class DAOArea {
   // Writing to Database ///////////////////////////////////////////////////////
   static void saveNewArea(DTOArea dto) {
     DatabaseManager.getInstance().saveNewArea([
-      dto.landowner,
+      (dto.landowner != null) ? dto.landowner!.id : null,
       dto.name,
       dto.acres,
       dto.goals,
