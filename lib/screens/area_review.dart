@@ -5,7 +5,6 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/document_converters/pdf_converter.dart";
 import "package:forestryapp/util/break_points.dart";
-import "package:pdf/pdf.dart";
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 
