@@ -42,6 +42,7 @@ dependencies:
   sqflite: ^2.3.2
   docx_template: ^0.4.0
   pdf: ^3.10.8
+  open_file: ^3.3.2
 
 dev_dependencies:
   flutter_test:
