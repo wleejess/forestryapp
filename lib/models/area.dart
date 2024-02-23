@@ -20,7 +20,7 @@ class Area extends ChangeNotifier {
     String? goals,
 
     // Site Characteristics
-    String? elevation,
+    int? elevation,
     Direction aspect = Direction.na,
     int? slopePercentage,
     SlopePosition slopePosition = SlopePosition.na,
@@ -152,7 +152,7 @@ class Area extends ChangeNotifier {
   String? _goals;
 
   // Site Characteristics
-  String? _elevation;
+  int? _elevation;
   Direction _aspect = Direction.na;
   int? _slopePercentage;
   SlopePosition _slopePosition;
@@ -230,9 +230,9 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get elevation => _elevation;
+  int? get elevation => _elevation;
 
-  set elevation(String? value) {
+  set elevation(int? value) {
     _elevation = value;
     notifyListeners();
   }

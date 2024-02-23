@@ -44,7 +44,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: '',
         ),
         onChanged: (text) {
-          elevationData.elevation = text;
+          elevationData.elevation = int.tryParse(text);
         },
       ),
     );
