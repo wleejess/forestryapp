@@ -1,10 +1,26 @@
+import 'package:forestryapp/models/settings.dart';
 import "package:pdf/pdf.dart";
-import "package:pdf/widgets.dart" as pdfWidget;
+import "package:pdf/widgets.dart" as pdf_widget;
 
 class PdfConverter {
+  final heading1 = pdf_widget.TextStyle(
+    fontSize: 16.00,
+    fontWeight: pdf_widget.FontWeight.bold
+  );
+
+  final heading2 = pdf_widget.TextStyle(
+    fontSize: 14.00,
+    fontWeight: pdf_widget.FontWeight.bold
+  );
+
+  final heading3 = pdf_widget.TextStyle(
+    fontSize: 12.00,
+    fontWeight: pdf_widget.FontWeight.bold
+  );
+
   // Fill out the PDF template with supplied data
   // Returns a pdf object
-  pdfWidget.Document create(
+  pdf_widget.Document create(
     String name,
     String? landowner,
     String? acres,
@@ -34,90 +50,97 @@ class PdfConverter {
     String? fireRisk,
     String? otherIssues,
     String? diagnosis,
-    String? evaluator,) {
-    final pdf = pdfWidget.Document();
-    pdf.addPage(pdfWidget.Page(
+    Settings evaluator,) {
+    final pdf = pdf_widget.Document();
+    pdf.addPage(pdf_widget.Page(
       pageFormat: PdfPageFormat.a4,
-      build: (pdfWidget.Context context) {
-        return pdfWidget.Column(
+      build: (pdf_widget.Context context) {
+        return 
+        pdf_widget.Column(
           children: [
-            pdfWidget.Text("Forest Wellness Checkup"),
-            pdfWidget.Text("Landowner name: $landowner"),
-            pdfWidget.Text("Address: "),
-            pdfWidget.Text("Email: "),
-            pdfWidget.Text("Stand/Area Name: $name"),
-            pdfWidget.Text("Acres: $acres"),
-            pdfWidget.Text("Landowner goals and objectives:"),
-            pdfWidget.Text("$goals"),
-            pdfWidget.Text("Site Characteristics"),
-            pdfWidget.Row(
+            pdf_widget.Text("Forest Wellness Checkup", style: heading1),
+            pdf_widget.Column(
+              crossAxisAlignment: pdf_widget.CrossAxisAlignment.start,
               children: [
-                pdfWidget.Text("Elevation: $elevation"),
-                pdfWidget.Text("Aspect: $aspect"),
-                pdfWidget.Text("% Slope: $slopePercentage %"),
+                pdf_widget.Text("Landowner name: $landowner"),
+                pdf_widget.Text("Address: "),
+                pdf_widget.Text("Email: "),
+                pdf_widget.Text("Stand/Area Name: $name"),
+                pdf_widget.Text("Acres: $acres"),
+                pdf_widget.Text("Landowner goals and objectives:", style: heading3),
+                pdf_widget.Text("$goals"),
+                pdf_widget.Text("Site Characteristics", style: heading2),
+                pdf_widget.Row(
+                  children: [
+                    pdf_widget.Text("Elevation: $elevation"),
+                    pdf_widget.Text("Aspect: $aspect"),
+                    pdf_widget.Text("% Slope: $slopePercentage %"),
+                  ]
+                ),
+                // How to include checkmark options? 
+                pdf_widget.Text("Slope position: $slopePosition"),
+                pdf_widget.Text("Soil Information", style: heading3),
+                pdf_widget.Text("$soilInfo"),
+                pdf_widget.Text("Vegetative Conditions", style: heading2),
+                pdf_widget.Text("Cover type: $coverType"),
+                pdf_widget.Text("Stand structure: $standStructure"),
+                pdf_widget.Text("Overstory stand density: $overstoryDensity"),
+                pdf_widget.Text("Overstory species composition: $overstorySpeciesComposition %"),
+                pdf_widget.Text("Understory stand density: $understoryDensity"),
+                pdf_widget.Text("Understory species composition: $understorySpeciesComposition %"),
               ]
-            ),
-            // How to include checkmark options? 
-            pdfWidget.Text("Slope position: $slopePosition"),
-            pdfWidget.Text("Soil Information"),
-            pdfWidget.Text("$soilInfo"),
-            pdfWidget.Text("Vegetative Conditions"),
-            pdfWidget.Text("Cover type: $coverType"),
-            pdfWidget.Text("Stand structure: $standStructure"),
-            pdfWidget.Text("Overstory stand density: $overstoryDensity"),
-            pdfWidget.Text("Overstory species composition: $overstorySpeciesComposition %"),
-            pdfWidget.Text("Understory stand density: $understoryDensity"),
-            pdfWidget.Text("Understory species composition: $understorySpeciesComposition %"),
+            )
           ]
         );
       }
   ));
-  pdf.addPage(pdfWidget.Page(
+  pdf.addPage(pdf_widget.Page(
     pageFormat: PdfPageFormat.a4,
-    build: (pdfWidget.Context context) {
-        return pdfWidget.Column(
+    build: (pdf_widget.Context context) {
+        return pdf_widget.Column(
+          crossAxisAlignment: pdf_widget.CrossAxisAlignment.start,
           children: [
-            pdfWidget.Text("Stand/Area History:"),
-            pdfWidget.Text("$siteHistory"),
-            pdfWidget.Text("Pests & Damage"),
-            pdfWidget.Text("Insects Present (if known):"),
-            pdfWidget.Text("$insects"),
-            pdfWidget.Text("Diseases Present (if known):"),
-            pdfWidget.Text("$diseases"),
-            pdfWidget.Text("Invasive Plants & Animals:"),
-            pdfWidget.Text("$invasives"),
-            pdfWidget.Text("Wildlife Damage/Issues:"),
-            pdfWidget.Text("$wildlifeDamage"),
-            pdfWidget.Text("Mistletoe Infections:"),
-            pdfWidget.Text("Uniformity: $mistletoeUniformity"),
-            pdfWidget.Text("Mistletoe location: $mistletoeLocation"),
-            pdfWidget.Text("Hawksworth infection rating(0-6): $hawksworth"),
-            pdfWidget.Text("Tree species infected:"),
-            pdfWidget.Text("$mistletoeTreeSpecies"),
-            pdfWidget.Text("Road Health/Conditions:"),
+            pdf_widget.Text("Stand/Area History:", style: heading3),
+            pdf_widget.Text("$siteHistory"),
+            pdf_widget.Text("Pests & Damage", style: heading2),
+            pdf_widget.Text("Insects Present (if known):", style: heading3),
+            pdf_widget.Text("$insects"),
+            pdf_widget.Text("Diseases Present (if known):", style: heading3),
+            pdf_widget.Text("$diseases"),
+            pdf_widget.Text("Invasive Plants & Animals:", style: heading3),
+            pdf_widget.Text("$invasives"),
+            pdf_widget.Text("Wildlife Damage/Issues:", style: heading3),
+            pdf_widget.Text("$wildlifeDamage"),
+            pdf_widget.Text("Mistletoe Infections:", style: heading3),
+            pdf_widget.Text("Uniformity: $mistletoeUniformity"),
+            pdf_widget.Text("Mistletoe location: $mistletoeLocation"),
+            pdf_widget.Text("Hawksworth infection rating(0-6): $hawksworth"),
+            pdf_widget.Text("Tree species infected:"),
+            pdf_widget.Text("$mistletoeTreeSpecies"),
           ]
         );
       }
     )
   );
-  pdf.addPage(pdfWidget.Page(
+  pdf.addPage(pdf_widget.Page(
     pageFormat: PdfPageFormat.a4,
-    build: (pdfWidget.Context context) {
-        return pdfWidget.Column(
+    build: (pdf_widget.Context context) {
+        return pdf_widget.Column(
+          crossAxisAlignment: pdf_widget.CrossAxisAlignment.start,
           children: [
-            pdfWidget.Text("Road Health/Conditions:"),
-            pdfWidget.Text("$roadHealth"),
-            pdfWidget.Text("Water/Stream/Riparian Health & Issues:"),
-            pdfWidget.Text("$waterHealth"),
-            pdfWidget.Text("Fire Risk (fuel levels & ignition potential):"),
-            pdfWidget.Text("$fireRisk"),
-            pdfWidget.Text("Other issues (explain):"),
-            pdfWidget.Text("$otherIssues"),
-            pdfWidget.Text("Diagnosis & Suggestions"),
-            pdfWidget.Text("$diagnosis"),
-            pdfWidget.Text("Evaluator name: $evaluator"),
-            pdfWidget.Text("Email: "),
-            pdfWidget.Text("Address: "),
+            pdf_widget.Text("Road Health/Conditions:", style: heading3),
+            pdf_widget.Text("$roadHealth"),
+            pdf_widget.Text("Water/Stream/Riparian Health & Issues:", style: heading3),
+            pdf_widget.Text("$waterHealth"),
+            pdf_widget.Text("Fire Risk (fuel levels & ignition potential):", style: heading3),
+            pdf_widget.Text("$fireRisk"),
+            pdf_widget.Text("Other issues (explain):", style: heading3),
+            pdf_widget.Text("$otherIssues"),
+            pdf_widget.Text("Diagnosis & Suggestions", style: heading3),
+            pdf_widget.Text("$diagnosis"),
+            pdf_widget.Text("Evaluator name: ${evaluator.evaluatorName}"),
+            pdf_widget.Text("Email: ${evaluator.evaluatorEmail}"),
+            pdf_widget.Text("Address: ${evaluator.combinedAddress}"),
           ]
         );
       }

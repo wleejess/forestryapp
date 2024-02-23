@@ -335,7 +335,7 @@ class _AreaReviewState extends State<AreaReview> {
           widget._fireRisk,
           widget._otherIssues,
           widget._diagnosis,
-          context.read<Settings>.toString()
+          context.read<Settings>()
           );
 
         // Get the path of the folder in which to store the pdf file.
