@@ -4,6 +4,7 @@ import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/util/break_points.dart";
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pdfWidget;
+import 'package:path_provider/path_provider.dart';
 
 class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -306,7 +307,18 @@ class _AreaReviewState extends State<AreaReview> {
           build: _buildPdf
         ));
 
+      // Get the path of the folder in which to store the pdf file.
+      // On Android, you must access external storage in order to open the file outside of the app.
+      // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
+      final directory = await getExternalStorageDirectory();
+      if (directory != null) {
         
+      } else {
+        // Change this to display an error message.
+        print("External storage directory is null.");
+      }
+
+
 
       },
       child: const Text(AreaReview._buttonTextPDF),
