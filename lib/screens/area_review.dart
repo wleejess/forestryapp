@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/util/break_points.dart";
+import "package:pdf/pdf.dart";
+import "package:pdf/widgets.dart" as pdfWidget;
 
 class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -296,7 +298,17 @@ class _AreaReviewState extends State<AreaReview> {
 
   Widget _buildButtonPDF(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () async {
+        // Build the PDF widget tree
+        final pdf = pdfWidget.Document();
+        pdf.addPage(pdfWidget.Page(
+          pageFormat: PdfPageFormat.a4,
+          build: _buildPdf
+        ));
+
+        
+
+      },
       child: const Text(AreaReview._buttonTextPDF),
     );
   }
@@ -319,6 +331,14 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(AreaReview._buttonTextDelete),
+    );
+  }
+
+  pdfWidget.Column _buildPdf(pdfWidget.Context context) {
+    return pdfWidget.Column(
+      children: [
+        pdfWidget.Text("Forest Wellness Checkup"),
+      ],
     );
   }
 }
