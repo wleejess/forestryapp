@@ -7,6 +7,7 @@ import "package:forestryapp/util/break_points.dart";
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pdfWidget;
 import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
 
 class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -316,7 +317,7 @@ class _AreaReviewState extends State<AreaReview> {
       if (directory != null) {
         final file = File("${directory.absolute.path}/forest_wellness_checkup.pdf");
         await file.writeAsBytes(await pdf.save());
-
+        OpenFile.open(file.path);
       } else {
         // Change this to display an error message.
         print("External storage directory is null.");
