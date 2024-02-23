@@ -9,7 +9,7 @@ CREATE TABLE if NOT EXISTS areas(
 
   name TEXT NOT NULL,
 
-  acres INTEGER CHECK(0 <= acres),
+  acres REAL CHECK(0 <= acres),
 
   goals TEXT,
 
