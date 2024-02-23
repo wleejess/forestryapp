@@ -98,9 +98,9 @@ class BasicInformationForm extends StatelessWidget {
         Provider.of<LandownerCollection>(context).landowners;
 
     Landowner? getInitialValue() {
-      if (basicInfoData.landowner != null) {
+      if (basicInfoData.landownerID != null) {
         return landownerOptions
-            .firstWhere((element) => basicInfoData.landowner!.id == element.id);
+            .firstWhere((element) => basicInfoData.landownerID == element.id);
       }
       return null;
     }
@@ -127,7 +127,9 @@ class BasicInformationForm extends StatelessWidget {
             },
           ).toList(),
           onSelected: (Landowner? value) {
-            basicInfoData.landowner = value;
+            if (value != null) {
+              basicInfoData.landownerID = value.id;
+            }
           },
         );
       },

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forestryapp/models/landowner.dart';
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
 import 'package:forestryapp/enums/stand_structure.dart';
@@ -14,7 +13,7 @@ class Area extends ChangeNotifier {
     int? id,
 
     // Basic Information
-    Landowner? landowner,
+    int? landownerID,
     String? name,
     double? acres,
     String? goals,
@@ -55,7 +54,7 @@ class Area extends ChangeNotifier {
     String? diagnosis,
   })  : _id = id,
         // Basic Information
-        _landowner = landowner,
+        _landownerID = landownerID,
         _name = name,
         _acres = acres,
         _goals = goals,
@@ -182,7 +181,9 @@ class Area extends ChangeNotifier {
   int? _id;
 
   // Basic Information
-  Landowner? _landowner;
+  /// Store the ID instead of the object because when the Area record comes off
+  /// the database only an ID (the foreign key) is available to be set here.
+  int? _landownerID;
   String? _name;
   double? _acres;
   String? _goals;
@@ -245,10 +246,10 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
-  Landowner? get landowner => _landowner;
+  int? get landownerID => _landownerID;
 
-  set landowner(Landowner? value) {
-    _landowner = value;
+  set landownerID(int? value) {
+    _landownerID = value;
     notifyListeners();
   }
 

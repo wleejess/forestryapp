@@ -9,7 +9,7 @@ class DAOArea {
   static const colID = 'id';
 
   // Basic Information
-  static const colLandowner = 'landowner_id';
+  static const colLandownerID = 'landowner_id';
   static const colName = 'name';
   static const colAcres = 'acres';
   static const colGoals = 'goals';
@@ -59,7 +59,7 @@ class DAOArea {
   // Writing to Database ///////////////////////////////////////////////////////
   static void saveNewArea(DTOArea dto) {
     DatabaseManager.getInstance().saveNewArea([
-      (dto.landowner != null) ? dto.landowner!.id : null,
+      (dto.landownerID != null) ? dto.landownerID : null,
       dto.name,
       dto.acres,
       dto.goals,

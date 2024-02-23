@@ -7,7 +7,6 @@ import 'package:forestryapp/enums/mistletoe_uniformity.dart';
 import 'package:forestryapp/enums/slope_position.dart';
 import 'package:forestryapp/enums/stand_density.dart';
 import 'package:forestryapp/enums/stand_structure.dart';
-import 'package:forestryapp/models/landowner.dart';
 
 
 /// Intermediate class to act as a bucket for collecting model data to send off
@@ -19,7 +18,7 @@ class DTOArea {
   late int id;
 
   // Public Fields //////////////////////////////////////////////////////////////
-  Landowner? landowner;
+  int? landownerID;
   late String name;
   double? acres;
   String? goals;
