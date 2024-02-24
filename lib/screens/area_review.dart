@@ -11,8 +11,8 @@ import "package:provider/provider.dart";
 class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Area Review";
-  static const _notFoundTitle = "Landowner not found!";
-  static const _notFoundBodyText = "Could not find that landowner!";
+  static const _notFoundTitle = "Area not found!";
+  static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
   static const _buttonTextEmail = "Email";
   static const _buttonTextPDF = "Create PDF";
