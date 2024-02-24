@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/models/area.dart";
+import "package:forestryapp/models/landowner_collection.dart";
+import "package:provider/provider.dart";
 
 /// Component to list all the properties of an [Area] in a single place for
 /// reviewing by a user.
@@ -9,6 +11,7 @@ class AreaProperties extends StatelessWidget {
   static const _unitElevation = 'ft';
   static const _unitSlopePercentage = "%";
   static const _unitSpeciesComposition = "%";
+  static const _errorLandownerNotInDB = "Landowner not found. LandownerID: ";
 
   // Instance Variables ////////////////////////////////////////////////////////
   final Area _area;
@@ -31,11 +34,10 @@ class AreaProperties extends StatelessWidget {
           title: Text(_area.name ?? _placeholderForOmitted,
               style: Theme.of(context).textTheme.headlineLarge),
         ),
-        _buildAreaPropertyListTile(
+        // TODO: make this listenable
+        _buildLandowner(
           context,
-          "Landowner",
-          _formatInt(_area.landownerID),
-        ), // TODO: use landowner name
+        ),
         _buildAreaPropertyListTile(
           context,
           "Acres",
@@ -61,8 +63,7 @@ class AreaProperties extends StatelessWidget {
         _buildAreaPropertyListTile(
           context,
           "Slope Percentage",
-          _formatInt(_area.slopePercentage,
-              units: _unitSlopePercentage),
+          _formatInt(_area.slopePercentage, units: _unitSlopePercentage),
         ),
         _buildAreaPropertyListTile(
           context,
@@ -165,6 +166,24 @@ class AreaProperties extends StatelessWidget {
         _buildAreaPropertyListTile(context, "Diagnosis", _area.diagnosis),
       ],
     );
+  }
+
+  Widget _buildLandowner(BuildContext context) {
+    final landownersListenable = Provider.of<LandownerCollection>(context);
+    final landownerID = _area.landownerID;
+    final String? landownerName;
+
+    if (landownerID == null) {
+      // User did not assign a landowner to this area.
+      landownerName = null;
+    } else {
+      final landowner = landownersListenable.getLandownerByID(landownerID);
+      landownerName = (landowner == null)
+          ? "$_errorLandownerNotInDB$landownerID"
+          : landowner.name;
+    }
+
+    return _buildAreaPropertyListTile(context, "Landowner", landownerName);
   }
 
   String? _formatInt(int? value, {String? units}) =>
