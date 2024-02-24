@@ -1,26 +1,10 @@
 import 'package:forestryapp/models/settings.dart';
 import "package:pdf/pdf.dart";
-import "package:pdf/widgets.dart" as pdf_widget;
+import "package:pdf/widgets.dart" as pw;
 
+/// Fills out the PDF template and returns a pdf object
 class PdfConverter {
-  final heading1 = pdf_widget.TextStyle(
-    fontSize: 16.00,
-    fontWeight: pdf_widget.FontWeight.bold
-  );
-
-  final heading2 = pdf_widget.TextStyle(
-    fontSize: 14.00,
-    fontWeight: pdf_widget.FontWeight.bold
-  );
-
-  final heading3 = pdf_widget.TextStyle(
-    fontSize: 12.00,
-    fontWeight: pdf_widget.FontWeight.bold
-  );
-
-  // Fill out the PDF template with supplied data
-  // Returns a pdf object
-  pdf_widget.Document create(
+  pw.Document create(
     String name,
     String? landowner,
     String? acres,
@@ -51,101 +35,142 @@ class PdfConverter {
     String? otherIssues,
     String? diagnosis,
     Settings evaluator,) {
-    final pdf = pdf_widget.Document();
-    pdf.addPage(pdf_widget.Page(
+    final pdf = pw.Document();
+
+    pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
-      build: (pdf_widget.Context context) {
-        return 
-        pdf_widget.Column(
-          children: [
-            pdf_widget.Text("Forest Wellness Checkup", style: heading1),
-            pdf_widget.Column(
-              crossAxisAlignment: pdf_widget.CrossAxisAlignment.start,
-              children: [
-                pdf_widget.Text("Landowner name: $landowner"),
-                pdf_widget.Text("Address: "),
-                pdf_widget.Text("Email: "),
-                pdf_widget.Text("Stand/Area Name: $name"),
-                pdf_widget.Text("Acres: $acres"),
-                pdf_widget.Text("Landowner goals and objectives:", style: heading3),
-                pdf_widget.Text("$goals"),
-                pdf_widget.Text("Site Characteristics", style: heading2),
-                pdf_widget.Row(
-                  children: [
-                    pdf_widget.Text("Elevation: $elevation"),
-                    pdf_widget.Text("Aspect: $aspect"),
-                    pdf_widget.Text("% Slope: $slopePercentage %"),
-                  ]
-                ),
-                // How to include checkmark options? 
-                pdf_widget.Text("Slope position: $slopePosition"),
-                pdf_widget.Text("Soil Information", style: heading3),
-                pdf_widget.Text("$soilInfo"),
-                pdf_widget.Text("Vegetative Conditions", style: heading2),
-                pdf_widget.Text("Cover type: $coverType"),
-                pdf_widget.Text("Stand structure: $standStructure"),
-                pdf_widget.Text("Overstory stand density: $overstoryDensity"),
-                pdf_widget.Text("Overstory species composition: $overstorySpeciesComposition %"),
-                pdf_widget.Text("Understory stand density: $understoryDensity"),
-                pdf_widget.Text("Understory species composition: $understorySpeciesComposition %"),
-              ]
-            )
-          ]
-        );
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      header: (context) => _buildHeader0(context),
+      build: (pw.Context context) {
+        return [
+          _buildKeyValue(context, "Landowner name", landowner),
+          _buildKeyValue(context, "Address", ""),
+          _buildKeyValue(context, "Email", ""),
+          _buildKeyValue(context, "Stand/Area Name", name),
+          _buildKeyValue(context, "Acres", acres),
+          _buildHeader2(context, "Landowner goals and objectives:"),
+          pw.Paragraph(text: "$goals"),
+          _buildHeader1(context, "Site Characteristics"),
+          pw.Row(
+            children: [
+              _buildKeyValue(context, "Elevation", elevation),
+              _buildKeyValue(context, "Aspect", aspect),
+              _buildKeyValue(context, "% Slope", "$slopePercentage %"),
+            ]
+          ),
+          // How to include checkmark options?
+          _buildKeyValue(context, "Slope position", slopePosition),
+          _buildHeader2(context, "Soil Information"),
+          pw.Paragraph(text: "$soilInfo"),
+          _buildHeader1(context, "Vegetative Conditions"),
+          _buildKeyValue(context, "Cover type", coverType),
+          _buildKeyValue(context, "Stand structure", standStructure),
+          _buildKeyValue(context, "Overstory stand density", overstoryDensity),
+          _buildKeyValue(context, "Overstory species composition", "$overstorySpeciesComposition %"),
+          _buildKeyValue(context, "Understory stand density", understoryDensity),
+          _buildKeyValue(context, "Understory species composition", "$understorySpeciesComposition %"),
+          _buildHeader2(context, "Stand/Area History:"),
+          pw.Paragraph(text: "$siteHistory"),
+          _buildHeader1(context, "Pests & Damage"),
+          _buildHeader2(context, "Insects Present (if known):"),
+          pw.Paragraph(text: "$insects"),
+          _buildHeader2(context, "Diseases Present (if known):"),
+          pw.Paragraph(text: "$diseases"),
+          _buildHeader2(context, "Invasive Plants & Animals:"),
+          pw.Paragraph(text: "$invasives"),
+          _buildHeader2(context, "Wildlife Damage/Issues:"),
+          pw.Paragraph(text: "$wildlifeDamage"),
+          _buildHeader2(context, "Mistletoe Infections:"),
+          _buildKeyValue(context, "Uniformity", mistletoeUniformity),
+          _buildKeyValue(context, "Mistletoe location", mistletoeLocation),
+          _buildKeyValue(context, "Hawksworth infection rating(0-6)", hawksworth),
+          _buildKeyValue(context, "Tree species infected", ""),
+          pw.Paragraph(text: "$mistletoeTreeSpecies"),
+          _buildHeader2(context, "Road Health/Conditions:"),
+          pw.Paragraph(text: "$roadHealth"),
+          _buildHeader2(context, "Water/Stream/Riparian Health & Issues:"),
+          pw.Paragraph(text: "$waterHealth"),
+          _buildHeader2(context, "Fire Risk (fuel levels & ignition potential):"),
+          pw.Paragraph(text: "$fireRisk"),
+          _buildHeader2(context, "Other issues (explain):"),
+          pw.Paragraph(text: "$otherIssues"),
+          _buildHeader2(context, "Diagnosis & Suggestions"),
+          pw.Paragraph(text: "$diagnosis"),
+          _buildKeyValue(context, "Evaluator name", evaluator.evaluatorName),
+          _buildKeyValue(context, "Email", evaluator.evaluatorEmail),
+          _buildKeyValue(context, "Address", evaluator.combinedAddress),
+        ];
       }
-  ));
-  pdf.addPage(pdf_widget.Page(
-    pageFormat: PdfPageFormat.a4,
-    build: (pdf_widget.Context context) {
-        return pdf_widget.Column(
-          crossAxisAlignment: pdf_widget.CrossAxisAlignment.start,
-          children: [
-            pdf_widget.Text("Stand/Area History:", style: heading3),
-            pdf_widget.Text("$siteHistory"),
-            pdf_widget.Text("Pests & Damage", style: heading2),
-            pdf_widget.Text("Insects Present (if known):", style: heading3),
-            pdf_widget.Text("$insects"),
-            pdf_widget.Text("Diseases Present (if known):", style: heading3),
-            pdf_widget.Text("$diseases"),
-            pdf_widget.Text("Invasive Plants & Animals:", style: heading3),
-            pdf_widget.Text("$invasives"),
-            pdf_widget.Text("Wildlife Damage/Issues:", style: heading3),
-            pdf_widget.Text("$wildlifeDamage"),
-            pdf_widget.Text("Mistletoe Infections:", style: heading3),
-            pdf_widget.Text("Uniformity: $mistletoeUniformity"),
-            pdf_widget.Text("Mistletoe location: $mistletoeLocation"),
-            pdf_widget.Text("Hawksworth infection rating(0-6): $hawksworth"),
-            pdf_widget.Text("Tree species infected:"),
-            pdf_widget.Text("$mistletoeTreeSpecies"),
-          ]
-        );
-      }
-    )
-  );
-  pdf.addPage(pdf_widget.Page(
-    pageFormat: PdfPageFormat.a4,
-    build: (pdf_widget.Context context) {
-        return pdf_widget.Column(
-          crossAxisAlignment: pdf_widget.CrossAxisAlignment.start,
-          children: [
-            pdf_widget.Text("Road Health/Conditions:", style: heading3),
-            pdf_widget.Text("$roadHealth"),
-            pdf_widget.Text("Water/Stream/Riparian Health & Issues:", style: heading3),
-            pdf_widget.Text("$waterHealth"),
-            pdf_widget.Text("Fire Risk (fuel levels & ignition potential):", style: heading3),
-            pdf_widget.Text("$fireRisk"),
-            pdf_widget.Text("Other issues (explain):", style: heading3),
-            pdf_widget.Text("$otherIssues"),
-            pdf_widget.Text("Diagnosis & Suggestions", style: heading3),
-            pdf_widget.Text("$diagnosis"),
-            pdf_widget.Text("Evaluator name: ${evaluator.evaluatorName}"),
-            pdf_widget.Text("Email: ${evaluator.evaluatorEmail}"),
-            pdf_widget.Text("Address: ${evaluator.combinedAddress}"),
-          ]
-        );
-      }
-    )
-  );
+    ));
+
     return pdf;
+  }
+
+  pw.Widget _buildHeader0(pw.Context context) {
+    return pw.Row(
+      mainAxisAlignment: pw.MainAxisAlignment.center,
+      children: [
+        pw.Padding(
+          padding: const pw.EdgeInsets.symmetric(vertical: 16.0),
+          child: pw.Text(
+            "Forest Wellness Checkup", 
+            textAlign: pw.TextAlign.center,
+            style: pw.TextStyle(
+              fontSize: 16.0,
+              fontWeight: pw.FontWeight.bold,
+            )
+          ),
+        )
+      ],
+    );
+  }
+
+  pw.Widget _buildHeader1(pw.Context context, String text) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 14.0),
+      child: pw.Text(
+        text,
+        style: pw.TextStyle(
+          fontSize: 14.0,
+          fontWeight: pw.FontWeight.bold,
+        )
+      )
+    );
+  }
+
+  pw.Widget _buildHeader2(pw.Context context, String text) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 12.0),
+      child: pw.Text(
+        text,
+        style: pw.TextStyle(
+          fontSize: 12.0,
+          fontWeight: pw.FontWeight.bold,
+        )
+      )
+    );
+  }
+
+  /// Display the heading(key) and corresponding value on a single line
+  pw.Widget _buildKeyValue(pw.Context context, String key, String? value) {
+    return pw.RichText(
+      text: pw.TextSpan(
+        text: key,
+        style: pw.TextStyle(
+          fontWeight: pw.FontWeight.bold,
+        ),
+        children: [
+          const pw.TextSpan(
+            text: ": ",
+          ),
+          pw.TextSpan(
+            text: value,
+            style: pw.TextStyle(
+              fontWeight: pw.FontWeight.normal,
+            )
+          )
+        ]
+      ),
+    );
   }
 }
