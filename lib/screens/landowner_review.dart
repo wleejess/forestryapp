@@ -59,8 +59,8 @@ class LandownerReview extends StatelessWidget {
   /// Show an error page if the [_landowner] is [null] for whatever reason.
   /// Otherwise show the landowner's information.
   Widget _buildForestryScaffold(BuildContext context) {
-    final Landowner? landowner = Provider.of<LandownerCollection>(context)
-        .getByID(_landownerID);
+    final Landowner? landowner =
+        Provider.of<LandownerCollection>(context).getByID(_landownerID);
 
     if (landowner == null) {
       return const ErrorScaffold(
@@ -205,11 +205,10 @@ class LandownerReview extends StatelessWidget {
 
   void _deleteLandowner(BuildContext context, Landowner landowner) async {
     DAOLandowner.deleteLandowner(landowner.id);
-    Provider.of<LandownerCollection>(context, listen: false).refetch();
-
     // Refetch areas too because when an landowner gets deleted so do its
     // areas. See "on delete cascade" option in schema
     // [assets/database/schema/areas.sql].
+    Provider.of<LandownerCollection>(context, listen: false).refetch();
     Provider.of<AreaCollection>(context, listen: false).refetch();
   }
 }
