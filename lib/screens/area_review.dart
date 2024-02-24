@@ -62,7 +62,7 @@ class _AreaReviewState extends State<AreaReview> {
       title: _titleText(area),
       body: Column(
         children: [
-          Expanded(child: _buildAreaPropertiesListView(context, area)),
+          Expanded(child: AreaProperties(area)),
           LayoutBuilder(builder: _bottomButtonbuilder),
         ],
       ),
@@ -70,14 +70,6 @@ class _AreaReviewState extends State<AreaReview> {
   }
 
   // Heading ///////////////////////////////////////////////////////////////////
-  Widget _buildAreaPropertiesListView(BuildContext context, Area area) {
-    // For now, use `ListView` instead of `ListView.builder` to give finer
-    // control over order in which checklist items appear as well as allowing
-    // future tweaking of appearance of certain properties (e.g. landowner
-    // should be tappable to navigate to landowner, multi-valued properties may
-    // be displayed in a list).
-    return AreaProperties(area);
-  }
 
   String _titleText(Area area) {
     final areaName = area.name ?? AreaReview._placeholderForOmitted;
