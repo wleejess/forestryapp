@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
+import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
@@ -48,25 +49,29 @@ class _AreaReviewState extends State<AreaReview> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    final areaListenable = Provider.of<AreaCollection>(context);
-    final Area? area = areaListenable.getAreaByID(widget._areaID);
+    final Area? area =
+        Provider.of<AreaCollection>(context).getAreaByID(widget._areaID);
 
-    if (area == null) {
-      return const ErrorScaffold(
-        title: AreaReview._notFoundTitle,
-        bodyText: AreaReview._notFoundBodyText,
+    // [DBListenableBuilder] necessary for redirecting to error page in event
+    // that user was reviewing an area then went to delete its landowner.
+    return DBListenableBuilder(builder: (_, __) {
+      if (area == null) {
+        return const ErrorScaffold(
+          title: AreaReview._notFoundTitle,
+          bodyText: AreaReview._notFoundBodyText,
+        );
+      }
+
+      return ForestryScaffold(
+        title: _titleText(area),
+        body: Column(
+          children: [
+            Expanded(child: AreaProperties(area)),
+            LayoutBuilder(builder: _bottomButtonbuilder),
+          ],
+        ),
       );
-    }
-
-    return ForestryScaffold(
-      title: _titleText(area),
-      body: Column(
-        children: [
-          Expanded(child: AreaProperties(area)),
-          LayoutBuilder(builder: _bottomButtonbuilder),
-        ],
-      ),
-    );
+    });
   }
 
   // Heading ///////////////////////////////////////////////////////////////////
