@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/database/dao_area.dart';
 import 'package:forestryapp/models/area.dart';
 
+/// Listenable to force rebuild on screens whenever refetching [Area] records.
 class AreaCollection extends ChangeNotifier {
   List<Area> _areas;
 

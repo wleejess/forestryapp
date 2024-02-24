@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/database/dao_landowner.dart';
 import 'package:forestryapp/models/landowner.dart';
 
+
+/// Listenable to force rebuild on screens whenever refetching [Landowner]
+/// records.
 class LandownerCollection extends ChangeNotifier {
   List<Landowner> _landowners;
 
