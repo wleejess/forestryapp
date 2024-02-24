@@ -4,6 +4,7 @@ import 'package:forestryapp/components/person_fieldset.dart';
 import 'package:forestryapp/database/dao_landowner.dart';
 import 'package:forestryapp/database/dto_landowner.dart';
 import 'package:forestryapp/enums/us_state.dart';
+import 'package:forestryapp/models/area_collection.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:provider/provider.dart';
@@ -163,8 +164,8 @@ class _LandownerEditState extends State<LandownerEdit> {
     }
 
     // Update landowners to include newly saved landowner.
-    Provider.of<LandownerCollection>(context, listen: false).landowners =
-        await DAOLandowner.fetchFromDatabase();
+    Provider.of<LandownerCollection>(context, listen: false).refetch();
+    Provider.of<AreaCollection>(context, listen: false).refetch();
   }
 
   /// Transfer form field data into the DTO to prepare it for sendoff to DAO.

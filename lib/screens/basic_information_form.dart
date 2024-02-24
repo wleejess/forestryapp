@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
@@ -92,8 +93,6 @@ class BasicInformationForm extends StatelessWidget {
   Widget _buildLandownerInput(BuildContext context) {
     final basicInfoData = Provider.of<Area>(context);
 
-    final landownersListenable = Provider.of<LandownerCollection>(context);
-    
     List<Landowner> landownerOptions =
         Provider.of<LandownerCollection>(context).landowners;
 
@@ -105,13 +104,12 @@ class BasicInformationForm extends StatelessWidget {
       return null;
     }
 
-    // Use [ListenableBuilder] here because if there is an option to create a
+    // Use [DBListenableBuilder] here because if there is an option to create a
     // new user, saving that user to the database would change the state of the
     // listenable which would in turn force this to rebuild. This is needed in
     // the event we do a `Navigator.pop(context)` from the creation screen to
     // get back here, otherwise the list of landowners will be out of date.
-    return ListenableBuilder(
-      listenable: landownersListenable,
+    return DBListenableBuilder(
       builder: (context, _) {
         return DropdownMenu(
           enableFilter: true,

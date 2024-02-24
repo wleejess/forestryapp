@@ -1,18 +1,21 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
+import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/util/break_points.dart";
 import "package:provider/provider.dart";
 
 class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Area Review";
-  static const _notFoundTitle = "Landowner not found!";
-  static const _notFoundBodyText = "Could not find that landowner!";
+  static const _notFoundTitle = "Area not found!";
+  static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
   static const _buttonTextEmail = "Email";
   static const _buttonTextPDF = "Create PDF";
@@ -48,36 +51,42 @@ class _AreaReviewState extends State<AreaReview> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    final areaListenable = Provider.of<AreaCollection>(context);
-    final Area? area = areaListenable.getAreaByID(widget._areaID);
+    final Area? area = Provider.of<AreaCollection>(context).getByID(widget._areaID);
 
-    if (area == null) {
-      return const ErrorScaffold(
-        title: AreaReview._notFoundTitle,
-        bodyText: AreaReview._notFoundBodyText,
-      );
-    }
+    // [DBListenableBuilder] necessary for redirecting to error page in event
+    // that user was reviewing an area then went to delete its landowner.
+    return DBListenableBuilder(
+      builder: (_, __) {
+        if (area == null) return _buildErrorPage();
+        return buildForestryScaffold(area);
+      },
+    );
+  }
 
+  ErrorScaffold _buildErrorPage() {
+    return const ErrorScaffold(
+      title: AreaReview._notFoundTitle,
+      bodyText: AreaReview._notFoundBodyText,
+    );
+  }
+
+  ForestryScaffold buildForestryScaffold(Area area) {
     return ForestryScaffold(
       title: _titleText(area),
       body: Column(
         children: [
-          Expanded(child: _buildAreaPropertiesListView(context, area)),
-          LayoutBuilder(builder: _bottomButtonbuilder),
+          Expanded(child: AreaProperties(area)),
+          LayoutBuilder(
+            builder: (context, contraints) {
+              return _bottomButtonbuilder(context, contraints, area);
+            },
+          ),
         ],
       ),
     );
   }
 
   // Heading ///////////////////////////////////////////////////////////////////
-  Widget _buildAreaPropertiesListView(BuildContext context, Area area) {
-    // For now, use `ListView` instead of `ListView.builder` to give finer
-    // control over order in which checklist items appear as well as allowing
-    // future tweaking of appearance of certain properties (e.g. landowner
-    // should be tappable to navigate to landowner, multi-valued properties may
-    // be displayed in a list).
-    return AreaProperties(area);
-  }
 
   String _titleText(Area area) {
     final areaName = area.name ?? AreaReview._placeholderForOmitted;
@@ -88,7 +97,12 @@ class _AreaReviewState extends State<AreaReview> {
   Widget _bottomButtonbuilder(
     BuildContext context,
     BoxConstraints constraints,
+    Area area,
   ) {
+    // ignore: unused_local_variable
+    final Landowner? landowner =
+        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
+
     if (constraints.maxWidth < BreakPoints.widthPhonePortait) {
       return Table(
         children: [
