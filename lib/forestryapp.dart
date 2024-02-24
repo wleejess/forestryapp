@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/models/area_collection.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:forestryapp/models/settings.dart';
@@ -13,13 +14,16 @@ class ForestryApp extends StatelessWidget {
   // Instance variables  ///////////////////////////////////////////////////////
   final SharedPreferences _sharedPreferences;
   final LandownerCollection _initialLandowners;
+  final AreaCollection _initialAreas;
 
-  const ForestryApp({
-    required SharedPreferences sharedPreferences,
-    required LandownerCollection initialLandowners,
+  const ForestryApp(
+    SharedPreferences sharedPreferences,
+    LandownerCollection initialLandowners,
+    AreaCollection initialAreas, {
     super.key,
   })  : _sharedPreferences = sharedPreferences,
-        _initialLandowners = initialLandowners;
+        _initialLandowners = initialLandowners,
+        _initialAreas = initialAreas;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +40,9 @@ class ForestryApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<LandownerCollection>.value(
           value: _initialLandowners,
+        ),
+        ChangeNotifierProvider<AreaCollection>.value(
+          value: _initialAreas,
         ),
       ],
       child: MaterialApp(

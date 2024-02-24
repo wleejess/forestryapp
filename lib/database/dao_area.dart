@@ -1,6 +1,7 @@
 import 'package:forestryapp/database/database_manager.dart';
 import 'package:forestryapp/database/dto_area.dart';
 import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/models/landowner.dart';
 
 class DAOArea {
   // Static Variables //////////////////////////////////////////////////////////
@@ -89,5 +90,15 @@ class DAOArea {
       dto.otherIssues,
       dto.diagnosis
     ]);
+  }
+
+  // Relationship Queries //////////////////////////////////////////////////////
+  static Future<Landowner?> readLandownerFromArea(int areaID) async {
+    final dbRecords =
+        await DatabaseManager.getInstance().readLandownerFromArea([areaID]);
+
+    if (dbRecords.isEmpty) return null;
+
+    return Landowner.fromMap(dbRecords[0]);
   }
 }
