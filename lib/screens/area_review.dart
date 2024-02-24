@@ -51,8 +51,7 @@ class _AreaReviewState extends State<AreaReview> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    final Area? area =
-        Provider.of<AreaCollection>(context).getAreaByID(widget._areaID);
+    final Area? area = Provider.of<AreaCollection>(context).getByID(widget._areaID);
 
     // [DBListenableBuilder] necessary for redirecting to error page in event
     // that user was reviewing an area then went to delete its landowner.

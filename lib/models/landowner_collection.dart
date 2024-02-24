@@ -31,7 +31,7 @@ class LandownerCollection extends ChangeNotifier {
     landowners = await DAOLandowner.fetchFromDatabase();
   }
 
-  Landowner? getLandownerByID(int id) {
+  Landowner? getByID(int id) {
     final matches =
         _landowners.where((landowner) => landowner.id == id).toList();
 

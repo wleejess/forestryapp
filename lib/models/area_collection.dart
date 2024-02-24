@@ -15,7 +15,7 @@ class AreaCollection extends ChangeNotifier {
     notifyListeners();
   }
 
-  Area? getAreaByID(int id) {
+  Area? getByID(int id) {
     final matches = _areas.where((area) => area.id == id).toList();
 
     return (matches.isNotEmpty) ? matches[0] : null;

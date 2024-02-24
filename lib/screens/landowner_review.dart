@@ -60,7 +60,7 @@ class LandownerReview extends StatelessWidget {
   /// Otherwise show the landowner's information.
   Widget _buildForestryScaffold(BuildContext context) {
     final Landowner? landowner = Provider.of<LandownerCollection>(context)
-        .getLandownerByID(_landownerID);
+        .getByID(_landownerID);
 
     if (landowner == null) {
       return const ErrorScaffold(
