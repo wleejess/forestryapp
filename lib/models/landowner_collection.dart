@@ -15,11 +15,6 @@ class LandownerCollection extends ChangeNotifier {
 
   List<Landowner> get landowners => _landowners;
 
-  set landowners(List<Landowner> newLandowners) {
-    _landowners = newLandowners;
-    notifyListeners();
-  }
-
   Landowner? get landownerOfReviewedArea => _landownerOfAreaBeingReviewed;
 
   /// Call this to make sure always have the most recent landowners on hand.
@@ -28,7 +23,11 @@ class LandownerCollection extends ChangeNotifier {
   /// [Provider.of<LandownerCollection>] when needing to force parents to rebuild
   /// https://stackoverflow.com/a/58584363.
   Future<void> refetch() async {
-    landowners = await DAOLandowner.fetchFromDatabase();
+    _landowners = await DAOLandowner.fetchFromDatabase();
+    if (_landownerOfAreaBeingReviewed != null) {
+      _landownerOfAreaBeingReviewed = getByID(_landownerOfAreaBeingReviewed!.id);
+    }
+    notifyListeners();
   }
 
   Landowner? getByID(int id) {
