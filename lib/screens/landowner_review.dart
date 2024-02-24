@@ -4,6 +4,7 @@ import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_landowner.dart";
+import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
@@ -205,5 +206,10 @@ class LandownerReview extends StatelessWidget {
   void _deleteLandowner(BuildContext context, Landowner landowner) async {
     DAOLandowner.deleteLandowner(landowner.id);
     Provider.of<LandownerCollection>(context, listen: false).refetch();
+
+    // Refetch areas too because when an landowner gets deleted so do its
+    // areas. See "on delete cascade" option in schema
+    // [assets/database/schema/areas.sql].
+    Provider.of<AreaCollection>(context, listen: false).refetch();
   }
 }
