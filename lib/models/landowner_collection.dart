@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/database/dao_landowner.dart';
 import 'package:forestryapp/models/landowner.dart';
 
-
 /// Listenable to force rebuild on screens whenever refetching [Landowner]
 /// records.
 class LandownerCollection extends ChangeNotifier {
+  // Variables To Provide //////////////////////////////////////////////////////
   List<Landowner> _landowners;
+  Landowner? _landownerOfAreaBeingReviewed;
+
+  // Constructor ///////////////////////////////////////////////////////////////
 
   LandownerCollection(List<Landowner> landowners) : _landowners = landowners;
 
@@ -16,6 +19,8 @@ class LandownerCollection extends ChangeNotifier {
     _landowners = newLandowners;
     notifyListeners();
   }
+
+  Landowner? get landownerOfReviewedArea => _landownerOfAreaBeingReviewed;
 
   /// Call this to make sure always have the most recent landowners on hand.
   ///
@@ -31,5 +36,13 @@ class LandownerCollection extends ChangeNotifier {
         _landowners.where((landowner) => landowner.id == id).toList();
 
     return (matches.isNotEmpty) ? matches[0] : null;
+  }
+
+  // Relationship Queries //////////////////////////////////////////////////////
+
+  Future<void> setLandownerOfAreaBeingReviewed(int areaID) async {
+    Landowner? landowner = await DAOLandowner.readLandownerFromArea(areaID);
+    refetch();
+    _landownerOfAreaBeingReviewed = landowner;
   }
 }

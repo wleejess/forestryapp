@@ -5,6 +5,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
 import "package:provider/provider.dart";
 
@@ -58,6 +59,8 @@ class AreaIndex extends StatelessWidget {
         if (id == null) {
           return ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
         }
+        Provider.of<LandownerCollection>(context, listen: false)
+            .setLandownerOfAreaBeingReviewed(id);
         return AreaReview(id);
       },
     );

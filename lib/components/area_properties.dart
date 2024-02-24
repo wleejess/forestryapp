@@ -11,7 +11,6 @@ class AreaProperties extends StatelessWidget {
   static const _unitElevation = 'ft';
   static const _unitSlopePercentage = "%";
   static const _unitSpeciesComposition = "%";
-  static const _errorLandownerNotInDB = "Landowner not found. LandownerID: ";
 
   // Instance Variables ////////////////////////////////////////////////////////
   final Area _area;
@@ -169,19 +168,9 @@ class AreaProperties extends StatelessWidget {
   }
 
   Widget _buildLandowner(BuildContext context) {
-    final landownersListenable = Provider.of<LandownerCollection>(context);
-    final landownerID = _area.landownerID;
-    final String? landownerName;
-
-    if (landownerID == null) {
-      // User did not assign a landowner to this area.
-      landownerName = null;
-    } else {
-      final landowner = landownersListenable.getLandownerByID(landownerID);
-      landownerName = (landowner == null)
-          ? "$_errorLandownerNotInDB$landownerID"
-          : landowner.name;
-    }
+    final landowner =
+        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
+    final String? landownerName = (landowner == null) ? null : landowner.name;
 
     return _buildAreaPropertyListTile(context, "Landowner", landownerName);
   }
