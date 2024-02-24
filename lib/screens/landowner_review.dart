@@ -204,7 +204,6 @@ class LandownerReview extends StatelessWidget {
 
   void _deleteLandowner(BuildContext context, Landowner landowner) async {
     DAOLandowner.deleteLandowner(landowner.id);
-    Provider.of<LandownerCollection>(context, listen: false).landowners =
-        await DAOLandowner.fetchFromDatabase();
+    Provider.of<LandownerCollection>(context, listen: false).refetch();
   }
 }
