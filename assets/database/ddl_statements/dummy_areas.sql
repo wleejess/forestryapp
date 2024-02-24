@@ -334,7 +334,7 @@ VALUES
     -- landowner_id
     2,
     -- name
-    'Area B1',
+    'Area B2',
     -- acres
     200,
     -- goals
