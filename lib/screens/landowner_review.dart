@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/contact_info.dart";
+import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_landowner.dart";
@@ -45,8 +46,7 @@ class LandownerReview extends StatelessWidget {
   /// changes that have been already made on the database.)
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: Provider.of<LandownerCollection>(context),
+    return DBListenableBuilder(
       builder: (context, child) {
         return _buildForestryScaffold(context);
       },

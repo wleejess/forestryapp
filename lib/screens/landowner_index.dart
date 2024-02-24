@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
@@ -21,8 +22,7 @@ class LandownerIndex extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: LandownerIndex._title,
-      body: ListenableBuilder(
-        listenable: Provider.of<LandownerCollection>(context),
+      body: DBListenableBuilder(
         builder: _buildListViewOfAllLandownersFromDB,
       ),
       fab: FABCreation(
