@@ -6,6 +6,8 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/util/break_points.dart";
 import "package:provider/provider.dart";
 
@@ -54,24 +56,35 @@ class _AreaReviewState extends State<AreaReview> {
 
     // [DBListenableBuilder] necessary for redirecting to error page in event
     // that user was reviewing an area then went to delete its landowner.
-    return DBListenableBuilder(builder: (_, __) {
-      if (area == null) {
-        return const ErrorScaffold(
-          title: AreaReview._notFoundTitle,
-          bodyText: AreaReview._notFoundBodyText,
-        );
-      }
+    return DBListenableBuilder(
+      builder: (_, __) {
+        if (area == null) return _buildErrorPage();
+        return buildForestryScaffold(area);
+      },
+    );
+  }
 
-      return ForestryScaffold(
-        title: _titleText(area),
-        body: Column(
-          children: [
-            Expanded(child: AreaProperties(area)),
-            LayoutBuilder(builder: _bottomButtonbuilder),
-          ],
-        ),
-      );
-    });
+  ErrorScaffold _buildErrorPage() {
+    return const ErrorScaffold(
+      title: AreaReview._notFoundTitle,
+      bodyText: AreaReview._notFoundBodyText,
+    );
+  }
+
+  ForestryScaffold buildForestryScaffold(Area area) {
+    return ForestryScaffold(
+      title: _titleText(area),
+      body: Column(
+        children: [
+          Expanded(child: AreaProperties(area)),
+          LayoutBuilder(
+            builder: (context, contraints) {
+              return _bottomButtonbuilder(context, contraints, area);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   // Heading ///////////////////////////////////////////////////////////////////
@@ -85,7 +98,12 @@ class _AreaReviewState extends State<AreaReview> {
   Widget _bottomButtonbuilder(
     BuildContext context,
     BoxConstraints constraints,
+    Area area,
   ) {
+    // ignore: unused_local_variable
+    final Landowner? landowner =
+        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
+
     if (constraints.maxWidth < BreakPoints.widthPhonePortait) {
       return Table(
         children: [
