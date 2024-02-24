@@ -10,11 +10,6 @@ class AreaCollection extends ChangeNotifier {
 
   List<Area> get areas => _areas;
 
-  set areas(List<Area> newAreas) {
-    _areas = newAreas;
-    notifyListeners();
-  }
-
   Area? getByID(int id) {
     final matches = _areas.where((area) => area.id == id).toList();
 
@@ -27,6 +22,7 @@ class AreaCollection extends ChangeNotifier {
   /// [Provider.of<AreaCollection>] when needing to force parents to rebuild
   /// https://stackoverflow.com/a/58584363.
   Future<void> refetch() async {
-    areas = await DAOArea.fetchFromDatabase();
+    _areas = await DAOArea.fetchFromDatabase();
+    notifyListeners();
   }
 }
