@@ -63,7 +63,9 @@ class BasicInformationForm extends StatelessWidget {
         ),
         initialValue: basicInfoData.name,
         onChanged: (text) {
-          basicInfoData.name = text;
+          if (_formKey.currentState!.validate()) {
+            basicInfoData.name = text;
+          }
         },
         validator: Validation.isNotEmpty,
       ),
