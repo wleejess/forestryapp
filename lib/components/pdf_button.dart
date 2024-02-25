@@ -9,7 +9,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
 
 /// A button for PDF Generation. When pressed, it creates the pdf using
-/// the PdfConverter class, and saves it. The save location is OS-dependant. 
+/// the PdfConverter class, and saves it. The save location is OS-dependant.
 class PdfButton extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _buttonText = "Create PDF";
@@ -30,7 +30,6 @@ class PdfButton extends StatelessWidget {
 
     return OutlinedButton(
       onPressed: () async {
-        
         if (landowner != null) {
           // Builds the PDF widget tree
           final pdf = PdfConverter().create(area, landowner!, evaluator);
@@ -41,16 +40,16 @@ class PdfButton extends StatelessWidget {
           Directory? directory;
           if (Platform.isAndroid) {
             directory = await getExternalStorageDirectory();
+          } else if (Platform.isIOS) {
+            directory = await getApplicationDocumentsDirectory();
           } else {
-            // Should work without permissions on iOS, but needs to be tested.
             directory = await getDownloadsDirectory();
           }
-          
+
           if (directory != null) {
             final file = File("${directory.absolute.path}/${area.name}.pdf");
             await file.writeAsBytes(await pdf.save());
             OpenFile.open(file.path);
-
           } else {
             // Add an error message: No external storage directory
           }
@@ -58,7 +57,7 @@ class PdfButton extends StatelessWidget {
           // Add an error message: No landowner
           // Landowner is going to be made mandatory in the future
         }
-      }, 
+      },
       child: const Text(_buttonText),
     );
   }
