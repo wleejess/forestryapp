@@ -10,12 +10,13 @@ class Validation {
   /// Returns an error message if the value is not a percentage (0-100 integer).
   /// Accepts empty values.
   static String? isValidPercentage(value) {
-    if (value != null && value.isNotEmpty) {
-      int? number = int.tryParse(value);
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    int? number = int.tryParse(value);
 
-      if (number != null && number >= 0 && number <= 100) {
-        return null;
-      }
+    if (number != null && number >= 0 && number <= 100) {
+      return null;
     }
     return 'Please enter a valid percentage.';
   }
