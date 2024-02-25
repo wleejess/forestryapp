@@ -15,15 +15,16 @@ class PdfConverter {
       header: (context) => _buildHeader0(context),
       build: (pw.Context context) {
         return [
-          _buildKeyValue(context, "Landowner name", ""),
-          _buildKeyValue(context, "Address", ""),
-          _buildKeyValue(context, "Email", ""),
+          _buildKeyValue(context, "Landowner name", landowner.name),
+          _buildKeyValue(context, "Address", landowner.address),
+          _buildKeyValue(context, "Email", landowner.email),
           _buildKeyValue(context, "Stand/Area Name", area.name),
           _buildKeyValue(context, "Acres", area.acres.toString()),
           _buildHeader2(context, "Landowner goals and objectives:"),
           pw.Paragraph(text: area.goals),
           _buildHeader1(context, "Site Characteristics"),
           pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
             children: [
               _buildKeyValue(context, "Elevation", area.elevation.toString()),
               _buildKeyValue(context, "Aspect", area.aspect.label),
@@ -78,6 +79,7 @@ class PdfConverter {
     return pdf;
   }
 
+  /// Display the main heading
   pw.Widget _buildHeader0(pw.Context context) {
     return pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.center,
@@ -90,6 +92,7 @@ class PdfConverter {
             style: pw.TextStyle(
               fontSize: 16.0,
               fontWeight: pw.FontWeight.bold,
+              color: PdfColor.fromHex("#808080"),
             )
           ),
         )
@@ -97,6 +100,7 @@ class PdfConverter {
     );
   }
 
+  /// Display a first-level heading
   pw.Widget _buildHeader1(pw.Context context, String text) {
     return pw.Padding(
       padding: const pw.EdgeInsets.symmetric(vertical: 14.0),
@@ -110,6 +114,7 @@ class PdfConverter {
     );
   }
 
+  /// Display a second level heading
   pw.Widget _buildHeader2(pw.Context context, String text) {
     return pw.Padding(
       padding: const pw.EdgeInsets.symmetric(vertical: 12.0),
@@ -125,24 +130,27 @@ class PdfConverter {
 
   /// Display the heading(key) and corresponding value on a single line
   pw.Widget _buildKeyValue(pw.Context context, String key, String? value) {
-    return pw.RichText(
-      text: pw.TextSpan(
-        text: key,
-        style: pw.TextStyle(
-          fontWeight: pw.FontWeight.bold,
-        ),
-        children: [
-          const pw.TextSpan(
-            text: ": ",
+    return pw.Padding(
+      padding: const pw.EdgeInsets.symmetric(vertical: 2.0),
+      child: pw.RichText(
+        text: pw.TextSpan(
+          text: key,
+          style: pw.TextStyle(
+            fontWeight: pw.FontWeight.bold,
           ),
-          pw.TextSpan(
-            text: value,
-            style: pw.TextStyle(
-              fontWeight: pw.FontWeight.normal,
+          children: [
+            const pw.TextSpan(
+              text: ": ",
+            ),
+            pw.TextSpan(
+              text: value,
+              style: pw.TextStyle(
+                fontWeight: pw.FontWeight.normal,
+              )
             )
-          )
-        ]
-      ),
+          ]
+        ),
+      )
     );
   }
 }

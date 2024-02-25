@@ -29,8 +29,9 @@ class PdfButton extends StatelessWidget {
 
     return OutlinedButton(
       onPressed: () async {
-        // Builds the PDF widget tree
+        
         if (landowner != null) {
+          // Builds the PDF widget tree
           final pdf = PdfConverter().create(area, landowner!, evaluator);
 
           // Get the path of the folder in which to store the pdf file.
