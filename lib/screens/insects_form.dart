@@ -30,6 +30,7 @@ class InsectsForm extends StatelessWidget {
         title: InsectsForm._title,
         body: FormScaffold(
           formKey: _formKey,
+          currentArea: Provider.of<Area>(context).name,
           children: <Widget>[
             _buildInsectsInput(context),
             _buildDiseasesInput(context)

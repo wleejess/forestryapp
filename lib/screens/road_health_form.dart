@@ -23,6 +23,7 @@ class RoadHealthForm extends StatelessWidget {
         title: RoadHealthForm._title,
         body: FormScaffold(
           formKey: _formKey,
+          currentArea: Provider.of<Area>(context).name,
           children: <Widget>[_buildDescription(context)],
         ));
   }

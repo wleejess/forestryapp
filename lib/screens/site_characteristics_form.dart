@@ -23,6 +23,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         title: SiteCharacteristicsForm._title,
         body: FormScaffold(
           formKey: _formKey,
+          currentArea: Provider.of<Area>(context).name,
           children: <Widget>[
             _buildAspect(context),
             _buildElevation(context),

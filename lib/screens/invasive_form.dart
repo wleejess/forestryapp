@@ -31,6 +31,7 @@ class InvasiveForm extends StatelessWidget {
         title: InvasiveForm._title,
         body: FormScaffold(
           formKey: _formKey,
+          currentArea: Provider.of<Area>(context).name,
           children: <Widget>[
             _buildInvasiveInput(context),
             _buildWildlifeInput(context),

@@ -23,6 +23,7 @@ class WaterIssuesForm extends StatelessWidget {
         title: WaterIssuesForm._title,
         body: FormScaffold(
           formKey: _formKey,
+          currentArea: Provider.of<Area>(context).name,
           children: <Widget>[_buildDescription(context)],
         ));
   }

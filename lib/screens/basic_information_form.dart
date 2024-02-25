@@ -35,15 +35,12 @@ class BasicInformationForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
         title: BasicInformationForm._title,
-        body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[
-            _buildNameInput(context),
-            _buildAcresInput(context),
-            _buildLandownerInput(context),
-            _buildGoalsInput(context),
-          ],
-        ));
+        body: FormScaffold(formKey: _formKey, children: <Widget>[
+          _buildNameInput(context),
+          _buildAcresInput(context),
+          _buildLandownerInput(context),
+          _buildGoalsInput(context),
+        ]));
   }
 
   /// Builds a text input field to enter the stand/area name.
