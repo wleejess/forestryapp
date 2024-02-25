@@ -19,9 +19,9 @@ class Validation {
 
   static String? isValidElevation(value) {
     if (value != null && value.isNotEmpty) {
-      int number = int.parse(value);
+      int? number = int.tryParse(value);
 
-      if (number >= -5000 && number <= 50000) {
+      if (number != null && number >= -5000 && number <= 50000) {
         return null;
       }
     }
