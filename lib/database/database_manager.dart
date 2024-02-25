@@ -96,7 +96,7 @@ class DatabaseManager {
   // Initialization ////////////////////////////////////////////////////////////
   /// This must be run before starting the app.
   static Future initialize() async {
-    _readSQLFromFile();
+    await _readSQLFromFile();
 
     final db = await openDatabase(
       _filenameDatabase,
@@ -108,7 +108,7 @@ class DatabaseManager {
   }
 
   /// Read queries/DDL-statements from SQL files declared assets.
-  static void _readSQLFromFile() async {
+  static Future<void> _readSQLFromFile() async {
     // One Time Initialization Statements
     _readMultipleSQLFilesIntoList(_pathSchemas, _sqlSchemas);
     _readMultipleSQLFilesIntoList(_pathDummyData, _sqlDummyData);
