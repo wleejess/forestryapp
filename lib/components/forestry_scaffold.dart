@@ -113,7 +113,7 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const VegetativeConditionsForm()),
+                builder: (context) => VegetativeConditionsForm()),
           );
         },
       ),
