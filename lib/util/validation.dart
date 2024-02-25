@@ -8,9 +8,9 @@ class Validation {
 
   static String? isValidPercentage(value) {
     if (value != null && value.isNotEmpty) {
-      int number = int.parse(value);
+      int? number = int.tryParse(value);
 
-      if (number >= 0 && number <= 100) {
+      if (number != null && number >= 0 && number <= 100) {
         return null;
       }
     }
