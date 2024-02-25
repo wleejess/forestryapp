@@ -7,7 +7,16 @@ import "package:pdf/widgets.dart" as pw;
 /// Fills out the PDF template and returns a pdf object
 class PdfConverter {
   pw.Document create(Area area, Landowner landowner, Settings evaluator,) {
-    final pdf = pw.Document();
+    final pdf = pw.Document(
+      theme: pw.ThemeData(
+        defaultTextStyle: const pw.TextStyle(
+          fontSize: 10.0,
+        ),
+        paragraphStyle: const pw.TextStyle(
+          fontSize: 10.0,
+        ),
+      ),
+    );
 
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
@@ -20,8 +29,8 @@ class PdfConverter {
           _buildKeyValue(context, "Email", landowner.email),
           _buildKeyValue(context, "Stand/Area Name", area.name),
           _buildKeyValue(context, "Acres", area.acres.toString()),
-          _buildHeader2(context, "Landowner goals and objectives:"),
-          pw.Paragraph(text: area.goals),
+          _buildHeader1(context, "Landowner goals and objectives:"),
+          _buildParagraph(context, area.goals),
           _buildHeader1(context, "Site Characteristics"),
           pw.Row(
             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -33,8 +42,9 @@ class PdfConverter {
           ),
           // How to include checkmark options?
           _buildKeyValue(context, "Slope position", area.slopePosition.label),
+          pw.SizedBox(height: 10),
           _buildHeader2(context, "Soil Information"),
-          pw.Paragraph(text: area.soilInfo),
+          _buildParagraph(context, area.soilInfo),
           _buildHeader1(context, "Vegetative Conditions"),
           _buildKeyValue(context, "Cover type", area.coverType.label),
           _buildKeyValue(context, "Stand structure", area.standStructure.label),
@@ -43,32 +53,34 @@ class PdfConverter {
           _buildKeyValue(context, "Understory stand density", area.understoryDensity.label),
           _buildKeyValue(context, "Understory species composition", "${area.understorySpeciesComposition} %"),
           _buildHeader2(context, "Stand/Area History:"),
-          pw.Paragraph(text: area.standHistory),
+          _buildParagraph(context, area.standHistory),
           _buildHeader1(context, "Pests & Damage"),
           _buildHeader2(context, "Insects Present (if known):"),
-          pw.Paragraph(text: area.insects),
+          _buildParagraph(context, area.insects),
           _buildHeader2(context, "Diseases Present (if known):"),
-          pw.Paragraph(text: area.diseases),
+          _buildParagraph(context, area.diseases),
           _buildHeader2(context, "Invasive Plants & Animals:"),
-          pw.Paragraph(text: area.invasives),
+          _buildParagraph(context, area.invasives),
           _buildHeader2(context, "Wildlife Damage/Issues:"),
-          pw.Paragraph(text: area.wildlifeDamage),
+          _buildParagraph(context, area.wildlifeDamage),
           _buildHeader2(context, "Mistletoe Infections:"),
           _buildKeyValue(context, "Uniformity", area.mistletoeUniformity.label),
           _buildKeyValue(context, "Mistletoe location", area.mistletoeLocation),
           _buildKeyValue(context, "Hawksworth infection rating(0-6)", area.hawksworth.label),
           _buildHeader2(context, "Tree species infected"),
-          pw.Paragraph(text: area.mistletoeTreeSpecies),
-          _buildHeader2(context, "Road Health/Conditions:"),
-          pw.Paragraph(text: area.roadHealth),
-          _buildHeader2(context, "Water/Stream/Riparian Health & Issues:"),
-          pw.Paragraph(text: area.waterHealth),
-          _buildHeader2(context, "Fire Risk (fuel levels & ignition potential):"),
-          pw.Paragraph(text: area.fireRisk),
-          _buildHeader2(context, "Other issues (explain):"),
-          pw.Paragraph(text: area.otherIssues),
-          _buildHeader2(context, "Diagnosis & Suggestions"),
-          pw.Paragraph(text: area.diagnosis),
+          _buildParagraph(context, area.mistletoeTreeSpecies),
+          _buildHeader1(context, "Road Health/Conditions:"),
+          _buildParagraph(context, area.roadHealth),
+          _buildHeader1(context, "Water/Stream/Riparian Health & Issues:"),
+          _buildParagraph(context, area.waterHealth),
+          _buildHeader1(context, "Fire Risk (fuel levels & ignition potential):"),
+          _buildParagraph(context, area.fireRisk),
+          _buildHeader1(context, "Other issues (explain):"),
+          _buildParagraph(context, area.otherIssues),
+          // Create a line
+          pw.Header(text: "", level: 0),
+          _buildHeader1(context, "Diagnosis & Suggestions"),
+          _buildParagraph(context, area.diagnosis),
           _buildKeyValue(context, "Evaluator name", evaluator.evaluatorName),
           _buildKeyValue(context, "Email", evaluator.evaluatorEmail),
           _buildKeyValue(context, "Address", evaluator.combinedAddress),
@@ -85,12 +97,12 @@ class PdfConverter {
       mainAxisAlignment: pw.MainAxisAlignment.center,
       children: [
         pw.Padding(
-          padding: const pw.EdgeInsets.symmetric(vertical: 16.0),
+          padding: const pw.EdgeInsets.symmetric(vertical: 13.0),
           child: pw.Text(
             "Forest Wellness Checkup", 
             textAlign: pw.TextAlign.center,
             style: pw.TextStyle(
-              fontSize: 16.0,
+              fontSize: 13.0,
               fontWeight: pw.FontWeight.bold,
               color: PdfColor.fromHex("#808080"),
             )
@@ -103,11 +115,11 @@ class PdfConverter {
   /// Display a first-level heading
   pw.Widget _buildHeader1(pw.Context context, String text) {
     return pw.Padding(
-      padding: const pw.EdgeInsets.symmetric(vertical: 14.0),
+      padding: const pw.EdgeInsets.symmetric(vertical: 11),
       child: pw.Text(
         text,
         style: pw.TextStyle(
-          fontSize: 14.0,
+          fontSize: 11.0,
           fontWeight: pw.FontWeight.bold,
         )
       )
@@ -117,11 +129,10 @@ class PdfConverter {
   /// Display a second level heading
   pw.Widget _buildHeader2(pw.Context context, String text) {
     return pw.Padding(
-      padding: const pw.EdgeInsets.symmetric(vertical: 12.0),
+      padding: const pw.EdgeInsets.symmetric(vertical: 10),
       child: pw.Text(
         text,
         style: pw.TextStyle(
-          fontSize: 12.0,
           fontWeight: pw.FontWeight.bold,
         )
       )
@@ -150,6 +161,16 @@ class PdfConverter {
             )
           ]
         ),
+      )
+    );
+  }
+
+  pw.Widget _buildParagraph(pw.Context context, text) {
+    return pw.Padding(
+      padding: const pw.EdgeInsets.only(bottom: 10),
+      child: pw.Text(
+        "$text",
+        style: pw.Theme.of(context).paragraphStyle,
       )
     );
   }
