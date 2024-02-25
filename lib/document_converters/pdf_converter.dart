@@ -1,11 +1,12 @@
 import "package:forestryapp/models/area.dart";
+import "package:forestryapp/models/landowner.dart";
 import 'package:forestryapp/models/settings.dart';
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pw;
 
 /// Fills out the PDF template and returns a pdf object
 class PdfConverter {
-  pw.Document create(Area area, Settings evaluator,) {
+  pw.Document create(Area area, Landowner landowner, Settings evaluator,) {
     final pdf = pw.Document();
 
     pdf.addPage(pw.MultiPage(

@@ -1,17 +1,12 @@
-import "dart:io";
-
 import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/pdf_button.dart";
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/settings.dart';
 import "package:forestryapp/document_converters/docx_converter.dart";
-import "package:forestryapp/document_converters/pdf_converter.dart";
 import "package:forestryapp/util/break_points.dart";
-import 'package:path_provider/path_provider.dart';
-import 'package:open_file/open_file.dart';
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner.dart";
@@ -24,7 +19,6 @@ class AreaReview extends StatefulWidget {
   static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
   static const _buttonTextEmail = "Email";
-  static const _buttonTextPDF = "Create PDF";
   static const _buttonTextDOCX = "Create DOCX";
   static const _buttonTextEdit = "Edit";
   static const _buttonTextDelete = "Delete";
@@ -117,7 +111,7 @@ class _AreaReviewState extends State<AreaReview> {
             _buildButtonEmail(context),
           ]),
           TableRow(children: [
-            _buildButtonPDF(context, area, landowner),
+            PdfButton(area: area, landowner: landowner),
             _buildButtonEdit(context),
           ]),
           TableRow(children: [
@@ -130,7 +124,7 @@ class _AreaReviewState extends State<AreaReview> {
 
     return Row(
       children: [
-        _buildButtonPDF(context, area, landowner),
+        PdfButton(area: area, landowner: landowner),
         _buildButtonDOCX(context),
         Expanded(child: Container()),
         _buildButtonEmail(context),
@@ -144,33 +138,6 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(AreaReview._buttonTextEmail),
-    );
-  }
-
-  Widget _buildButtonPDF(BuildContext context, Area area, Landowner? landowner) {
-    // Also get the Landowner object to pass in
-
-    return OutlinedButton(
-      onPressed: () async {
-        // Build the PDF widget tree
-        final pdf = PdfConverter().create(area, context.read<Settings>());
-
-        // Get the path of the folder in which to store the pdf file.
-        // On Android, you must access external storage in order to open the file outside of the app.
-        // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
-        final directory = await getExternalStorageDirectory();
-
-        // Need to add an alternative if using iOS
-        if (directory != null) {
-          final file = File("${directory.absolute.path}/forest_wellness_checkup.pdf");
-          await file.writeAsBytes(await pdf.save());
-          OpenFile.open(file.path);
-        } else {
-          // Change this to display an error message.
-          print("External storage directory is null.");
-        }
-      },
-      child: const Text(AreaReview._buttonTextPDF),
     );
   }
 
