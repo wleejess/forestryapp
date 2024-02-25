@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/models/area.dart';
+import 'package:provider/provider.dart';
 
 /// A component to ensure common layout accross the form screens.
 class FormScaffold extends StatelessWidget {
@@ -11,10 +13,11 @@ class FormScaffold extends StatelessWidget {
   final GlobalKey _formKey;
 
   // Constructor ///////////////////////////////////////////////////////////////
-  /// 
+  ///
   const FormScaffold({
     required List<Widget> children,
     required GlobalKey formKey,
+    String? currentArea,
     super.key,
   })  : _children = children,
         _formKey = formKey;
@@ -22,31 +25,44 @@ class FormScaffold extends StatelessWidget {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
+    Area currentArea = Provider.of<Area>(context);
+    String? areaName = currentArea.name;
+
     return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // Creates a 4x4 grid, but the height matches the content size.
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Wrap(
-                  children: _children,
-                ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // Creates a 4x4 grid, but the height matches the content size.
+          Container(
+            alignment: Alignment.center,
+            child: areaName != null
+                ? Text(
+                    'Current Area: $areaName',
+                    style: const TextStyle(fontStyle: FontStyle.italic),
+                  )
+                : const SizedBox.shrink(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Wrap(
+                children: _children,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildButtonPrevious(context),
-                _buildButtonNext(context),
-              ],
-            ),
-          ],
-        ),
-      );
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildButtonPrevious(context),
+              _buildButtonNext(context),
+            ],
+          ),
+        ],
+      ),
+    );
   }
+
   // Buttons ///////////////////////////////////////////////////////////////////
   Widget _buildButtonPrevious(BuildContext context) {
     return OutlinedButton(
@@ -62,6 +78,3 @@ class FormScaffold extends StatelessWidget {
     );
   }
 }
-
-
-
