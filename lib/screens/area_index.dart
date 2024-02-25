@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
+import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
 import "package:provider/provider.dart";
 
@@ -29,8 +31,7 @@ class AreaIndex extends StatelessWidget {
 
     return ForestryScaffold(
       title: _title,
-      body: ListenableBuilder(
-        listenable: areasListenable,
+      body: DBListenableBuilder(
         builder: (BuildContext _, Widget? __) =>
             _buildListViewOfAllAreasFromDB(areasListenable.areas),
       ),
@@ -58,6 +59,8 @@ class AreaIndex extends StatelessWidget {
         if (id == null) {
           return ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
         }
+        Provider.of<LandownerCollection>(context, listen: false)
+            .setLandownerOfAreaBeingReviewed(id);
         return AreaReview(id);
       },
     );
