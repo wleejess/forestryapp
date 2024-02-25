@@ -2,18 +2,20 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
-import "package:forestryapp/models/invasive.dart";
+import "package:forestryapp/models/area.dart";
 import "package:provider/provider.dart";
 
 class InvasiveForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Invasive & Wildlife";
   static const _invasiveHeading = "Invasive plants & animals";
-  static const _invasiveDescription = "List any invasive plants or animals observed.";
+  static const _invasiveDescription =
+      "List any invasive plants or animals observed.";
   static const _wildlifeHeading = "Wildlife damage/issues";
-  static const _wildlifeDescription = "Describe wildlife damage to tree seedlings, "
-    "saplings or mature trees.\nIf regeneration is damaged, estimate the percentage "
-    "of seedlings/saplings affected.";
+  static const _wildlifeDescription =
+      "Describe wildlife damage to tree seedlings, "
+      "saplings or mature trees.\nIf regeneration is damaged, estimate the percentage "
+      "of seedlings/saplings affected.";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -26,40 +28,37 @@ class InvasiveForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: InvasiveForm._title,
-      body: FormScaffold(
-        formKey: _formKey,
-        children: <Widget>[
-          _buildInvasiveInput(context),
-          _buildWildlifeInput(context),
-        ],
-      )
-    );
+        title: InvasiveForm._title,
+        body: FormScaffold(
+          formKey: _formKey,
+          children: <Widget>[
+            _buildInvasiveInput(context),
+            _buildWildlifeInput(context),
+          ],
+        ));
   }
 
   /// Builds a text input field about invasive plants and animals in the area.
   Widget _buildInvasiveInput(BuildContext context) {
-    final invasiveData = Provider.of<Invasive>(context);
+    final invasiveData = Provider.of<Area>(context);
     return FreeTextBox(
-      labelText: InvasiveForm._invasiveHeading, 
-      helperText: InvasiveForm._invasiveDescription,
-      initialValue: invasiveData.invasiveSpecies,
-      onChanged: (text) {
-        invasiveData.invasiveSpecies = text;
-      }
-    );
+        labelText: InvasiveForm._invasiveHeading,
+        helperText: InvasiveForm._invasiveDescription,
+        initialValue: invasiveData.invasives,
+        onChanged: (text) {
+          invasiveData.invasives = text;
+        });
   }
 
   /// Builds a text input field about wildlife damage in the area.
   Widget _buildWildlifeInput(BuildContext context) {
-    final invasiveData = Provider.of<Invasive>(context);
+    final invasiveData = Provider.of<Area>(context);
     return FreeTextBox(
-      labelText: InvasiveForm._wildlifeHeading, 
-      helperText: InvasiveForm._wildlifeDescription,
-      initialValue: invasiveData.wildlifeDamage,
-      onChanged: (text) {
-        invasiveData.wildlifeDamage = text;
-      }
-    );
+        labelText: InvasiveForm._wildlifeHeading,
+        helperText: InvasiveForm._wildlifeDescription,
+        initialValue: invasiveData.wildlifeDamage,
+        onChanged: (text) {
+          invasiveData.wildlifeDamage = text;
+        });
   }
 }

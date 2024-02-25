@@ -49,12 +49,19 @@ class ContactInfo extends StatelessWidget {
     final TextStyle styleLabel =
         styleValue!.copyWith(fontWeight: FontWeight.bold);
 
+    // Add padding to [label] instead of [info] because if [info] is long
+    // and ends up wrapping to line below, don't want it to have some
+    // random padding on its left.
     return [
-      Container(
-        alignment: Alignment.centerRight,
-        child: Text("$label: ", style: styleLabel),
+      Wrap(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+            child: Text("$label: ", style: styleLabel),
+          ),
+          SelectableText(info, style: styleValue)
+        ],
       ),
-      SelectableText(info, style: styleValue),
     ];
   }
 }

@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.1.1
   # Use shared_preferences for storing settings like Evaluator contact info and
   # font size.
   shared_preferences: ^2.2.2
@@ -38,7 +39,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  provider: ^6.1.1
+  sqflite: ^2.3.2
+  docx_template: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +66,12 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/database/
+    - assets/database/schema/
+    - assets/database/ddl_statements/
+    - assets/database/queries/
+    - assets/templates/ # Templates for DOCX and PDF file creation.
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

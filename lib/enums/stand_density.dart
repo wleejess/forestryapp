@@ -1,4 +1,5 @@
 enum StandDensity {
+  na("N/A"),
   low("Low"),
   medium("Medium"),
   high("High");

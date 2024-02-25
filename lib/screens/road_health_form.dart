@@ -3,24 +3,24 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/water_issues_data.dart';
+import 'package:forestryapp/models/area.dart';
 
-class WaterIssues extends StatelessWidget {
-  static const _title = "Water Health & Issues";
-  static const _waterDescription =
-      "Make note of any issues related to water, streams, and springs in the stand or area.\n"
-      "Example: Erosion, head cutting, cattle grazing effects, "
-      "sedimentation, culverts, ditches, etc.";
+class RoadHealthForm extends StatelessWidget {
+  static const _title = "Road Health";
+  static const _roadDescription =
+      "Make note of any road related problems for the stand or area.\n"
+      "Example: Erosion, slumps, sediment delviery into streams or other waterways, "
+      "culvert & ditch problems, etc";
 
   final _formKey = GlobalKey<FormState>();
 
-  WaterIssues({super.key});
+  RoadHealthForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-        title: WaterIssues._title,
+        title: RoadHealthForm._title,
         body: FormScaffold(
           formKey: _formKey,
           children: <Widget>[_buildDescription(context)],
@@ -29,13 +29,12 @@ class WaterIssues extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
-    final waterIssuesData = Provider.of<WaterIssuesDataModel>(context);
-
+    final roadHealthData = Provider.of<Area>(context);
     return FreeTextBox(
-        labelText: WaterIssues._title,
-        helperText: WaterIssues._waterDescription,
+        labelText: RoadHealthForm._title,
+        helperText: RoadHealthForm._roadDescription,
         onChanged: (text) {
-          waterIssuesData.waterInfo = text;
+          roadHealthData.roadHealth;
         });
   }
 }

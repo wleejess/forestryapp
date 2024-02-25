@@ -3,9 +3,9 @@ import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
 import 'package:provider/provider.dart';
-import 'package:forestryapp/models/fire_risk_data.dart';
+import 'package:forestryapp/models/area.dart';
 
-class FireRisk extends StatelessWidget {
+class FireRiskForm extends StatelessWidget {
   static const _title = "Fire Risk";
   static const _fireDescription =
       "Note the level of fuel on the ground (high, medium, low), "
@@ -14,13 +14,13 @@ class FireRisk extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  FireRisk({super.key});
+  FireRiskForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-        title: FireRisk._title,
+        title: FireRiskForm._title,
         body: FormScaffold(
           formKey: _formKey,
           children: <Widget>[_buildDescription(context)],
@@ -29,13 +29,13 @@ class FireRisk extends StatelessWidget {
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
-    final fireRiskData = Provider.of<FireRiskDataModel>(context);
+    final fireRiskData = Provider.of<Area>(context);
 
     return FreeTextBox(
-        labelText: FireRisk._title,
-        helperText: FireRisk._fireDescription,
+        labelText: FireRiskForm._title,
+        helperText: FireRiskForm._fireDescription,
         onChanged: (text) {
-          fireRiskData.fireInfo = text;
+          fireRiskData.fireRisk = text;
         });
   }
 }

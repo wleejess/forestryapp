@@ -1,4 +1,5 @@
 enum CoverType {
+  na("N/A"),
   forest("Forest"),
   meadow("Meadow"),
   wetland("Wetland"),
