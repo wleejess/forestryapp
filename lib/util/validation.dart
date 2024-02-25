@@ -24,12 +24,13 @@ class Validation {
   /// Returns an error message if the value is not an integer -5000 to 50000.
   /// Accepts empty values.
   static String? isValidElevation(value) {
-    if (value != null && value.isNotEmpty) {
-      int? number = int.tryParse(value);
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    int? number = int.tryParse(value);
 
-      if (number != null && number >= -5000 && number <= 50000) {
-        return null;
-      }
+    if (number != null && number >= -5000 && number <= 50000) {
+      return null;
     }
     return 'Please enter an elevation from -5000 to 50000.';
   }
