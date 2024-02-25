@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
@@ -20,15 +21,17 @@ class VegetativeConditionsForm extends StatelessWidget {
   static const _overstoryInfo = "Overstory Stand Info";
   static const _understoryInfo = "Understory Stand Info";
 
-  const VegetativeConditionsForm({super.key});
+  final _formKey = GlobalKey<FormState>();
+
+  VegetativeConditionsForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
+      body: FormScaffold(
+        child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -43,113 +46,115 @@ class VegetativeConditionsForm extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      )
     );
   }
-}
 
-Widget _buildCoverType(BuildContext context, header) {
-  final vegConData = Provider.of<Area>(context);
+  Widget _buildCoverType(BuildContext context, header) {
+    final vegConData = Provider.of<Area>(context);
 
-  return Wrap(
-    children: [
-      PortraitHandlingSizedBox(
-        child: DropdownOptions(
-          header: header,
-          enumValues: CoverType.values,
-          initialValue: vegConData.coverType,
+    return Wrap(
+      children: [
+        PortraitHandlingSizedBox(
+          child: DropdownOptions(
+            header: header,
+            enumValues: CoverType.values,
+            initialValue: vegConData.coverType,
+            onSelected: (selectedOption) {
+              vegConData.coverType = selectedOption;
+            },
+          ),
+        ),
+        PortraitHandlingSizedBox(
+          child: FreeTextBox(
+            labelText: "Other Cover Type",
+            helperText: "List cover type if the option is not in the dropdown.",
+            onChanged: (text) {},
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStandStructure(BuildContext context, header) {
+    final vegConData = Provider.of<Area>(context);
+
+    return RadioOptions(
+      header: header,
+      enumValues: StandStructure.values,
+      initialValue: vegConData.standHistory,
+      onSelected: (selectedOption) {
+        vegConData.standStructure = selectedOption;
+      },
+    );
+  }
+
+  Widget _buildStoryInfo(BuildContext context, title, density) {
+    final vegConData = Provider.of<Area>(context);
+
+    return ExpansionTile(
+      title: Text(title),
+      collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
+      collapsedTextColor: Colors.white,
+      collapsedIconColor: Colors.white,
+      children: [
+        RadioOptions(
+          header: density,
+          enumValues: StandDensity.values,
+          initialValue: StandDensity.low,
           onSelected: (selectedOption) {
-            vegConData.coverType = selectedOption;
+            if (title == 'Overstory Stand Info') {
+              vegConData.overstoryDensity = selectedOption;
+            } else if (title == 'Understory Stand Info') {
+              vegConData.understoryDensity = selectedOption;
+            }
           },
         ),
-      ),
-      PortraitHandlingSizedBox(
-        child: FreeTextBox(
-          labelText: "Other Cover Type",
-          helperText: "List cover type if the option is not in the dropdown.",
-          onChanged: (text) {},
+        TextFormField(
+          decoration: const InputDecoration(
+              labelText: "Species Composition", 
+              hintText: "Enter a % value",
+              suffix: Text('%'),
+          ),
+          keyboardType: TextInputType.number,
+          validator: Validation.isValidPercentage,
+          onChanged: (text) {
+            if (_formKey.currentState!.validate()) {
+              if (title == 'Overstory Stand Info') {
+                vegConData.overstorySpeciesComposition = int.tryParse(text);
+              } else if (title == 'Understory Stand Info') {
+                vegConData.understorySpeciesComposition = int.tryParse(text);
+              }
+            }
+          },
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
-Widget _buildStandStructure(BuildContext context, header) {
-  final vegConData = Provider.of<Area>(context);
+  Widget _buildStandHistory(BuildContext context) {
+    final vegConData = Provider.of<Area>(context);
 
-  return RadioOptions(
-    header: header,
-    enumValues: StandStructure.values,
-    initialValue: vegConData.standHistory,
-    onSelected: (selectedOption) {
-      vegConData.standStructure = selectedOption;
-    },
-  );
-}
-
-Widget _buildStoryInfo(BuildContext context, title, density) {
-  final vegConData = Provider.of<Area>(context);
-
-  return ExpansionTile(
-    title: Text(title),
-    collapsedBackgroundColor: const Color.fromARGB(255, 46, 96, 69),
-    collapsedTextColor: Colors.white,
-    collapsedIconColor: Colors.white,
-    children: [
-      RadioOptions(
-        header: density,
-        enumValues: StandDensity.values,
-        initialValue: StandDensity.low,
-        onSelected: (selectedOption) {
-          if (title == 'Overstory Stand Info') {
-            vegConData.overstoryDensity = selectedOption;
-          } else if (title == 'Understory Stand Info') {
-            vegConData.understoryDensity = selectedOption;
-          }
-        },
-      ),
-      TextFormField(
-        decoration: const InputDecoration(
-            labelText: "Species Composition", 
-            hintText: "Enter a % value",
-            suffix: Text('%'),
+    const historyTitle = "Stand/Area History";
+    const historyHelp = "Describe prior management activities and/or disturbances"
+        "that have shaped or influenced the stand as it appears today";
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        FreeTextBox(
+          labelText: historyTitle,
+          onChanged: (text) {
+            vegConData.standHistory = text;
+          },
         ),
-        keyboardType: TextInputType.number,
-        validator: Validation.isValidPercentage,
-        onChanged: (text) {
-          if (title == 'Overstory Stand Info') {
-            vegConData.overstorySpeciesComposition = int.tryParse(text);
-          } else if (title == 'Understory Stand Info') {
-            vegConData.understorySpeciesComposition = int.tryParse(text);
-          }
-        },
-      ),
-    ],
-  );
-}
-
-Widget _buildStandHistory(BuildContext context) {
-  final vegConData = Provider.of<Area>(context);
-
-  const historyTitle = "Stand/Area History";
-  const historyHelp = "Describe prior management activities and/or disturbances"
-      "that have shaped or influenced the stand as it appears today";
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      FreeTextBox(
-        labelText: historyTitle,
-        onChanged: (text) {
-          vegConData.standHistory = text;
-        },
-      ),
-      const SizedBox(height: 16.0),
-      const Text(
-        historyHelp,
-        style: TextStyle(
-            fontSize: 14.0,
-            fontStyle: FontStyle.italic), // Customize the font size as needed
-      )
-    ],
-  );
+        const SizedBox(height: 16.0),
+        const Text(
+          historyHelp,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontStyle: FontStyle.italic), // Customize the font size as needed
+        )
+      ],
+    );
+  }
 }
