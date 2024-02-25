@@ -36,18 +36,21 @@ class MistletoeForm extends StatelessWidget {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [
-      PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
-      PortraitHandlingSizedBox(child: _buildLocationInput(context)),
-      PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
-      PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
-    ];
 
     return ForestryScaffold(
         title: MistletoeForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: children,
+          child: Form(
+            key: _formKey,
+            child: Wrap(
+              children: <Widget>[
+                PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
+                PortraitHandlingSizedBox(child: _buildLocationInput(context)),
+                PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
+                PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
+              ],
+            )
+          )
         ));
   }
 
