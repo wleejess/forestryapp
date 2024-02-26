@@ -53,11 +53,9 @@ class PdfButton extends StatelessWidget {
             try {
               await file.writeAsBytes(await pdf.save());
               OpenFile.open(file.path);
-              throw PlatformException(code: "What's up?");
 
             } catch(e) {
               print(e);
-
             }
             
           } else {
@@ -70,6 +68,19 @@ class PdfButton extends StatelessWidget {
         }
       },
       child: const Text(_buttonText),
+    );
+  }
+
+  Widget _buildAlert (BuildContext context, dynamic error) {
+    return AlertDialog(
+      title: const Text('Error'),
+      content: Text(error),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'), 
+          child: const Text('Cancel'),
+        )
+      ]
     );
   }
 }
