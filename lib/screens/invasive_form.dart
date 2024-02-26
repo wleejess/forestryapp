@@ -17,12 +17,10 @@ class InvasiveForm extends StatelessWidget {
       "saplings or mature trees.\nIf regeneration is damaged, estimate the percentage "
       "of seedlings/saplings affected.";
 
-  final _formKey = GlobalKey<FormState>();
-
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to enter information on invasive plants and animals,
   /// and wildlife damage present in the area.
-  InvasiveForm({super.key});
+  const InvasiveForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -30,11 +28,12 @@ class InvasiveForm extends StatelessWidget {
     return ForestryScaffold(
         title: InvasiveForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[
-            _buildInvasiveInput(context),
-            _buildWildlifeInput(context),
-          ],
+          child: Column(
+            children: <Widget>[
+              _buildInvasiveInput(context),
+              _buildWildlifeInput(context),
+            ],
+          )
         ));
   }
 

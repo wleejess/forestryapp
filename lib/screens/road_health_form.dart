@@ -12,9 +12,7 @@ class RoadHealthForm extends StatelessWidget {
       "Example: Erosion, slumps, sediment delviery into streams or other waterways, "
       "culvert & ditch problems, etc";
 
-  final _formKey = GlobalKey<FormState>();
-
-  RoadHealthForm({super.key});
+  const RoadHealthForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -22,8 +20,7 @@ class RoadHealthForm extends StatelessWidget {
     return ForestryScaffold(
         title: RoadHealthForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[_buildDescription(context)],
+          child: _buildDescription(context),
         ));
   }
 
@@ -34,7 +31,7 @@ class RoadHealthForm extends StatelessWidget {
         labelText: RoadHealthForm._title,
         helperText: RoadHealthForm._roadDescription,
         onChanged: (text) {
-          roadHealthData.roadHealth;
+          roadHealthData.roadHealth = text;
         });
   }
 }

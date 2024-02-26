@@ -6,6 +6,7 @@ import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
+import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 
@@ -22,14 +23,18 @@ class SiteCharacteristicsForm extends StatelessWidget {
     return ForestryScaffold(
         title: SiteCharacteristicsForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[
-            _buildAspect(context),
-            _buildElevation(context),
-            _buildPercentSlope(context),
-            _buildSlopePosition(context),
-            _buildSoilInformation(context)
-          ],
+          child: Form(
+            key: _formKey,
+            child: Wrap(
+              children: [
+                _buildAspect(context),
+                _buildElevation(context),
+                _buildPercentSlope(context),
+                _buildSlopePosition(context),
+                _buildSoilInformation(context)
+              ],
+            ),
+          )
         ));
   }
 
@@ -44,8 +49,11 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: '',
         ),
         onChanged: (text) {
-          elevationData.elevation = int.tryParse(text);
+          if (_formKey.currentState!.validate()) {
+            elevationData.elevation = int.tryParse(text);
+          }
         },
+        validator: Validation.isValidElevation,
       ),
     );
   }
@@ -77,9 +85,12 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: 'Write in the approximate or average percent slope.',
         ),
         onChanged: (text) {
-          percentSlopeData.slopePercentage = int.tryParse(text);
+          if (_formKey.currentState!.validate()) {
+            percentSlopeData.slopePercentage = int.tryParse(text);
+          }
         },
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        validator: Validation.isValidPercentage,
       ),
     );
   }

@@ -3,6 +3,7 @@ import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
@@ -36,13 +37,17 @@ class BasicInformationForm extends StatelessWidget {
     return ForestryScaffold(
         title: BasicInformationForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[
-            _buildNameInput(context),
-            _buildAcresInput(context),
-            _buildLandownerInput(context),
-            _buildGoalsInput(context),
-          ],
+          child: Form(
+            key: _formKey,
+            child: Wrap(
+              children: <Widget>[
+                _buildNameInput(context),
+                _buildAcresInput(context),
+                _buildLandownerInput(context),
+                _buildGoalsInput(context),
+              ],
+            ),
+          )
         ));
   }
 
@@ -51,13 +56,19 @@ class BasicInformationForm extends StatelessWidget {
     final basicInfoData = Provider.of<Area>(context);
 
     return PortraitHandlingSizedBox(
-      child: FreeTextBox(
-          labelText: BasicInformationForm._nameHeading,
-          helperText: BasicInformationForm._nameDescription,
-          initialValue: basicInfoData.name,
-          onChanged: (text) {
+      child: TextFormField(
+        decoration: const InputDecoration(
+            labelText: BasicInformationForm._nameHeading, 
+            helperText: BasicInformationForm._nameDescription, 
+        ),
+        initialValue: basicInfoData.name,
+        onChanged: (text) {
+          if (_formKey.currentState!.validate()) {
             basicInfoData.name = text;
-          }),
+          }
+        },
+        validator: Validation.isNotEmpty,
+      ),
     );
   }
 
@@ -129,6 +140,11 @@ class BasicInformationForm extends StatelessWidget {
               basicInfoData.landownerID = value.id;
             }
           },
+          errorText: () { 
+            if (basicInfoData.landownerID == null) { 
+              return "Please select a landowner."; 
+            } 
+          }()
         );
       },
     );

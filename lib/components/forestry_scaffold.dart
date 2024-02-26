@@ -113,7 +113,7 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const VegetativeConditionsForm()),
+                builder: (context) => VegetativeConditionsForm()),
           );
         },
       ),
@@ -123,7 +123,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => InsectsForm()),
+            MaterialPageRoute(builder: (context) => const InsectsForm()),
           );
         },
       ),
@@ -132,7 +132,7 @@ class ForestryScaffold extends StatelessWidget {
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => InvasiveForm()));
+              context, MaterialPageRoute(builder: (context) => const InvasiveForm()));
         },
       ),
       ListTile(
@@ -141,7 +141,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MistletoeForm()),
+            MaterialPageRoute(builder: (context) => const MistletoeForm()),
           );
         },
       ),
@@ -151,7 +151,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RoadHealthForm()),
+            MaterialPageRoute(builder: (context) => const RoadHealthForm()),
           );
         },
       ),
@@ -161,7 +161,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WaterIssuesForm()),
+            MaterialPageRoute(builder: (context) => const WaterIssuesForm()),
           );
         },
       ),
@@ -171,7 +171,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FireRiskForm()),
+            MaterialPageRoute(builder: (context) => const FireRiskForm()),
           );
         },
       ),
@@ -181,7 +181,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OtherIssuesForm()),
+            MaterialPageRoute(builder: (context) => const OtherIssuesForm()),
           );
         },
       ),

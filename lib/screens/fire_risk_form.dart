@@ -12,9 +12,7 @@ class FireRiskForm extends StatelessWidget {
       "as well as the density and structure of the forest.\n"
       "Are there abundant ladder fuels? What is the potential for ignition?";
 
-  final _formKey = GlobalKey<FormState>();
-
-  FireRiskForm({super.key});
+  const FireRiskForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -22,8 +20,7 @@ class FireRiskForm extends StatelessWidget {
     return ForestryScaffold(
         title: FireRiskForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[_buildDescription(context)],
+          child: _buildDescription(context),
         ));
   }
 
