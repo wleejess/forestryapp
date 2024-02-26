@@ -18,7 +18,7 @@ class DTOArea {
   late int id;
 
   // Public Fields //////////////////////////////////////////////////////////////
-  int? landownerID;
+  late int landownerID;
   late String name;
   double? acres;
   String? goals;
