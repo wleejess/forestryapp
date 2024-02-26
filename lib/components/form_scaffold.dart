@@ -28,6 +28,15 @@ class FormScaffold extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            child: areaName != null
+                ? Text(
+                    'Currently Editing: $areaName',
+                    style: const TextStyle(fontStyle: FontStyle.italic),
+                  )
+                : const SizedBox.shrink(),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: _child,
