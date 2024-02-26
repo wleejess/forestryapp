@@ -175,6 +175,7 @@ class _AreaReviewState extends State<AreaReview> {
   Future<void> _deleteArea(BuildContext context, Area area) async {
     final id = area.id;
 
+    // Check that the area is actually saved in database first.
     if (id != null) {
       await DAOArea.deleteArea(id);
     }
