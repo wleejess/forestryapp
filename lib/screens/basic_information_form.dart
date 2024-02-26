@@ -140,6 +140,11 @@ class BasicInformationForm extends StatelessWidget {
               basicInfoData.landownerID = value.id;
             }
           },
+          errorText: () { 
+            if (basicInfoData.landownerID == null) { 
+              return "Please select a landowner."; 
+            } 
+          }()
         );
       },
     );
