@@ -95,9 +95,24 @@ class PdfConverter {
           _buildKeyValue(context, "Evaluator name", evaluator.evaluatorName),
           _buildKeyValue(context, "Email", evaluator.evaluatorEmail),
           _buildKeyValue(context, "Address", evaluator.combinedAddress),
-
-          // How to fill out the form
-          _buildHeader1(context, "How to Fill Out Wellness Checkup Form"),
+          
+          // Section on How to fill out the form
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.center,
+            children: [
+              pw.Padding(
+                padding: const pw.EdgeInsets.symmetric(vertical: 13.0),
+                child: pw.Text(
+                  "How to Fill Out Wellness Checkup Form", 
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: pw.FontWeight.bold,
+                  )
+                ),
+              )
+            ],
+          ),
           _buildKeyValue(context, "Landowner Name", "Write in the landowner's name(s).", isItalic: true),
           _buildKeyValue(context, "Address/email", 
             "Write in their physical and/or email addresses. You should be able "
@@ -125,13 +140,13 @@ class PdfConverter {
           _buildKeyValue(context, "Stand Structure", 
             "Check off whether the stand or area is even-aged, two-aged, or multi-aged.", isItalic: true),
           _buildKeyValue(context, "Overstory stand density", 
-            "Check off whether stand density is low, medium, or high. This is a qualitative judgement", 
+            "Check off whether stand density is low, medium, or high. This is a qualitative judgement.", 
             isItalic: true),
           _buildKeyValue(context, "Overstory species composition", 
             "Write in the approximate overstory tree species percentages.", isItalic: true),
           _buildKeyValue(context, "Understory stand density", 
             "Check off whether understory stand density is low, medium, or high. This is a "
-            "qualitative judgement and pertains mostly to two-aged and multi-aged stands", 
+            "qualitative judgement and pertains mostly to two-aged and multi-aged stands.", 
             isItalic: true),
           _buildKeyValue(context, "Understory species composition", 
             "Write in the approximate understory tree species percentages.", isItalic: true),
@@ -148,7 +163,7 @@ class PdfConverter {
             "List any invasive plants or animals observed by the evaluator or landowner.", isItalic: true),
           _buildKeyValue(context, "Wildlife Damage/Issues", 
             "Describe wildlife damage to tree seedlings, saplings or mature trees. If regeneration "
-            "is damaged, estimate the percentage of seedlings/saplings affected", 
+            "is damaged, estimate the percentage of seedlings/saplings affected.", 
             isItalic: true),
           _buildKeyValue(context, "Mistletoe Infections", 
             "Check whether mistletoe infections are isolated/grouped or whether it is, "
@@ -157,7 +172,7 @@ class PdfConverter {
           _buildKeyValue(context, "Hawksworth infection rating", 
             "Rate the mistletoe infection level and check the appropriate rating. If you are "
             "not familiar with this rating system and how to do it, write your observations "
-            "elsewhere, such under “Diagnosis & Suggestions.”", 
+            "elsewhere, such under 'Diagnosis & Suggestions.'", 
             isItalic: true),
           _buildKeyValue(context, "Tree species infected", 
             "List the tree species infected with mistletoe.", isItalic: true),
@@ -183,7 +198,7 @@ class PdfConverter {
             "(next year or beyond)? Provide a list of resources to refer the landowner to and/or "
             "provide other agencies that might be able to help them take action on a particular problem.", 
             isItalic: true),
-          _buildKeyValue(context, "Evaluator's Name", "Write your name(s)", isItalic: true),
+          _buildKeyValue(context, "Evaluator's Name", "Write your name(s).", isItalic: true),
           _buildKeyValue(context, "Contract info", 
             "Provide your contact info, including your email address.", isItalic: true),
         ];
