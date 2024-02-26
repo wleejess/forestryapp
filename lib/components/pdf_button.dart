@@ -1,5 +1,6 @@
 import "dart:io";
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/settings.dart';
 import "package:forestryapp/document_converters/pdf_converter.dart";
@@ -48,14 +49,24 @@ class PdfButton extends StatelessWidget {
 
           if (directory != null) {
             final file = File("${directory.absolute.path}/${area.name}.pdf");
-            await file.writeAsBytes(await pdf.save());
-            OpenFile.open(file.path);
+
+            try {
+              await file.writeAsBytes(await pdf.save());
+              OpenFile.open(file.path);
+              throw PlatformException(code: "What's up?");
+
+            } catch(e) {
+              print(e);
+
+            }
+            
           } else {
-            // Add an error message: No external storage directory
+            // Show an error message if the save directory cannot be found.
+            print("Cannot access directory to save PDF.");
           }
         } else {
-          // Add an error message: No landowner
-          // Landowner is going to be made mandatory in the future
+          // Users must enter a landowner before generating the PDF
+          print("Please select a landowner for the area.");
         }
       },
       child: const Text(_buttonText),
