@@ -3,6 +3,7 @@ import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/database/dao_area.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
@@ -51,7 +52,8 @@ class _AreaReviewState extends State<AreaReview> {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    final Area? area = Provider.of<AreaCollection>(context).getByID(widget._areaID);
+    final Area? area =
+        Provider.of<AreaCollection>(context).getByID(widget._areaID);
 
     // [DBListenableBuilder] necessary for redirecting to error page in event
     // that user was reviewing an area then went to delete its landowner.
@@ -116,7 +118,7 @@ class _AreaReviewState extends State<AreaReview> {
           ]),
           TableRow(children: [
             Container(),
-            _buildButtonDelete(context),
+            _buildButtonDelete(context, area),
           ]),
         ],
       );
@@ -129,7 +131,7 @@ class _AreaReviewState extends State<AreaReview> {
         Expanded(child: Container()),
         _buildButtonEmail(context),
         _buildButtonEdit(context),
-        _buildButtonDelete(context),
+        _buildButtonDelete(context, area),
       ],
     );
   }
@@ -162,10 +164,27 @@ class _AreaReviewState extends State<AreaReview> {
     );
   }
 
-  Widget _buildButtonDelete(BuildContext context) {
+  Widget _buildButtonDelete(BuildContext context, Area area) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () => _deleteArea(context, area),
       child: const Text(AreaReview._buttonTextDelete),
     );
+  }
+
+  // Deletion Logic ////////////////////////////////////////////////////////////
+  Future<void> _deleteArea(BuildContext context, Area area) async {
+    final id = area.id;
+
+    if (id != null) {
+      await DAOArea.deleteArea(id);
+    }
+    if (!context.mounted) return;
+
+    await Provider.of<LandownerCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+    await Provider.of<AreaCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+
+    Navigator.pop(context);
   }
 }
