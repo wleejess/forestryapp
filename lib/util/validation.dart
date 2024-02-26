@@ -1,3 +1,4 @@
+/// Callback functions to provide form validation error messages.
 class Validation {
   /// Returns an error message if no value was entered.
   static String? isNotEmpty(value) {
