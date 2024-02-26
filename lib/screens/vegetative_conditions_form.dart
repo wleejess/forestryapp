@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/components/radio_options.dart";
@@ -7,6 +8,7 @@ import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/enums/stand_density.dart";
 import "package:forestryapp/enums/stand_structure.dart";
 import "package:forestryapp/enums/cover_type.dart";
+import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 
@@ -19,15 +21,17 @@ class VegetativeConditionsForm extends StatelessWidget {
   static const _overstoryInfo = "Overstory Stand Info";
   static const _understoryInfo = "Understory Stand Info";
 
-  const VegetativeConditionsForm({super.key});
+  final _formKey = GlobalKey<FormState>();
+
+  VegetativeConditionsForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
+      body: FormScaffold(
+        child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -42,39 +46,38 @@ class VegetativeConditionsForm extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      )
     );
   }
-}
 
-Widget _buildCoverType(BuildContext context, header) {
-  final vegConData = Provider.of<Area>(context);
+  Widget _buildCoverType(BuildContext context, header) {
+    final vegConData = Provider.of<Area>(context);
 
-  return Wrap(
-    children: [
-      PortraitHandlingSizedBox(
-        child: DropdownOptions(
-          header: header,
-          enumValues: CoverType.values,
-          initialValue: vegConData.coverType,
-          onSelected: (selectedOption) {
-            vegConData.coverType = selectedOption;
-          },
+    return Wrap(
+      children: [
+        PortraitHandlingSizedBox(
+          child: DropdownOptions(
+            header: header,
+            enumValues: CoverType.values,
+            initialValue: vegConData.coverType,
+            onSelected: (selectedOption) {
+              vegConData.coverType = selectedOption;
+            },
+          ),
         ),
-      ),
-      PortraitHandlingSizedBox(
-        child: FreeTextBox(
-          labelText: "Other Cover Type",
-          helperText: "List cover type if the option is not in the dropdown.",
-          onChanged: (text) {},
+        PortraitHandlingSizedBox(
+          child: FreeTextBox(
+            labelText: "Other Cover Type",
+            helperText: "List cover type if the option is not in the dropdown.",
+            onChanged: (text) {},
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
-Widget _buildStandStructure(BuildContext context, header) {
-  final vegConData = Provider.of<Area>(context);
+  Widget _buildStandStructure(BuildContext context, header) {
+    final vegConData = Provider.of<Area>(context);
 
   return RadioOptions(
     header: header,
@@ -86,8 +89,8 @@ Widget _buildStandStructure(BuildContext context, header) {
   );
 }
 
-Widget _buildStoryInfo(BuildContext context, title, density) {
-  final vegConData = Provider.of<Area>(context);
+  Widget _buildStoryInfo(BuildContext context, title, density) {
+    final vegConData = Provider.of<Area>(context);
 
   return ExpansionTile(
     title: Text(title),
@@ -113,6 +116,8 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
         initialValue: title == 'Overstory Stand Info'
             ? vegConData.overstorySpeciesComposition?.toString()
             : vegConData.understorySpeciesComposition?.toString(),
+        keyboardType: TextInputType.number,
+        validator: Validation.isValidPercentage,
         onChanged: (text) {
           title == 'Overstory Stand Info'
               ? vegConData.overstorySpeciesComposition = int.tryParse(text)
@@ -123,8 +128,8 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
   );
 }
 
-Widget _buildStandHistory(BuildContext context) {
-  final vegConData = Provider.of<Area>(context);
+  Widget _buildStandHistory(BuildContext context) {
+    final vegConData = Provider.of<Area>(context);
 
   const historyTitle = "Stand/Area History";
   const historyHelp = "Describe prior management activities and/or disturbances"

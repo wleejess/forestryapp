@@ -17,11 +17,9 @@ class InsectsForm extends StatelessWidget {
       "If past or present disease damage is apparent in the stand or area, "
       "list diseases observed, if known.";
 
-  final _formKey = GlobalKey<FormState>();
-
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to enter information on insects and diseases present in the area.
-  InsectsForm({super.key});
+  const InsectsForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -29,11 +27,12 @@ class InsectsForm extends StatelessWidget {
     return ForestryScaffold(
         title: InsectsForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          children: <Widget>[
-            _buildInsectsInput(context),
-            _buildDiseasesInput(context)
-          ],
+          child: Column(
+            children: <Widget>[
+              _buildInsectsInput(context),
+              _buildDiseasesInput(context)
+            ],
+          )
         ));
   }
 
