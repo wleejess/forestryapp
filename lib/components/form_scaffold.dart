@@ -9,18 +9,14 @@ class FormScaffold extends StatelessWidget {
   static const _buttonLabelNext = "Next";
 
   // Instance variables ////////////////////////////////////////////////////////
-  final List<Widget> _children;
-  final GlobalKey _formKey;
+  final Widget _child;
 
   // Constructor ///////////////////////////////////////////////////////////////
   ///
   const FormScaffold({
-    required List<Widget> children,
-    required GlobalKey formKey,
-    String? currentArea,
+    required Widget child,
     super.key,
-  })  : _children = children,
-        _formKey = formKey;
+  }) : _child = child;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -32,24 +28,9 @@ class FormScaffold extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          // Creates a 4x4 grid, but the height matches the content size.
-          Container(
-            alignment: Alignment.center,
-            child: areaName != null
-                ? Text(
-                    'Current Area: $areaName',
-                    style: const TextStyle(fontStyle: FontStyle.italic),
-                  )
-                : const SizedBox.shrink(),
-          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: Wrap(
-                children: _children,
-              ),
-            ),
+            child: _child,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

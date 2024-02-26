@@ -5,7 +5,8 @@ CREATE TABLE if NOT EXISTS areas(
   landowner_id INTEGER REFERENCES landowners(id)
   -- Update/delete areas when their associated landowner is updated/deleted.
   ON DELETE CASCADE
-  DEFERRABLE INITIALLY IMMEDIATE,
+  DEFERRABLE INITIALLY IMMEDIATE
+  NOT NULL,
 
   name TEXT NOT NULL,
 

@@ -10,9 +10,7 @@ class OtherIssuesForm extends StatelessWidget {
   static const _otherDescription =
       "Describe any other health related issues you observed.";
 
-  final _formKey = GlobalKey<FormState>();
-
-  OtherIssuesForm({super.key});
+  const OtherIssuesForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -20,9 +18,7 @@ class OtherIssuesForm extends StatelessWidget {
     return ForestryScaffold(
         title: OtherIssuesForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          currentArea: Provider.of<Area>(context).name,
-          children: <Widget>[_buildDescription(context)],
+          child: _buildDescription(context),
         ));
   }
 

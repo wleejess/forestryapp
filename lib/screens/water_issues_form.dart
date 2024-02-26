@@ -12,9 +12,7 @@ class WaterIssuesForm extends StatelessWidget {
       "Example: Erosion, head cutting, cattle grazing effects, "
       "sedimentation, culverts, ditches, etc.";
 
-  final _formKey = GlobalKey<FormState>();
-
-  WaterIssuesForm({super.key});
+  const WaterIssuesForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -22,9 +20,7 @@ class WaterIssuesForm extends StatelessWidget {
     return ForestryScaffold(
         title: WaterIssuesForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          currentArea: Provider.of<Area>(context).name,
-          children: <Widget>[_buildDescription(context)],
+          child: _buildDescription(context),
         ));
   }
 

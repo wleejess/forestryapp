@@ -27,29 +27,24 @@ class MistletoeForm extends StatelessWidget {
   static const _speciesDescription =
       "List the tree species infected with mistletoe.";
 
-  final _formKey = GlobalKey<FormState>();
-
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen with a form to add information about mistletoe infections in the area.
-  MistletoeForm({super.key});
+  const MistletoeForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = [
-      PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
-      PortraitHandlingSizedBox(child: _buildLocationInput(context)),
-      PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
-      PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
-    ];
-
     return ForestryScaffold(
         title: MistletoeForm._title,
         body: FormScaffold(
-          formKey: _formKey,
-          currentArea: Provider.of<Area>(context).name,
-          children: children,
-        ));
+            child: Wrap(
+          children: <Widget>[
+            PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
+            PortraitHandlingSizedBox(child: _buildLocationInput(context)),
+            PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
+            PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
+          ],
+        )));
   }
 
   /// Builds a radio form field about mistletoe uniformity.
