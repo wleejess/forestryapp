@@ -31,7 +31,7 @@ class RoadHealthForm extends StatelessWidget {
         labelText: RoadHealthForm._title,
         helperText: RoadHealthForm._roadDescription,
         onChanged: (text) {
-          roadHealthData.roadHealth;
+          roadHealthData.roadHealth = text;
         });
   }
 }
