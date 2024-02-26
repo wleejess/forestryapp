@@ -55,6 +55,8 @@ class DatabaseManager {
   static const String _pathReadArea = 'assets/database/queries/read_area.sql';
   static const String _pathSaveNewArea =
       'assets/database/ddl_statements/save_new_area.sql';
+  static const String _pathDeleteArea =
+      'assets/database/ddl_statements/delete_area.sql';
 
   // Relationship queries
   static const String _pathReadLandownerFromArea =
@@ -72,6 +74,7 @@ class DatabaseManager {
   static late final String _sqlDeleteLandowner;
   static late final String _sqlReadArea;
   static late final String _sqlSaveNewArea;
+  static late final String _sqlDeleteArea;
 
   // Relationship queries
   static late String _sqlReadLandownerFromArea;
@@ -122,6 +125,7 @@ class DatabaseManager {
       _pathUpdateExistingLandowner,
     );
     _sqlDeleteLandowner = await rootBundle.loadString(_pathDeleteLandowner);
+    _sqlDeleteArea = await rootBundle.loadString(_pathDeleteArea);
 
     // Relationship queries
     _sqlReadLandownerFromArea =
@@ -216,6 +220,19 @@ class DatabaseManager {
     return _db.transaction((txn) async {
       await txn.rawInsert(_sqlSaveNewArea, queryArgs);
     });
+  }
+
+
+  /// Delete an existing area on the database.
+  ///
+  /// [queryArgs] Should be list of ALL values specified in
+  /// [_sqlDeleteArea] in the correct order.
+  Future<void> deleteArea(List<dynamic> queryArgs) async {
+    return _db.transaction(
+      (txn) async {
+        await txn.rawDelete(_sqlDeleteArea, queryArgs);
+      },
+    );
   }
 
   // Relationship Queries //////////////////////////////////////////////////////
