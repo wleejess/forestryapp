@@ -79,7 +79,7 @@ Widget _buildStandStructure(BuildContext context, header) {
   return RadioOptions(
     header: header,
     enumValues: StandStructure.values,
-    initialValue: vegConData.standHistory,
+    initialValue: vegConData.standStructure,
     onSelected: (selectedOption) {
       vegConData.standStructure = selectedOption;
     },
@@ -98,24 +98,25 @@ Widget _buildStoryInfo(BuildContext context, title, density) {
       RadioOptions(
         header: density,
         enumValues: StandDensity.values,
-        initialValue: StandDensity.low,
+        initialValue: title == 'Overstory Stand Info'
+            ? vegConData.overstoryDensity
+            : vegConData.understoryDensity,
         onSelected: (selectedOption) {
-          if (title == 'Overstory Stand Info') {
-            vegConData.overstoryDensity = selectedOption;
-          } else if (title == 'Understory Stand Info') {
-            vegConData.understoryDensity = selectedOption;
-          }
+          title == 'Overstory Stand Info'
+              ? vegConData.overstoryDensity = selectedOption
+              : vegConData.understoryDensity = selectedOption;
         },
       ),
-      TextField(
+      TextFormField(
         decoration: const InputDecoration(
             labelText: "Species Composition", hintText: "Enter a % value"),
+        initialValue: title == 'Overstory Stand Info'
+            ? vegConData.overstorySpeciesComposition?.toString()
+            : vegConData.understorySpeciesComposition?.toString(),
         onChanged: (text) {
-          if (title == 'Overstory Stand Info') {
-            vegConData.overstorySpeciesComposition = int.tryParse(text);
-          } else if (title == 'Understory Stand Info') {
-            vegConData.understorySpeciesComposition = int.tryParse(text);
-          }
+          title == 'Overstory Stand Info'
+              ? vegConData.overstorySpeciesComposition = int.tryParse(text)
+              : vegConData.understorySpeciesComposition = int.tryParse(text);
         },
       ),
     ],
@@ -133,6 +134,7 @@ Widget _buildStandHistory(BuildContext context) {
     children: [
       FreeTextBox(
         labelText: historyTitle,
+        initialValue: vegConData.standHistory,
         onChanged: (text) {
           vegConData.standHistory = text;
         },

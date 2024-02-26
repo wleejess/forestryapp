@@ -43,6 +43,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           labelText: 'Elevation',
           helperText: '',
         ),
+        initialValue: elevationData.elevation?.toString(),
         onChanged: (text) {
           elevationData.elevation = int.tryParse(text);
         },
@@ -76,6 +77,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           labelText: '% Slope',
           helperText: 'Write in the approximate or average percent slope.',
         ),
+        initialValue: percentSlopeData.slopePercentage?.toString(),
         onChanged: (text) {
           percentSlopeData.slopePercentage = int.tryParse(text);
         },
@@ -108,6 +110,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           helperText: soilHelp,
           labelText: "Soil Information",
         ),
+        initialValue: soilInfoData.soilInfo,
         onChanged: (text) {
           soilInfoData.soilInfo = text;
         });

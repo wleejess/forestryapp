@@ -33,6 +33,7 @@ class RoadHealthForm extends StatelessWidget {
     return FreeTextBox(
         labelText: RoadHealthForm._title,
         helperText: RoadHealthForm._roadDescription,
+        initialValue: roadHealthData.roadHealth,
         onChanged: (text) {
           roadHealthData.roadHealth;
         });

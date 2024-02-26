@@ -32,6 +32,7 @@ class OtherIssuesForm extends StatelessWidget {
     return FreeTextBox(
         labelText: OtherIssuesForm._title,
         helperText: OtherIssuesForm._otherDescription,
+        initialValue: otherIssuesData.otherIssues,
         onChanged: (text) {
           otherIssuesData.otherIssues = text;
         });

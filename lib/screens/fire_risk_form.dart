@@ -34,6 +34,7 @@ class FireRiskForm extends StatelessWidget {
     return FreeTextBox(
         labelText: FireRiskForm._title,
         helperText: FireRiskForm._fireDescription,
+        initialValue: fireRiskData.fireRisk,
         onChanged: (text) {
           fireRiskData.fireRisk = text;
         });
