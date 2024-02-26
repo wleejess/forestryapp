@@ -24,6 +24,7 @@ class PdfConverter {
       header: (context) => _buildHeader0(context),
       build: (pw.Context context) {
         return [
+          // Basic information
           _buildKeyValue(context, "Landowner name", landowner.name),
           _buildKeyValue(context, "Address", landowner.address),
           _buildKeyValue(context, "Email", landowner.email),
@@ -31,6 +32,8 @@ class PdfConverter {
           _buildKeyValue(context, "Acres", area.acres.toString()),
           _buildHeader1(context, "Landowner goals and objectives:"),
           _buildParagraph(context, area.goals),
+
+          // Site Characteristics
           _buildHeader1(context, "Site Characteristics"),
           pw.Row(
             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -40,11 +43,12 @@ class PdfConverter {
               _buildKeyValue(context, "% Slope", "${area.slopePercentage} %"),
             ]
           ),
-          // How to include checkmark options?
           _buildKeyValue(context, "Slope position", area.slopePosition.label),
           pw.SizedBox(height: 10),
           _buildHeader2(context, "Soil Information"),
           _buildParagraph(context, area.soilInfo),
+
+          // Vegetative Conditions
           _buildHeader1(context, "Vegetative Conditions"),
           _buildKeyValue(context, "Cover type", area.coverType.label),
           _buildKeyValue(context, "Stand structure", area.standStructure.label),
@@ -54,6 +58,8 @@ class PdfConverter {
           _buildKeyValue(context, "Understory species composition", "${area.understorySpeciesComposition} %"),
           _buildHeader2(context, "Stand/Area History:"),
           _buildParagraph(context, area.standHistory),
+
+          // Damages
           _buildHeader1(context, "Pests & Damage"),
           _buildHeader2(context, "Insects Present (if known):"),
           _buildParagraph(context, area.insects),
@@ -63,12 +69,16 @@ class PdfConverter {
           _buildParagraph(context, area.invasives),
           _buildHeader2(context, "Wildlife Damage/Issues:"),
           _buildParagraph(context, area.wildlifeDamage),
+
+          // Mistletoe
           _buildHeader2(context, "Mistletoe Infections:"),
           _buildKeyValue(context, "Uniformity", area.mistletoeUniformity.label),
           _buildKeyValue(context, "Mistletoe location", area.mistletoeLocation),
           _buildKeyValue(context, "Hawksworth infection rating(0-6)", area.hawksworth.label),
           _buildHeader2(context, "Tree species infected"),
           _buildParagraph(context, area.mistletoeTreeSpecies),
+
+          // Free Response
           _buildHeader1(context, "Road Health/Conditions:"),
           _buildParagraph(context, area.roadHealth),
           _buildHeader1(context, "Water/Stream/Riparian Health & Issues:"),
@@ -77,7 +87,8 @@ class PdfConverter {
           _buildParagraph(context, area.fireRisk),
           _buildHeader1(context, "Other issues (explain):"),
           _buildParagraph(context, area.otherIssues),
-          // Create a line
+
+          // Use Header() to create a line break before the conclusion
           pw.Header(text: "", level: 0),
           _buildHeader1(context, "Diagnosis & Suggestions"),
           _buildParagraph(context, area.diagnosis),
@@ -140,10 +151,12 @@ class PdfConverter {
   }
 
   /// Display the heading(key) and corresponding value on a single line
+  /// The TextSpan widget allows for inline text with varied styling
   pw.Widget _buildKeyValue(pw.Context context, String key, String? value) {
     return pw.Padding(
       padding: const pw.EdgeInsets.symmetric(vertical: 2.0),
       child: pw.RichText(
+        // Heading or "key" text
         text: pw.TextSpan(
           text: key,
           style: pw.TextStyle(
@@ -153,6 +166,7 @@ class PdfConverter {
             const pw.TextSpan(
               text: ": ",
             ),
+            // Value text
             pw.TextSpan(
               text: value,
               style: pw.TextStyle(
@@ -165,6 +179,7 @@ class PdfConverter {
     );
   }
 
+  /// Display a paragraph of text.
   pw.Widget _buildParagraph(pw.Context context, text) {
     return pw.Padding(
       padding: const pw.EdgeInsets.only(bottom: 10),
