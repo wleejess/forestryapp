@@ -90,4 +90,14 @@ class DAOArea {
       dto.diagnosis
     ]);
   }
+
+  // Relationship Queries //////////////////////////////////////////////////////
+  static Future<List<Area>> readAreasFromLandowner(int landownerID) async {
+    final dbRecords = await DatabaseManager.getInstance()
+        .readAreasFromLandowner([landownerID]);
+
+    if (dbRecords.isEmpty) return <Area>[];
+
+    return dbRecords.map((Map record) => Area.fromMap(record)).toList();
+  }
 }
