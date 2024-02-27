@@ -31,6 +31,7 @@ class WaterIssuesForm extends StatelessWidget {
     return FreeTextBox(
         labelText: WaterIssuesForm._title,
         helperText: WaterIssuesForm._waterDescription,
+        initialValue: waterIssuesData.waterHealth,
         onChanged: (text) {
           waterIssuesData.waterHealth = text;
         });

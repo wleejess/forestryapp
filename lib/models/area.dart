@@ -99,8 +99,7 @@ class Area extends ChangeNotifier {
             id: dbRecord[DAOArea.colID],
 
             // Basic Information
-            landownerID:
-                dbRecord[DAOArea.colLandownerID],
+            landownerID: dbRecord[DAOArea.colLandownerID],
             name: dbRecord[DAOArea.colName],
             acres: dbRecord[DAOArea.colAcres],
             goals: dbRecord[DAOArea.colGoals],

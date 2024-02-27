@@ -28,26 +28,25 @@ class VegetativeConditionsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      title: _title,
-      body: FormScaffold(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Cover Type
-              _buildCoverType(context, _coverTitle),
-              _buildStandStructure(context, _strucTitle),
-              // Overstory Stand Density
-              _buildStoryInfo(context, _overstoryInfo, _standDensity),
-              const SizedBox(height: 16.0),
-              _buildStoryInfo(context, _understoryInfo, _standDensity),
-              _buildStandHistory(context)
-            ],
+        title: _title,
+        body: FormScaffold(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Cover Type
+                _buildCoverType(context, _coverTitle),
+                _buildStandStructure(context, _strucTitle),
+                // Overstory Stand Density
+                _buildStoryInfo(context, _overstoryInfo, _standDensity),
+                const SizedBox(height: 16.0),
+                _buildStoryInfo(context, _understoryInfo, _standDensity),
+                _buildStandHistory(context)
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 
   Widget _buildCoverType(BuildContext context, header) {
@@ -82,7 +81,7 @@ class VegetativeConditionsForm extends StatelessWidget {
     return RadioOptions(
       header: header,
       enumValues: StandStructure.values,
-      initialValue: vegConData.standHistory,
+      initialValue: vegConData.standStructure,
       onSelected: (selectedOption) {
         vegConData.standStructure = selectedOption;
       },
@@ -101,31 +100,27 @@ class VegetativeConditionsForm extends StatelessWidget {
         RadioOptions(
           header: density,
           enumValues: StandDensity.values,
-          initialValue: StandDensity.low,
+          initialValue: title == 'Overstory Stand Info'
+              ? vegConData.overstoryDensity
+              : vegConData.understoryDensity,
           onSelected: (selectedOption) {
-            if (title == 'Overstory Stand Info') {
-              vegConData.overstoryDensity = selectedOption;
-            } else if (title == 'Understory Stand Info') {
-              vegConData.understoryDensity = selectedOption;
-            }
+            title == 'Overstory Stand Info'
+                ? vegConData.overstoryDensity = selectedOption
+                : vegConData.understoryDensity = selectedOption;
           },
         ),
         TextFormField(
           decoration: const InputDecoration(
-              labelText: "Species Composition", 
-              hintText: "Enter a % value",
-              suffix: Text('%'),
-          ),
+              labelText: "Species Composition", hintText: "Enter a % value"),
+          initialValue: title == 'Overstory Stand Info'
+              ? vegConData.overstorySpeciesComposition?.toString()
+              : vegConData.understorySpeciesComposition?.toString(),
           keyboardType: TextInputType.number,
           validator: Validation.isValidPercentage,
           onChanged: (text) {
-            if (_formKey.currentState!.validate()) {
-              if (title == 'Overstory Stand Info') {
-                vegConData.overstorySpeciesComposition = int.tryParse(text);
-              } else if (title == 'Understory Stand Info') {
-                vegConData.understorySpeciesComposition = int.tryParse(text);
-              }
-            }
+            title == 'Overstory Stand Info'
+                ? vegConData.overstorySpeciesComposition = int.tryParse(text)
+                : vegConData.understorySpeciesComposition = int.tryParse(text);
           },
         ),
       ],
@@ -136,13 +131,15 @@ class VegetativeConditionsForm extends StatelessWidget {
     final vegConData = Provider.of<Area>(context);
 
     const historyTitle = "Stand/Area History";
-    const historyHelp = "Describe prior management activities and/or disturbances"
+    const historyHelp =
+        "Describe prior management activities and/or disturbances"
         "that have shaped or influenced the stand as it appears today";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         FreeTextBox(
           labelText: historyTitle,
+          initialValue: vegConData.standHistory,
           onChanged: (text) {
             vegConData.standHistory = text;
           },
