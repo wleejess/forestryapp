@@ -179,6 +179,10 @@ class _AreaReviewState extends State<AreaReview> {
     if (id != null) {
       await DAOArea.deleteArea(id);
     }
+
+    // NOTE: whenever asynchronous work (e.g. using [await])is performed make
+    // sure to check that the widget is still attached to the tree before doing
+    // any more work on it. See https://stackoverflow.com/a/69253529
     if (!context.mounted) return;
 
     await Provider.of<LandownerCollection>(context, listen: false).refetch();
