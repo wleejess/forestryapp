@@ -34,19 +34,17 @@ class MistletoeForm extends StatelessWidget {
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-
     return ForestryScaffold(
         title: MistletoeForm._title,
         body: FormScaffold(
-          child: Wrap(
-            children: <Widget>[
-              PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
-              PortraitHandlingSizedBox(child: _buildLocationInput(context)),
-              PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
-              PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
-            ],
-          )
-        ));
+            child: Wrap(
+          children: <Widget>[
+            PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
+            PortraitHandlingSizedBox(child: _buildLocationInput(context)),
+            PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
+            PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
+          ],
+        )));
   }
 
   /// Builds a radio form field about mistletoe uniformity.

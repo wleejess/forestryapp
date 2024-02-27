@@ -23,19 +23,18 @@ class SiteCharacteristicsForm extends StatelessWidget {
     return ForestryScaffold(
         title: SiteCharacteristicsForm._title,
         body: FormScaffold(
-          child: Form(
-            key: _formKey,
-            child: Wrap(
-              children: [
-                _buildAspect(context),
-                _buildElevation(context),
-                _buildPercentSlope(context),
-                _buildSlopePosition(context),
-                _buildSoilInformation(context)
-              ],
-            ),
-          )
-        ));
+            child: Form(
+          key: _formKey,
+          child: Wrap(
+            children: [
+              _buildAspect(context),
+              _buildElevation(context),
+              _buildPercentSlope(context),
+              _buildSlopePosition(context),
+              _buildSoilInformation(context)
+            ],
+          ),
+        )));
   }
 
   Widget _buildElevation(BuildContext context) {

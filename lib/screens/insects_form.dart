@@ -27,13 +27,12 @@ class InsectsForm extends StatelessWidget {
     return ForestryScaffold(
         title: InsectsForm._title,
         body: FormScaffold(
-          child: Column(
-            children: <Widget>[
-              _buildInsectsInput(context),
-              _buildDiseasesInput(context)
-            ],
-          )
-        ));
+            child: Column(
+          children: <Widget>[
+            _buildInsectsInput(context),
+            _buildDiseasesInput(context)
+          ],
+        )));
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////

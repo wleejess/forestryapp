@@ -28,13 +28,12 @@ class InvasiveForm extends StatelessWidget {
     return ForestryScaffold(
         title: InvasiveForm._title,
         body: FormScaffold(
-          child: Column(
-            children: <Widget>[
-              _buildInvasiveInput(context),
-              _buildWildlifeInput(context),
-            ],
-          )
-        ));
+            child: Column(
+          children: <Widget>[
+            _buildInvasiveInput(context),
+            _buildWildlifeInput(context),
+          ],
+        )));
   }
 
   /// Builds a text input field about invasive plants and animals in the area.

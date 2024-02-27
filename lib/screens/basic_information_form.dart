@@ -37,18 +37,17 @@ class BasicInformationForm extends StatelessWidget {
     return ForestryScaffold(
         title: BasicInformationForm._title,
         body: FormScaffold(
-          child: Form(
-            key: _formKey,
-            child: Wrap(
-              children: <Widget>[
-                _buildNameInput(context),
-                _buildAcresInput(context),
-                _buildLandownerInput(context),
-                _buildGoalsInput(context),
-              ],
-            ),
-          )
-        ));
+            child: Form(
+          key: _formKey,
+          child: Wrap(
+            children: <Widget>[
+              _buildNameInput(context),
+              _buildAcresInput(context),
+              _buildLandownerInput(context),
+              _buildGoalsInput(context),
+            ],
+          ),
+        )));
   }
 
   /// Builds a text input field to enter the stand/area name.
@@ -58,8 +57,8 @@ class BasicInformationForm extends StatelessWidget {
     return PortraitHandlingSizedBox(
       child: TextFormField(
         decoration: const InputDecoration(
-            labelText: BasicInformationForm._nameHeading, 
-            helperText: BasicInformationForm._nameDescription, 
+          labelText: BasicInformationForm._nameHeading,
+          helperText: BasicInformationForm._nameDescription,
         ),
         initialValue: basicInfoData.name,
         onChanged: (text) {
@@ -123,29 +122,29 @@ class BasicInformationForm extends StatelessWidget {
     return DBListenableBuilder(
       builder: (context, _) {
         return DropdownMenu(
-          enableFilter: true,
-          requestFocusOnTap: true,
-          expandedInsets: EdgeInsets.zero,
-          leadingIcon: const Icon(Icons.search),
-          label: const Text(_landownerHeading),
-          initialSelection: getInitialValue(),
-          dropdownMenuEntries:
-              landownerOptions.map<DropdownMenuEntry<Landowner>>(
-            (Landowner landowner) {
-              return DropdownMenuEntry(value: landowner, label: landowner.name);
+            enableFilter: true,
+            requestFocusOnTap: true,
+            expandedInsets: EdgeInsets.zero,
+            leadingIcon: const Icon(Icons.search),
+            label: const Text(_landownerHeading),
+            initialSelection: getInitialValue(),
+            dropdownMenuEntries:
+                landownerOptions.map<DropdownMenuEntry<Landowner>>(
+              (Landowner landowner) {
+                return DropdownMenuEntry(
+                    value: landowner, label: landowner.name);
+              },
+            ).toList(),
+            onSelected: (Landowner? value) {
+              if (value != null) {
+                basicInfoData.landownerID = value.id;
+              }
             },
-          ).toList(),
-          onSelected: (Landowner? value) {
-            if (value != null) {
-              basicInfoData.landownerID = value.id;
-            }
-          },
-          errorText: () { 
-            if (basicInfoData.landownerID == null) { 
-              return "Please select a landowner."; 
-            } 
-          }()
-        );
+            errorText: () {
+              if (basicInfoData.landownerID == null) {
+                return "Please select a landowner.";
+              }
+            }());
       },
     );
   }
