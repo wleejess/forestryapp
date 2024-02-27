@@ -110,8 +110,8 @@ class DatabaseManager {
   /// Read queries/DDL-statements from SQL files declared assets.
   static Future<void> _readSQLFromFile() async {
     // One Time Initialization Statements
-    _readMultipleSQLFilesIntoList(_pathSchemas, _sqlSchemas);
-    _readMultipleSQLFilesIntoList(_pathDummyData, _sqlDummyData);
+    await _readMultipleSQLFilesIntoList(_pathSchemas, _sqlSchemas);
+    await _readMultipleSQLFilesIntoList(_pathDummyData, _sqlDummyData);
 
     // Typical Usage Statements
     _sqlSaveNewLandowner = await rootBundle.loadString(_pathSaveNewLandowner);
@@ -128,7 +128,7 @@ class DatabaseManager {
         await rootBundle.loadString(_pathReadLandownerFromArea);
   }
 
-  static void _readMultipleSQLFilesIntoList(
+  static Future<void> _readMultipleSQLFilesIntoList(
       List<String> paths, List<String> statementStorageList) async {
     for (var path in paths) {
       statementStorageList.add(await rootBundle.loadString(path));
