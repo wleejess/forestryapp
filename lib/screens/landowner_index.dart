@@ -3,6 +3,7 @@ import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
+import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
 import "package:forestryapp/screens/landowner_review.dart";
@@ -52,12 +53,11 @@ class LandownerIndex extends StatelessWidget {
     final String name = landowners[i].name;
     return NavigableListTile(
       titleText: name,
-      routeBuilder: (context) => LandownerReview(
-        landownerID: landowners[i].id,
-        // TODO: The areas should actually be queried from `LandownerReview` and
-        // this parameter should be removed entirely.
-        areas: const [],
-      ),
+      routeBuilder: (context) {
+        Provider.of<AreaCollection>(context, listen: false)
+            .setAreasOfLandownerBeingReviewed(landowners[i].id);
+        return LandownerReview(landownerID: landowners[i].id);
+      },
     );
   }
 }
