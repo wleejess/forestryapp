@@ -61,6 +61,8 @@ class DatabaseManager {
   // Relationship queries
   static const String _pathReadLandownerFromArea =
       'assets/database/queries/read_landowner_from_area.sql';
+  static const String _pathReadAreasFromLandowner =
+      'assets/database/queries/read_areas_from_landowner.sql';
 
   // SQL strings (read from the above SQLite files).
   /// List of SQL statements needed to create schema.
@@ -78,6 +80,7 @@ class DatabaseManager {
 
   // Relationship queries
   static late String _sqlReadLandownerFromArea;
+  static late String _sqlReadAreasFromLandowner;
 
   /// The single instance of the database manager.
   ///
@@ -130,6 +133,8 @@ class DatabaseManager {
     // Relationship queries
     _sqlReadLandownerFromArea =
         await rootBundle.loadString(_pathReadLandownerFromArea);
+    _sqlReadAreasFromLandowner =
+        await rootBundle.loadString(_pathReadAreasFromLandowner);
   }
 
   static Future<void> _readMultipleSQLFilesIntoList(
@@ -241,5 +246,13 @@ class DatabaseManager {
   ) async {
     return await _db.rawQuery(
         DatabaseManager._sqlReadLandownerFromArea, queryArgs);
+  }
+
+  /// Given a landowner, find all areas that they own.
+  Future<List<Map<String, dynamic>>> readAreasFromLandowner(
+    List<int> queryArgs,
+  ) async {
+    return await _db.rawQuery(
+        DatabaseManager._sqlReadAreasFromLandowner, queryArgs);
   }
 }
