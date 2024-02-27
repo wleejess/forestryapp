@@ -8,6 +8,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/area_review.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
 import "package:provider/provider.dart";
 
@@ -22,7 +23,10 @@ class LandownerReview extends StatelessWidget {
   static const _notFoundTitle = "Landowner not found!";
   static const _notFoundBodyText = "Could not find that landowner!";
 
-  static const _notFoundAreaTitle = "N/A";
+  static const _notFoundAreaTitle = "Area not found!";
+  static const _notFoundAreaBody = "Could not find that area!";
+
+  static const _areaMissingTitle = "N/A";
 
   // Instance variables ////////////////////////////////////////////////////////
   // NOTE: These will be refactored into a single model class later on.
@@ -36,7 +40,7 @@ class LandownerReview extends StatelessWidget {
     // saved their changes to the database.
     required int landownerID,
     super.key,
-  })  : _landownerID = landownerID;
+  }) : _landownerID = landownerID;
 
   // Methods ///////////////////////////////////////////////////////////////////
   /// Conditionally rebuild entire screen.
@@ -126,10 +130,12 @@ class LandownerReview extends StatelessWidget {
   Widget _buildAreas(BuildContext context) {
     final areas = Provider.of<AreaCollection>(context).areasOfReviewedLandowner;
 
-    return DBListenableBuilder(builder: (context, _) => ListView.builder(
-      itemCount: areas.length,
-      itemBuilder: (context, i) => _buildAreaListItem(context, i, areas),
-    ));
+    return DBListenableBuilder(
+        builder: (context, _) => ListView.builder(
+              itemCount: areas.length,
+              itemBuilder: (context, i) =>
+                  _buildAreaListItem(context, i, areas),
+            ));
   }
 
   Widget _buildAreaListItem(BuildContext context, int i, List<Area> areas) {
@@ -137,11 +143,39 @@ class LandownerReview extends StatelessWidget {
     // https://github.com/flutter/flutter/issues/94261#issuecomment-983166280
     return Card(
       child: ListTile(
-        title: Text(areas[i].name ?? _notFoundAreaTitle),
+        title: Text(areas[i].name ?? _areaMissingTitle),
         shape: const RoundedRectangleBorder(
           side: BorderSide(width: 1),
         ),
+        onTap: () async => await _tapOnArea(context, areas[i]),
       ),
+    );
+  }
+
+  Future<void> _tapOnArea(BuildContext context, Area area) async {
+    final areaID = area.id;
+
+    await Provider.of<LandownerCollection>(
+      context,
+      listen: false,
+    ).setLandownerOfAreaBeingReviewed(_landownerID);
+
+    if (!context.mounted) return;
+
+    final Widget destination;
+
+    if (areaID == null) {
+      destination = const ErrorScaffold(
+        title: _notFoundAreaTitle,
+        bodyText: _notFoundAreaBody,
+      );
+    } else {
+      destination = AreaReview(areaID);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
     );
   }
 
