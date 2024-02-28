@@ -34,24 +34,11 @@ class AreaReview extends StatefulWidget {
 }
 
 class _AreaReviewState extends State<AreaReview> {
-  // State Variables ///////////////////////////////////////////////////////////
-  late final DOCXConverter _docxConverter;
-
-  // Lifecycle Methods /////////////////////////////////////////////////////////
-  @override
-  void initState() {
-    super.initState();
-    _initializeConverters();
-  }
-
-  void _initializeConverters() async {
-    _docxConverter = await DOCXConverter.create();
-  }
-
   // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
-    final Area? area = Provider.of<AreaCollection>(context).getByID(widget._areaID);
+    final Area? area =
+        Provider.of<AreaCollection>(context).getByID(widget._areaID);
 
     // [DBListenableBuilder] necessary for redirecting to error page in event
     // that user was reviewing an area then went to delete its landowner.
@@ -149,8 +136,9 @@ class _AreaReviewState extends State<AreaReview> {
   }
 
   Widget _buildButtonDOCX(BuildContext context) {
+    final DOCXConverter docxConverter = Provider.of<DOCXConverter>(context);
     return OutlinedButton(
-      onPressed: () => debugPrint("${_docxConverter.contentControlTags}\n"),
+      onPressed: () => debugPrint("${docxConverter.contentControlTags}\n"),
       child: const Text(AreaReview._buttonTextDOCX),
     );
   }

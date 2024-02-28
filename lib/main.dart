@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forestryapp/database/dao_area.dart';
 import 'package:forestryapp/database/dao_landowner.dart';
+import 'package:forestryapp/document_converters/docx_converter.dart';
 import 'package:forestryapp/models/area_collection.dart';
 import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,7 @@ void main() async {
       await SharedPreferences.getInstance(),
       LandownerCollection(await DAOLandowner.fetchFromDatabase()),
       AreaCollection(await DAOArea.fetchFromDatabase()),
+      await DOCXConverter.create(),
     ),
   );
 }
