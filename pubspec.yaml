@@ -55,6 +55,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   test: ^1.24.9
 
+dependency_overrides:
+  # From https://github.com/PavelS0/docx_template_dart/issues/53#issuecomment-1883585705
+  archive: 3.4.9
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
