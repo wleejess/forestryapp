@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forestryapp/document_converters/docx_converter.dart';
 import 'package:forestryapp/models/area_collection.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/landowner_collection.dart';
@@ -16,14 +17,20 @@ class ForestryApp extends StatelessWidget {
   final LandownerCollection _initialLandowners;
   final AreaCollection _initialAreas;
 
+  /// Initialize this in [main()] instead of in the app to avoid reading the
+  /// checklist template file multiple times
+  final DOCXConverter _docxConverter;
+
   const ForestryApp(
     SharedPreferences sharedPreferences,
     LandownerCollection initialLandowners,
-    AreaCollection initialAreas, {
+    AreaCollection initialAreas,
+    DOCXConverter docxConverter, {
     super.key,
   })  : _sharedPreferences = sharedPreferences,
         _initialLandowners = initialLandowners,
-        _initialAreas = initialAreas;
+        _initialAreas = initialAreas,
+        _docxConverter = docxConverter;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +50,9 @@ class ForestryApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AreaCollection>.value(
           value: _initialAreas,
+        ),
+        Provider<DOCXConverter>.value(
+          value: _docxConverter,
         ),
       ],
       child: MaterialApp(
