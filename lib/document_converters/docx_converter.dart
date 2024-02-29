@@ -171,6 +171,7 @@ class DOCXConverter {
     _pullBasicInformation(content, landowner, area);
     _pullSiteCharacteristics(content, area);
     _pullVegetativeConditions(content, area);
+    _pullDamages(content, area);
     return content;
   }
 
@@ -220,5 +221,13 @@ class DOCXConverter {
         area.understorySpeciesComposition ?? _omitted,
       ))
       ..add(TextContent("stand_history", area.standHistory ?? _omitted));
+  }
+
+  void _pullDamages(Content content, Area area) {
+    content
+      ..add(TextContent("insects", area.insects ?? _omitted))
+      ..add(TextContent("diseases", area.diseases ?? _omitted))
+      ..add(TextContent("invasives", area.invasives ?? _omitted))
+      ..add(TextContent("wildlife", area.wildlifeDamage ?? _omitted));
   }
 }
