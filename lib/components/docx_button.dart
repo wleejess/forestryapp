@@ -1,3 +1,4 @@
+import "dart:io";
 import "package:flutter/material.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
@@ -43,8 +44,21 @@ class DOCXButton extends StatelessWidget {
       _alert(context: context, message: _errorNoLandowner);
       return; // Stop early because don't want to build DOCX without landowner.
     }
-    await converter.convert(
-        _area, _landowner, Provider.of<Settings>(context, listen: false));
+
+    try {
+      await converter.convert(
+          _area, _landowner, Provider.of<Settings>(context, listen: false));
+    } on FileSystemException catch (exception) {
+      if (!context.mounted) return;
+      _alertFileSystemException(context: context, exception: exception);
+    }
+  }
+
+  void _alertFileSystemException({
+    required BuildContext context,
+    required FileSystemException exception,
+  }) {
+    _alert(context: context, message: exception.message);
   }
 
   /// Build an alert to show to the user for exception handling.
