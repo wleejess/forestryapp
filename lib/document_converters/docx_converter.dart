@@ -172,6 +172,7 @@ class DOCXConverter {
     _pullSiteCharacteristics(content, area);
     _pullVegetativeConditions(content, area);
     _pullDamages(content, area);
+    _pullMistletoe(content, area);
     return content;
   }
 
@@ -229,5 +230,19 @@ class DOCXConverter {
       ..add(TextContent("diseases", area.diseases ?? _omitted))
       ..add(TextContent("invasives", area.invasives ?? _omitted))
       ..add(TextContent("wildlife", area.wildlifeDamage ?? _omitted));
+  }
+
+  void _pullMistletoe(Content content, Area area) {
+    content
+      ..add(TextContent("mistletoe_uniformity", area.mistletoeUniformity.label))
+      ..add(TextContent(
+        "mistletoe_location",
+        area.mistletoeLocation ?? _omitted,
+      ))
+      ..add(TextContent("hawksworth", area.hawksworth.label))
+      ..add(TextContent(
+        "mistletoe_tree_species_infected",
+        area.mistletoeTreeSpecies ?? _omitted,
+      ));
   }
 }
