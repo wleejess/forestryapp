@@ -3,6 +3,7 @@ import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/database/dao_area.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
@@ -103,7 +104,7 @@ class _AreaReviewState extends State<AreaReview> {
           ]),
           TableRow(children: [
             Container(),
-            _buildButtonDelete(context),
+            _buildButtonDelete(context, area),
           ]),
         ],
       );
@@ -116,7 +117,7 @@ class _AreaReviewState extends State<AreaReview> {
         Expanded(child: Container()),
         _buildButtonEmail(context),
         _buildButtonEdit(context),
-        _buildButtonDelete(context),
+        _buildButtonDelete(context, area),
       ],
     );
   }
@@ -150,10 +151,32 @@ class _AreaReviewState extends State<AreaReview> {
     );
   }
 
-  Widget _buildButtonDelete(BuildContext context) {
+  Widget _buildButtonDelete(BuildContext context, Area area) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () => _deleteArea(context, area),
       child: const Text(AreaReview._buttonTextDelete),
     );
+  }
+
+  // Deletion Logic ////////////////////////////////////////////////////////////
+  Future<void> _deleteArea(BuildContext context, Area area) async {
+    final id = area.id;
+
+    // Check that the area is actually saved in database first.
+    if (id != null) {
+      await DAOArea.deleteArea(id);
+    }
+
+    // NOTE: whenever asynchronous work (e.g. using [await])is performed make
+    // sure to check that the widget is still attached to the tree before doing
+    // any more work on it. See https://stackoverflow.com/a/69253529
+    if (!context.mounted) return;
+
+    await Provider.of<LandownerCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+    await Provider.of<AreaCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+
+    Navigator.pop(context);
   }
 }

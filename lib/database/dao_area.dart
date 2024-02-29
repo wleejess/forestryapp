@@ -90,4 +90,10 @@ class DAOArea {
       dto.diagnosis
     ]);
   }
+
+  /// Remove an existing area record from the database.
+  ///
+  /// Assumes [id] is a valid ID of an existing area record.
+  static Future<void> deleteArea(int id) async =>
+      DatabaseManager.getInstance().deleteArea([id]);
 }
