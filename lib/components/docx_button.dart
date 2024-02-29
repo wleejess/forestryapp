@@ -35,19 +35,17 @@ class DOCXButton extends StatelessWidget {
   }
 
   Future<void> _onPressed(BuildContext context) async {
-    final DOCXConverter converter = Provider.of<DOCXConverter>(
-      context,
-      listen: false,
-    );
-
     if (_landowner == null) {
       _alert(context: context, message: _errorNoLandowner);
       return; // Stop early because don't want to build DOCX without landowner.
     }
 
     try {
-      await converter.convert(
-          _area, _landowner, Provider.of<Settings>(context, listen: false));
+      await Provider.of<DOCXConverter>(context, listen: false).convert(
+        _area,
+        _landowner,
+        Provider.of<Settings>(context, listen: false),
+      );
     } on FileSystemException catch (e) {
       if (!context.mounted) return;
       _alert(context: context, message: e.message, exception: e);
