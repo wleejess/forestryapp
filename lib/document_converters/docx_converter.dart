@@ -45,7 +45,6 @@ class DOCXConverter {
   // Instance Variables ////////////////////////////////////////////////////////
   /// Template checklist DOCX file.
   final DocxTemplate _template;
-  // ignore: unused_field
   late final Directory? _directoryWrite;
 
   // Initialization ////////////////////////////////////////////////////////////
