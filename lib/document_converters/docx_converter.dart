@@ -174,6 +174,7 @@ class DOCXConverter {
     _pullDamages(content, area);
     _pullMistletoe(content, area);
     _pullLongResponse(content, area);
+    _pullEvaluator(content, settings);
     return content;
   }
 
@@ -254,5 +255,15 @@ class DOCXConverter {
       ..add(TextContent("fire_risk", area.fireRisk ?? _omitted))
       ..add(TextContent("other_issues", area.otherIssues ?? _omitted))
       ..add(TextContent("diagnosis", area.diagnosis ?? _omitted));
+  }
+
+  void _pullEvaluator(Content content, Settings settings) {
+    content
+      ..add(TextContent("evaluator_name", settings.evaluatorName))
+      ..add(TextContent("evaluator_email", settings.evaluatorEmail))
+      ..add(TextContent(
+        "evaluator_address",
+        "${settings.evaluatorAddress} ${settings.evaluatorCity}, ${settings.evaluatorUSState?.label ?? _omitted} ${settings.evaluatorZip}",
+      ));
   }
 }
