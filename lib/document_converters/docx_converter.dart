@@ -135,7 +135,10 @@ class DOCXConverter {
 
   String _determinePathToDOCX(Area area, Landowner landowner) {
     if (_directoryWrite == null) throw const FileSystemException(_noDirectory);
-    const String basenameWithoutExtension = 'checklist';
+    // Include area ID in filename because there is no uniqueness constraint on
+    // the area name (landowners might have two areas with same name).
+    final String basenameWithoutExtension =
+        '${landowner.name}-${area.name}-${area.id}';
     return '${_directoryWrite.path}/$basenameWithoutExtension$_extension';
   }
 
