@@ -124,7 +124,7 @@ class DOCXConverter {
     final docxBytes = await _generateDOCXBinary(area, landowner, settings);
     final File docxFile = File(_determinePathToDOCX(area, landowner));
     await _writeDOCXToFile(docxFile, docxBytes);
-    await _openDOCX(docxFile, docxBytes);
+    await _openDOCX(docxFile);
   }
 
   /// Create the bytes data to be written to file.
@@ -180,7 +180,7 @@ class DOCXConverter {
   ///
   /// If the user's device has no appropriate app installed to open
   /// [fileGenerated] this method will have no effect.
-  Future<void> _openDOCX(File fileGenerated, List<int> docxBytes) async {
+  Future<void> _openDOCX(File fileGenerated) async {
     // WARNING: If user does not have an appropriate app to open DOCX, it will
     // appear as if this method does nothing. This is the case on the vanilla
     // Android emulator as it has no default app to open
