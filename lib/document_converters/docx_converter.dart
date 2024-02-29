@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/settings.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Class to manage creating Microsoft DOCX file version of the checklist.
@@ -30,7 +31,14 @@ class DOCXConverter {
   /// content controls where the "tag" property is set to have "text", as that
   /// is one of the tags that library [docx_template] is set to recognize.
   static const _pathTemplate = 'assets/templates/checklist-template.docx';
+
+  static const _extension = '.docx';
+
+  // Exception Messages
   static const _noDirectory = "Cannot determine directory to write DOCX files.";
+  static const _noBinary = "DOCX Binary could not be generated";
+  static const _failWrite = "Could not write DOCX to file system.";
+  static const _failOpen = "Could not open written DOCX file.";
 
   // Instance Variables ////////////////////////////////////////////////////////
   /// Template checklist DOCX file.
@@ -110,6 +118,52 @@ class DOCXConverter {
     Landowner landowner,
     Settings settings,
   ) async {
+    final docxBytes = await _generateDOCXBinary(area, landowner, settings);
+    final File docxFile = File(_determinePathToDOCX(area, landowner));
+    await _writeDOCXToFile(docxFile, docxBytes);
+    await _openDOCX(docxFile, docxBytes);
+  }
+
+  /// Create the bytes data to be written to file.
+  Future<List<int>> _generateDOCXBinary(
+      Area area, Landowner landowner, Settings settings) async {
+    final Content docxContent = _pullModelDataToDOCX(area, landowner, settings);
+    final List<int>? docxBytes = await _template.generate(docxContent);
+    if (docxBytes == null) throw const FileSystemException(_noBinary);
+    return docxBytes;
+  }
+
+  String _determinePathToDOCX(Area area, Landowner landowner) {
     if (_directoryWrite == null) throw const FileSystemException(_noDirectory);
+    const String basenameWithoutExtension = 'checklist';
+    return '${_directoryWrite.path}/$basenameWithoutExtension$_extension';
+  }
+
+  Future<void> _writeDOCXToFile(File fileGenerated, List<int> docxBytes) async {
+    try {
+      await fileGenerated.writeAsBytes(docxBytes);
+    } catch (e) {
+      debugPrint("DOCX WRITE FAIL: $e");
+      throw const FileSystemException(_failWrite);
+    }
+  }
+
+  Future<void> _openDOCX(File fileGenerated, List<int> docxBytes) async {
+    // WARNING: If user does not have an appropriate app to open DOCX, it will
+    // appear as if this method does nothing. This is the case on the vanilla
+    // Android emulator as it has no default app to open
+    try {
+      OpenFile.open(fileGenerated.path);
+    } catch (e) {
+      debugPrint("DOCX OPEN FAIL: $e");
+      throw const FileSystemException(_failOpen);
+    }
+  }
+
+  // Logic For Adding Model Data To DOCX ///////////////////////////////////////
+  Content _pullModelDataToDOCX(
+      Area area, Landowner landowner, Settings settings) {
+    final Content content = Content();
+    return content;
   }
 }
