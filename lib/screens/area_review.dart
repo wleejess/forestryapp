@@ -86,15 +86,9 @@ class _AreaReviewState extends State<AreaReview> {
     BoxConstraints constraints,
     Area area,
   ) {
-    // ASSUMPTION: landowner should be non-null here because when reviewing an
-    // area [AreaReview] it should be saved to the database (which enforces
-    // non-null foreign key of the landowner's ID in the areas table). This
-    // assumption holds because we will make a separate review screen for the
-    // checklist. This [AreaReview] screen is only for reviewing objects in the
-    // database.
     // ignore: unused_local_variable
-    final Landowner landowner =
-        Provider.of<LandownerCollection>(context).landownerOfReviewedArea!;
+    final Landowner? landowner =
+        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
 
     if (constraints.maxWidth < BreakPoints.widthPhonePortait) {
       return Table(
