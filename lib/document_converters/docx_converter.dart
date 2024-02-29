@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:docx_template/docx_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/settings.dart';
@@ -183,7 +184,12 @@ class DOCXConverter {
       ..add(TextContent("landowner_name", landowner.name))
       ..add(TextContent(
         "landowner_address",
-        "${landowner.address} ${landowner.city}, ${landowner.state!.label} ${landowner.zip}",
+        _formatAddress(
+          landowner.address,
+          landowner.city,
+          landowner.state,
+          landowner.zip,
+        ),
       ))
       ..add(TextContent("landowner_email", landowner.email))
       ..add(TextContent("area_name", area.name))
@@ -263,7 +269,22 @@ class DOCXConverter {
       ..add(TextContent("evaluator_email", settings.evaluatorEmail))
       ..add(TextContent(
         "evaluator_address",
-        "${settings.evaluatorAddress} ${settings.evaluatorCity}, ${settings.evaluatorUSState?.label ?? _omitted} ${settings.evaluatorZip}",
+        _formatAddress(
+          settings.evaluatorAddress,
+          settings.evaluatorCity,
+          settings.evaluatorUSState,
+          settings.evaluatorZip,
+        ),
       ));
+  }
+
+  // Helpers ///////////////////////////////////////////////////////////////////
+  String _formatAddress(
+    String address,
+    String city,
+    USState? usState,
+    String zip,
+  ) {
+    return "$address $city, ${usState?.label.toUpperCase() ?? ''} $zip ";
   }
 }
