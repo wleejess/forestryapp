@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
+import "package:forestryapp/models/settings.dart";
 import "package:provider/provider.dart";
 
 /// Button used to write and subseqeuntly open a DOCX checklist of a given
@@ -14,11 +15,13 @@ class DOCXButton extends StatelessWidget {
   static const _alertButtonText = "Cancel";
 
   // Instance Variables ////////////////////////////////////////////////////////
+  final Area _area;
   final Landowner? _landowner;
 
   // Constructor ///////////////////////////////////////////////////////////////
   const DOCXButton(Area area, Landowner? landowner, {super.key})
-      : _landowner = landowner;
+      : _area = area,
+        _landowner = landowner;
 
   //  //////////////////////////////////////////////////////////////////////////
 
@@ -40,8 +43,8 @@ class DOCXButton extends StatelessWidget {
       _alert(context: context, message: _errorNoLandowner);
       return; // Stop early because don't want to build DOCX without landowner.
     }
-    debugPrint("${converter.contentControlTags}\n");
-    debugPrint("converter.directoryWrite: ${converter.directoryWrite}\n");
+    await converter.convert(
+        _area, _landowner, Provider.of<Settings>(context, listen: false));
   }
 
   /// Build an alert to show to the user for exception handling.

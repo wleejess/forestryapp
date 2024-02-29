@@ -7,6 +7,9 @@ import 'dart:io';
 import 'package:docx_template/docx_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/models/landowner.dart';
+import 'package:forestryapp/models/settings.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Class to manage creating Microsoft DOCX file version of the checklist.
@@ -84,7 +87,7 @@ class DOCXConverter {
     return await getDownloadsDirectory();
   }
 
-  //  //////////////////////////////////////////////////////////////////////////
+  // Getters ///////////////////////////////////////////////////////////////////
 
   /// Get list of all content control "title" properties found in [_template]
   /// DOCX file.
@@ -92,4 +95,21 @@ class DOCXConverter {
 
   /// Directory which to write the DOCX files to.
   Directory? get directoryWrite => _directoryWrite;
+
+  // Conversion Logic //////////////////////////////////////////////////////////
+
+  /// Performs DOCX document conversion by writing to [directoryWrite] and
+  /// subsequently opening the resulting file in an appropriate DOCX reading
+  /// app.
+  ///
+  /// Callers should be aware that this method can throw [FileSystemException]
+  /// and should prepare to handle them appropriately.
+  Future<void> convert(
+    Area area,
+    Landowner landowner,
+    Settings settings,
+  ) async {
+    debugPrint("$contentControlTags\n");
+    debugPrint("converter.directoryWrite: $directoryWrite\n");
+  }
 }
