@@ -9,9 +9,9 @@ import "package:provider/provider.dart";
 class DOCXButton extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
   static const _buttonText = "Create DOCX";
-
-  static const _warnPrefix = "WARNING (DOCXButton):";
-  static const _warnNoLandowner = "Landowner not set";
+  static const _exceptionPrefix = "Exception (DOCXButton)";
+  static const _errorNoLandowner = "Landowner not set";
+  static const _alertButtonText = "Cancel";
 
   // Instance Variables ////////////////////////////////////////////////////////
   final Landowner? _landowner;
@@ -37,9 +37,35 @@ class DOCXButton extends StatelessWidget {
     );
 
     if (_landowner == null) {
-      debugPrint("$_warnPrefix$_warnNoLandowner");
+      _alert(context: context, message: _errorNoLandowner);
       return; // Stop early because don't want to build DOCX without landowner.
     }
     debugPrint("${converter.contentControlTags}\n");
+  }
+
+  /// Build an alert to show to the user for exception handling.
+  ///
+  /// Show a human readable [message] to the user while printing the actual
+  /// [exception] to console which can be accessed with "flutter logs" command.
+  void _alert({
+    required BuildContext context,
+    required message,
+    Exception? exception,
+  }) {
+    if (exception != null) debugPrint("$_exceptionPrefix: $exception");
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text(_exceptionPrefix),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text(_alertButtonText),
+          )
+        ],
+      ),
+    );
   }
 }
