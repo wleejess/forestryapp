@@ -169,6 +169,7 @@ class DOCXConverter {
       Area area, Landowner landowner, Settings settings) {
     final Content content = Content();
     _pullBasicInformation(content, landowner, area);
+    _pullSiteCharacteristics(content, area);
     return content;
   }
 
@@ -183,5 +184,17 @@ class DOCXConverter {
       ..add(TextContent("area_name", area.name))
       ..add(TextContent("acres", area.acres))
       ..add(TextContent("landowner_goals", area.goals ?? _omitted));
+  }
+
+  void _pullSiteCharacteristics(
+    Content content,
+    Area area,
+  ) {
+    content
+      ..add(TextContent("elevation", area.elevation ?? _omitted))
+      ..add(TextContent("aspect", area.aspect.label))
+      ..add(TextContent("slope_percentage", area.slopePercentage ?? _omitted))
+      ..add(TextContent("slope_position", area.slopePosition.label))
+      ..add(TextContent("soil_information", area.soilInfo ?? _omitted));
   }
 }
