@@ -3,9 +3,11 @@
 // not used in disparate parts of the system (it should only be used in
 // [AreaReview]).
 
+import 'dart:io';
 import 'package:docx_template/docx_template.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// Class to manage creating Microsoft DOCX file version of the checklist.
 ///
@@ -29,6 +31,8 @@ class DOCXConverter {
   // Instance Variables ////////////////////////////////////////////////////////
   /// Template checklist DOCX file.
   final DocxTemplate _template;
+  // ignore: unused_field
+  late final Directory? _directoryWrite;
 
   // Initialization ////////////////////////////////////////////////////////////
   /// Private constructor disables default unnamed constructor.
@@ -39,8 +43,11 @@ class DOCXConverter {
   DOCXConverter._(this._template);
 
   /// Create a new instance of DOCXTemplate.
-  static Future<DOCXConverter> create() async =>
-      DOCXConverter._(await _readTemplate());
+  static Future<DOCXConverter> create() async {
+    final converter = DOCXConverter._(await _readTemplate());
+    converter._directoryWrite = await _determineWriteDirectoryFromPlatform();
+    return converter;
+  }
 
   static Future<DocxTemplate> _readTemplate({BuildContext? context}) async {
     // Design choice: Although in general prefer [DefaultAssetBundle.of()] over
@@ -62,9 +69,27 @@ class DOCXConverter {
     return DocxTemplate.fromBytes(Uint8List.sublistView(templateBinary));
   }
 
+  /// Find the path of directoryof where to write the DOCX files.
+  ///
+  /// On Android this will save to
+  /// "/storage/emulated/0/Android/data/com.example.forestryapp/files/".
+  static Future<Directory?> _determineWriteDirectoryFromPlatform() async {
+    // We use [getExternalStorageDirectory()] instead of
+    // [getApplicationDocumentsDirectory()] for Android because the latter is
+    // part of the asset bundle which is not accessible to the user. The asset
+    // bundle is however accessible to the app as that is where the checklist
+    // DOCX template is stored in [_pathTemplate].
+    if (Platform.isAndroid) return await getExternalStorageDirectory();
+    if (Platform.isIOS) return await getApplicationDocumentsDirectory();
+    return await getDownloadsDirectory();
+  }
+
   //  //////////////////////////////////////////////////////////////////////////
 
   /// Get list of all content control "title" properties found in [_template]
   /// DOCX file.
   List<String> get contentControlTags => _template.getTags();
+
+  /// Directory which to write the DOCX files to.
+  Directory? get directoryWrite => _directoryWrite;
 }
