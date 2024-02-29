@@ -114,7 +114,8 @@ class DOCXConverter {
   /// app.
   ///
   /// Callers should be aware that this method can throw [FileSystemException]
-  /// and should prepare to handle them appropriately.
+  /// and should prepare to handle them appropriately. This is meant to be
+  /// caught on the layout side to show an [AlertDialog].
   Future<void> convert(
     Area area,
     Landowner landowner,
@@ -127,6 +128,13 @@ class DOCXConverter {
   }
 
   /// Create the bytes data to be written to file.
+  ///
+  /// Created bytes will contain all current model information.  Callers should
+  /// be aware that this method can throw [FileSystemException] if bytes
+  /// generation (see [generate()] from
+  /// "https://github.com/PavelS0/docx_template_dart/blob/7fbe5e2c9390d9f8e6454eb7720b8815c01af4d4/lib/src/template.dart#L90")
+  /// happens to fail. This is meant to be caught on the layout side to show an
+  /// [AlertDialog].
   Future<List<int>> _generateDOCXBinary(
       Area area, Landowner landowner, Settings settings) async {
     final Content docxContent = _pullModelDataToDOCX(area, landowner, settings);
@@ -135,6 +143,12 @@ class DOCXConverter {
     return docxBytes;
   }
 
+  /// Use [area] and [landowner] data to create a unique path to write DOCX.
+  ///
+  /// Callers should be aware that this method can throw [FileSystemException]
+  /// if the directory to write the DOCX [_directoryWrite] happens to be
+  /// [null]. This is meant to be caught on the layout side to show an
+  /// [AlertDialog].
   String _determinePathToDOCX(Area area, Landowner landowner) {
     if (_directoryWrite == null) throw const FileSystemException(_noDirectory);
     // Include area ID in filename because there is no uniqueness constraint on
@@ -144,6 +158,11 @@ class DOCXConverter {
     return '${_directoryWrite.path}/$basenameWithoutExtension$_extension';
   }
 
+  /// Write [docxBytes] binary data to specified file object [fileGenerated].
+  ///
+  /// Callers should be aware that this method can throw [FileSystemException]
+  /// if ANY exception is thrown during the writing process. This is meant to be
+  /// caught on the layout side to show an [AlertDialog].
   Future<void> _writeDOCXToFile(File fileGenerated, List<int> docxBytes) async {
     try {
       await fileGenerated.writeAsBytes(docxBytes);
@@ -153,6 +172,14 @@ class DOCXConverter {
     }
   }
 
+  /// Opens the [fileGenerated] in appropriate app on user's device.
+  ///
+  /// Callers should be aware that this method can throw [FileSystemException]
+  /// if ANY exception is thrown during the opening process. This is meant to be
+  /// caught on the layout side to show an [AlertDialog].
+  ///
+  /// If the user's device has no appropriate app installed to open
+  /// [fileGenerated] this method will have no effect.
   Future<void> _openDOCX(File fileGenerated, List<int> docxBytes) async {
     // WARNING: If user does not have an appropriate app to open DOCX, it will
     // appear as if this method does nothing. This is the case on the vanilla
