@@ -48,17 +48,10 @@ class DOCXButton extends StatelessWidget {
     try {
       await converter.convert(
           _area, _landowner, Provider.of<Settings>(context, listen: false));
-    } on FileSystemException catch (exception) {
+    } on FileSystemException catch (e) {
       if (!context.mounted) return;
-      _alertFileSystemException(context: context, exception: exception);
+      _alert(context: context, message: e.message, exception: e);
     }
-  }
-
-  void _alertFileSystemException({
-    required BuildContext context,
-    required FileSystemException exception,
-  }) {
-    _alert(context: context, message: exception.message);
   }
 
   /// Build an alert to show to the user for exception handling.
