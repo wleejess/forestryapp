@@ -178,8 +178,8 @@ class DatabaseManager {
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
   void saveNewLandowner(List<String> queryArgs) async {
-    return _db.transaction((txn) async {
-      await txn.rawInsert(_sqlSaveNewLandowner, queryArgs);
+    return _db.transaction((transaction) async {
+      await transaction.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
   }
 
@@ -189,8 +189,8 @@ class DatabaseManager {
   /// [_sqlUpdateExitsingLandowner] in the correct order.
   void updateExistingLandowner(List<dynamic> queryArgs) async {
     return _db.transaction(
-      (txn) async {
-        await txn.rawUpdate(_sqlUpdateExitsingLandowner, queryArgs);
+      (transaction) async {
+        await transaction.rawUpdate(_sqlUpdateExitsingLandowner, queryArgs);
       },
     );
   }
@@ -201,8 +201,8 @@ class DatabaseManager {
   /// [_sqlDeleteLandowner] in the correct order.
   void deleteLandowner(List<dynamic> queryArgs) async {
     return _db.transaction(
-      (txn) async {
-        await txn.rawDelete(_sqlDeleteLandowner, queryArgs);
+      (transaction) async {
+        await transaction.rawDelete(_sqlDeleteLandowner, queryArgs);
       },
     );
   }
@@ -217,11 +217,10 @@ class DatabaseManager {
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
   void saveNewArea(List<dynamic> queryArgs) async {
-    return _db.transaction((txn) async {
-      await txn.rawInsert(_sqlSaveNewArea, queryArgs);
+    return _db.transaction((transaction) async {
+      await transaction.rawInsert(_sqlSaveNewArea, queryArgs);
     });
   }
-
 
   /// Delete an existing area on the database.
   ///
@@ -229,8 +228,8 @@ class DatabaseManager {
   /// [_sqlDeleteArea] in the correct order.
   Future<void> deleteArea(List<dynamic> queryArgs) async {
     return _db.transaction(
-      (txn) async {
-        await txn.rawDelete(_sqlDeleteArea, queryArgs);
+      (transaction) async {
+        await transaction.rawDelete(_sqlDeleteArea, queryArgs);
       },
     );
   }
