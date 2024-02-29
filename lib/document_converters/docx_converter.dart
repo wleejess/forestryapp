@@ -30,6 +30,7 @@ class DOCXConverter {
   /// content controls where the "tag" property is set to have "text", as that
   /// is one of the tags that library [docx_template] is set to recognize.
   static const _pathTemplate = 'assets/templates/checklist-template.docx';
+  static const _noDirectory = "Cannot determine directory to write DOCX files.";
 
   // Instance Variables ////////////////////////////////////////////////////////
   /// Template checklist DOCX file.
@@ -109,7 +110,6 @@ class DOCXConverter {
     Landowner landowner,
     Settings settings,
   ) async {
-    debugPrint("$contentControlTags\n");
-    debugPrint("converter.directoryWrite: $directoryWrite\n");
+    if (_directoryWrite == null) throw const FileSystemException(_noDirectory);
   }
 }
