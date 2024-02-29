@@ -41,6 +41,7 @@ class DOCXButton extends StatelessWidget {
       return; // Stop early because don't want to build DOCX without landowner.
     }
     debugPrint("${converter.contentControlTags}\n");
+    debugPrint("converter.directoryWrite: ${converter.directoryWrite}\n");
   }
 
   /// Build an alert to show to the user for exception handling.
