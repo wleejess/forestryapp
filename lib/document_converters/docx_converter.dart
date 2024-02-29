@@ -170,6 +170,7 @@ class DOCXConverter {
     final Content content = Content();
     _pullBasicInformation(content, landowner, area);
     _pullSiteCharacteristics(content, area);
+    _pullVegetativeConditions(content, area);
     return content;
   }
 
@@ -196,5 +197,28 @@ class DOCXConverter {
       ..add(TextContent("slope_percentage", area.slopePercentage ?? _omitted))
       ..add(TextContent("slope_position", area.slopePosition.label))
       ..add(TextContent("soil_information", area.soilInfo ?? _omitted));
+  }
+
+  void _pullVegetativeConditions(
+    Content content,
+    Area area,
+  ) {
+    content
+      ..add(TextContent("cover_type", area.coverType.label))
+      ..add(TextContent("stand_structure", area.standStructure.label))
+      ..add(TextContent("overstory_stand_density", area.overstoryDensity.label))
+      ..add(TextContent(
+        "overstory_species_composition",
+        area.overstorySpeciesComposition ?? _omitted,
+      ))
+      ..add(TextContent(
+        "understory_stand_density",
+        area.understoryDensity.label,
+      ))
+      ..add(TextContent(
+        "understory_species_composition",
+        area.understorySpeciesComposition ?? _omitted,
+      ))
+      ..add(TextContent("stand_history", area.standHistory ?? _omitted));
   }
 }
