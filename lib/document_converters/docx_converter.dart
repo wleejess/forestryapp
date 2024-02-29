@@ -33,6 +33,7 @@ class DOCXConverter {
   static const _pathTemplate = 'assets/templates/checklist-template.docx';
 
   static const _extension = '.docx';
+  static const _omitted = 'N/A';
 
   // Exception Messages
   static const _noDirectory = "Cannot determine directory to write DOCX files.";
@@ -167,6 +168,20 @@ class DOCXConverter {
   Content _pullModelDataToDOCX(
       Area area, Landowner landowner, Settings settings) {
     final Content content = Content();
+    _pullBasicInformation(content, landowner, area);
     return content;
+  }
+
+  void _pullBasicInformation(Content content, Landowner landowner, Area area) {
+    content
+      ..add(TextContent("landowner_name", landowner.name))
+      ..add(TextContent(
+        "landowner_address",
+        "${landowner.address} ${landowner.city}, ${landowner.state!.label} ${landowner.zip}",
+      ))
+      ..add(TextContent("landowner_email", landowner.email))
+      ..add(TextContent("area_name", area.name))
+      ..add(TextContent("acres", area.acres))
+      ..add(TextContent("landowner_goals", area.goals ?? _omitted));
   }
 }
