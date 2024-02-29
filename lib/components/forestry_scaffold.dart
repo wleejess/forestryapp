@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information_form.dart';
+import 'package:forestryapp/screens/form_review.dart';
 import 'package:forestryapp/screens/invasive_form.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
@@ -182,6 +183,16 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const OtherIssuesForm()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Summary'),
+        leading: const Icon(Icons.fact_check),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FormReview()),
           );
         },
       ),
