@@ -10,13 +10,20 @@ class FormScaffold extends StatelessWidget {
 
   // Instance variables ////////////////////////////////////////////////////////
   final Widget _child;
+  final Widget _nextPage;
+  final Widget? _prevPage;
+  
 
   // Constructor ///////////////////////////////////////////////////////////////
   ///
   const FormScaffold({
     required Widget child,
+    required Widget nextPage,
+    Widget? prevPage,
     super.key,
-  }) : _child = child;
+  }) : _child = child,
+       _nextPage = nextPage,
+       _prevPage = prevPage;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -55,15 +62,30 @@ class FormScaffold extends StatelessWidget {
 
   // Buttons ///////////////////////////////////////////////////////////////////
   Widget _buildButtonPrevious(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonLabelPrevious),
-    );
+    if (_prevPage != null) {
+      return OutlinedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => _prevPage),
+          );
+        },
+        child: const Text(_buttonLabelPrevious),
+      );
+    }
+    // If there is no previous link, add a spacer 
+    //to keep next on the right side of the screen.
+    return Container();
   }
 
   Widget _buildButtonNext(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => _nextPage),
+        );
+      },
       child: const Text(_buttonLabelNext),
     );
   }
