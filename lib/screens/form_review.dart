@@ -15,6 +15,7 @@ class FormReview extends StatelessWidget {
   static const _titlePrefix = "Summary";
   static const _buttonTextPDF = "Create PDF";
   static const _buttonTextDOCX = "Create DOCX";
+  static const _buttonTextSave = "Save";
   static const _buttonTextCancel = "Cancel";
 
   // Constructor ///////////////////////////////////////////////////////////////
@@ -27,6 +28,7 @@ class FormReview extends StatelessWidget {
     List<Widget> buttons = [
       _buildButtonPDF(context),
       _buildButtonDOCX(context),
+      _buildButtonSave(context),
       _buildButtonCancel(context)
     ];
 
@@ -57,6 +59,13 @@ class FormReview extends StatelessWidget {
     return OutlinedButton(
       onPressed: () => debugPrint("${docxConverter.contentControlTags}\n"),
       child: const Text(_buttonTextDOCX),
+    );
+  }
+
+  Widget _buildButtonSave(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      child: const Text(_buttonTextSave),
     );
   }
 
