@@ -45,7 +45,7 @@ class FormReview extends StatelessWidget {
     );
   }
 
-    Widget _buildButtonPDF(BuildContext context) {
+  Widget _buildButtonPDF(BuildContext context) {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(_buttonTextPDF),
