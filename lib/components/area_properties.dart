@@ -32,6 +32,11 @@ class AreaProperties extends StatelessWidget {
         ListTile(
           title: Text(_area.name ?? _placeholderForOmitted,
               style: Theme.of(context).textTheme.headlineLarge),
+          tileColor: _area.name == null ? Theme.of(context).colorScheme.errorContainer : null,
+          subtitle: _area.name == null ? Text(
+            "Please enter an area name.",
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ) : null,
         ),
         // TODO: make this listenable
         _buildLandowner(
