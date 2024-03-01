@@ -36,12 +36,15 @@ class BottomButtonBuilder {
       );
     }
 
-    // Push buttons to the left and right
-    int midpoint = buttons.length ~/ 2;
-    buttons.insert(midpoint, Expanded(child: Container()));
+    // Make copy as not to mutate original [buttons] List<Widget> or else
+    // [Expanded] may end up in the [Table] during orientation change.
+    final List<Widget> buttonsInSingleLine = [];
+    buttonsInSingleLine.addAll(buttons);
 
-    return Row(
-      children: buttons
-    ); 
+    // Push buttons to the left and right
+    int midpoint = buttonsInSingleLine.length ~/ 2;
+    buttonsInSingleLine.insert(midpoint, Expanded(child: Container()));
+
+    return Row(children: buttonsInSingleLine);
   }
 }
