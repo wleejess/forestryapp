@@ -41,6 +41,9 @@ class DOCXConverter {
   static const _noBinary = "DOCX Binary could not be generated";
   static const _failWrite = "Could not write DOCX to file system.";
   static const _failOpen = "Could not open written DOCX file.";
+  static const _noDOCXAppFoundPrefix = "DOCX file written to '";
+  static const _noDOCXAppFoundSuffix =
+      "' but no app for opening DOCX files detected.";
 
   // Instance Variables ////////////////////////////////////////////////////////
   /// Template checklist DOCX file.
@@ -183,11 +186,25 @@ class DOCXConverter {
     // WARNING: If user does not have an appropriate app to open DOCX, it will
     // appear as if this method does nothing. This is the case on the vanilla
     // Android emulator as it has no default app to open
+    final path = fileGenerated.path;
+    OpenResult? result;
+
     try {
-      OpenFile.open(fileGenerated.path);
+      result = await OpenFile.open(path);
+      // Throw into [catch] if no app is found in order to alert the user they
+      // don't have any DOCX apps installed.
+      if (result.type == ResultType.noAppToOpen) throw Exception();
     } catch (e) {
-      debugPrint("DOCX OPEN FAIL: $e");
-      throw const FileSystemException(_failOpen);
+      final String exceptionMessage;
+
+      if (result != null && result.type == ResultType.noAppToOpen) {
+        exceptionMessage = _formatNoDOCXAppMessage(path);
+      } else { // Handling any other exception.
+        debugPrint("DOCX OPEN FAIL: $e");
+        exceptionMessage = _failOpen;
+      }
+
+      throw FileSystemException(exceptionMessage);
     }
   }
 
@@ -313,4 +330,7 @@ class DOCXConverter {
   ) {
     return "$address $city, ${usState?.label.toUpperCase() ?? ''} $zip ";
   }
+
+  String _formatNoDOCXAppMessage(String path) =>
+      "$_noDOCXAppFoundPrefix$path$_noDOCXAppFoundSuffix";
 }
