@@ -36,8 +36,12 @@ class BottomButtonBuilder {
       );
     }
 
+    // Push buttons to the left and right
+    int midpoint = buttons.length ~/ 2;
+    buttons.insert(midpoint, Expanded(child: Container()));
+
     return Row(
       children: buttons
-    );
+    ); 
   }
 }
