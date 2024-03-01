@@ -9,6 +9,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/basic_information_form.dart";
 import "package:forestryapp/util/break_points.dart";
 import "package:provider/provider.dart";
 
@@ -146,7 +147,12 @@ class _AreaReviewState extends State<AreaReview> {
 
   Widget _buildButtonEdit(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BasicInformationForm()),
+        );
+      },
       child: const Text(AreaReview._buttonTextEdit),
     );
   }
