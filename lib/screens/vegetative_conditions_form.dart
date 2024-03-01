@@ -8,6 +8,8 @@ import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/enums/stand_density.dart";
 import "package:forestryapp/enums/stand_structure.dart";
 import "package:forestryapp/enums/cover_type.dart";
+import "package:forestryapp/screens/insects_form.dart";
+import "package:forestryapp/screens/site_characteristics_form.dart";
 import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
@@ -31,6 +33,8 @@ class VegetativeConditionsForm extends StatelessWidget {
         showFormLinks: true,
         title: _title,
         body: FormScaffold(
+          prevPage: SiteCharacteristicsForm(),
+          nextPage: const InsectsForm(),
           child: Form(
             key: _formKey,
             child: Column(

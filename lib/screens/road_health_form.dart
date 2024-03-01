@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
+import 'package:forestryapp/screens/mistletoe_form.dart';
+import 'package:forestryapp/screens/water_issues_form.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 
@@ -21,6 +23,8 @@ class RoadHealthForm extends StatelessWidget {
         showFormLinks: true,
         title: RoadHealthForm._title,
         body: FormScaffold(
+          prevPage: const MistletoeForm(),
+          nextPage: const WaterIssuesForm(),
           child: _buildDescription(context),
         ));
   }

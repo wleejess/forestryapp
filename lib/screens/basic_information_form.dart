@@ -3,6 +3,7 @@ import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/site_characteristics_form.dart";
 import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import "package:forestryapp/components/forestry_scaffold.dart";
@@ -38,16 +39,17 @@ class BasicInformationForm extends StatelessWidget {
         showFormLinks: true,
         title: BasicInformationForm._title,
         body: FormScaffold(
-            child: Form(
-          key: _formKey,
-          child: Wrap(
-            children: <Widget>[
-              _buildNameInput(context),
-              _buildAcresInput(context),
-              _buildLandownerInput(context),
-              _buildGoalsInput(context),
-            ],
-          ),
+          nextPage: SiteCharacteristicsForm(),
+          child: Form(
+            key: _formKey,
+            child: Wrap(
+              children: <Widget>[
+                _buildNameInput(context),
+                _buildAcresInput(context),
+                _buildLandownerInput(context),
+                _buildGoalsInput(context),
+              ],
+            ),
         )));
   }
 
