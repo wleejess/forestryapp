@@ -18,6 +18,7 @@ class WaterIssuesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: WaterIssuesForm._title,
         body: FormScaffold(
           child: _buildDescription(context),

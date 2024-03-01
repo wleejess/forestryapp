@@ -28,6 +28,7 @@ class VegetativeConditionsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: _title,
         body: FormScaffold(
           child: Form(

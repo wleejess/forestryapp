@@ -18,6 +18,7 @@ class FireRiskForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: FireRiskForm._title,
         body: FormScaffold(
           child: _buildDescription(context),

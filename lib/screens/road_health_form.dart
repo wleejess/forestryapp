@@ -18,6 +18,7 @@ class RoadHealthForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: RoadHealthForm._title,
         body: FormScaffold(
           child: _buildDescription(context),

@@ -35,6 +35,7 @@ class BasicInformationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: BasicInformationForm._title,
         body: FormScaffold(
             child: Form(

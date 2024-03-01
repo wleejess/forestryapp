@@ -25,6 +25,7 @@ class InsectsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: InsectsForm._title,
         body: FormScaffold(
             child: Column(

@@ -26,6 +26,7 @@ class InvasiveForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: InvasiveForm._title,
         body: FormScaffold(
             child: Column(
