@@ -190,6 +190,7 @@ class LandownerReview extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: OutlinedButton(
         onPressed: () {
+          // TODO: Clear the Area provider and set the landowner id to current landowner
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => BasicInformationForm()),
