@@ -7,6 +7,8 @@ import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/hawksworth.dart";
 import "package:forestryapp/enums/mistletoe_uniformity.dart";
 import "package:forestryapp/models/area.dart";
+import "package:forestryapp/screens/invasive_form.dart";
+import "package:forestryapp/screens/road_health_form.dart";
 import "package:provider/provider.dart";
 
 class MistletoeForm extends StatelessWidget {
@@ -35,15 +37,18 @@ class MistletoeForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: MistletoeForm._title,
         body: FormScaffold(
-            child: Wrap(
-          children: <Widget>[
-            PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
-            PortraitHandlingSizedBox(child: _buildLocationInput(context)),
-            PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
-            PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
-          ],
+          prevPage: const InvasiveForm(),
+          nextPage: const RoadHealthForm(),
+          child: Wrap(
+            children: <Widget>[
+              PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
+              PortraitHandlingSizedBox(child: _buildLocationInput(context)),
+              PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
+              PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
+            ],
         )));
   }
 

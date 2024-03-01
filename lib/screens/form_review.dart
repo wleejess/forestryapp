@@ -33,6 +33,7 @@ class FormReview extends StatelessWidget {
     ];
 
     return ForestryScaffold(
+      showFormLinks: true,
       title: _titlePrefix, // TODO: Needs validation
       body: Column(
         children: [

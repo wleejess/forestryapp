@@ -6,6 +6,8 @@ import "package:forestryapp/components/dropdown.dart";
 import "package:forestryapp/components/radio_options.dart";
 import "package:forestryapp/enums/slope_position.dart";
 import "package:forestryapp/enums/direction.dart";
+import "package:forestryapp/screens/basic_information_form.dart";
+import "package:forestryapp/screens/vegetative_conditions_form.dart";
 import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
@@ -21,19 +23,22 @@ class SiteCharacteristicsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: SiteCharacteristicsForm._title,
         body: FormScaffold(
-            child: Form(
-          key: _formKey,
-          child: Wrap(
-            children: [
-              _buildAspect(context),
-              _buildElevation(context),
-              _buildPercentSlope(context),
-              _buildSlopePosition(context),
-              _buildSoilInformation(context)
-            ],
-          ),
+          prevPage: BasicInformationForm(),
+          nextPage: VegetativeConditionsForm(),
+          child: Form(
+            key: _formKey,
+            child: Wrap(
+              children: [
+                _buildAspect(context),
+                _buildElevation(context),
+                _buildPercentSlope(context),
+                _buildSlopePosition(context),
+                _buildSoilInformation(context)
+              ],
+            ),
         )));
   }
 
