@@ -96,4 +96,14 @@ class DAOArea {
   /// Assumes [id] is a valid ID of an existing area record.
   static Future<void> deleteArea(int id) async =>
       DatabaseManager.getInstance().deleteArea([id]);
+
+  // Relationship Queries //////////////////////////////////////////////////////
+  static Future<List<Area>> readAreasFromLandowner(int landownerID) async {
+    final dbRecords = await DatabaseManager.getInstance()
+        .readAreasFromLandowner([landownerID]);
+
+    if (dbRecords.isEmpty) return <Area>[];
+
+    return dbRecords.map((Map record) => Area.fromMap(record)).toList();
+  }
 }

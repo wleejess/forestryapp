@@ -4,13 +4,13 @@ import "package:forestryapp/enums/us_state.dart";
 
 class Landowner extends ChangeNotifier {
   Landowner({
-    id = 0,
-    name = '',
-    email = '',
-    address = '',
-    city = '',
-    state = USState.alabama,
-    zip = '',
+    int id = 0,
+    String name = '',
+    String email = '',
+    String address = '',
+    String city = '',
+    USState? state,
+    String zip = '',
   })  : _id = id,
         _name = name,
         _email = email,

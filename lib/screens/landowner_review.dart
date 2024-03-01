@@ -4,9 +4,11 @@ import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_landowner.dart";
+import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/area_review.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
 import "package:provider/provider.dart";
 
@@ -21,10 +23,14 @@ class LandownerReview extends StatelessWidget {
   static const _notFoundTitle = "Landowner not found!";
   static const _notFoundBodyText = "Could not find that landowner!";
 
+  static const _notFoundAreaTitle = "Area not found!";
+  static const _notFoundAreaBody = "Could not find that area!";
+
+  static const _areaMissingTitle = "N/A";
+
   // Instance variables ////////////////////////////////////////////////////////
   // NOTE: These will be refactored into a single model class later on.
   final int _landownerID;
-  final List<String> _areas;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates a screen to see details on a single landowner.
@@ -33,10 +39,8 @@ class LandownerReview extends StatelessWidget {
     // object could be out of date after the user edited the given landowner and
     // saved their changes to the database.
     required int landownerID,
-    required List<String> areas,
     super.key,
-  })  : _landownerID = landownerID,
-        _areas = areas;
+  }) : _landownerID = landownerID;
 
   // Methods ///////////////////////////////////////////////////////////////////
   /// Conditionally rebuild entire screen.
@@ -124,22 +128,54 @@ class LandownerReview extends StatelessWidget {
 
   // Areas /////////////////////////////////////////////////////////////////////
   Widget _buildAreas(BuildContext context) {
-    return ListView.builder(
-      itemCount: _areas.length,
-      itemBuilder: _buildAreaListItem,
-    );
+    final areas = Provider.of<AreaCollection>(context).areasOfReviewedLandowner;
+
+    return DBListenableBuilder(
+        builder: (context, _) => ListView.builder(
+              itemCount: areas.length,
+              itemBuilder: (context, i) =>
+                  _buildAreaListItem(context, i, areas),
+            ));
   }
 
-  Widget _buildAreaListItem(BuildContext context, int i) {
+  Widget _buildAreaListItem(BuildContext context, int i, List<Area> areas) {
     // Use `Card` for work around with overlapping `ListTiles`
     // https://github.com/flutter/flutter/issues/94261#issuecomment-983166280
     return Card(
       child: ListTile(
-        title: Text(_areas[i]),
+        title: Text(areas[i].name ?? _areaMissingTitle),
         shape: const RoundedRectangleBorder(
           side: BorderSide(width: 1),
         ),
+        onTap: () async => await _tapOnArea(context, areas[i]),
       ),
+    );
+  }
+
+  Future<void> _tapOnArea(BuildContext context, Area area) async {
+    final areaID = area.id;
+
+    await Provider.of<LandownerCollection>(
+      context,
+      listen: false,
+    ).setLandownerOfAreaBeingReviewed(_landownerID);
+
+    if (!context.mounted) return;
+
+    final Widget destination;
+
+    if (areaID == null) {
+      destination = const ErrorScaffold(
+        title: _notFoundAreaTitle,
+        bodyText: _notFoundAreaBody,
+      );
+    } else {
+      destination = AreaReview(areaID);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
     );
   }
 
