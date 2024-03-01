@@ -24,6 +24,7 @@ class ForestryScaffold extends StatelessWidget {
   final String _title;
   final Widget _body;
   final Widget? _fab;
+  final bool _showFormLinks;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Creates Material design scaffold with provided [title] and [body].
@@ -34,10 +35,12 @@ class ForestryScaffold extends StatelessWidget {
     required String title,
     required Widget body,
     Widget? fab,
+    bool showFormLinks = false,
     super.key,
   })  : _title = title,
         _body = body,
-        _fab = fab;
+        _fab = fab,
+        _showFormLinks = showFormLinks;
 
   // Methods ///////////////////////////////////////////////////////////////////
   @override
@@ -51,7 +54,7 @@ class ForestryScaffold extends StatelessWidget {
   }
 
   List<Widget> _buildDrawerItems(BuildContext context) {
-    return [
+    List<Widget> mainLinks = [
       ListTile(
         title: const Text('Settings'),
         leading: const Icon(Icons.settings),
@@ -86,6 +89,10 @@ class ForestryScaffold extends StatelessWidget {
           );
         },
       ),
+    ];
+    // Links to the Area form input screens
+    List<Widget> areaFormLinks = [
+      const Divider(),
       ListTile(
         title: const Text('Basic Information'),
         leading: const Icon(Icons.badge),
@@ -186,5 +193,11 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
     ];
+    // Form links only appear when you are editing or creating an Area
+    if (_showFormLinks) {
+      mainLinks.addAll(areaFormLinks);
+    }
+    
+    return mainLinks;
   }
 }
