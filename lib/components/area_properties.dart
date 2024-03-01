@@ -33,10 +33,11 @@ class AreaProperties extends StatelessWidget {
           title: Text(_area.name ?? _placeholderForOmitted,
               style: Theme.of(context).textTheme.headlineLarge),
           tileColor: _area.name == null ? Theme.of(context).colorScheme.errorContainer : null,
-          subtitle: _area.name == null ? Text(
-            "Please enter an area name.",
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ) : null,
+          subtitle: _area.name == null ? 
+            Text(
+              "Please enter an area name.",
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ) : null,
         ),
         // TODO: make this listenable
         _buildLandowner(
@@ -46,6 +47,7 @@ class AreaProperties extends StatelessWidget {
           context,
           "Acres",
           _formatDouble(_area.acres),
+          "Please enter an integer for acres."
         ),
         _buildAreaPropertyListTile(
           context,
@@ -200,6 +202,7 @@ class AreaProperties extends StatelessWidget {
     BuildContext context,
     String propertyLabel,
     String? property,
+    [String? errorMessage]
   ) {
     final TextStyle? styleProperty = Theme.of(context).textTheme.headlineSmall;
     final TextStyle styleLabel =
@@ -207,6 +210,7 @@ class AreaProperties extends StatelessWidget {
 
     return ListTile(
       // Use `Wrap` to push property down underneath the label when too long.
+      tileColor: errorMessage != null ? Theme.of(context).colorScheme.errorContainer : null,
       title: Wrap(
         direction: Axis.horizontal,
         alignment: WrapAlignment.start,
@@ -215,6 +219,11 @@ class AreaProperties extends StatelessWidget {
           Text(property ?? _placeholderForOmitted, style: styleProperty),
         ],
       ),
+      subtitle: errorMessage != null ? 
+      Text(
+        errorMessage,
+        style: TextStyle(color: Theme.of(context).colorScheme.error)
+      ) : null,
     );
   }
 }
