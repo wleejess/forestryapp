@@ -8,6 +8,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
+import "package:forestryapp/screens/basic_information_form.dart";
 import "package:provider/provider.dart";
 
 /// Screen for showing saved areas from the navigation drawer.
@@ -35,7 +36,12 @@ class AreaIndex extends StatelessWidget {
         builder: (BuildContext _, Widget? __) =>
             _buildListViewOfAllAreasFromDB(areasListenable.areas),
       ),
-      fab: FABCreation(icon: Icons.forest, onPressed: () {}),
+      fab: FABCreation(icon: Icons.forest, onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BasicInformationForm()),
+        );
+      }),
     );
   }
 
