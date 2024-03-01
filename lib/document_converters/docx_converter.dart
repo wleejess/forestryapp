@@ -124,7 +124,7 @@ class DOCXConverter {
     Settings settings,
   ) async {
     final docxBytes = await _generateDOCXBinary(area, landowner, settings);
-    final File docxFile = File(_determinePathToDOCX(area, landowner));
+    final File docxFile = File(_createPathToDOCX(area, landowner));
     await _writeDOCXToFile(docxFile, docxBytes);
     await _openDOCX(docxFile);
   }
@@ -151,7 +151,7 @@ class DOCXConverter {
   /// if the directory to write the DOCX [_directoryWrite] happens to be
   /// [null]. This is meant to be caught on the layout side to show an
   /// [AlertDialog].
-  String _determinePathToDOCX(Area area, Landowner landowner) {
+  String _createPathToDOCX(Area area, Landowner landowner) {
     if (_directoryWrite == null) throw const FileSystemException(_noDirectory);
     // Include area ID in filename because there is no uniqueness constraint on
     // the area name (landowners might have two areas with same name).
