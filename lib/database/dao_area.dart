@@ -60,6 +60,12 @@ class DAOArea {
     DatabaseManager.getInstance().saveNewArea(_getNonIDFields(area));
   }
 
+  /// Edit an existing area record alreay on the database.
+  ///
+  /// Assumes [area.id] is a valid ID for an existing area.
+  static void updateExistingArea(Area area) => DatabaseManager.getInstance()
+      .updateExistingArea([..._getNonIDFields(area), area.id]);
+
   /// Remove an existing area record from the database.
   ///
   /// Assumes [id] is a valid ID of an existing area record.
