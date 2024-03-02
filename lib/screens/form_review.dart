@@ -33,19 +33,19 @@ class FormReview extends StatelessWidget {
     ];
 
     return ForestryScaffold(
-      showFormLinks: true,
-      title: _titlePrefix, // TODO: Needs validation
-      body: Column(
-        children: [
-          Expanded(child: AreaProperties(formData)),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return BottomButtonBuilder().builder(context, constraints, formData, buttons);
-            },
-          ),
-        ],
-      )
-    );
+        showFormLinks: true,
+        title: _titlePrefix, // TODO: Needs validation
+        body: Column(
+          children: [
+            Expanded(child: AreaProperties(formData)),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return BottomButtonBuilder()
+                    .builder(context, constraints, formData, buttons);
+              },
+            ),
+          ],
+        ));
   }
 
   Widget _buildButtonPDF(BuildContext context) {
@@ -74,7 +74,7 @@ class FormReview extends StatelessWidget {
     return OutlinedButton(
       onPressed: () => {
         // TODO: Clear the Area provider and navigate out of the form section.
-      }, 
+      },
       child: const Text(_buttonTextCancel),
     );
   }
