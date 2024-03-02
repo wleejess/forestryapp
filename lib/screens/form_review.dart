@@ -7,6 +7,8 @@ import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/area_index.dart";
+import "package:forestryapp/screens/area_review.dart";
 import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
 
@@ -121,14 +123,15 @@ class FormReview extends StatelessWidget {
         ),
       ),
     );
-    // TODO: Navigate to AreaReview
+
+    _navigateAfterSave(context, formArea);
   }
 
   Future<void> _saveArea(BuildContext context, Area formArea) async {
     debugPrint('$formArea');
 
     if (formArea.id == null) {
-      await DAOArea.saveNewArea(formArea);
+      formArea.id = await DAOArea.saveNewArea(formArea);
     } else {
       await DAOArea.updateExistingArea(formArea);
     }
@@ -171,5 +174,21 @@ class FormReview extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _navigateAfterSave(context, formArea) {
+    final Widget Function(BuildContext) destination;
+
+    // ASSUMPTION: Area Provider ID should be set for (1) newly created areas
+    // from `_saveArea` and (2) already set for areas being updated. Hence the
+    // `else` is just a safeguard to fail elegantly if for some reason the ID is
+    // not set.
+    if (formArea.id != null) {
+      destination = (context) => AreaReview(formArea.id);
+    } else {
+      destination = (context) => const AreaIndex();
+    }
+
+    Navigator.push(context, MaterialPageRoute(builder: destination));
   }
 }
