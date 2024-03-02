@@ -227,8 +227,8 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
-  void saveNewArea(List<dynamic> queryArgs) async {
-    return _db.transaction((transaction) async {
+  Future<void> saveNewArea(List<dynamic> queryArgs) async {
+    return await _db.transaction((transaction) async {
       await transaction.rawInsert(_sqlSaveNewArea, queryArgs);
     });
   }
@@ -237,8 +237,8 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlUpdateExitsingArea] in the correct order.
-  void updateExistingArea(List<dynamic> queryArgs) async {
-    return _db.transaction(
+  Future<void> updateExistingArea(List<dynamic> queryArgs) async {
+    return await _db.transaction(
       (transaction) async {
         await transaction.rawUpdate(_sqlUpdateExitsingArea, queryArgs);
       },

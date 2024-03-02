@@ -107,11 +107,12 @@ class FormReview extends StatelessWidget {
     debugPrint('$formArea');
 
     if (formArea.id == null) {
-      DAOArea.saveNewArea(formArea);
+      await DAOArea.saveNewArea(formArea);
     } else {
-      DAOArea.updateExistingArea(formArea);
+      await DAOArea.updateExistingArea(formArea);
     }
 
+    if (!context.mounted) return;
     await Provider.of<LandownerCollection>(context, listen: false).refetch();
     if (!context.mounted) return;
     await Provider.of<AreaCollection>(context, listen: false).refetch();

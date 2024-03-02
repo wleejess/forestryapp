@@ -56,15 +56,16 @@ class DAOArea {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static void saveNewArea(Area area) {
-    DatabaseManager.getInstance().saveNewArea(_getNonIDFields(area));
+  static Future<void> saveNewArea(Area area) async {
+    await DatabaseManager.getInstance().saveNewArea(_getNonIDFields(area));
   }
 
   /// Edit an existing area record alreay on the database.
   ///
   /// Assumes [area.id] is a valid ID for an existing area.
-  static void updateExistingArea(Area area) => DatabaseManager.getInstance()
-      .updateExistingArea([..._getNonIDFields(area), area.id]);
+  static Future<void> updateExistingArea(Area area) async =>
+      await DatabaseManager.getInstance()
+          .updateExistingArea([..._getNonIDFields(area), area.id]);
 
   /// Remove an existing area record from the database.
   ///
