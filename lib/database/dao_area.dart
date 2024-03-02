@@ -58,37 +58,7 @@ class DAOArea {
 
   // Writing to Database ///////////////////////////////////////////////////////
   static void saveNewArea(Area area) {
-    DatabaseManager.getInstance().saveNewArea([
-      (area.landownerID),
-      area.name,
-      area.acres,
-      area.goals,
-      area.elevation,
-      prepareEnumForDBWrite(area.aspect),
-      area.slopePercentage,
-      prepareEnumForDBWrite(area.slopePosition),
-      area.soilInfo,
-      prepareEnumForDBWrite(area.coverType),
-      prepareEnumForDBWrite(area.standStructure),
-      prepareEnumForDBWrite(area.overstoryDensity),
-      area.overstorySpeciesComposition,
-      prepareEnumForDBWrite(area.understoryDensity),
-      area.understorySpeciesComposition,
-      area.standHistory,
-      area.insects,
-      area.diseases,
-      area.invasives,
-      area.wildlifeDamage,
-      prepareEnumForDBWrite(area.mistletoeUniformity),
-      area.mistletoeLocation,
-      prepareEnumForDBWrite(area.hawksworth),
-      area.mistletoeTreeSpecies,
-      area.roadHealth,
-      area.waterHealth,
-      area.fireRisk,
-      area.otherIssues,
-      area.diagnosis
-    ]);
+    DatabaseManager.getInstance().saveNewArea(_getNonIDFields(area));
   }
 
   /// Remove an existing area record from the database.
@@ -108,7 +78,41 @@ class DAOArea {
   }
 
   // Helpers ///////////////////////////////////////////////////////////////////
-  static String? prepareEnumForDBWrite(dynamic enumValue, {String naLabel='N/A'}) {
+
+  static List<dynamic> _getNonIDFields(Area area) => [
+        (area.landownerID),
+        area.name,
+        area.acres,
+        area.goals,
+        area.elevation,
+        prepareEnumForDBWrite(area.aspect),
+        area.slopePercentage,
+        prepareEnumForDBWrite(area.slopePosition),
+        area.soilInfo,
+        prepareEnumForDBWrite(area.coverType),
+        prepareEnumForDBWrite(area.standStructure),
+        prepareEnumForDBWrite(area.overstoryDensity),
+        area.overstorySpeciesComposition,
+        prepareEnumForDBWrite(area.understoryDensity),
+        area.understorySpeciesComposition,
+        area.standHistory,
+        area.insects,
+        area.diseases,
+        area.invasives,
+        area.wildlifeDamage,
+        prepareEnumForDBWrite(area.mistletoeUniformity),
+        area.mistletoeLocation,
+        prepareEnumForDBWrite(area.hawksworth),
+        area.mistletoeTreeSpecies,
+        area.roadHealth,
+        area.waterHealth,
+        area.fireRisk,
+        area.otherIssues,
+        area.diagnosis
+      ];
+
+  static String? prepareEnumForDBWrite(dynamic enumValue,
+      {String naLabel = 'N/A'}) {
     if (enumValue.label == naLabel) return null;
     return enumValue.label;
   }
