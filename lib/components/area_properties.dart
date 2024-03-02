@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/util/validation.dart";
 import "package:provider/provider.dart";
 
 /// Component to list all the properties of an [Area] in a single place for
@@ -47,7 +48,7 @@ class AreaProperties extends StatelessWidget {
           context,
           "Acres",
           _formatDouble(_area.acres),
-          "Please enter an integer for acres."
+          Validation.isValidAcres(_area.acres)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -60,6 +61,7 @@ class AreaProperties extends StatelessWidget {
           context,
           "Elevation",
           _formatInt(_area.elevation, units: _unitElevation),
+          Validation.isInteger(_area.elevation)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -70,6 +72,7 @@ class AreaProperties extends StatelessWidget {
           context,
           "Slope Percentage",
           _formatInt(_area.slopePercentage, units: _unitSlopePercentage),
+          Validation.isValidPercentage(_area.slopePercentage)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -103,6 +106,7 @@ class AreaProperties extends StatelessWidget {
           "Overstory Species Composition",
           _formatInt(_area.overstorySpeciesComposition,
               units: _unitSpeciesComposition),
+          Validation.isValidPercentage(_area.overstorySpeciesComposition)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -114,6 +118,7 @@ class AreaProperties extends StatelessWidget {
           "Understory Species Composition",
           _formatInt(_area.understorySpeciesComposition,
               units: _unitSpeciesComposition),
+          Validation.isValidPercentage(_area.understorySpeciesComposition)
         ),
         _buildAreaPropertyListTile(
           context,
