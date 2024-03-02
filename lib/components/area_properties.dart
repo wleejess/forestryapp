@@ -169,10 +169,8 @@ class AreaProperties extends StatelessWidget {
 
   Widget _buildLandowner(BuildContext context) {
     final landowner =
-        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
-    final String? landownerName = (landowner == null) ? null : landowner.name;
-
-    return _buildAreaPropertyListTile(context, "Landowner", landownerName);
+        Provider.of<LandownerCollection>(context).getByID(_area.landownerID);
+    return _buildAreaPropertyListTile(context, "Landowner", landowner?.name);
   }
 
   String? _formatInt(int? value, {String? units}) =>
