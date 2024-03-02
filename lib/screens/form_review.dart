@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
+import "package:forestryapp/database/dao_area.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
@@ -106,7 +107,7 @@ class FormReview extends StatelessWidget {
     debugPrint('$formArea');
 
     if (formArea.id == null) {
-      debugPrint("TODO: Insert new record into `areas` table.");
+      DAOArea.saveNewArea(formArea);
     } else {
       debugPrint("TODO: Update existing record in `areas` table.");
     }
