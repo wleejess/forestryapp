@@ -48,16 +48,16 @@ class Validation {
     return 'Please enter a whole number.';
   }
 
-  /// Returns an error message if the value is not a double.
-  static String? isDouble(value) {
+  /// Returns an error message if the value is not a positive double.
+  static String? isValidAcres(value) {
     if (value == null || value.isEmpty) {
       return null;
     }
     double? number = double.tryParse(value);
-    if (number != null) {
+    if (number != null && 0 <= number) {
       return null;
     }
-    return 'Please enter a decimal number.';
+    return 'Please enter a positive decimal number.';
   }
 
   /// Returns an error message if the value is not a landowner id. 
