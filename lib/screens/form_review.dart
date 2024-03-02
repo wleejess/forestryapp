@@ -92,13 +92,15 @@ class FormReview extends StatelessWidget {
 
   // Writing To Database ///////////////////////////////////////////////////////
   Future<void> _pressSaveButton(BuildContext context) async {
+    final formArea = Provider.of<Area>(context, listen: false);
+
     // TODO: add condition for validation and return immediately if it fails.
 
     try {
       // If this throws an exception is is likely due to the Area Provider
       // having invalid values that fail the "CHECK" conditions present in
       // "assets/database/schema/areas.sql".
-      await _saveArea(context);
+      await _saveArea(context, formArea);
     } on DatabaseException catch (e) {
       if (!context.mounted) return;
       _alert(
@@ -122,9 +124,7 @@ class FormReview extends StatelessWidget {
     // TODO: Navigate to AreaReview
   }
 
-  Future<void> _saveArea(BuildContext context) async {
-    final formArea = Provider.of<Area>(context, listen: false);
-
+  Future<void> _saveArea(BuildContext context, Area formArea) async {
     debugPrint('$formArea');
 
     if (formArea.id == null) {
