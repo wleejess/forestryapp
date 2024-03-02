@@ -8,6 +8,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:provider/provider.dart";
+import "package:sqflite/sqflite.dart";
 
 /// The FormReview page allows the user to review the data they have
 /// entered into the Area form screens before saving it. Validations errors
@@ -21,6 +22,12 @@ class FormReview extends StatelessWidget {
   static const _buttonTextSave = "Save";
   static const _buttonTextCancel = "Cancel";
   static const _scaffoldMessageSaveSuccess = "Area Saved!";
+
+  static const _defaultAlertButtonText = "OK";
+  static const _failedToSaveAreaTitle = "Database Error";
+  static const _failedToSaveAreaMessage = "Failed To Save Area";
+  static const _consoleSeparator =
+      '--------------------------------------------------------------------------------';
 
   // Constructor ///////////////////////////////////////////////////////////////
   const FormReview({super.key});
@@ -87,7 +94,21 @@ class FormReview extends StatelessWidget {
   Future<void> _pressSaveButton(BuildContext context) async {
     // TODO: add condition for validation and return immediately if it fails.
 
-    await _saveArea(context);
+    try {
+      // If this throws an exception is is likely due to the Area Provider
+      // having invalid values that fail the "CHECK" conditions present in
+      // "assets/database/schema/areas.sql".
+      await _saveArea(context);
+    } on DatabaseException catch (e) {
+      if (!context.mounted) return;
+      _alert(
+        context: context,
+        title: _failedToSaveAreaTitle,
+        message: _failedToSaveAreaMessage,
+        exceptionToPrintToConsole: e,
+      );
+      return;
+    }
 
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -117,5 +138,38 @@ class FormReview extends StatelessWidget {
     if (!context.mounted) return;
     await Provider.of<AreaCollection>(context, listen: false).refetch();
     if (!context.mounted) return;
+  }
+
+  /// Present an AlertDialog to the user.
+  ///
+  /// Displays an AlertDialog with a single button that when clicked makes the
+  /// dialog disappear. Can optionally take [exceptionToPrintToConsole] to print
+  /// its contents to console for debugging purposes.
+  void _alert({
+    required BuildContext context,
+    required String title,
+    required String message,
+    String buttonText = _defaultAlertButtonText,
+    Exception? exceptionToPrintToConsole,
+  }) {
+    // Don't show the exception to the user. It could be quite long and cryptic.
+    // For instance it would include an entire SQLite DDL statement.
+    if (exceptionToPrintToConsole != null) {
+      debugPrint("$_consoleSeparator\n$exceptionToPrintToConsole");
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title),
+        content: SingleChildScrollView(child: Text(message)),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(buttonText),
+          )
+        ],
+      ),
+    );
   }
 }
