@@ -109,7 +109,7 @@ class FormReview extends StatelessWidget {
     if (formArea.id == null) {
       DAOArea.saveNewArea(formArea);
     } else {
-      debugPrint("TODO: Update existing record in `areas` table.");
+      DAOArea.updateExistingArea(formArea);
     }
 
     await Provider.of<LandownerCollection>(context, listen: false).refetch();
