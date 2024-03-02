@@ -17,6 +17,7 @@ class FormReview extends StatelessWidget {
   static const _buttonTextDOCX = "Create DOCX";
   static const _buttonTextSave = "Save";
   static const _buttonTextCancel = "Cancel";
+  static const _scaffoldMessageSaveSuccess = "Area Saved!";
 
   // Constructor ///////////////////////////////////////////////////////////////
   const FormReview({super.key});
@@ -65,7 +66,7 @@ class FormReview extends StatelessWidget {
 
   Widget _buildButtonSave(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () async => await _pressSaveButton(context),
       child: const Text(_buttonTextSave),
     );
   }
@@ -77,6 +78,22 @@ class FormReview extends StatelessWidget {
       },
       child: const Text(_buttonTextCancel),
     );
+  }
+
+  // Writing To Database ///////////////////////////////////////////////////////
+  Future<void> _pressSaveButton(BuildContext context) async {
+    // TODO: add condition for validation and return immediately if it fails.
+
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          _scaffoldMessageSaveSuccess,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+    // TODO: Navigate to AreaReview
   }
 
 }
