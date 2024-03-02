@@ -462,6 +462,59 @@ class Area extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setFromOther(Area that) {
+    _id = that.id;
+
+    _setBasicInfo(
+      landownerID: that._landownerID,
+      name: that._name,
+      acres: that._acres,
+      goals: that._goals,
+    );
+
+    _setSiteCharacteristics(
+      elevation: that._elevation,
+      aspect: that._aspect,
+      slopePercentage: that._slopePercentage,
+      slopePosition: that._slopePosition,
+      soilInfo: that._soilInfo,
+    );
+
+    _setVegetativeConditions(
+      coverType: that._coverType,
+      standStructure: that._standStructure,
+      overstoryDensity: that._overstoryDensity,
+      overstorySpeciesComposition: that._overstorySpeciesComposition,
+      understoryDensity: that._understoryDensity,
+      understorySpeciesComposition: that._understorySpeciesComposition,
+      standHistory: that._standHistory,
+    );
+
+    _setDamages(
+      insects: that._insects,
+      diseases: that._diseases,
+      invasives: that._invasives,
+      wildlifeDamage: that._wildlifeDamage,
+    );
+
+    _setMistletoe(
+      mistletoeUniformity: that._mistletoeUniformity,
+      mistletoeLocation: that._mistletoeLocation,
+      hawksworth: that._hawksworth,
+      mistletoeTreeSpecies: that._mistletoeTreeSpecies,
+    );
+
+    _setFreeResponses(
+      roadHealth: that._roadHealth,
+      waterHealth: that._waterHealth,
+      fireRisk: that._fireRisk,
+      otherIssues: that._otherIssues,
+      diagnosis: that._diagnosis,
+    );
+
+    notifyListeners();
+  }
+
   void _setBasicInfo(
       {int? landownerID, String? name, double? acres, String? goals}) {
     _landownerID = landownerID;

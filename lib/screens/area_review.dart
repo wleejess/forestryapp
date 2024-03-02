@@ -64,7 +64,7 @@ class _AreaReviewState extends State<AreaReview> {
     List<Widget> buttons = [
       _buildButtonPDF(context),
       DOCXButton(area, landownerOfReviewedArea),
-      _buildButtonEdit(context),
+      _buildButtonEdit(context, area),
       _buildButtonDelete(context, area)
     ];
 
@@ -75,7 +75,8 @@ class _AreaReviewState extends State<AreaReview> {
           Expanded(child: AreaProperties(area)),
           LayoutBuilder(
             builder: (context, constraints) {
-              return BottomButtonBuilder().builder(context, constraints, area, buttons);
+              return BottomButtonBuilder()
+                  .builder(context, constraints, area, buttons);
             },
           ),
         ],
@@ -96,14 +97,9 @@ class _AreaReviewState extends State<AreaReview> {
     );
   }
 
-  Widget _buildButtonEdit(BuildContext context) {
+  Widget _buildButtonEdit(BuildContext context, Area area) {
     return OutlinedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BasicInformationForm()),
-        );
-      },
+      onPressed: () => _startFormForExistingArea(context, area),
       child: const Text(AreaReview._buttonTextEdit),
     );
   }
@@ -112,6 +108,17 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () => _deleteArea(context, area),
       child: const Text(AreaReview._buttonTextDelete),
+    );
+  }
+
+  // Edit Logic ////////////////////////////////////////////////////////////////
+  void _startFormForExistingArea(BuildContext context, area) {
+    final formArea = Provider.of<Area>(context, listen: false);
+    formArea.setFromOther(area);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BasicInformationForm()),
     );
   }
 
