@@ -64,24 +64,24 @@ class DAOArea {
       area.acres,
       area.goals,
       area.elevation,
-      area.aspect.label,
+      prepareEnumForDBWrite(area.aspect),
       area.slopePercentage,
-      area.slopePosition.label,
+      prepareEnumForDBWrite(area.slopePosition),
       area.soilInfo,
-      area.coverType.label,
-      area.standStructure.label,
-      area.overstoryDensity.label,
+      prepareEnumForDBWrite(area.coverType),
+      prepareEnumForDBWrite(area.standStructure),
+      prepareEnumForDBWrite(area.overstoryDensity),
       area.overstorySpeciesComposition,
-      area.understoryDensity.label,
+      prepareEnumForDBWrite(area.understoryDensity),
       area.understorySpeciesComposition,
       area.standHistory,
       area.insects,
       area.diseases,
       area.invasives,
       area.wildlifeDamage,
-      area.mistletoeUniformity.label,
+      prepareEnumForDBWrite(area.mistletoeUniformity),
       area.mistletoeLocation,
-      area.hawksworth.label,
+      prepareEnumForDBWrite(area.hawksworth),
       area.mistletoeTreeSpecies,
       area.roadHealth,
       area.waterHealth,
@@ -105,5 +105,11 @@ class DAOArea {
     if (dbRecords.isEmpty) return <Area>[];
 
     return dbRecords.map((Map record) => Area.fromMap(record)).toList();
+  }
+
+  // Helpers ///////////////////////////////////////////////////////////////////
+  static String? prepareEnumForDBWrite(dynamic enumValue, {String naLabel='N/A'}) {
+    if (enumValue.label == naLabel) return null;
+    return enumValue.label;
   }
 }
