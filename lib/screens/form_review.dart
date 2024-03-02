@@ -4,6 +4,8 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
+import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner_collection.dart";
 import "package:provider/provider.dart";
 
 /// The FormReview page allows the user to review the data they have
@@ -84,6 +86,8 @@ class FormReview extends StatelessWidget {
   Future<void> _pressSaveButton(BuildContext context) async {
     // TODO: add condition for validation and return immediately if it fails.
 
+    await _saveArea(context);
+
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -96,4 +100,20 @@ class FormReview extends StatelessWidget {
     // TODO: Navigate to AreaReview
   }
 
+  Future<void> _saveArea(BuildContext context) async {
+    final formArea = Provider.of<Area>(context, listen: false);
+
+    debugPrint('$formArea');
+
+    if (formArea.id == null) {
+      debugPrint("TODO: Insert new record into `areas` table.");
+    } else {
+      debugPrint("TODO: Update existing record in `areas` table.");
+    }
+
+    await Provider.of<LandownerCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+    await Provider.of<AreaCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+  }
 }
