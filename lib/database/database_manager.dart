@@ -227,9 +227,9 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
-  Future<void> saveNewArea(List<dynamic> queryArgs) async {
+  Future<int> saveNewArea(List<dynamic> queryArgs) async {
     return await _db.transaction((transaction) async {
-      await transaction.rawInsert(_sqlSaveNewArea, queryArgs);
+      return await transaction.rawInsert(_sqlSaveNewArea, queryArgs);
     });
   }
 

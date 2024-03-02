@@ -56,8 +56,9 @@ class DAOArea {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static Future<void> saveNewArea(Area area) async {
-    await DatabaseManager.getInstance().saveNewArea(_getNonIDFields(area));
+  static Future<int> saveNewArea(Area area) async {
+    return await DatabaseManager.getInstance()
+        .saveNewArea(_getNonIDFields(area));
   }
 
   /// Edit an existing area record alreay on the database.
