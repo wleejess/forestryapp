@@ -47,4 +47,16 @@ class Validation {
     }
     return 'Please enter a whole number.';
   }
+
+  // Returns an error message the value is not a landowner id. 
+  static String? isLandownerId(value) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    int? number = int.tryParse(value);
+    if (number != null) {
+      return null;
+    }
+    return 'Please select a pre-defined landowner.';
+  }
 }
