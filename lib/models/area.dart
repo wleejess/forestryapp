@@ -443,4 +443,100 @@ class Area extends ChangeNotifier {
     _diagnosis = value;
     notifyListeners();
   }
+
+  // Methods For Preparing For Area For Use In Form ////////////////////////////
+  // Don't use above individual setters because it would be wasteful to call
+  // notify listeners repeatedly when we really only need to call it once.
+
+  void clearForNewForm() {
+    _id = null;
+
+    // Individual Form Screens
+    _setBasicInfo();
+    _setSiteCharacteristics();
+    _setVegetativeConditions();
+    _setDamages();
+    _setMistletoe();
+    _setFreeResponses();
+
+    notifyListeners();
+  }
+
+  void _setBasicInfo(
+      {int? landownerID, String? name, double? acres, String? goals}) {
+    _landownerID = landownerID;
+    _name = name;
+    _acres = acres;
+    _goals = goals;
+  }
+
+  void _setSiteCharacteristics({
+    int? elevation,
+    Direction aspect = Direction.na,
+    int? slopePercentage,
+    SlopePosition slopePosition = SlopePosition.na,
+    String? soilInfo,
+  }) {
+    _elevation = elevation;
+    _aspect = aspect;
+    _slopePercentage = slopePercentage;
+    _slopePosition = slopePosition;
+    _soilInfo = soilInfo;
+  }
+
+  void _setVegetativeConditions({
+    CoverType coverType = CoverType.na,
+    StandStructure standStructure = StandStructure.na,
+    StandDensity overstoryDensity = StandDensity.na,
+    int? overstorySpeciesComposition,
+    StandDensity understoryDensity = StandDensity.na,
+    int? understorySpeciesComposition,
+    String? standHistory,
+  }) {
+    _coverType = coverType;
+    _standStructure = standStructure;
+    _overstoryDensity = overstoryDensity;
+    _overstorySpeciesComposition = overstorySpeciesComposition;
+    _understoryDensity = understoryDensity;
+    _understorySpeciesComposition = understorySpeciesComposition;
+    _standHistory = standHistory;
+  }
+
+  void _setDamages({
+    String? insects,
+    String? diseases,
+    String? invasives,
+    String? wildlifeDamage,
+  }) {
+    _insects = insects;
+    _diseases = diseases;
+    _invasives = invasives;
+    _wildlifeDamage = wildlifeDamage;
+  }
+
+  void _setMistletoe({
+    MistletoeUniformity mistletoeUniformity = MistletoeUniformity.na,
+    String? mistletoeLocation,
+    Hawksworth hawksworth = Hawksworth.na,
+    String? mistletoeTreeSpecies,
+  }) {
+    _mistletoeUniformity = mistletoeUniformity;
+    _mistletoeLocation = mistletoeLocation;
+    _hawksworth = hawksworth;
+    _mistletoeTreeSpecies = mistletoeTreeSpecies;
+  }
+
+  void _setFreeResponses({
+    String? roadHealth,
+    String? waterHealth,
+    String? fireRisk,
+    String? otherIssues,
+    String? diagnosis,
+  }) {
+    _roadHealth = roadHealth;
+    _waterHealth = waterHealth;
+    _fireRisk = fireRisk;
+    _otherIssues = otherIssues;
+    _diagnosis = diagnosis;
+  }
 }
