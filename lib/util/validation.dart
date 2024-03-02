@@ -35,4 +35,16 @@ class Validation {
     }
     return 'Please enter an elevation from -5000 to 50000.';
   }
+
+  // Returns an error message if the value is not an integer.
+  static String? isInteger(value) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    int? number = int.tryParse(value);
+    if (number != null) {
+      return null;
+    }
+    return 'Please enter a whole number.';
+  }
 }
