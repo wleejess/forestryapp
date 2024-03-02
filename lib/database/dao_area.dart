@@ -1,5 +1,4 @@
 import 'package:forestryapp/database/database_manager.dart';
-import 'package:forestryapp/database/dto_area.dart';
 import 'package:forestryapp/models/area.dart';
 
 class DAOArea {
