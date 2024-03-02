@@ -592,4 +592,51 @@ class Area extends ChangeNotifier {
     _otherIssues = otherIssues;
     _diagnosis = diagnosis;
   }
+
+  // Debugging Helpers /////////////////////////////////////////////////////////
+  @override
+  String toString() {
+    // ignore: prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings
+    return "\n_id: $_id" +
+        // Basic Information
+        "\n_landownerID: $_landownerID" +
+        "\n_name: $_name" +
+        "\n_acres: $_acres" +
+        "\n_goals: $_goals" +
+
+        // Site Characteristics
+        "\n_elevation: $_elevation" +
+        "\n_aspect: $_aspect" +
+        "\n_slopePercentage: $_slopePercentage" +
+        "\n_slopePosition: $_slopePosition" +
+        "\n_soilInfo: $_soilInfo" +
+
+        // Vegetative Conditions
+        "\n_coverType: $_coverType" +
+        "\n_standStructure: $_standStructure" +
+        "\n_overstoryDensity: $_overstoryDensity" +
+        "\n_overstorySpeciesComposition: $_overstorySpeciesComposition" +
+        "\n_understoryDensity: $_understoryDensity" +
+        "\n_understorySpeciesComposition: $_understorySpeciesComposition" +
+        "\n_standHistory: $_standHistory" +
+
+        // Damages
+        "\n_insects: $_insects" +
+        "\n_diseases: $_diseases" +
+        "\n_invasives: $_invasives" +
+        "\n_wildlifeDamage: $_wildlifeDamage" +
+
+        // Mistletoe
+        "\n_mistletoeUniformity: $_mistletoeUniformity" +
+        "\n_mistletoeLocation: $_mistletoeLocation" +
+        "\n_hawksworth: $_hawksworth" +
+        "\n_mistletoeTreeSpecies: $_mistletoeTreeSpecies" +
+
+        // Free responses
+        "\n_roadHealth: $_roadHealth" +
+        "\n_waterHealth: $_waterHealth" +
+        "\n_fireRisk: $_fireRisk" +
+        "\n_otherIssues: $_otherIssues" +
+        "\n_diagnosis: $_diagnosis";
+  }
 }
