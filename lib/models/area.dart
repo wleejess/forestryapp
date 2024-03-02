@@ -199,17 +199,17 @@ class Area extends ChangeNotifier {
 
   // Site Characteristics
   int? _elevation;
-  Direction _aspect = Direction.na;
+  Direction _aspect;
   int? _slopePercentage;
   SlopePosition _slopePosition;
   String? _soilInfo;
 
   // Vegetative Conditions
-  CoverType _coverType = CoverType.na;
-  StandStructure _standStructure = StandStructure.na;
+  CoverType _coverType;
+  StandStructure _standStructure;
   StandDensity _overstoryDensity;
   int? _overstorySpeciesComposition;
-  StandDensity _understoryDensity = StandDensity.na;
+  StandDensity _understoryDensity;
   int? _understorySpeciesComposition;
   String? _standHistory;
 
@@ -220,7 +220,7 @@ class Area extends ChangeNotifier {
   String? _wildlifeDamage;
 
   // Mistletoe
-  MistletoeUniformity _mistletoeUniformity = MistletoeUniformity.na;
+  MistletoeUniformity _mistletoeUniformity;
   String? _mistletoeLocation;
   Hawksworth _hawksworth;
   String? _mistletoeTreeSpecies;
