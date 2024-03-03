@@ -30,11 +30,23 @@ class LandownerCollection extends ChangeNotifier {
     notifyListeners();
   }
 
-  Landowner? getByID(int id) {
+  /// Search locally cached landowner models.
+  ///
+  /// Find landowner given its [id]. Return null if [id] is null or if no
+  /// such landowner with given [id] is found.
+  ///
+  /// Purpose is to minimize async code and extra calls to database which would
+  /// involve another conversion from database record to model object. Assumes
+  /// cache kept up to date with calls to refetch() on any database operation.
+  Landowner? getByID(int? id) {
+    if (id == null) return null; // No ID provided, then no landowner returned.
+
     final matches =
         _landowners.where((landowner) => landowner.id == id).toList();
 
-    return (matches.isNotEmpty) ? matches[0] : null;
+    if (matches.isEmpty) null;
+
+    return matches[0];
   }
 
   // Relationship Queries //////////////////////////////////////////////////////
