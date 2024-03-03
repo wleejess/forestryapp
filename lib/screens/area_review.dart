@@ -8,7 +8,6 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_area.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
-import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/basic_information_form.dart";
 import "package:provider/provider.dart";
@@ -58,12 +57,12 @@ class _AreaReviewState extends State<AreaReview> {
   }
 
   ForestryScaffold buildForestryScaffold(Area area) {
-    final Landowner? landownerOfReviewedArea =
-        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
+    final landowner =
+        Provider.of<LandownerCollection>(context).getByID(area.landownerID);
 
     List<Widget> buttons = [
       _buildButtonPDF(context),
-      DOCXButton(area, landownerOfReviewedArea),
+      DOCXButton(area, landowner),
       _buildButtonEdit(context, area),
       _buildButtonDelete(context, area)
     ];
