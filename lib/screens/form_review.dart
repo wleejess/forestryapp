@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
+import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
 import "package:forestryapp/database/dao_area.dart";
-import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
@@ -20,7 +20,6 @@ class FormReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Summary";
   static const _buttonTextPDF = "Create PDF";
-  static const _buttonTextDOCX = "Create DOCX";
   static const _buttonTextSave = "Save";
   static const _buttonTextCancel = "Cancel";
   static const _scaffoldMessageSaveSuccess = "Area Saved!";
@@ -38,9 +37,12 @@ class FormReview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formData = Provider.of<Area>(context);
+    final landowner =
+        Provider.of<LandownerCollection>(context).getByID(formData.landownerID);
+
     List<Widget> buttons = [
       _buildButtonPDF(context),
-      _buildButtonDOCX(context),
+      DOCXButton(formData, landowner),
       _buildButtonSave(context),
       _buildButtonCancel(context)
     ];
@@ -65,14 +67,6 @@ class FormReview extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(_buttonTextPDF),
-    );
-  }
-
-  Widget _buildButtonDOCX(BuildContext context) {
-    final DOCXConverter docxConverter = Provider.of<DOCXConverter>(context);
-    return OutlinedButton(
-      onPressed: () => debugPrint("${docxConverter.contentControlTags}\n"),
-      child: const Text(_buttonTextDOCX),
     );
   }
 
