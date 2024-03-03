@@ -61,8 +61,6 @@ class SaveButton extends StatelessWidget {
   }
 
   Future<void> _saveArea(BuildContext context, Area formArea) async {
-    debugPrint('$formArea');
-
     if (formArea.id == null) {
       formArea.id = await DAOArea.saveNewArea(formArea);
     } else {
