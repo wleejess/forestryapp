@@ -58,17 +58,31 @@ class AreaIndex extends StatelessWidget {
     int i,
     List<Area> areas,
   ) {
-    int? id = areas[i].id;
     return NavigableListTile(
       titleText: (areas[i].name)!,
-      routeBuilder: (context) {
-        if (id == null) {
-          return ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
-        }
-        Provider.of<LandownerCollection>(context, listen: false)
-            .setLandownerOfAreaBeingReviewed(id);
-        return AreaReview(id);
-      },
+      onTap: () async => await _tapOnArea(context, areas[i]),
+    );
+  }
+
+  Future<void> _tapOnArea(BuildContext context, Area area) async {
+    final id = area.id;
+
+    final Widget destination;
+
+    if (id == null) {
+      destination =
+          ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
+    } else {
+      // Fetch landowner of given area.
+      await Provider.of<LandownerCollection>(context, listen: false)
+          .setLandownerOfAreaBeingReviewed(id);
+      if (!context.mounted) return;
+      destination = AreaReview(id);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
     );
   }
 }

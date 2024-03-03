@@ -4,6 +4,7 @@ import "package:forestryapp/components/fab_creation.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
 import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
 import "package:forestryapp/screens/landowner_review.dart";
@@ -53,11 +54,24 @@ class LandownerIndex extends StatelessWidget {
     final String name = landowners[i].name;
     return NavigableListTile(
       titleText: name,
-      routeBuilder: (context) {
-        Provider.of<AreaCollection>(context, listen: false)
-            .setAreasOfLandownerBeingReviewed(landowners[i].id);
-        return LandownerReview(landownerID: landowners[i].id);
-      },
+      onTap: () async => await _tapOnLandowner(context, landowners[i]),
+    );
+  }
+
+  Future<void> _tapOnLandowner(
+    BuildContext context,
+    Landowner landowner,
+  ) async {
+    // Fetch areas of the given landowners.
+    await Provider.of<AreaCollection>(context, listen: false)
+        .setAreasOfLandownerBeingReviewed(landowner.id);
+    if (!context.mounted) return;
+
+    final destination = LandownerReview(landownerID: landowner.id);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
     );
   }
 }

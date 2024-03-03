@@ -2,8 +2,7 @@ import "package:flutter/material.dart";
 
 /// A ListTile for use in the (landowner and area) index screens.
 ///
-/// This widget builds a ListTile that enables the caller to specify a route
-/// building closure for navigation.
+/// This class enables a consistent theming between [ListTiles] the two screens.
 class NavigableListTile extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const double borderWidth = 1;
@@ -11,7 +10,7 @@ class NavigableListTile extends StatelessWidget {
 
   // Instance variables ////////////////////////////////////////////////////////
   final String _titleText;
-  final Widget Function(BuildContext) _routeBuilder;
+  final void Function()? _onTap;
 
   // Constructor ///////////////////////////////////////////////////////////////
   /// Builds a ListTile that when tapped navigates to the specified route.
@@ -19,11 +18,9 @@ class NavigableListTile extends StatelessWidget {
   /// Will display [titleText] on the ListTile and navigate to the widget built
   /// by [routeBuilder].
   const NavigableListTile(
-      {required String titleText,
-      required Widget Function(BuildContext) routeBuilder,
-      super.key})
+      {required String titleText, required void Function()? onTap, super.key})
       : _titleText = titleText,
-        _routeBuilder = routeBuilder;
+        _onTap = onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +31,7 @@ class NavigableListTile extends StatelessWidget {
         side: const BorderSide(width: borderWidth),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: _routeBuilder));
-      },
+      onTap: _onTap,
     );
   }
 }
