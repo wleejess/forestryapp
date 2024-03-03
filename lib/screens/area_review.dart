@@ -2,12 +2,13 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
 import "package:forestryapp/components/db_listenable_builder.dart";
+import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_area.dart";
-import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
+import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/basic_information_form.dart";
 import "package:provider/provider.dart";
@@ -19,7 +20,6 @@ class AreaReview extends StatefulWidget {
   static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
   static const _buttonTextPDF = "Create PDF";
-  static const _buttonTextDOCX = "Create DOCX";
   static const _buttonTextEdit = "Edit";
   static const _buttonTextDelete = "Delete";
 
@@ -58,9 +58,12 @@ class _AreaReviewState extends State<AreaReview> {
   }
 
   ForestryScaffold buildForestryScaffold(Area area) {
+    final Landowner? landownerOfReviewedArea =
+        Provider.of<LandownerCollection>(context).landownerOfReviewedArea;
+
     List<Widget> buttons = [
       _buildButtonPDF(context),
-      _buildButtonDOCX(context),
+      DOCXButton(area, landownerOfReviewedArea),
       _buildButtonEdit(context),
       _buildButtonDelete(context, area)
     ];
@@ -90,14 +93,6 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(AreaReview._buttonTextPDF),
-    );
-  }
-
-  Widget _buildButtonDOCX(BuildContext context) {
-    final DOCXConverter docxConverter = Provider.of<DOCXConverter>(context);
-    return OutlinedButton(
-      onPressed: () => debugPrint("${docxConverter.contentControlTags}\n"),
-      child: const Text(AreaReview._buttonTextDOCX),
     );
   }
 
