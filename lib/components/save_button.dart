@@ -10,7 +10,7 @@ import "package:sqflite/sqflite.dart";
 
 class SaveButton extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
-  static const _buttonTextSave = "Save";
+  static const _buttonTextSave = Text("Save");
   static const _scaffoldMessageSaveSuccess = "Area Saved!";
   static const _defaultAlertButtonText = "OK";
   static const _failedToSaveAreaTitle = "Database Error";
@@ -25,7 +25,7 @@ class SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () async => await _pressSaveButton(context),
-      child: const Text(_buttonTextSave),
+      child: _buttonTextSave,
     );
   }
 
