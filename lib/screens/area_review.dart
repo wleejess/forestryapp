@@ -3,13 +3,13 @@ import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
 import "package:forestryapp/components/db_listenable_builder.dart";
 import "package:forestryapp/components/docx_button.dart";
+import "package:forestryapp/components/edit_button.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_area.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
-import "package:forestryapp/screens/basic_information_form.dart";
 import "package:provider/provider.dart";
 
 class AreaReview extends StatefulWidget {
@@ -19,7 +19,6 @@ class AreaReview extends StatefulWidget {
   static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
   static const _buttonTextPDF = "Create PDF";
-  static const _buttonTextEdit = "Edit";
   static const _buttonTextDelete = "Delete";
 
   // Instance variables ////////////////////////////////////////////////////////
@@ -63,7 +62,7 @@ class _AreaReviewState extends State<AreaReview> {
     List<Widget> buttons = [
       _buildButtonPDF(context),
       DOCXButton(area, landowner),
-      _buildButtonEdit(context, area),
+      EditButton(area),
       _buildButtonDelete(context, area)
     ];
 
@@ -96,28 +95,10 @@ class _AreaReviewState extends State<AreaReview> {
     );
   }
 
-  Widget _buildButtonEdit(BuildContext context, Area area) {
-    return OutlinedButton(
-      onPressed: () => _startFormForExistingArea(context, area),
-      child: const Text(AreaReview._buttonTextEdit),
-    );
-  }
-
   Widget _buildButtonDelete(BuildContext context, Area area) {
     return OutlinedButton(
       onPressed: () => _deleteArea(context, area),
       child: const Text(AreaReview._buttonTextDelete),
-    );
-  }
-
-  // Edit Logic ////////////////////////////////////////////////////////////////
-  void _startFormForExistingArea(BuildContext context, area) {
-    final formArea = Provider.of<Area>(context, listen: false);
-    formArea.setFromOther(area);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BasicInformationForm()),
     );
   }
 
