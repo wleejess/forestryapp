@@ -6,6 +6,7 @@ import 'package:forestryapp/screens/fire_risk_form.dart';
 import 'package:forestryapp/screens/form_review.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class OtherIssuesForm extends StatelessWidget {
   static const _title = "Other Issues";
@@ -22,7 +23,8 @@ class OtherIssuesForm extends StatelessWidget {
         title: OtherIssuesForm._title,
         body: FormScaffold(
           prevPage: const FireRiskForm(),
-          nextPage: const FormReview(), // TODO: Send this to the Diagnosis page when implemented
+          nextPage:
+              const FormReview(), // TODO: Send this to the Diagnosis page when implemented
           child: _buildDescription(context),
         ));
   }
@@ -30,6 +32,7 @@ class OtherIssuesForm extends StatelessWidget {
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
     final otherIssuesData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return FreeTextBox(
         labelText: OtherIssuesForm._title,
@@ -37,6 +40,7 @@ class OtherIssuesForm extends StatelessWidget {
         initialValue: otherIssuesData.otherIssues,
         onChanged: (text) {
           otherIssuesData.otherIssues = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }

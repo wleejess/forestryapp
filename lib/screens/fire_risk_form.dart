@@ -6,6 +6,7 @@ import 'package:forestryapp/screens/other_issues_form.dart';
 import 'package:forestryapp/screens/water_issues_form.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class FireRiskForm extends StatelessWidget {
   static const _title = "Fire Risk";
@@ -32,6 +33,7 @@ class FireRiskForm extends StatelessWidget {
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
     final fireRiskData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return FreeTextBox(
         labelText: FireRiskForm._title,
@@ -39,6 +41,7 @@ class FireRiskForm extends StatelessWidget {
         initialValue: fireRiskData.fireRisk,
         onChanged: (text) {
           fireRiskData.fireRisk = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }
