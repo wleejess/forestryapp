@@ -47,8 +47,7 @@ class AreaProperties extends StatelessWidget {
         _buildAreaPropertyListTile(
           context,
           "Acres",
-          _formatDouble(_area.acres),
-          Validation.isValidAcres(_area.acres)
+          _formatDouble(_area.acres)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -60,8 +59,7 @@ class AreaProperties extends StatelessWidget {
         _buildAreaPropertyListTile(
           context,
           "Elevation",
-          _formatInt(_area.elevation, units: _unitElevation),
-          Validation.isInteger(_area.elevation)
+          _formatInt(_area.elevation, units: _unitElevation)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -71,8 +69,7 @@ class AreaProperties extends StatelessWidget {
         _buildAreaPropertyListTile(
           context,
           "Slope Percentage",
-          _formatInt(_area.slopePercentage, units: _unitSlopePercentage),
-          Validation.isValidPercentage(_area.slopePercentage)
+          _formatInt(_area.slopePercentage, units: _unitSlopePercentage)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -105,8 +102,7 @@ class AreaProperties extends StatelessWidget {
           context,
           "Overstory Species Composition",
           _formatInt(_area.overstorySpeciesComposition,
-              units: _unitSpeciesComposition),
-          Validation.isValidPercentage(_area.overstorySpeciesComposition)
+              units: _unitSpeciesComposition)
         ),
         _buildAreaPropertyListTile(
           context,
@@ -117,8 +113,7 @@ class AreaProperties extends StatelessWidget {
           context,
           "Understory Species Composition",
           _formatInt(_area.understorySpeciesComposition,
-              units: _unitSpeciesComposition),
-          Validation.isValidPercentage(_area.understorySpeciesComposition)
+              units: _unitSpeciesComposition)
         ),
         _buildAreaPropertyListTile(
           context,
