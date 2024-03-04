@@ -199,17 +199,17 @@ class Area extends ChangeNotifier {
 
   // Site Characteristics
   int? _elevation;
-  Direction _aspect = Direction.na;
+  Direction _aspect;
   int? _slopePercentage;
   SlopePosition _slopePosition;
   String? _soilInfo;
 
   // Vegetative Conditions
-  CoverType _coverType = CoverType.na;
-  StandStructure _standStructure = StandStructure.na;
+  CoverType _coverType;
+  StandStructure _standStructure;
   StandDensity _overstoryDensity;
   int? _overstorySpeciesComposition;
-  StandDensity _understoryDensity = StandDensity.na;
+  StandDensity _understoryDensity;
   int? _understorySpeciesComposition;
   String? _standHistory;
 
@@ -220,7 +220,7 @@ class Area extends ChangeNotifier {
   String? _wildlifeDamage;
 
   // Mistletoe
-  MistletoeUniformity _mistletoeUniformity = MistletoeUniformity.na;
+  MistletoeUniformity _mistletoeUniformity;
   String? _mistletoeLocation;
   Hawksworth _hawksworth;
   String? _mistletoeTreeSpecies;
@@ -442,5 +442,201 @@ class Area extends ChangeNotifier {
   set diagnosis(String? value) {
     _diagnosis = value;
     notifyListeners();
+  }
+
+  // Methods For Preparing For Area For Use In Form ////////////////////////////
+  // Don't use above individual setters because it would be wasteful to call
+  // notify listeners repeatedly when we really only need to call it once.
+
+  void clearForNewForm() {
+    _id = null;
+
+    // Individual Form Screens
+    _setBasicInfo();
+    _setSiteCharacteristics();
+    _setVegetativeConditions();
+    _setDamages();
+    _setMistletoe();
+    _setFreeResponses();
+
+    notifyListeners();
+  }
+
+  void setFromOther(Area that) {
+    _id = that.id;
+
+    _setBasicInfo(
+      landownerID: that._landownerID,
+      name: that._name,
+      acres: that._acres,
+      goals: that._goals,
+    );
+
+    _setSiteCharacteristics(
+      elevation: that._elevation,
+      aspect: that._aspect,
+      slopePercentage: that._slopePercentage,
+      slopePosition: that._slopePosition,
+      soilInfo: that._soilInfo,
+    );
+
+    _setVegetativeConditions(
+      coverType: that._coverType,
+      standStructure: that._standStructure,
+      overstoryDensity: that._overstoryDensity,
+      overstorySpeciesComposition: that._overstorySpeciesComposition,
+      understoryDensity: that._understoryDensity,
+      understorySpeciesComposition: that._understorySpeciesComposition,
+      standHistory: that._standHistory,
+    );
+
+    _setDamages(
+      insects: that._insects,
+      diseases: that._diseases,
+      invasives: that._invasives,
+      wildlifeDamage: that._wildlifeDamage,
+    );
+
+    _setMistletoe(
+      mistletoeUniformity: that._mistletoeUniformity,
+      mistletoeLocation: that._mistletoeLocation,
+      hawksworth: that._hawksworth,
+      mistletoeTreeSpecies: that._mistletoeTreeSpecies,
+    );
+
+    _setFreeResponses(
+      roadHealth: that._roadHealth,
+      waterHealth: that._waterHealth,
+      fireRisk: that._fireRisk,
+      otherIssues: that._otherIssues,
+      diagnosis: that._diagnosis,
+    );
+
+    notifyListeners();
+  }
+
+  void _setBasicInfo(
+      {int? landownerID, String? name, double? acres, String? goals}) {
+    _landownerID = landownerID;
+    _name = name;
+    _acres = acres;
+    _goals = goals;
+  }
+
+  void _setSiteCharacteristics({
+    int? elevation,
+    Direction aspect = Direction.na,
+    int? slopePercentage,
+    SlopePosition slopePosition = SlopePosition.na,
+    String? soilInfo,
+  }) {
+    _elevation = elevation;
+    _aspect = aspect;
+    _slopePercentage = slopePercentage;
+    _slopePosition = slopePosition;
+    _soilInfo = soilInfo;
+  }
+
+  void _setVegetativeConditions({
+    CoverType coverType = CoverType.na,
+    StandStructure standStructure = StandStructure.na,
+    StandDensity overstoryDensity = StandDensity.na,
+    int? overstorySpeciesComposition,
+    StandDensity understoryDensity = StandDensity.na,
+    int? understorySpeciesComposition,
+    String? standHistory,
+  }) {
+    _coverType = coverType;
+    _standStructure = standStructure;
+    _overstoryDensity = overstoryDensity;
+    _overstorySpeciesComposition = overstorySpeciesComposition;
+    _understoryDensity = understoryDensity;
+    _understorySpeciesComposition = understorySpeciesComposition;
+    _standHistory = standHistory;
+  }
+
+  void _setDamages({
+    String? insects,
+    String? diseases,
+    String? invasives,
+    String? wildlifeDamage,
+  }) {
+    _insects = insects;
+    _diseases = diseases;
+    _invasives = invasives;
+    _wildlifeDamage = wildlifeDamage;
+  }
+
+  void _setMistletoe({
+    MistletoeUniformity mistletoeUniformity = MistletoeUniformity.na,
+    String? mistletoeLocation,
+    Hawksworth hawksworth = Hawksworth.na,
+    String? mistletoeTreeSpecies,
+  }) {
+    _mistletoeUniformity = mistletoeUniformity;
+    _mistletoeLocation = mistletoeLocation;
+    _hawksworth = hawksworth;
+    _mistletoeTreeSpecies = mistletoeTreeSpecies;
+  }
+
+  void _setFreeResponses({
+    String? roadHealth,
+    String? waterHealth,
+    String? fireRisk,
+    String? otherIssues,
+    String? diagnosis,
+  }) {
+    _roadHealth = roadHealth;
+    _waterHealth = waterHealth;
+    _fireRisk = fireRisk;
+    _otherIssues = otherIssues;
+    _diagnosis = diagnosis;
+  }
+
+  // Debugging Helpers /////////////////////////////////////////////////////////
+  @override
+  String toString() {
+    // ignore: prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings
+    return "\n_id: $_id" +
+        // Basic Information
+        "\n_landownerID: $_landownerID" +
+        "\n_name: $_name" +
+        "\n_acres: $_acres" +
+        "\n_goals: $_goals" +
+
+        // Site Characteristics
+        "\n_elevation: $_elevation" +
+        "\n_aspect: $_aspect" +
+        "\n_slopePercentage: $_slopePercentage" +
+        "\n_slopePosition: $_slopePosition" +
+        "\n_soilInfo: $_soilInfo" +
+
+        // Vegetative Conditions
+        "\n_coverType: $_coverType" +
+        "\n_standStructure: $_standStructure" +
+        "\n_overstoryDensity: $_overstoryDensity" +
+        "\n_overstorySpeciesComposition: $_overstorySpeciesComposition" +
+        "\n_understoryDensity: $_understoryDensity" +
+        "\n_understorySpeciesComposition: $_understorySpeciesComposition" +
+        "\n_standHistory: $_standHistory" +
+
+        // Damages
+        "\n_insects: $_insects" +
+        "\n_diseases: $_diseases" +
+        "\n_invasives: $_invasives" +
+        "\n_wildlifeDamage: $_wildlifeDamage" +
+
+        // Mistletoe
+        "\n_mistletoeUniformity: $_mistletoeUniformity" +
+        "\n_mistletoeLocation: $_mistletoeLocation" +
+        "\n_hawksworth: $_hawksworth" +
+        "\n_mistletoeTreeSpecies: $_mistletoeTreeSpecies" +
+
+        // Free responses
+        "\n_roadHealth: $_roadHealth" +
+        "\n_waterHealth: $_waterHealth" +
+        "\n_fireRisk: $_fireRisk" +
+        "\n_otherIssues: $_otherIssues" +
+        "\n_diagnosis: $_diagnosis";
   }
 }

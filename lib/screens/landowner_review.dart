@@ -189,15 +189,20 @@ class LandownerReview extends StatelessWidget {
     return Container(
       alignment: Alignment.centerRight,
       child: OutlinedButton(
-        onPressed: () {
-          // TODO: Clear the Area provider and set the landowner id to current landowner
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => BasicInformationForm()),
-          );
-        },
+        onPressed: () => _startFormForNewAreaWithCurrentLandowner(context),
         child: const Text(_buttonLabelNewArea),
       ),
+    );
+  }
+
+  void _startFormForNewAreaWithCurrentLandowner(BuildContext context) {
+    final formArea = Provider.of<Area>(context, listen: false);
+    formArea.clearForNewForm();
+    formArea.landownerID = _landownerID;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BasicInformationForm()),
     );
   }
 

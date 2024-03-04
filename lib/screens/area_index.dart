@@ -36,12 +36,10 @@ class AreaIndex extends StatelessWidget {
         builder: (BuildContext _, Widget? __) =>
             _buildListViewOfAllAreasFromDB(areasListenable.areas),
       ),
-      fab: FABCreation(icon: Icons.forest, onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BasicInformationForm()),
-        );
-      }),
+      fab: FABCreation(
+        icon: Icons.forest,
+        onPressed: () => _startFormForNewArea(context),
+      ),
     );
   }
 
@@ -83,6 +81,16 @@ class AreaIndex extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => destination),
+    );
+  }
+
+  // Area Creation /////////////////////////////////////////////////////////////
+  void _startFormForNewArea(BuildContext context)  {
+    Provider.of<Area>(context, listen: false).clearForNewForm();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BasicInformationForm()),
     );
   }
 }
