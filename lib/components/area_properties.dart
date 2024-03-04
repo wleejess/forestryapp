@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner_collection.dart";
-import "package:forestryapp/util/validation.dart";
 import "package:provider/provider.dart";
 
 /// Component to list all the properties of an [Area] in a single place for
@@ -177,7 +176,12 @@ class AreaProperties extends StatelessWidget {
   Widget _buildLandowner(BuildContext context) {
     final landowner =
         Provider.of<LandownerCollection>(context).getByID(_area.landownerID);
-    return _buildAreaPropertyListTile(context, "Landowner", landowner?.name);
+
+    // Validation error: No landowner selected
+    if (_area.landownerID != null) {
+      return _buildAreaPropertyListTile(context, "Landowner", landowner?.name);
+    }    
+    return _buildAreaPropertyListTile(context, "Landowner", landowner?.name, "Please select a Landowner.");
   }
 
   String? _formatInt(int? value, {String? units}) =>
@@ -196,6 +200,8 @@ class AreaProperties extends StatelessWidget {
     return "$value$unitSuffix";
   }
 
+  /// To display a validation error under the property, 
+  /// add the optional String parameter errorMessage.
   Widget _buildAreaPropertyListTile(
     BuildContext context,
     String propertyLabel,
