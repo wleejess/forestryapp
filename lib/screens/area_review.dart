@@ -2,10 +2,11 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
 import "package:forestryapp/components/db_listenable_builder.dart";
+import "package:forestryapp/components/docx_button.dart";
+import "package:forestryapp/components/edit_button.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/database/dao_area.dart";
-import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
@@ -18,8 +19,6 @@ class AreaReview extends StatefulWidget {
   static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
   static const _buttonTextPDF = "Create PDF";
-  static const _buttonTextDOCX = "Create DOCX";
-  static const _buttonTextEdit = "Edit";
   static const _buttonTextDelete = "Delete";
 
   // Instance variables ////////////////////////////////////////////////////////
@@ -57,10 +56,13 @@ class _AreaReviewState extends State<AreaReview> {
   }
 
   ForestryScaffold buildForestryScaffold(Area area) {
+    final landowner =
+        Provider.of<LandownerCollection>(context).getByID(area.landownerID);
+
     List<Widget> buttons = [
       _buildButtonPDF(context),
-      _buildButtonDOCX(context),
-      _buildButtonEdit(context),
+      DOCXButton(area, landowner),
+      EditButton(area),
       _buildButtonDelete(context, area)
     ];
 
@@ -71,7 +73,8 @@ class _AreaReviewState extends State<AreaReview> {
           Expanded(child: AreaProperties(area)),
           LayoutBuilder(
             builder: (context, constraints) {
-              return BottomButtonBuilder().builder(context, constraints, area, buttons);
+              return BottomButtonBuilder()
+                  .builder(context, constraints, area, buttons);
             },
           ),
         ],
@@ -89,21 +92,6 @@ class _AreaReviewState extends State<AreaReview> {
     return OutlinedButton(
       onPressed: () {},
       child: const Text(AreaReview._buttonTextPDF),
-    );
-  }
-
-  Widget _buildButtonDOCX(BuildContext context) {
-    final DOCXConverter docxConverter = Provider.of<DOCXConverter>(context);
-    return OutlinedButton(
-      onPressed: () => debugPrint("${docxConverter.contentControlTags}\n"),
-      child: const Text(AreaReview._buttonTextDOCX),
-    );
-  }
-
-  Widget _buildButtonEdit(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(AreaReview._buttonTextEdit),
     );
   }
 

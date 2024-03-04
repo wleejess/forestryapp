@@ -3,6 +3,8 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/models/area.dart";
+import "package:forestryapp/screens/invasive_form.dart";
+import "package:forestryapp/screens/vegetative_conditions_form.dart";
 import "package:provider/provider.dart";
 
 class InsectsForm extends StatelessWidget {
@@ -25,14 +27,17 @@ class InsectsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-        title: InsectsForm._title,
-        body: FormScaffold(
-            child: Column(
+      showFormLinks: true,
+      title: InsectsForm._title,
+      body: FormScaffold(
+        prevPage: VegetativeConditionsForm(),
+        nextPage: const InvasiveForm(),
+        child: Column(
           children: <Widget>[
             _buildInsectsInput(context),
             _buildDiseasesInput(context)
           ],
-        )));
+      )));
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////

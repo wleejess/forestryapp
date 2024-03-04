@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
+import 'package:forestryapp/screens/fire_risk_form.dart';
+import 'package:forestryapp/screens/road_health_form.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 
@@ -18,8 +20,11 @@ class WaterIssuesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: WaterIssuesForm._title,
         body: FormScaffold(
+          prevPage: const RoadHealthForm(),
+          nextPage: const FireRiskForm(),
           child: _buildDescription(context),
         ));
   }

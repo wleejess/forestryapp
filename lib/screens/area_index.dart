@@ -8,6 +8,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
+import "package:forestryapp/screens/basic_information_form.dart";
 import "package:provider/provider.dart";
 
 /// Screen for showing saved areas from the navigation drawer.
@@ -35,7 +36,10 @@ class AreaIndex extends StatelessWidget {
         builder: (BuildContext _, Widget? __) =>
             _buildListViewOfAllAreasFromDB(areasListenable.areas),
       ),
-      fab: FABCreation(icon: Icons.forest, onPressed: () {}),
+      fab: FABCreation(
+        icon: Icons.forest,
+        onPressed: () => _startFormForNewArea(context),
+      ),
     );
   }
 
@@ -52,17 +56,41 @@ class AreaIndex extends StatelessWidget {
     int i,
     List<Area> areas,
   ) {
-    int? id = areas[i].id;
     return NavigableListTile(
       titleText: (areas[i].name)!,
-      routeBuilder: (context) {
-        if (id == null) {
-          return ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
-        }
-        Provider.of<LandownerCollection>(context, listen: false)
-            .setLandownerOfAreaBeingReviewed(id);
-        return AreaReview(id);
-      },
+      onTap: () async => await _tapOnArea(context, areas[i]),
+    );
+  }
+
+  Future<void> _tapOnArea(BuildContext context, Area area) async {
+    final id = area.id;
+
+    final Widget destination;
+
+    if (id == null) {
+      destination =
+          ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
+    } else {
+      // Fetch landowner of given area.
+      await Provider.of<LandownerCollection>(context, listen: false)
+          .setLandownerOfAreaBeingReviewed(id);
+      if (!context.mounted) return;
+      destination = AreaReview(id);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
+  }
+
+  // Area Creation /////////////////////////////////////////////////////////////
+  void _startFormForNewArea(BuildContext context)  {
+    Provider.of<Area>(context, listen: false).clearForNewForm();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BasicInformationForm()),
     );
   }
 }

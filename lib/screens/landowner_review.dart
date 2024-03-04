@@ -9,6 +9,7 @@ import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
+import "package:forestryapp/screens/basic_information_form.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
 import "package:provider/provider.dart";
 
@@ -188,9 +189,20 @@ class LandownerReview extends StatelessWidget {
     return Container(
       alignment: Alignment.centerRight,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: () => _startFormForNewAreaWithCurrentLandowner(context),
         child: const Text(_buttonLabelNewArea),
       ),
+    );
+  }
+
+  void _startFormForNewAreaWithCurrentLandowner(BuildContext context) {
+    final formArea = Provider.of<Area>(context, listen: false);
+    formArea.clearForNewForm();
+    formArea.landownerID = _landownerID;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BasicInformationForm()),
     );
   }
 

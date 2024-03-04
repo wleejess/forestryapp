@@ -1,5 +1,4 @@
 import 'package:forestryapp/database/database_manager.dart';
-import 'package:forestryapp/database/dto_area.dart';
 import 'package:forestryapp/models/area.dart';
 
 class DAOArea {
@@ -57,39 +56,17 @@ class DAOArea {
   }
 
   // Writing to Database ///////////////////////////////////////////////////////
-  static void saveNewArea(DTOArea dto) {
-    DatabaseManager.getInstance().saveNewArea([
-      (dto.landownerID),
-      dto.name,
-      dto.acres,
-      dto.goals,
-      dto.elevation,
-      dto.direction.label,
-      dto.slopePercentage,
-      dto.slopePosition.label,
-      dto.soilInfo,
-      dto.coverType.label,
-      dto.standStructure.label,
-      dto.overstoryDensity.label,
-      dto.overstorySpeciesComposition,
-      dto.understoryDensity.label,
-      dto.understorySpeciesComposition,
-      dto.standHistory,
-      dto.insects,
-      dto.diseases,
-      dto.invasives,
-      dto.wildlifeDamage,
-      dto.mistletoeUniformity.label,
-      dto.mistletoeLocation,
-      dto.hawksworth.label,
-      dto.mistletoeTreeSpecies,
-      dto.roadHealth,
-      dto.waterHealth,
-      dto.fireRisk,
-      dto.otherIssues,
-      dto.diagnosis
-    ]);
+  static Future<int> saveNewArea(Area area) async {
+    return await DatabaseManager.getInstance()
+        .saveNewArea(_getNonIDFields(area));
   }
+
+  /// Edit an existing area record alreay on the database.
+  ///
+  /// Assumes [area.id] is a valid ID for an existing area.
+  static Future<void> updateExistingArea(Area area) async =>
+      await DatabaseManager.getInstance()
+          .updateExistingArea([..._getNonIDFields(area), area.id]);
 
   /// Remove an existing area record from the database.
   ///
@@ -105,5 +82,45 @@ class DAOArea {
     if (dbRecords.isEmpty) return <Area>[];
 
     return dbRecords.map((Map record) => Area.fromMap(record)).toList();
+  }
+
+  // Helpers ///////////////////////////////////////////////////////////////////
+
+  static List<dynamic> _getNonIDFields(Area area) => [
+        (area.landownerID),
+        area.name,
+        area.acres,
+        area.goals,
+        area.elevation,
+        prepareEnumForDBWrite(area.aspect),
+        area.slopePercentage,
+        prepareEnumForDBWrite(area.slopePosition),
+        area.soilInfo,
+        prepareEnumForDBWrite(area.coverType),
+        prepareEnumForDBWrite(area.standStructure),
+        prepareEnumForDBWrite(area.overstoryDensity),
+        area.overstorySpeciesComposition,
+        prepareEnumForDBWrite(area.understoryDensity),
+        area.understorySpeciesComposition,
+        area.standHistory,
+        area.insects,
+        area.diseases,
+        area.invasives,
+        area.wildlifeDamage,
+        prepareEnumForDBWrite(area.mistletoeUniformity),
+        area.mistletoeLocation,
+        prepareEnumForDBWrite(area.hawksworth),
+        area.mistletoeTreeSpecies,
+        area.roadHealth,
+        area.waterHealth,
+        area.fireRisk,
+        area.otherIssues,
+        area.diagnosis
+      ];
+
+  static String? prepareEnumForDBWrite(dynamic enumValue,
+      {String naLabel = 'N/A'}) {
+    if (enumValue.label == naLabel) return null;
+    return enumValue.label;
   }
 }

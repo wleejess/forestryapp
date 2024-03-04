@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/components/forestry_scaffold.dart';
 import 'package:forestryapp/components/form_scaffold.dart';
 import 'package:forestryapp/components/free_text.dart';
+import 'package:forestryapp/screens/fire_risk_form.dart';
+import 'package:forestryapp/screens/form_review.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 
@@ -16,8 +18,11 @@ class OtherIssuesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
+        showFormLinks: true,
         title: OtherIssuesForm._title,
         body: FormScaffold(
+          prevPage: const FireRiskForm(),
+          nextPage: const FormReview(), // TODO: Send this to the Diagnosis page when implemented
           child: _buildDescription(context),
         ));
   }
