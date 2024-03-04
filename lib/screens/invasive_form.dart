@@ -5,6 +5,8 @@ import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/screens/insects_form.dart";
 import "package:forestryapp/screens/mistletoe_form.dart";
+import 'package:forestryapp/components/unsaved_changes.dart';
+
 import "package:provider/provider.dart";
 
 class InvasiveForm extends StatelessWidget {
@@ -31,37 +33,43 @@ class InvasiveForm extends StatelessWidget {
         showFormLinks: true,
         title: InvasiveForm._title,
         body: FormScaffold(
-          prevPage: const InsectsForm(),
-          nextPage: const MistletoeForm(),
-          child: Column(
-            children: <Widget>[
-              _buildInvasiveInput(context),
-              _buildWildlifeInput(context),
-            ],
-        )));
+            prevPage: const InsectsForm(),
+            nextPage: const MistletoeForm(),
+            child: Column(
+              children: <Widget>[
+                _buildInvasiveInput(context),
+                _buildWildlifeInput(context),
+              ],
+            )));
   }
 
   /// Builds a text input field about invasive plants and animals in the area.
   Widget _buildInvasiveInput(BuildContext context) {
     final invasiveData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: InvasiveForm._invasiveHeading,
         helperText: InvasiveForm._invasiveDescription,
         initialValue: invasiveData.invasives,
         onChanged: (text) {
           invasiveData.invasives = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 
   /// Builds a text input field about wildlife damage in the area.
   Widget _buildWildlifeInput(BuildContext context) {
     final invasiveData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: InvasiveForm._wildlifeHeading,
         helperText: InvasiveForm._wildlifeDescription,
         initialValue: invasiveData.wildlifeDamage,
         onChanged: (text) {
           invasiveData.wildlifeDamage = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }

@@ -10,6 +10,7 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/form_scaffold.dart";
 import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class BasicInformationForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -39,23 +40,24 @@ class BasicInformationForm extends StatelessWidget {
         showFormLinks: true,
         title: BasicInformationForm._title,
         body: FormScaffold(
-          nextPage: SiteCharacteristicsForm(),
-          child: Form(
-            key: _formKey,
-            child: Wrap(
-              children: <Widget>[
-                _buildNameInput(context),
-                _buildAcresInput(context),
-                _buildLandownerInput(context),
-                _buildGoalsInput(context),
-              ],
-            ),
-        )));
+            nextPage: SiteCharacteristicsForm(),
+            child: Form(
+              key: _formKey,
+              child: Wrap(
+                children: <Widget>[
+                  _buildNameInput(context),
+                  _buildAcresInput(context),
+                  _buildLandownerInput(context),
+                  _buildGoalsInput(context),
+                ],
+              ),
+            )));
   }
 
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
     final basicInfoData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return PortraitHandlingSizedBox(
       child: TextFormField(
@@ -67,6 +69,7 @@ class BasicInformationForm extends StatelessWidget {
         onChanged: (text) {
           if (_formKey.currentState!.validate()) {
             basicInfoData.name = text;
+            unsavedChangesNotifier.setUnsavedChanges(true);
           }
         },
         validator: Validation.isNotEmpty,
@@ -77,6 +80,7 @@ class BasicInformationForm extends StatelessWidget {
   /// Builds a numeric input field to enter the acres for the area.
   Widget _buildAcresInput(BuildContext context) {
     final basicInfoData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return PortraitHandlingSizedBox(
       child: TextFormField(
@@ -94,6 +98,7 @@ class BasicInformationForm extends StatelessWidget {
         onChanged: (text) {
           if (text.isNotEmpty) {
             basicInfoData.acres = double.tryParse(text);
+            unsavedChangesNotifier.setUnsavedChanges(true);
           } else {
             basicInfoData.acres = null;
           }
@@ -155,6 +160,7 @@ class BasicInformationForm extends StatelessWidget {
   /// Builds a text input field to enter the landowner's goals for the area.
   Widget _buildGoalsInput(BuildContext context) {
     final basicInfoData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return FreeTextBox(
         labelText: BasicInformationForm._goalsHeading,
@@ -162,6 +168,7 @@ class BasicInformationForm extends StatelessWidget {
         initialValue: basicInfoData.goals,
         onChanged: (text) {
           basicInfoData.goals = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }
