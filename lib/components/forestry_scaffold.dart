@@ -14,6 +14,7 @@ import 'package:forestryapp/screens/road_health_form.dart';
 import 'package:forestryapp/screens/water_issues_form.dart';
 import 'package:forestryapp/screens/fire_risk_form.dart';
 import 'package:forestryapp/screens/other_issues_form.dart';
+import 'package:forestryapp/screens/diagnosis_form.dart';
 import 'package:provider/provider.dart';
 
 /// A component to ensure common high level layout across screens of the app.
@@ -120,8 +121,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => VegetativeConditionsForm()),
+            MaterialPageRoute(builder: (context) => VegetativeConditionsForm()),
           );
         },
       ),
@@ -139,8 +139,8 @@ class ForestryScaffold extends StatelessWidget {
         title: const Text('Invasive & Wildlife'),
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const InvasiveForm()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const InvasiveForm()));
         },
       ),
       ListTile(
@@ -194,6 +194,16 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
       ListTile(
+        title: const Text('Diagnosis & Suggestions'),
+        leading: const Icon(Icons.lightbulb_outline_rounded),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DiagnosisForm()),
+          );
+        },
+      ),
+      ListTile(
         title: const Text('Summary'),
         leading: const Icon(Icons.fact_check),
         onTap: () {
@@ -208,7 +218,7 @@ class ForestryScaffold extends StatelessWidget {
     if (_showFormLinks) {
       mainLinks.addAll(areaFormLinks);
     }
-    
+
     return mainLinks;
   }
 }
