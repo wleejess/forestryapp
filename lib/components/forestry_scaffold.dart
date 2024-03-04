@@ -14,6 +14,7 @@ import 'package:forestryapp/screens/road_health_form.dart';
 import 'package:forestryapp/screens/water_issues_form.dart';
 import 'package:forestryapp/screens/fire_risk_form.dart';
 import 'package:forestryapp/screens/other_issues_form.dart';
+import 'package:forestryapp/components/unsaved_changes.dart';
 import 'package:provider/provider.dart';
 
 /// A component to ensure common high level layout across screens of the app.
@@ -55,39 +56,31 @@ class ForestryScaffold extends StatelessWidget {
   }
 
   List<Widget> _buildDrawerItems(BuildContext context) {
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context,
+        listen: false); // Access the UnsavedChangesNotifier
     List<Widget> mainLinks = [
       ListTile(
         title: const Text('Settings'),
         leading: const Icon(Icons.settings),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SettingsReview(
-                settings: Provider.of<Settings>(context),
-              ),
-            ),
-          );
+          _navigateWithUnsavedChanges(context, unsavedChangesNotifier,
+              SettingsReview(settings: Provider.of<Settings>(context)));
         },
       ),
       ListTile(
         title: const Text('Landowners'),
         leading: const Icon(Icons.person),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LandownerIndex()),
-          );
+          _navigateWithUnsavedChanges(
+              context, unsavedChangesNotifier, const LandownerIndex());
         },
       ),
       ListTile(
         title: const Text('Areas'),
         leading: const Icon(Icons.forest),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AreaIndex()),
-          );
+          _navigateWithUnsavedChanges(
+              context, unsavedChangesNotifier, const AreaIndex());
         },
       ),
     ];
@@ -120,8 +113,7 @@ class ForestryScaffold extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => VegetativeConditionsForm()),
+            MaterialPageRoute(builder: (context) => VegetativeConditionsForm()),
           );
         },
       ),
@@ -139,8 +131,8 @@ class ForestryScaffold extends StatelessWidget {
         title: const Text('Invasive & Wildlife'),
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const InvasiveForm()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const InvasiveForm()));
         },
       ),
       ListTile(
@@ -208,7 +200,40 @@ class ForestryScaffold extends StatelessWidget {
     if (_showFormLinks) {
       mainLinks.addAll(areaFormLinks);
     }
-    
+
     return mainLinks;
+  }
+
+  void _navigateWithUnsavedChanges(BuildContext context,
+      UnsavedChangesNotifier unsavedChangesNotifier, Widget destination) {
+    if (unsavedChangesNotifier.unsavedChanges) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Unsaved Changes'),
+          content: const Text(
+              'Are you sure you want to leave? Any unsaved changes will be lost.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Dismiss the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Dismiss the dialog
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => destination));
+              },
+              child: const Text('Leave'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => destination));
+    }
   }
 }
