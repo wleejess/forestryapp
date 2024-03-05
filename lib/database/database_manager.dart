@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/services.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 /// Singleton used for interacting with SQLite database via [sqflite] and
 /// centralizing database code.
@@ -106,6 +108,23 @@ class DatabaseManager {
   /// This must be run before starting the app.
   static Future initialize() async {
     await _readSQLFromFile();
+
+    if (kIsWeb) {
+      // If this is not called then all sqflite methods will fail when on web
+      // since sqflite was not designed for web use.
+      // https://pub.dev/packages/sqflite_common_ffi_web#add-web-support-to-existing-sqflite-application
+      databaseFactory = databaseFactoryFfiWeb;
+
+      // The web version has no easy way of deleting the database. We can't just
+      // uninstall the app and reintstall like on mobile. This means that if we
+      // make changes to the web demo version's database there will be no apply
+      // them to the sponsor's device because database creation only happens if
+      // the database does not exist. We can force non-existence by deleting
+      // database each time on web version. This will not affect usage because
+      // the web usage is not being used in the field.
+      await databaseFactory.deleteDatabase(_filenameDatabase);
+    }
+
 
     final db = await openDatabase(
       _filenameDatabase,

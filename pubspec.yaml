@@ -44,6 +44,9 @@ dependencies:
   open_file: ^3.3.2
   path_provider: ^2.1.2
 
+  # Only use this for web deployment since web has no built-in support for sqflite.
+  sqflite_common_ffi_web: ^0.4.2+3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

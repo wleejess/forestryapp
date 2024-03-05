@@ -5,6 +5,7 @@
 
 import 'dart:io';
 import 'package:docx_template/docx_template.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:forestryapp/enums/us_state.dart';
@@ -90,6 +91,13 @@ class DOCXConverter {
   /// On Android this will save to
   /// "/storage/emulated/0/Android/data/com.example.forestryapp/files/".
   static Future<Directory?> _determineWriteDirectoryFromPlatform() async {
+    // TODO: Determine where to write files when app is deployed on web. For the
+    // time being this is necesssary as path_provider does not support web
+    // (i.e. calling getDownloadsDirectory() would crash the web app). This MUST
+    // come before Platform.isAndroid and Platform.isIOS or else the web app
+    // will complain that those names aren't available.
+    if (kIsWeb) return null;
+
     // We use [getExternalStorageDirectory()] instead of
     // [getApplicationDocumentsDirectory()] for Android because the latter is
     // part of the asset bundle which is not accessible to the user. The asset
@@ -97,6 +105,7 @@ class DOCXConverter {
     // DOCX template is stored in [_pathTemplate].
     if (Platform.isAndroid) return await getExternalStorageDirectory();
     if (Platform.isIOS) return await getApplicationDocumentsDirectory();
+
     return await getDownloadsDirectory();
   }
 
