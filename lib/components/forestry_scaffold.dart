@@ -15,6 +15,7 @@ import 'package:forestryapp/screens/water_issues_form.dart';
 import 'package:forestryapp/screens/fire_risk_form.dart';
 import 'package:forestryapp/screens/other_issues_form.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
+import 'package:forestryapp/screens/diagnosis_form.dart';
 import 'package:provider/provider.dart';
 
 /// A component to ensure common high level layout across screens of the app.
@@ -182,6 +183,16 @@ class ForestryScaffold extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const OtherIssuesForm()),
+          );
+        },
+      ),
+      ListTile(
+        title: const Text('Diagnosis & Suggestions'),
+        leading: const Icon(Icons.lightbulb_outline_rounded),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DiagnosisForm()),
           );
         },
       ),
