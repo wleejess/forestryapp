@@ -1,7 +1,7 @@
 /// Callback functions to provide form validation error messages.
 class Validation {
   /// Returns an error message if no value was entered.
-  static String? isNotEmpty(value) {
+  static String? isNotEmpty(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a response.';
     }
@@ -10,7 +10,7 @@ class Validation {
 
   /// Returns an error message if the value is not a percentage (0-100 integer).
   /// Accepts empty values.
-  static String? isValidPercentage(value) {
+  static String? isValidPercentage(String? value) {
     if (value == null || value.isEmpty) {
       return null;
     }
@@ -24,7 +24,7 @@ class Validation {
 
   /// Returns an error message if the value is not an integer -5000 to 50000.
   /// Accepts empty values.
-  static String? isValidElevation(value) {
+  static String? isValidElevation(String? value) {
     if (value == null || value.isEmpty) {
       return null;
     }
@@ -34,5 +34,41 @@ class Validation {
       return null;
     }
     return 'Please enter an elevation from -5000 to 50000.';
+  }
+
+  /// Returns an error message if the value is not an integer.
+  static String? isInteger(String? value) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    int? number = int.tryParse(value);
+    if (number != null) {
+      return null;
+    }
+    return 'Please enter a whole number.';
+  }
+
+  /// Returns an error message if the value is not a positive double.
+  static String? isValidAcres(String? value) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    double? number = double.tryParse(value);
+    if (number != null && 0 <= number) {
+      return null;
+    }
+    return 'Please enter a positive decimal number.';
+  }
+
+  /// Returns an error message if the value is not a landowner id. 
+  static String? isLandownerId(String? value) {
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    int? number = int.tryParse(value);
+    if (number != null) {
+      return null;
+    }
+    return 'Please select a pre-defined landowner.';
   }
 }
