@@ -12,8 +12,7 @@ class DiagnosisForm extends StatelessWidget {
   static const _diagnosisDescription =
       "Outline or list any issues or problems you see for the stand or area."
       "Provide ideas for action, if needed. Help prioritize what those actions might be."
-      "Should the actions occur sooner (now or in the immediate future), or later (next year or beyond)?"
-      "Provide a list of resources to refer the landowner to and/or provide other agencies that might help.";
+      "Should the actions occur sooner or later?";
 
   const DiagnosisForm({super.key});
 
@@ -25,8 +24,7 @@ class DiagnosisForm extends StatelessWidget {
         title: DiagnosisForm._title,
         body: FormScaffold(
           prevPage: const OtherIssuesForm(),
-          nextPage:
-              const FormReview(), // TODO: Send this to the Diagnosis page when implemented
+          nextPage: const FormReview(),
           child: _buildDescription(context),
         ));
   }

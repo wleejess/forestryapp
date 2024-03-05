@@ -7,7 +7,6 @@ import 'package:forestryapp/screens/fire_risk_form.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
-import 'package:forestryapp/components/unsaved_changes.dart';
 
 class OtherIssuesForm extends StatelessWidget {
   static const _title = "Other Issues";
