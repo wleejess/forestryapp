@@ -34,6 +34,9 @@ dependencies:
   # Use shared_preferences for storing settings like Evaluator contact info and
   # font size.
   shared_preferences: ^2.2.2
+  # Use for web deployment when needing to demo the app to sponsors (if they do
+  # not have the ability to install the app via Android or iOS).
+  sqflite_common_ffi_web: ^0.4.2+3
 
 
   # The following adds the Cupertino Icons font to your application.
