@@ -114,6 +114,10 @@ class DatabaseManager {
       // since sqflite was not designed for web use.
       // https://pub.dev/packages/sqflite_common_ffi_web#add-web-support-to-existing-sqflite-application
       databaseFactory = databaseFactoryFfiWeb;
+
+      // Delete database each time on web version because it is only a demo and
+      // also there is no other way to delete the database from the browser.
+      await databaseFactory.deleteDatabase(_filenameDatabase);
     }
 
 
