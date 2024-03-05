@@ -1,12 +1,15 @@
 # Forestry Wellness Checkup App
 
-- [Description](#org000b7b8)
-- [Deploying](#org2421c3e)
-  - [Web (Separate Repo With GitHub Pages)](#org3045114)
-  - [Android (apk file)](#org60dd24b)
+- [Description](#orgb2e3b07)
+- [Deploying](#orgbdeac15)
+  - [Web (Separate Repo With GitHub Pages)](#org5a4adfa)
+    - [Step By Step](#orgc796c05)
+    - [One-Liner](#orge477680)
+  - [Android (apk file)](#org10c6e90)
 
 
-<a id="org000b7b8"></a>
+
+<a id="orgb2e3b07"></a>
 
 # Description
 
@@ -15,14 +18,19 @@ Owning forested land comes with many responsibilities. With the ever growing iss
 Our team will build the Forest Wellness Checkup Application (FWCA) for The Oregon State University (OSU) Extension Service in order to help the above professionals during their surveys. Under the guidance of OSU Extension Professors Fitzgerald, Punches, and Ahrens we will develop a checklist that the professionals can use on their tablets when inspecting the forests.
 
 
-<a id="org2421c3e"></a>
+<a id="orgbdeac15"></a>
 
 # Deploying
 
 
-<a id="org3045114"></a>
+<a id="org5a4adfa"></a>
 
 ## Web (Separate Repo With GitHub Pages)
+
+
+<a id="orgc796c05"></a>
+
+### Step By Step
 
 1.  Build the web app
 
@@ -57,7 +65,19 @@ Our team will build the Forest Wellness Checkup Application (FWCA) for The Orego
 4.  Configure GitHub. Go to "Setting" > "Pages" and then configure the "Build and deployment" section as follows. ![img](docs/images/github-pages.png)
 
 
-<a id="org60dd24b"></a>
+<a id="orge477680"></a>
+
+### One-Liner
+
+```shell
+rm -rf build/web \
+    && flutter build web \
+    && sed -i 's/<base href="\/">/<base href=".\/">/' build/web/index.html \
+    && cp -r build/web/* /path/to/root/of/repo/for/github-pages
+```
+
+
+<a id="org10c6e90"></a>
 
 ## Android (apk file)
 
