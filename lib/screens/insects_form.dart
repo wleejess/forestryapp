@@ -5,6 +5,7 @@ import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/screens/invasive_form.dart";
 import "package:forestryapp/screens/vegetative_conditions_form.dart";
+import 'package:forestryapp/components/unsaved_changes.dart';
 import "package:provider/provider.dart";
 
 class InsectsForm extends StatelessWidget {
@@ -27,39 +28,45 @@ class InsectsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
-      showFormLinks: true,
-      title: InsectsForm._title,
-      body: FormScaffold(
-        prevPage: VegetativeConditionsForm(),
-        nextPage: const InvasiveForm(),
-        child: Column(
-          children: <Widget>[
-            _buildInsectsInput(context),
-            _buildDiseasesInput(context)
-          ],
-      )));
+        showFormLinks: true,
+        title: InsectsForm._title,
+        body: FormScaffold(
+            prevPage: VegetativeConditionsForm(),
+            nextPage: const InvasiveForm(),
+            child: Column(
+              children: <Widget>[
+                _buildInsectsInput(context),
+                _buildDiseasesInput(context)
+              ],
+            )));
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildInsectsInput(BuildContext context) {
     final insectsData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: InsectsForm._insectsHeading,
         helperText: InsectsForm._insectsDescription,
         initialValue: insectsData.insects,
         onChanged: (text) {
           insectsData.insects = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 
   Widget _buildDiseasesInput(BuildContext context) {
     final insectsData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: InsectsForm._diseasesHeading,
         helperText: InsectsForm._diseasesDescription,
         initialValue: insectsData.diseases,
         onChanged: (text) {
           insectsData.diseases = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }

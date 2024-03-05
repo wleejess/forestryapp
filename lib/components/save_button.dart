@@ -5,6 +5,7 @@ import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_index.dart";
 import "package:forestryapp/screens/area_review.dart";
+import 'package:forestryapp/components/unsaved_changes.dart';
 import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
 
@@ -31,6 +32,8 @@ class SaveButton extends StatelessWidget {
 
   Future<void> _pressSaveButton(BuildContext context) async {
     final formArea = Provider.of<Area>(context, listen: false);
+    final unsavedChangesNotifier =
+        Provider.of<UnsavedChangesNotifier>(context, listen: false);
 
     // TODO: add condition for validation and return immediately if it fails.
 
@@ -49,6 +52,8 @@ class SaveButton extends StatelessWidget {
       );
       return;
     }
+
+    unsavedChangesNotifier.setUnsavedChanges(false); // Resetting to false here
 
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(

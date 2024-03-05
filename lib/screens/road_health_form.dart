@@ -6,6 +6,7 @@ import 'package:forestryapp/screens/mistletoe_form.dart';
 import 'package:forestryapp/screens/water_issues_form.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class RoadHealthForm extends StatelessWidget {
   static const _title = "Road Health";
@@ -32,12 +33,15 @@ class RoadHealthForm extends StatelessWidget {
   // Inputs ////////////////////////////////////////////////////////////////////
   Widget _buildDescription(BuildContext context) {
     final roadHealthData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: RoadHealthForm._title,
         helperText: RoadHealthForm._roadDescription,
         initialValue: roadHealthData.roadHealth,
         onChanged: (text) {
           roadHealthData.roadHealth = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }

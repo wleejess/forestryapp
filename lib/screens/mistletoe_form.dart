@@ -10,6 +10,7 @@ import "package:forestryapp/models/area.dart";
 import "package:forestryapp/screens/invasive_form.dart";
 import "package:forestryapp/screens/road_health_form.dart";
 import "package:provider/provider.dart";
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class MistletoeForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
@@ -40,27 +41,30 @@ class MistletoeForm extends StatelessWidget {
         showFormLinks: true,
         title: MistletoeForm._title,
         body: FormScaffold(
-          prevPage: const InvasiveForm(),
-          nextPage: const RoadHealthForm(),
-          child: Wrap(
-            children: <Widget>[
-              PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
-              PortraitHandlingSizedBox(child: _buildLocationInput(context)),
-              PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
-              PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
-            ],
-        )));
+            prevPage: const InvasiveForm(),
+            nextPage: const RoadHealthForm(),
+            child: Wrap(
+              children: <Widget>[
+                PortraitHandlingSizedBox(child: _buildUniformityInput(context)),
+                PortraitHandlingSizedBox(child: _buildLocationInput(context)),
+                PortraitHandlingSizedBox(child: _buildHawksworthInput(context)),
+                PortraitHandlingSizedBox(child: _buildSpeciesInput(context))
+              ],
+            )));
   }
 
   /// Builds a radio form field about mistletoe uniformity.
   Widget _buildUniformityInput(BuildContext context) {
     final mistletoeData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return RadioOptions(
       header: MistletoeForm._uniformityHeading,
       enumValues: MistletoeUniformity.values,
       initialValue: mistletoeData.mistletoeUniformity,
       onSelected: (selectedOption) {
         mistletoeData.mistletoeUniformity = selectedOption;
+        unsavedChangesNotifier.setUnsavedChanges(true);
       },
       helperText: MistletoeForm._uniformityDescription,
     );
@@ -69,12 +73,15 @@ class MistletoeForm extends StatelessWidget {
   /// Builds a radio form field about Hawksworth Infection Rating.
   Widget _buildHawksworthInput(BuildContext context) {
     final mistletoeData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return RadioOptions(
       header: MistletoeForm._hawksworthHeading,
       enumValues: Hawksworth.values,
       initialValue: mistletoeData.hawksworth,
       onSelected: (selectedOption) {
         mistletoeData.hawksworth = selectedOption;
+        unsavedChangesNotifier.setUnsavedChanges(true);
       },
       helperText: MistletoeForm._hawksworthDescription,
     );
@@ -83,24 +90,30 @@ class MistletoeForm extends StatelessWidget {
   /// Builds a text input field about mistletoe location.
   Widget _buildLocationInput(BuildContext context) {
     final mistletoeData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: MistletoeForm._locationHeading,
         helperText: MistletoeForm._locationDescription,
         initialValue: mistletoeData.mistletoeLocation,
         onChanged: (text) {
           mistletoeData.mistletoeLocation = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 
   /// Builds a text input field about tree species infected with mistletoe.
   Widget _buildSpeciesInput(BuildContext context) {
     final mistletoeData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
+
     return FreeTextBox(
         labelText: MistletoeForm._speciesHeading,
         helperText: MistletoeForm._speciesDescription,
         initialValue: mistletoeData.mistletoeTreeSpecies,
         onChanged: (text) {
           mistletoeData.mistletoeTreeSpecies = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }

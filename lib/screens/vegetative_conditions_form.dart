@@ -13,6 +13,7 @@ import "package:forestryapp/screens/site_characteristics_form.dart";
 import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class VegetativeConditionsForm extends StatelessWidget {
   // Instance Variables
@@ -56,6 +57,7 @@ class VegetativeConditionsForm extends StatelessWidget {
 
   Widget _buildCoverType(BuildContext context, header) {
     final vegConData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return Wrap(
       children: [
@@ -66,6 +68,7 @@ class VegetativeConditionsForm extends StatelessWidget {
             initialValue: vegConData.coverType,
             onSelected: (selectedOption) {
               vegConData.coverType = selectedOption;
+              unsavedChangesNotifier.setUnsavedChanges(true);
             },
           ),
         ),
@@ -82,6 +85,7 @@ class VegetativeConditionsForm extends StatelessWidget {
 
   Widget _buildStandStructure(BuildContext context, header) {
     final vegConData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return RadioOptions(
       header: header,
@@ -89,12 +93,14 @@ class VegetativeConditionsForm extends StatelessWidget {
       initialValue: vegConData.standStructure,
       onSelected: (selectedOption) {
         vegConData.standStructure = selectedOption;
+        unsavedChangesNotifier.setUnsavedChanges(true);
       },
     );
   }
 
   Widget _buildStoryInfo(BuildContext context, title, density) {
     final vegConData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return ExpansionTile(
       title: Text(title),
@@ -112,6 +118,7 @@ class VegetativeConditionsForm extends StatelessWidget {
             title == 'Overstory Stand Info'
                 ? vegConData.overstoryDensity = selectedOption
                 : vegConData.understoryDensity = selectedOption;
+            unsavedChangesNotifier.setUnsavedChanges(true);
           },
         ),
         TextFormField(
@@ -126,6 +133,7 @@ class VegetativeConditionsForm extends StatelessWidget {
             title == 'Overstory Stand Info'
                 ? vegConData.overstorySpeciesComposition = int.tryParse(text)
                 : vegConData.understorySpeciesComposition = int.tryParse(text);
+            unsavedChangesNotifier.setUnsavedChanges(true);
           },
         ),
       ],
@@ -134,6 +142,7 @@ class VegetativeConditionsForm extends StatelessWidget {
 
   Widget _buildStandHistory(BuildContext context) {
     final vegConData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     const historyTitle = "Stand/Area History";
     const historyHelp =
@@ -147,6 +156,7 @@ class VegetativeConditionsForm extends StatelessWidget {
           initialValue: vegConData.standHistory,
           onChanged: (text) {
             vegConData.standHistory = text;
+            unsavedChangesNotifier.setUnsavedChanges(true);
           },
         ),
         const SizedBox(height: 16.0),

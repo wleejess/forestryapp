@@ -11,6 +11,7 @@ import "package:forestryapp/screens/vegetative_conditions_form.dart";
 import "package:forestryapp/util/validation.dart";
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
+import 'package:forestryapp/components/unsaved_changes.dart';
 
 class SiteCharacteristicsForm extends StatelessWidget {
   // Static Variables
@@ -26,24 +27,25 @@ class SiteCharacteristicsForm extends StatelessWidget {
         showFormLinks: true,
         title: SiteCharacteristicsForm._title,
         body: FormScaffold(
-          prevPage: BasicInformationForm(),
-          nextPage: VegetativeConditionsForm(),
-          child: Form(
-            key: _formKey,
-            child: Wrap(
-              children: [
-                _buildAspect(context),
-                _buildElevation(context),
-                _buildPercentSlope(context),
-                _buildSlopePosition(context),
-                _buildSoilInformation(context)
-              ],
-            ),
-        )));
+            prevPage: BasicInformationForm(),
+            nextPage: VegetativeConditionsForm(),
+            child: Form(
+              key: _formKey,
+              child: Wrap(
+                children: [
+                  _buildAspect(context),
+                  _buildElevation(context),
+                  _buildPercentSlope(context),
+                  _buildSlopePosition(context),
+                  _buildSoilInformation(context)
+                ],
+              ),
+            )));
   }
 
   Widget _buildElevation(BuildContext context) {
     final elevationData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -56,6 +58,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         onChanged: (text) {
           if (_formKey.currentState!.validate()) {
             elevationData.elevation = int.tryParse(text);
+            unsavedChangesNotifier.setUnsavedChanges(true);
           }
         },
         validator: Validation.isValidElevation,
@@ -65,6 +68,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
 
   Widget _buildAspect(BuildContext context) {
     final aspectData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -74,6 +78,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         initialValue: aspectData.aspect,
         onSelected: (selectedOption) {
           aspectData.aspect = selectedOption;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         },
       ),
     );
@@ -81,6 +86,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
 
   Widget _buildPercentSlope(BuildContext context) {
     final percentSlopeData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return PortraitHandlingSizedBox(
       widthFactorOnWideDevices: 0.3,
@@ -93,6 +99,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         onChanged: (text) {
           if (_formKey.currentState!.validate()) {
             percentSlopeData.slopePercentage = int.tryParse(text);
+            unsavedChangesNotifier.setUnsavedChanges(true);
           }
         },
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -103,6 +110,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
 
   Widget _buildSlopePosition(BuildContext context) {
     final slopePositionData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return RadioOptions(
         header: 'Slope Position:',
@@ -110,6 +118,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         initialValue: slopePositionData.slopePosition,
         onSelected: (selectedOption) {
           slopePositionData.slopePosition = selectedOption;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 
@@ -119,6 +128,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         " This can be from either the landowner, or from online.";
 
     final soilInfoData = Provider.of<Area>(context);
+    final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
 
     return TextFormField(
         decoration: const InputDecoration(
@@ -128,6 +138,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         initialValue: soilInfoData.soilInfo,
         onChanged: (text) {
           soilInfoData.soilInfo = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
         });
   }
 }
