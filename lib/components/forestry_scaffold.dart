@@ -64,8 +64,13 @@ class ForestryScaffold extends StatelessWidget {
         title: const Text('Settings'),
         leading: const Icon(Icons.settings),
         onTap: () {
-          _navigateWithUnsavedChanges(context, unsavedChangesNotifier,
-              SettingsReview(settings: Provider.of<Settings>(context)));
+          _navigateWithUnsavedChanges(
+            context,
+            unsavedChangesNotifier,
+            SettingsReview(
+              settings: Provider.of<Settings>(context, listen: false),
+            ),
+          );
         },
       ),
       ListTile(
