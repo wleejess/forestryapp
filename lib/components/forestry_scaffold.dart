@@ -63,8 +63,11 @@ class ForestryScaffold extends StatelessWidget {
         title: const Text('Settings'),
         leading: const Icon(Icons.settings),
         onTap: () {
-          _navigateWithUnsavedChanges(context, unsavedChangesNotifier,
-              SettingsReview(settings: Provider.of<Settings>(context)));
+          _navigateWithUnsavedChanges(
+              context,
+              unsavedChangesNotifier,
+              SettingsReview(
+                  settings: Provider.of<Settings>(context, listen: false)));
         },
       ),
       ListTile(
@@ -225,6 +228,8 @@ class ForestryScaffold extends StatelessWidget {
                 Navigator.pop(context); // Dismiss the dialog
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => destination));
+                unsavedChangesNotifier
+                    .setUnsavedChanges(false); // Resetting to false here
               },
               child: const Text('Leave'),
             ),
