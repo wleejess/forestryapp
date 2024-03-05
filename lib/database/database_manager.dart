@@ -115,8 +115,13 @@ class DatabaseManager {
       // https://pub.dev/packages/sqflite_common_ffi_web#add-web-support-to-existing-sqflite-application
       databaseFactory = databaseFactoryFfiWeb;
 
-      // Delete database each time on web version because it is only a demo and
-      // also there is no other way to delete the database from the browser.
+      // The web version has no easy way of deleting the database. We can't just
+      // uninstall the app and reintstall like on mobile. This means that if we
+      // make changes to the web demo version's database there will be no apply
+      // them to the sponsor's device because database creation only happens if
+      // the database does not exist. We can force non-existence by deleting
+      // database each time on web version. This will not affect usage because
+      // the web usage is not being used in the field.
       await databaseFactory.deleteDatabase(_filenameDatabase);
     }
 
