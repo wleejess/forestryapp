@@ -36,7 +36,7 @@ class DOCXButton extends StatelessWidget {
 
   Future<void> _onPressed(BuildContext context) async {
     if (_landowner == null) {
-      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoLandowner);
+      ExceptionAlert.alert(context: context, title: _exceptionPrefix, message: _errorNoLandowner);
       return; // Stop early because don't want to build DOCX without landowner.
     }
 
@@ -48,8 +48,7 @@ class DOCXButton extends StatelessWidget {
       );
     } on FileSystemException catch (e) {
       if (!context.mounted) return;
-      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: e.message, exception: e);
+      ExceptionAlert.alert(context: context, title: _exceptionPrefix, message: e.message, exception: e);
     }
   }
 }
- 

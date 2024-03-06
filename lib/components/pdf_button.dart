@@ -43,18 +43,18 @@ class PdfButton extends StatelessWidget {
   Future<void> _onPressed(BuildContext context) async {
     // Don't build the PDF without an area title, landowner, and evaluator data.
     if (_area.name == null) {
-      ExceptionAlert.alert(context: context, prefix: _validationPrefix, message: _errorNoName);
+      ExceptionAlert.alert(context: context, title: _validationPrefix, message: _errorNoName);
       return;
     }
 
     if (_landowner == null) {
-      ExceptionAlert.alert(context: context, prefix: _validationPrefix, message: _errorNoLandowner);
+      ExceptionAlert.alert(context: context, title: _validationPrefix, message: _errorNoLandowner);
       return;
     }
     
     final evaluator = context.read<Settings>();
     if (evaluator.evaluatorName.isEmpty) {
-      ExceptionAlert.alert(context: context, prefix: _validationPrefix, message: _errorNoSettings);
+      ExceptionAlert.alert(context: context, title: _validationPrefix, message: _errorNoSettings);
       return;
     }
 
@@ -72,7 +72,7 @@ class PdfButton extends StatelessWidget {
 
     if (directory == null) {
       if (!context.mounted) return;
-      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoDirectory);
+      ExceptionAlert.alert(context: context, title: _exceptionPrefix, message: _errorNoDirectory);
       return;
       
     } else {
@@ -88,7 +88,7 @@ class PdfButton extends StatelessWidget {
 
       } on FileSystemException catch (e) {
         if (!context.mounted) return;
-        ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: e.message, exception: e);
+        ExceptionAlert.alert(context: context, title: _exceptionPrefix, message: e.message, exception: e);
       }
     }
   }

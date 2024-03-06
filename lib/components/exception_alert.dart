@@ -10,16 +10,16 @@ class ExceptionAlert {
 
   static void alert({
     required BuildContext context,
-    required String prefix,
+    required String title,
     required message,
     Exception? exception,
   }) {
-    if (exception != null) debugPrint("$prefix: $exception");
+    if (exception != null) debugPrint("$title: $exception");
 
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Text(prefix),
+        title: Text(title),
         content: Text(message),
         actions: <Widget>[
           TextButton(
