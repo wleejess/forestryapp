@@ -16,7 +16,6 @@ import "package:provider/provider.dart";
 class FormReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Summary";
-  static const _buttonTextPDF = "Create PDF";
   static const _buttonTextCancel = "Cancel";
 
   // Constructor ///////////////////////////////////////////////////////////////
