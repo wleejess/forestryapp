@@ -11,7 +11,7 @@ class ExceptionAlert {
   static void alert({
     required BuildContext context,
     required String title,
-    required message,
+    required String message,
     Exception? exception,
   }) {
     if (exception != null) debugPrint("$title: $exception");
