@@ -1,5 +1,6 @@
 import "dart:io";
 import "package:flutter/material.dart";
+import "package:forestryapp/components/exception_alert.dart";
 import "package:forestryapp/document_converters/docx_converter.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner.dart";
@@ -13,7 +14,6 @@ class DOCXButton extends StatelessWidget {
   static const _buttonText = "Create DOCX";
   static const _exceptionPrefix = "Exception (DOCXButton)";
   static const _errorNoLandowner = "Landowner not set";
-  static const _alertButtonText = "Cancel";
 
   // Instance Variables ////////////////////////////////////////////////////////
   final Area _area;
@@ -24,7 +24,7 @@ class DOCXButton extends StatelessWidget {
       : _area = area,
         _landowner = landowner;
 
-  //  //////////////////////////////////////////////////////////////////////////
+  // Methods ///////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class DOCXButton extends StatelessWidget {
 
   Future<void> _onPressed(BuildContext context) async {
     if (_landowner == null) {
-      _alert(context: context, message: _errorNoLandowner);
+      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoLandowner);
       return; // Stop early because don't want to build DOCX without landowner.
     }
 
@@ -48,33 +48,8 @@ class DOCXButton extends StatelessWidget {
       );
     } on FileSystemException catch (e) {
       if (!context.mounted) return;
-      _alert(context: context, message: e.message, exception: e);
+      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: e.message, exception: e);
     }
   }
-
-  /// Build an alert to show to the user for exception handling.
-  ///
-  /// Show a human readable [message] to the user while printing the actual
-  /// [exception] to console which can be accessed with "flutter logs" command.
-  void _alert({
-    required BuildContext context,
-    required message,
-    Exception? exception,
-  }) {
-    if (exception != null) debugPrint("$_exceptionPrefix: $exception");
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text(_exceptionPrefix),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text(_alertButtonText),
-          )
-        ],
-      ),
-    );
-  }
 }
+ 
