@@ -3,6 +3,7 @@ import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
+import "package:forestryapp/components/pdf_button.dart";
 import "package:forestryapp/components/save_button.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner_collection.dart";
@@ -29,7 +30,7 @@ class FormReview extends StatelessWidget {
         Provider.of<LandownerCollection>(context).getByID(formData.landownerID);
 
     List<Widget> buttons = [
-      _buildButtonPDF(context),
+      PdfButton(area: formData, landowner: landowner),
       DOCXButton(formData, landowner),
       const SaveButton(),
       _buildButtonCancel(context)
