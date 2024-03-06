@@ -3,6 +3,7 @@ import "package:forestryapp/components/area_properties.dart";
 import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
+import "package:forestryapp/components/pdf_button.dart";
 import "package:forestryapp/components/save_button.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner_collection.dart";
@@ -15,7 +16,6 @@ import "package:provider/provider.dart";
 class FormReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Summary";
-  static const _buttonTextPDF = "Create PDF";
   static const _buttonTextCancel = "Cancel";
 
   // Constructor ///////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@ class FormReview extends StatelessWidget {
         Provider.of<LandownerCollection>(context).getByID(formData.landownerID);
 
     List<Widget> buttons = [
-      _buildButtonPDF(context),
+      PdfButton(area: formData, landowner: landowner),
       DOCXButton(formData, landowner),
       const SaveButton(),
       _buildButtonCancel(context)
@@ -49,13 +49,6 @@ class FormReview extends StatelessWidget {
             ),
           ],
         ));
-  }
-
-  Widget _buildButtonPDF(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(_buttonTextPDF),
-    );
   }
 
   Widget _buildButtonCancel(BuildContext context) {
