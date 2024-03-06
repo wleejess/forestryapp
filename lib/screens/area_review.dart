@@ -6,6 +6,7 @@ import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/edit_button.dart";
 import "package:forestryapp/components/error_scaffold.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
+import "package:forestryapp/components/pdf_button.dart";
 import "package:forestryapp/database/dao_area.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
@@ -18,7 +19,6 @@ class AreaReview extends StatefulWidget {
   static const _notFoundTitle = "Area not found!";
   static const _notFoundBodyText = "Could not find that Area!";
   static const _placeholderForOmitted = "N/A";
-  static const _buttonTextPDF = "Create PDF";
   static const _buttonTextDelete = "Delete";
 
   // Instance variables ////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ class _AreaReviewState extends State<AreaReview> {
         Provider.of<LandownerCollection>(context).getByID(area.landownerID);
 
     List<Widget> buttons = [
-      _buildButtonPDF(context),
+      PdfButton(area: area, landowner: landowner),
       DOCXButton(area, landowner),
       EditButton(area),
       _buildButtonDelete(context, area)
@@ -86,13 +86,6 @@ class _AreaReviewState extends State<AreaReview> {
   String _titleText(Area area) {
     final areaName = area.name ?? AreaReview._placeholderForOmitted;
     return "${AreaReview._titlePrefix}: $areaName";
-  }
-
-  Widget _buildButtonPDF(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {},
-      child: const Text(AreaReview._buttonTextPDF),
-    );
   }
 
   Widget _buildButtonDelete(BuildContext context, Area area) {
