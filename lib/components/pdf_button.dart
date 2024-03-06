@@ -15,8 +15,9 @@ class PdfButton extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _buttonText = "Create PDF";
   static const _exceptionPrefix = "Exception (PdfButton)";
+  static const _validationPrefix = "Input Required";
   static const _errorNoLandowner = "Landowner not set";
-  static const _errorNoSettings = "Evaluator info not set.";
+  static const _errorNoSettings = "Evaluator info not set. Go to Settings.";
   static const _errorNoName = "Area name not set.";
   static const _errorNoDirectory = "Save directory not found.";
 
@@ -42,17 +43,19 @@ class PdfButton extends StatelessWidget {
   Future<void> _onPressed(BuildContext context) async {
     // Don't build the PDF without an area title, landowner, and evaluator data.
     if (_area.name == null) {
-      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoName);
+      ExceptionAlert.alert(context: context, prefix: _validationPrefix, message: _errorNoName);
+      return;
     }
 
     if (_landowner == null) {
-      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoLandowner);
+      ExceptionAlert.alert(context: context, prefix: _validationPrefix, message: _errorNoLandowner);
       return;
     }
     
     final evaluator = context.read<Settings>();
     if (evaluator.evaluatorName.isEmpty) {
-      ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoSettings);
+      ExceptionAlert.alert(context: context, prefix: _validationPrefix, message: _errorNoSettings);
+      return;
     }
 
     // Get the path of the folder in which to store the pdf file.
@@ -70,6 +73,7 @@ class PdfButton extends StatelessWidget {
     if (directory == null) {
       if (!context.mounted) return;
       ExceptionAlert.alert(context: context, prefix: _exceptionPrefix, message: _errorNoDirectory);
+      return;
       
     } else {
       try {
