@@ -1,4 +1,7 @@
-import "dart:io";
+import "dart:io" as io;
+// ignore: avoid_web_libraries_in_flutter
+import "dart:html" as html;
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:forestryapp/components/exception_alert.dart";
 import 'package:provider/provider.dart';
@@ -29,8 +32,8 @@ class PdfButton extends StatelessWidget {
     required area,
     required landowner,
     super.key,
-  }) : _area = area,
-       _landowner = landowner;
+  })  : _area = area,
+        _landowner = landowner;
 
   @override
   Widget build(BuildContext context) {
@@ -43,52 +46,70 @@ class PdfButton extends StatelessWidget {
   Future<void> _onPressed(BuildContext context) async {
     // Don't build the PDF without an area title, landowner, and evaluator data.
     if (_area.name == null) {
-      ExceptionAlert.alert(context: context, title: _validationPrefix, message: _errorNoName);
+      ExceptionAlert.alert(
+          context: context, title: _validationPrefix, message: _errorNoName);
       return;
     }
 
     if (_landowner == null) {
-      ExceptionAlert.alert(context: context, title: _validationPrefix, message: _errorNoLandowner);
+      ExceptionAlert.alert(
+          context: context,
+          title: _validationPrefix,
+          message: _errorNoLandowner);
       return;
     }
-    
+
     final evaluator = context.read<Settings>();
     if (evaluator.evaluatorName.isEmpty) {
-      ExceptionAlert.alert(context: context, title: _validationPrefix, message: _errorNoSettings);
+      ExceptionAlert.alert(
+          context: context,
+          title: _validationPrefix,
+          message: _errorNoSettings);
       return;
     }
 
     // Get the path of the folder in which to store the pdf file.
     // On Android, you must access external storage in order to open the file outside of the app.
     // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
-    Directory? directory;
-    if (Platform.isAndroid) {
+    io.Directory? directory;
+    if (io.Platform.isAndroid) {
       directory = await getExternalStorageDirectory();
-    } else if (Platform.isIOS) {
+    } else if (io.Platform.isIOS) {
       directory = await getApplicationDocumentsDirectory();
     } else {
       directory = await getDownloadsDirectory();
     }
 
-    if (directory == null) {
+    if (kIsWeb) {
+      final pdf = PdfConverter().create(_area, _landowner, evaluator);
+      final blob = html.Blob([await pdf.save()], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      html.AnchorElement(href: url).click();
+      html.Url.revokeObjectUrl(url);
+    } else if (directory == null) {
       if (!context.mounted) return;
-      ExceptionAlert.alert(context: context, title: _exceptionPrefix, message: _errorNoDirectory);
+      ExceptionAlert.alert(
+          context: context,
+          title: _exceptionPrefix,
+          message: _errorNoDirectory);
       return;
-      
     } else {
       try {
         // The path to the save folder
-        final file = File("${directory.absolute.path}/${_area.name}.pdf");
+        final file = io.File("${directory.absolute.path}/${_area.name}.pdf");
 
         // Builds the PDF widget tree
         final pdf = PdfConverter().create(_area, _landowner, evaluator);
 
         await file.writeAsBytes(await pdf.save());
         OpenFile.open(file.path);
-
-      } on FileSystemException catch (e) {
+      } on io.FileSystemException catch (e) {
         if (!context.mounted) return;
-        ExceptionAlert.alert(context: context, title: _exceptionPrefix, message: e.message, exception: e);
+        ExceptionAlert.alert(
+            context: context,
+            title: _exceptionPrefix,
+            message: e.message,
+            exception: e);
       }
     }
   }
