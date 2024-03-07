@@ -102,7 +102,7 @@ class LandownerReview extends StatelessWidget {
     final buttons = _buildButtonRow(context, landowner);
 
     if (constraints.maxHeight < BreakPoints.widthPhonePortait) {
-      return _buildLayoutSideBySide(context, landowner);
+      return _buildLayoutSideBySide(context, contactInfo, areaSection, buttons);
     }
 
     return _buildLayoutVertically(context, contactInfo, areaSection, buttons);
@@ -110,9 +110,14 @@ class LandownerReview extends StatelessWidget {
 
   Widget _buildLayoutSideBySide(
     BuildContext context,
-    Landowner landowner,
+    Widget contactInfo,
+    Widget areaSection,
+    Widget buttons,
   ) {
-    return const Placeholder();
+    return Column(children: [
+      Expanded(child: Row(children: [contactInfo, Expanded(child: areaSection)])),
+      buttons
+    ]);
   }
 
   Widget _buildLayoutVertically(BuildContext context, Widget contactInfo,
