@@ -92,11 +92,10 @@ class DOCXConverter {
   /// On Android this will save to
   /// "/storage/emulated/0/Android/data/com.example.forestryapp/files/".
   static Future<Directory?> _determineWriteDirectoryFromPlatform() async {
-    // TODO: Determine where to write files when app is deployed on web. For the
-    // time being this is necesssary as path_provider does not support web
-    // (i.e. calling getDownloadsDirectory() would crash the web app). This MUST
-    // come before Platform.isAndroid and Platform.isIOS or else the web app
-    // will complain that those names aren't available.
+    // This is necesssary as path_provider does not support web (i.e. calling
+    // getDownloadsDirectory() would crash the web app). This MUST come before
+    // Platform.isAndroid and Platform.isIOS or else the web app will complain
+    // that those names and the path_provider functions aren't available.
     if (kIsWeb) return null;
 
     // We use [getExternalStorageDirectory()] instead of
@@ -339,6 +338,7 @@ class DOCXConverter {
   }
 
   // Web Version ///////////////////////////////////////////////////////////////
+  /// Write DOCX to a file and force the web browser to open it.
   void _handleDOCXOnWeb(List<int> docxBytes) {
     final blob = html.Blob(
       [docxBytes],
