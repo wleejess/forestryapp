@@ -58,6 +58,8 @@ class LandownerReview extends StatelessWidget {
         final Landowner? landowner =
             Provider.of<LandownerCollection>(context).getByID(_landownerID);
 
+        // Show an error page if the [landowner] is [null] for whatever reason.
+        // Otherwise show the landowner's information.
         if (landowner == null) {
           return const ErrorScaffold(
             title: _notFoundTitle,
@@ -65,57 +67,45 @@ class LandownerReview extends StatelessWidget {
           );
         }
 
-        return LayoutBuilder(
-          builder: (context, constraints) => _buildIfNotEnoughVerticalSpace(
-            context,
-            constraints,
-            landowner,
+        return ForestryScaffold(
+          title: "$_title: ${landowner.name}",
+          body: LayoutBuilder(
+            builder: (context, constraints) =>
+                _buildBasedOnAvailableVerticalSpace(
+              context,
+              constraints,
+              landowner,
+            ),
           ),
         );
       },
     );
   }
 
-  Widget _buildIfNotEnoughVerticalSpace(
+  Widget _buildBasedOnAvailableVerticalSpace(
     BuildContext context,
     BoxConstraints constraints,
     Landowner landowner,
   ) {
+    final contactInfo = ContactInfo(
+      name: landowner.name,
+      email: landowner.email,
+      combinedAddress: formatAddress(landowner),
+    );
+    final areaSection = Column(
+      children: [
+        _buildAreasHeading(context),
+        // Use Expanded to constrain greedy ListView.
+        Expanded(child: _buildAreas(context))
+      ],
+    );
+    final buttons = _buildButtonRow(context, landowner);
+
     if (constraints.maxHeight < BreakPoints.widthPhonePortait) {
       return _buildLayoutSideBySide(context, landowner);
     }
 
-    return _buildLayoutVertical(context, landowner);
-  }
-
-  /// Layout the entire screen of the landowne review screen.
-  ///
-  /// Show an error page if the [_landowner] is [null] for whatever reason.
-  /// Otherwise show the landowner's information.
-  Widget _buildLayoutVertical(BuildContext context, Landowner landowner) {
-    return ForestryScaffold(
-      title: "$_title: ${landowner.name}",
-      body: Column(
-        children: <Widget>[
-          ContactInfo(
-            name: landowner.name,
-            email: landowner.email,
-            combinedAddress: formatAddress(landowner),
-          ),
-          _buildAreasHeading(context),
-          // Use `Expanded` to both (1) constrain `ListView` from exceeding
-          // total height and (2) force the "Edit" and "Delete" buttons all the
-          // way down to the bottom of the screen. Unfortunately when the number
-          // of items in the `ListView` cause the ListView to not take up as
-          // much or more than its `Expanded` parent, the "New Area" button is
-          // also forced to bottom instead of being flush with last Area
-          // `ListTile`. This is because the expanded `ListView` expands past its
-          // last `ListTile`.
-          Expanded(child: _buildAreas(context)),
-          _buildButtonRow(context, landowner),
-        ],
-      ),
-    );
+    return _buildLayoutVertically(context, contactInfo, areaSection, buttons);
   }
 
   Widget _buildLayoutSideBySide(
@@ -123,6 +113,13 @@ class LandownerReview extends StatelessWidget {
     Landowner landowner,
   ) {
     return const Placeholder();
+  }
+
+  Widget _buildLayoutVertically(BuildContext context, Widget contactInfo,
+      Widget areaSection, Widget buttons) {
+    return Column(
+      children: <Widget>[contactInfo, Expanded(child: areaSection), buttons],
+    );
   }
 
   String formatAddress(Landowner landowner) {
