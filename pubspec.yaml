@@ -47,6 +47,10 @@ dependencies:
 
   # Only use this for web deployment since web has no built-in support for sqflite.
   sqflite_common_ffi_web: ^0.4.2+3
+
+  # Because web deployment needs dart:html but importing it will break on other
+  # platforms.
+  universal_html: ^2.2.4
   
 dev_dependencies:
   flutter_test:
