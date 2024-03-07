@@ -118,8 +118,8 @@ class LandownerReview extends StatelessWidget {
     ]);
   }
 
-  Widget _buildLayoutVertically(
-      BuildContext context, Widget contactInfo, ListView areas, Widget buttons) {
+  Widget _buildLayoutVertically(BuildContext context, Widget contactInfo,
+      ListView areas, Widget buttons) {
     final areaSection = Column(
       // Use Expanded to constrain greedy ListView in [areas].
       children: [_buildAreasHeading(context), Expanded(child: areas)],
@@ -144,7 +144,7 @@ class LandownerReview extends StatelessWidget {
     return "${landowner.address} ${landowner.city}, $state ${landowner.zip}";
   }
 
-  // Areas Heading /////////////////////////////////////////////////////////////
+  // Areas /////////////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -156,15 +156,13 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
-  // Areas /////////////////////////////////////////////////////////////////////
   ListView _buildAreas(BuildContext context) {
     final areas = Provider.of<AreaCollection>(context).areasOfReviewedLandowner;
 
     return ListView.builder(
-          itemCount: areas.length,
-          itemBuilder: (context, i) =>
-              _buildAreaListItem(context, i, areas),
-        );
+      itemCount: areas.length,
+      itemBuilder: (context, i) => _buildAreaListItem(context, i, areas),
+    );
   }
 
   Widget _buildAreaListItem(BuildContext context, int i, List<Area> areas) {
