@@ -208,7 +208,8 @@ class DOCXConverter {
 
       if (result != null && result.type == ResultType.noAppToOpen) {
         exceptionMessage = _formatNoDOCXAppMessage(path);
-      } else { // Handling any other exception.
+      } else {
+        // Handling any other exception.
         debugPrint("DOCX OPEN FAIL: $e");
         exceptionMessage = _failOpen;
       }
