@@ -68,6 +68,9 @@ class PdfButton extends StatelessWidget {
       return;
     }
 
+    /// WARNING: This must come before any call to functions defined from the
+    /// path_provider library as that library does not support web and as such
+    /// will cause platform errors when executed on the web deployed version.
     if (kIsWeb) {
       final pdf = PdfConverter().create(_area, _landowner, evaluator);
       final blob = html.Blob([await pdf.save()], 'application/pdf');
