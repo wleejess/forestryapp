@@ -92,36 +92,38 @@ class LandownerReview extends StatelessWidget {
       email: landowner.email,
       combinedAddress: formatAddress(landowner),
     );
-    final areaSection = Column(
-      children: [
-        _buildAreasHeading(context),
-        // Use Expanded to constrain greedy ListView.
-        Expanded(child: _buildAreas(context))
-      ],
-    );
+    final areas = _buildAreas(context);
     final buttons = _buildButtonRow(context, landowner);
 
     if (constraints.maxHeight < BreakPoints.widthPhonePortait) {
-      return _buildLayoutSideBySide(context, contactInfo, areaSection, buttons);
+      return _buildLayoutSideBySide(context, contactInfo, areas, buttons);
     }
 
-    return _buildLayoutVertically(context, contactInfo, areaSection, buttons);
+    return _buildLayoutVertically(context, contactInfo, areas, buttons);
   }
 
   Widget _buildLayoutSideBySide(
     BuildContext context,
     Widget contactInfo,
-    Widget areaSection,
+    Widget areas,
     Widget buttons,
   ) {
+    // Don't make heading on side by side layout because vertical space is
+    // already assumed to be pretty scarce if this method is called. Do this
+    // because if vertical space is scarce then it will be hard to scroll
+    // through the area ListView.
     return Column(children: [
-      Expanded(child: Row(children: [contactInfo, Expanded(child: areaSection)])),
+      Expanded(child: Row(children: [contactInfo, Expanded(child: areas)])),
       buttons
     ]);
   }
 
-  Widget _buildLayoutVertically(BuildContext context, Widget contactInfo,
-      Widget areaSection, Widget buttons) {
+  Widget _buildLayoutVertically(
+      BuildContext context, Widget contactInfo, Widget areas, Widget buttons) {
+    final areaSection = Column(
+      // Use Expanded to constrain greedy ListView in [areas].
+      children: [_buildAreasHeading(context), Expanded(child: areas)],
+    );
     return Column(
       children: <Widget>[contactInfo, Expanded(child: areaSection), buttons],
     );
