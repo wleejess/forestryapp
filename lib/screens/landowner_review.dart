@@ -92,7 +92,7 @@ class LandownerReview extends StatelessWidget {
       email: landowner.email,
       combinedAddress: formatAddress(landowner),
     );
-    final areas = _buildAreas(context);
+    final ListView areas = _buildAreas(context);
     final buttons = _buildButtonRow(context, landowner);
 
     if (constraints.maxHeight < BreakPoints.widthPhonePortait) {
@@ -105,7 +105,7 @@ class LandownerReview extends StatelessWidget {
   Widget _buildLayoutSideBySide(
     BuildContext context,
     Widget contactInfo,
-    Widget areas,
+    ListView areas,
     Widget buttons,
   ) {
     // Don't make heading on side by side layout because vertical space is
@@ -119,7 +119,7 @@ class LandownerReview extends StatelessWidget {
   }
 
   Widget _buildLayoutVertically(
-      BuildContext context, Widget contactInfo, Widget areas, Widget buttons) {
+      BuildContext context, Widget contactInfo, ListView areas, Widget buttons) {
     final areaSection = Column(
       // Use Expanded to constrain greedy ListView in [areas].
       children: [_buildAreasHeading(context), Expanded(child: areas)],
@@ -157,15 +157,14 @@ class LandownerReview extends StatelessWidget {
   }
 
   // Areas /////////////////////////////////////////////////////////////////////
-  Widget _buildAreas(BuildContext context) {
+  ListView _buildAreas(BuildContext context) {
     final areas = Provider.of<AreaCollection>(context).areasOfReviewedLandowner;
 
-    return DBListenableBuilder(
-        builder: (context, _) => ListView.builder(
-              itemCount: areas.length,
-              itemBuilder: (context, i) =>
-                  _buildAreaListItem(context, i, areas),
-            ));
+    return ListView.builder(
+          itemCount: areas.length,
+          itemBuilder: (context, i) =>
+              _buildAreaListItem(context, i, areas),
+        );
   }
 
   Widget _buildAreaListItem(BuildContext context, int i, List<Area> areas) {
