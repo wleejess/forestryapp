@@ -4,6 +4,7 @@
 // [AreaReview]).
 
 import 'dart:io';
+import "package:universal_html/html.dart" as html;
 import 'package:docx_template/docx_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -91,11 +92,10 @@ class DOCXConverter {
   /// On Android this will save to
   /// "/storage/emulated/0/Android/data/com.example.forestryapp/files/".
   static Future<Directory?> _determineWriteDirectoryFromPlatform() async {
-    // TODO: Determine where to write files when app is deployed on web. For the
-    // time being this is necesssary as path_provider does not support web
-    // (i.e. calling getDownloadsDirectory() would crash the web app). This MUST
-    // come before Platform.isAndroid and Platform.isIOS or else the web app
-    // will complain that those names aren't available.
+    // This is necesssary as path_provider does not support web (i.e. calling
+    // getDownloadsDirectory() would crash the web app). This MUST come before
+    // Platform.isAndroid and Platform.isIOS or else the web app will complain
+    // that those names and the path_provider functions aren't available.
     if (kIsWeb) return null;
 
     // We use [getExternalStorageDirectory()] instead of
@@ -133,6 +133,12 @@ class DOCXConverter {
     Settings settings,
   ) async {
     final docxBytes = await _generateDOCXBinary(area, landowner, settings);
+
+    if (kIsWeb) {
+      _handleDOCXOnWeb(docxBytes);
+      return;
+    }
+
     final File docxFile = File(_createPathToDOCX(area, landowner));
     await _writeDOCXToFile(docxFile, docxBytes);
     await _openDOCX(docxFile);
@@ -208,7 +214,8 @@ class DOCXConverter {
 
       if (result != null && result.type == ResultType.noAppToOpen) {
         exceptionMessage = _formatNoDOCXAppMessage(path);
-      } else { // Handling any other exception.
+      } else {
+        // Handling any other exception.
         debugPrint("DOCX OPEN FAIL: $e");
         exceptionMessage = _failOpen;
       }
@@ -328,6 +335,18 @@ class DOCXConverter {
           settings.evaluatorZip,
         ),
       ));
+  }
+
+  // Web Version ///////////////////////////////////////////////////////////////
+  /// Write DOCX to a file and force the web browser to open it.
+  void _handleDOCXOnWeb(List<int> docxBytes) {
+    final blob = html.Blob(
+      [docxBytes],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    );
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.AnchorElement(href: url).click();
+    html.Url.revokeObjectUrl(url);
   }
 
   // Helpers ///////////////////////////////////////////////////////////////////
