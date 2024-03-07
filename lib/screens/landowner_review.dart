@@ -11,6 +11,7 @@ import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
 import "package:forestryapp/screens/basic_information_form.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
+import "package:forestryapp/util/break_points.dart";
 import "package:provider/provider.dart";
 
 class LandownerReview extends StatelessWidget {
@@ -54,49 +55,77 @@ class LandownerReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return DBListenableBuilder(
       builder: (context, child) {
-        return _buildForestryScaffold(context);
+        final Landowner? landowner =
+            Provider.of<LandownerCollection>(context).getByID(_landownerID);
+
+        // Show an error page if the [landowner] is [null] for whatever reason.
+        // Otherwise show the landowner's information.
+        if (landowner == null) {
+          return const ErrorScaffold(
+            title: _notFoundTitle,
+            bodyText: _notFoundBodyText,
+          );
+        }
+
+        return ForestryScaffold(
+          title: "$_title: ${landowner.name}",
+          body: LayoutBuilder(
+            builder: (context, constraints) =>
+                _buildBasedOnAvailableVerticalSpace(
+              context,
+              constraints,
+              landowner,
+            ),
+          ),
+        );
       },
     );
   }
 
-  /// Layout the entire screen of the landowne review screen.
-  ///
-  /// Show an error page if the [_landowner] is [null] for whatever reason.
-  /// Otherwise show the landowner's information.
-  Widget _buildForestryScaffold(BuildContext context) {
-    final Landowner? landowner =
-        Provider.of<LandownerCollection>(context).getByID(_landownerID);
+  Widget _buildBasedOnAvailableVerticalSpace(
+    BuildContext context,
+    BoxConstraints constraints,
+    Landowner landowner,
+  ) {
+    final contactInfo = ContactInfo(
+      name: landowner.name,
+      email: landowner.email,
+      combinedAddress: formatAddress(landowner),
+    );
+    final ListView areas = _buildAreas(context);
+    final buttons = _buildButtonRow(context, landowner);
 
-    if (landowner == null) {
-      return const ErrorScaffold(
-        title: _notFoundTitle,
-        bodyText: _notFoundBodyText,
-      );
+    if (constraints.maxHeight < BreakPoints.widthPhonePortait) {
+      return _buildLayoutSideBySide(context, contactInfo, areas, buttons);
     }
 
-    return ForestryScaffold(
-      title: "$_title: ${landowner.name}",
-      body: Column(
-        children: <Widget>[
-          ContactInfo(
-            name: landowner.name,
-            email: landowner.email,
-            combinedAddress: formatAddress(landowner),
-          ),
-          _buildAreasHeading(context),
-          // Use `Expanded` to both (1) constrain `ListView` from exceeding
-          // total height and (2) force the "Edit" and "Delete" buttons all the
-          // way down to the bottom of the screen. Unfortunately when the number
-          // of items in the `ListView` cause the ListView to not take up as
-          // much or more than its `Expanded` parent, the "New Area" button is
-          // also forced to bottom instead of being flush with last Area
-          // `ListTile`. This is because the expanded `ListView` expands past its
-          // last `ListTile`.
-          Expanded(child: _buildAreas(context)),
-          _buildButtonNewArea(context),
-          _buildButtonRowEditDelete(context, landowner),
-        ],
-      ),
+    return _buildLayoutVertically(context, contactInfo, areas, buttons);
+  }
+
+  Widget _buildLayoutSideBySide(
+    BuildContext context,
+    Widget contactInfo,
+    ListView areas,
+    Widget buttons,
+  ) {
+    // Don't make heading on side by side layout because vertical space is
+    // already assumed to be pretty scarce if this method is called. Do this
+    // because if vertical space is scarce then it will be hard to scroll
+    // through the area ListView.
+    return Column(children: [
+      Expanded(child: Row(children: [contactInfo, Expanded(child: areas)])),
+      buttons
+    ]);
+  }
+
+  Widget _buildLayoutVertically(BuildContext context, Widget contactInfo,
+      ListView areas, Widget buttons) {
+    final areaSection = Column(
+      // Use Expanded to constrain greedy ListView in [areas].
+      children: [_buildAreasHeading(context), Expanded(child: areas)],
+    );
+    return Column(
+      children: <Widget>[contactInfo, Expanded(child: areaSection), buttons],
     );
   }
 
@@ -115,7 +144,7 @@ class LandownerReview extends StatelessWidget {
     return "${landowner.address} ${landowner.city}, $state ${landowner.zip}";
   }
 
-  // Areas Heading /////////////////////////////////////////////////////////////
+  // Areas /////////////////////////////////////////////////////////////////////
   Widget _buildAreasHeading(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -127,16 +156,13 @@ class LandownerReview extends StatelessWidget {
     );
   }
 
-  // Areas /////////////////////////////////////////////////////////////////////
-  Widget _buildAreas(BuildContext context) {
+  ListView _buildAreas(BuildContext context) {
     final areas = Provider.of<AreaCollection>(context).areasOfReviewedLandowner;
 
-    return DBListenableBuilder(
-        builder: (context, _) => ListView.builder(
-              itemCount: areas.length,
-              itemBuilder: (context, i) =>
-                  _buildAreaListItem(context, i, areas),
-            ));
+    return ListView.builder(
+      itemCount: areas.length,
+      itemBuilder: (context, i) => _buildAreaListItem(context, i, areas),
+    );
   }
 
   Widget _buildAreaListItem(BuildContext context, int i, List<Area> areas) {
@@ -181,17 +207,27 @@ class LandownerReview extends StatelessWidget {
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////
-  /// Layout the button for creating a new area associated with landowner being
-  /// reviewed.
+  /// Layout buttons so they are on the right side of their parent.
   ///
-  /// The button will be layed out on the right of its parent.
-  Widget _buildButtonNewArea(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: OutlinedButton(
-        onPressed: () => _startFormForNewAreaWithCurrentLandowner(context),
-        child: const Text(_buttonLabelNewArea),
-      ),
+  /// [landowner] should be the landowner being reviewed so that it can be
+  /// edited or deleted.
+  Widget _buildButtonRow(BuildContext context, Landowner landowner) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        OutlinedButton(
+          onPressed: () => _startFormForNewAreaWithCurrentLandowner(context),
+          child: const Text(_buttonLabelNewArea),
+        ),
+        OutlinedButton(
+          onPressed: () => _navigateEdit(context, landowner),
+          child: const Text(_buttonLabelEdit),
+        ),
+        OutlinedButton(
+          onPressed: () => _navigateDelete(context, landowner),
+          child: const Text(_buttonLabelDelete),
+        ),
+      ],
     );
   }
 
@@ -203,27 +239,6 @@ class LandownerReview extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => BasicInformationForm()),
-    );
-  }
-
-  /// Layout buttons so they are on the right side of their parent.
-  ///
-  /// [landowner] should be the landowner being reviewed so that it can be
-  /// edited or deleted.
-  Widget _buildButtonRowEditDelete(BuildContext context, Landowner landowner) {
-    return Row(
-      children: [
-        Expanded(child: Container()),
-        OutlinedButton(
-          onPressed: () => _navigateEdit(context, landowner),
-          child: const Text(_buttonLabelEdit),
-        ),
-        const SizedBox(width: 20),
-        OutlinedButton(
-          onPressed: () => _navigateDelete(context, landowner),
-          child: const Text(_buttonLabelDelete),
-        ),
-      ],
     );
   }
 
