@@ -4,6 +4,7 @@
 // [AreaReview]).
 
 import 'dart:io';
+import "package:universal_html/html.dart" as html;
 import 'package:docx_template/docx_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -133,6 +134,12 @@ class DOCXConverter {
     Settings settings,
   ) async {
     final docxBytes = await _generateDOCXBinary(area, landowner, settings);
+
+    if (kIsWeb) {
+      handleDOCXOnWeb(docxBytes);
+      return;
+    }
+
     final File docxFile = File(_createPathToDOCX(area, landowner));
     await _writeDOCXToFile(docxFile, docxBytes);
     await _openDOCX(docxFile);
@@ -329,6 +336,17 @@ class DOCXConverter {
           settings.evaluatorZip,
         ),
       ));
+  }
+
+  // Web Version ///////////////////////////////////////////////////////////////
+  void handleDOCXOnWeb(List<int> docxBytes) {
+    final blob = html.Blob(
+      [docxBytes],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    );
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    html.AnchorElement(href: url).click();
+    html.Url.revokeObjectUrl(url);
   }
 
   // Helpers ///////////////////////////////////////////////////////////////////
