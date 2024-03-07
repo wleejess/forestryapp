@@ -112,8 +112,7 @@ class LandownerReview extends StatelessWidget {
           // `ListTile`. This is because the expanded `ListView` expands past its
           // last `ListTile`.
           Expanded(child: _buildAreas(context)),
-          _buildButtonNewArea(context),
-          _buildButtonRowEditDelete(context, landowner),
+          _buildButtonRow(context, landowner),
         ],
       ),
     );
@@ -207,17 +206,27 @@ class LandownerReview extends StatelessWidget {
   }
 
   // Buttons ///////////////////////////////////////////////////////////////////
-  /// Layout the button for creating a new area associated with landowner being
-  /// reviewed.
+  /// Layout buttons so they are on the right side of their parent.
   ///
-  /// The button will be layed out on the right of its parent.
-  Widget _buildButtonNewArea(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: OutlinedButton(
-        onPressed: () => _startFormForNewAreaWithCurrentLandowner(context),
-        child: const Text(_buttonLabelNewArea),
-      ),
+  /// [landowner] should be the landowner being reviewed so that it can be
+  /// edited or deleted.
+  Widget _buildButtonRow(BuildContext context, Landowner landowner) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        OutlinedButton(
+          onPressed: () => _startFormForNewAreaWithCurrentLandowner(context),
+          child: const Text(_buttonLabelNewArea),
+        ),
+        OutlinedButton(
+          onPressed: () => _navigateEdit(context, landowner),
+          child: const Text(_buttonLabelEdit),
+        ),
+        OutlinedButton(
+          onPressed: () => _navigateDelete(context, landowner),
+          child: const Text(_buttonLabelDelete),
+        ),
+      ],
     );
   }
 
@@ -229,27 +238,6 @@ class LandownerReview extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => BasicInformationForm()),
-    );
-  }
-
-  /// Layout buttons so they are on the right side of their parent.
-  ///
-  /// [landowner] should be the landowner being reviewed so that it can be
-  /// edited or deleted.
-  Widget _buildButtonRowEditDelete(BuildContext context, Landowner landowner) {
-    return Row(
-      children: [
-        Expanded(child: Container()),
-        OutlinedButton(
-          onPressed: () => _navigateEdit(context, landowner),
-          child: const Text(_buttonLabelEdit),
-        ),
-        const SizedBox(width: 20),
-        OutlinedButton(
-          onPressed: () => _navigateDelete(context, landowner),
-          child: const Text(_buttonLabelDelete),
-        ),
-      ],
     );
   }
 
