@@ -11,6 +11,7 @@ import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
 import "package:forestryapp/screens/basic_information_form.dart";
 import "package:forestryapp/screens/landowner_edit.dart";
+import "package:forestryapp/util/break_points.dart";
 import "package:provider/provider.dart";
 
 class LandownerReview extends StatelessWidget {
@@ -54,26 +55,44 @@ class LandownerReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return DBListenableBuilder(
       builder: (context, child) {
-        return _buildForestryScaffold(context);
+        final Landowner? landowner =
+            Provider.of<LandownerCollection>(context).getByID(_landownerID);
+
+        if (landowner == null) {
+          return const ErrorScaffold(
+            title: _notFoundTitle,
+            bodyText: _notFoundBodyText,
+          );
+        }
+
+        return LayoutBuilder(
+          builder: (context, constraints) => _buildIfNotEnoughVerticalSpace(
+            context,
+            constraints,
+            landowner,
+          ),
+        );
       },
     );
+  }
+
+  Widget _buildIfNotEnoughVerticalSpace(
+    BuildContext context,
+    BoxConstraints constraints,
+    Landowner landowner,
+  ) {
+    if (constraints.maxHeight < BreakPoints.widthPhonePortait) {
+      return _buildLayoutSideBySide(context, landowner);
+    }
+
+    return _buildLayoutVertical(context, landowner);
   }
 
   /// Layout the entire screen of the landowne review screen.
   ///
   /// Show an error page if the [_landowner] is [null] for whatever reason.
   /// Otherwise show the landowner's information.
-  Widget _buildForestryScaffold(BuildContext context) {
-    final Landowner? landowner =
-        Provider.of<LandownerCollection>(context).getByID(_landownerID);
-
-    if (landowner == null) {
-      return const ErrorScaffold(
-        title: _notFoundTitle,
-        bodyText: _notFoundBodyText,
-      );
-    }
-
+  Widget _buildLayoutVertical(BuildContext context, Landowner landowner) {
     return ForestryScaffold(
       title: "$_title: ${landowner.name}",
       body: Column(
@@ -98,6 +117,13 @@ class LandownerReview extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildLayoutSideBySide(
+    BuildContext context,
+    Landowner landowner,
+  ) {
+    return const Placeholder();
   }
 
   String formatAddress(Landowner landowner) {
