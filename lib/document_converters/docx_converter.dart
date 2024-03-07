@@ -136,7 +136,7 @@ class DOCXConverter {
     final docxBytes = await _generateDOCXBinary(area, landowner, settings);
 
     if (kIsWeb) {
-      handleDOCXOnWeb(docxBytes);
+      _handleDOCXOnWeb(docxBytes);
       return;
     }
 
@@ -339,7 +339,7 @@ class DOCXConverter {
   }
 
   // Web Version ///////////////////////////////////////////////////////////////
-  void handleDOCXOnWeb(List<int> docxBytes) {
+  void _handleDOCXOnWeb(List<int> docxBytes) {
     final blob = html.Blob(
       [docxBytes],
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
