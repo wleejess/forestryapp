@@ -68,6 +68,15 @@ class PdfButton extends StatelessWidget {
       return;
     }
 
+    if (kIsWeb) {
+      final pdf = PdfConverter().create(_area, _landowner, evaluator);
+      final blob = html.Blob([await pdf.save()], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      html.AnchorElement(href: url).click();
+      html.Url.revokeObjectUrl(url);
+      return;
+    }
+
     // Get the path of the folder in which to store the pdf file.
     // On Android, you must access external storage in order to open the file outside of the app.
     // https://stackoverflow.com/questions/63688285/flutter-platformexceptionerror-failed-to-find-configured-root-that-contains
@@ -80,13 +89,7 @@ class PdfButton extends StatelessWidget {
       directory = await getDownloadsDirectory();
     }
 
-    if (kIsWeb) {
-      final pdf = PdfConverter().create(_area, _landowner, evaluator);
-      final blob = html.Blob([await pdf.save()], 'application/pdf');
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      html.AnchorElement(href: url).click();
-      html.Url.revokeObjectUrl(url);
-    } else if (directory == null) {
+    if (directory == null) {
       if (!context.mounted) return;
       ExceptionAlert.alert(
           context: context,
