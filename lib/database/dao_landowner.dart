@@ -28,8 +28,9 @@ class DAOLandowner {
   /// Assumes all fields except of [dto] are set with the exception of
   /// [dto.id]. The latter can take any value as it has no bearing on the
   /// behavior of this method.
-  static void saveNewLandowner(DTOLandowner dto) =>
-      DatabaseManager.getInstance().saveNewLandowner(_getNonIDFields(dto));
+  static Future<int> saveNewLandowner(DTOLandowner dto) async =>
+      await DatabaseManager.getInstance()
+          .saveNewLandowner(_getNonIDFields(dto));
 
   /// Edit an existing landowner record alreay on the database.
   ///

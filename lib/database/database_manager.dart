@@ -202,9 +202,9 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
-  void saveNewLandowner(List<String> queryArgs) async {
+  Future<int> saveNewLandowner(List<String> queryArgs) async {
     return _db.transaction((transaction) async {
-      await transaction.rawInsert(_sqlSaveNewLandowner, queryArgs);
+      return await transaction.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
   }
 

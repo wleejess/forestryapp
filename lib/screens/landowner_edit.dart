@@ -157,11 +157,12 @@ class _LandownerEditState extends State<LandownerEdit> {
     _collectFormData();
 
     if (widget._landowner == null) {
-      DAOLandowner.saveNewLandowner(_dto);
+      await DAOLandowner.saveNewLandowner(_dto);
     } else {
       _dto.id = widget._landowner!.id; // non-null because of [if] condition.
       DAOLandowner.updateExistingLandowner(_dto);
     }
+    if (!context.mounted) return;
 
     // Update landowners to include newly saved landowner.
     Provider.of<LandownerCollection>(context, listen: false).refetch();
