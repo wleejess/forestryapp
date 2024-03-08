@@ -219,7 +219,7 @@ class LandownerReview extends StatelessWidget {
           child: const Text(_buttonLabelEdit),
         ),
         OutlinedButton(
-          onPressed: () => _navigateDelete(context, landowner),
+          onPressed: () async => await _navigateDelete(context, landowner),
           child: const Text(_buttonLabelDelete),
         ),
       ],
@@ -254,20 +254,21 @@ class LandownerReview extends StatelessWidget {
   ///
   /// ASSUMPTION: Previous screen needs to be listening to [LandownerCollection]
   /// or else it won't show that the landowner was deleted.
-  void _navigateDelete(BuildContext context, Landowner landowner) {
+  Future<void> _navigateDelete(BuildContext context, Landowner landowner) async {
     // Keep as separate method to avoid using context across async gap.
-    _deleteLandowner(context, landowner);
-
+    await _deleteLandowner(context, landowner);
+    if (!context.mounted) return;
     Navigator.pop(context);
   }
 
-  void _deleteLandowner(BuildContext context, Landowner landowner) async {
+  Future<void> _deleteLandowner(BuildContext context, Landowner landowner) async {
     await DAOLandowner.deleteLandowner(landowner.id);
     if (!context.mounted) return;
     // Refetch areas too because when an landowner gets deleted so do its
     // areas. See "on delete cascade" option in schema
     // [assets/database/schema/areas.sql].
-    Provider.of<LandownerCollection>(context, listen: false).refetch();
-    Provider.of<AreaCollection>(context, listen: false).refetch();
+    await Provider.of<LandownerCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+    await Provider.of<AreaCollection>(context, listen: false).refetch();
   }
 }
