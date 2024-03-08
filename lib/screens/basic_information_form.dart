@@ -67,9 +67,14 @@ class BasicInformationForm extends StatelessWidget {
         ),
         initialValue: basicInfoData.name,
         onChanged: (text) {
-          if (_formKey.currentState!.validate()) {
-            basicInfoData.name = text;
-            unsavedChangesNotifier.setUnsavedChanges(true);
+          basicInfoData.name = text;
+          unsavedChangesNotifier.setUnsavedChanges(true);
+
+          // Okay to run validation after because the only thing being validated
+          // is if it is empty or not.
+          if (!_formKey.currentState!.validate()) {
+            // Set null to allow full deletion of name.
+            basicInfoData.name = null;
           }
         },
         validator: Validation.isNotEmpty,
