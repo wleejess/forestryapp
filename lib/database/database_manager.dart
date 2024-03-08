@@ -253,10 +253,10 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlUpdateExitsingArea] in the correct order.
-  Future<void> updateExistingArea(List<dynamic> queryArgs) async {
+  Future<int> updateExistingArea(List<dynamic> queryArgs) async {
     return await _db.transaction(
       (transaction) async {
-        await transaction.rawUpdate(_sqlUpdateExitsingArea, queryArgs);
+        return await transaction.rawUpdate(_sqlUpdateExitsingArea, queryArgs);
       },
     );
   }

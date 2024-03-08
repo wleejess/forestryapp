@@ -64,7 +64,7 @@ class DAOArea {
   /// Edit an existing area record alreay on the database.
   ///
   /// Assumes [area.id] is a valid ID for an existing area.
-  static Future<void> updateExistingArea(Area area) async =>
+  static Future<int> updateExistingArea(Area area) async =>
       await DatabaseManager.getInstance()
           .updateExistingArea([..._getNonIDFields(area), area.id]);
 
