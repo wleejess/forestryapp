@@ -132,15 +132,16 @@ class _LandownerEditState extends State<LandownerEdit> {
     return Align(
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
-        onPressed: () => _submitForm(context),
+        onPressed: () async => await _submitForm(context),
         child: const Text(LandownerEdit._labelSaveButton),
       ),
     );
   }
 
-  void _submitForm(BuildContext context) {
+  Future<void> _submitForm(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
-      _persist(context);
+      await _persist(context);
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -153,7 +154,7 @@ class _LandownerEditState extends State<LandownerEdit> {
     }
   }
 
-  void _persist(BuildContext context) async {
+  Future<void> _persist(BuildContext context) async {
     _collectFormData();
 
     if (widget._landowner == null) {
