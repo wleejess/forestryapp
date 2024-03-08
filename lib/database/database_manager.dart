@@ -63,8 +63,6 @@ class DatabaseManager {
       'assets/database/ddl_statements/delete_area.sql';
 
   // Relationship queries
-  static const String _pathReadLandownerFromArea =
-      'assets/database/queries/read_landowner_from_area.sql';
   static const String _pathReadAreasFromLandowner =
       'assets/database/queries/read_areas_from_landowner.sql';
 
@@ -84,7 +82,6 @@ class DatabaseManager {
   static late final String _sqlDeleteArea;
 
   // Relationship queries
-  static late String _sqlReadLandownerFromArea;
   static late String _sqlReadAreasFromLandowner;
 
   /// The single instance of the database manager.
@@ -156,8 +153,6 @@ class DatabaseManager {
     _sqlDeleteArea = await rootBundle.loadString(_pathDeleteArea);
 
     // Relationship queries
-    _sqlReadLandownerFromArea =
-        await rootBundle.loadString(_pathReadLandownerFromArea);
     _sqlReadAreasFromLandowner =
         await rootBundle.loadString(_pathReadAreasFromLandowner);
   }
@@ -277,14 +272,6 @@ class DatabaseManager {
   }
 
   // Relationship Queries //////////////////////////////////////////////////////
-  /// Given a specific area, find the landowner that owns it.
-  Future<List<Map<String, dynamic>>> readLandownerFromArea(
-    List<int> queryArgs,
-  ) async {
-    return await _db.rawQuery(
-        DatabaseManager._sqlReadLandownerFromArea, queryArgs);
-  }
-
   /// Given a landowner, find all areas that they own.
   Future<List<Map<String, dynamic>>> readAreasFromLandowner(
     List<int> queryArgs,

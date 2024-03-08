@@ -48,14 +48,4 @@ class DAOLandowner {
   // Helpers ///////////////////////////////////////////////////////////////////
   static List<String> _getNonIDFields(DTOLandowner dto) =>
       [dto.name, dto.email, dto.address, dto.city, dto.usState.label, dto.zip];
-
-  // Relationship Queries //////////////////////////////////////////////////////
-  static Future<Landowner?> readLandownerFromArea(int areaID) async {
-    final dbRecords =
-        await DatabaseManager.getInstance().readLandownerFromArea([areaID]);
-
-    if (dbRecords.isEmpty) return null;
-
-    return Landowner.fromMap(dbRecords[0]);
-  }
 }
