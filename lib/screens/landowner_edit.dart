@@ -166,8 +166,9 @@ class _LandownerEditState extends State<LandownerEdit> {
     if (!context.mounted) return;
 
     // Update landowners to include newly saved landowner.
-    Provider.of<LandownerCollection>(context, listen: false).refetch();
-    Provider.of<AreaCollection>(context, listen: false).refetch();
+    await Provider.of<LandownerCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+    await Provider.of<AreaCollection>(context, listen: false).refetch();
   }
 
   /// Transfer form field data into the DTO to prepare it for sendoff to DAO.
