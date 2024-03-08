@@ -21,7 +21,14 @@ class CancelFormSummaryButton extends StatelessWidget {
   }
 
   void _cancel(BuildContext context) {
+    // NOTE: Clearing the form with `area.clearForNewForm()` will trigger
+    // `AreaProperties` used in `FormReview`validation to fail because clearing
+    // will set area._name and area._landownerID will be set to `null`. This
+    // will cause a very quick and temporary change in `FormReview` before
+    // navigating away. There would probably be a better way of implementing
+    // this.
     Provider.of<Area>(context, listen: false).clearForNewForm();
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AreaIndex()),
