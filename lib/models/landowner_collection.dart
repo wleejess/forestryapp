@@ -44,7 +44,7 @@ class LandownerCollection extends ChangeNotifier {
     final matches =
         _landowners.where((landowner) => landowner.id == id).toList();
 
-    if (matches.isEmpty) null;
+    if (matches.isEmpty) return null;
 
     return matches[0];
   }
