@@ -7,6 +7,7 @@ import "package:forestryapp/components/pdf_button.dart";
 import "package:forestryapp/components/save_button.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner_collection.dart";
+import "package:forestryapp/screens/area_index.dart";
 import "package:provider/provider.dart";
 
 /// The FormReview page allows the user to review the data they have
@@ -53,8 +54,12 @@ class FormReview extends StatelessWidget {
 
   Widget _buildButtonCancel(BuildContext context) {
     return OutlinedButton(
-      onPressed: () => {
-        // TODO: Clear the Area provider and navigate out of the form section.
+      onPressed: () {
+        Provider.of<Area>(context, listen: false).clearForNewForm();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AreaIndex()),
+        );
       },
       child: const Text(_buttonTextCancel),
     );
