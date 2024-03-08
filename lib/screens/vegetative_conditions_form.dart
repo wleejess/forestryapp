@@ -130,6 +130,8 @@ class VegetativeConditionsForm extends StatelessWidget {
           keyboardType: TextInputType.number,
           validator: Validation.isValidPercentage,
           onChanged: (text) {
+            if (!_formKey.currentState!.validate()) return;
+
             title == _overstoryInfo
                 ? vegConData.overstorySpeciesComposition = int.tryParse(text)
                 : vegConData.understorySpeciesComposition = int.tryParse(text);
