@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
+import "package:forestryapp/components/cancel_form_summary_button.dart";
 import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
@@ -7,7 +8,6 @@ import "package:forestryapp/components/pdf_button.dart";
 import "package:forestryapp/components/save_button.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/landowner_collection.dart";
-import "package:forestryapp/screens/area_index.dart";
 import "package:provider/provider.dart";
 
 /// The FormReview page allows the user to review the data they have
@@ -17,7 +17,6 @@ import "package:provider/provider.dart";
 class FormReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Summary";
-  static const _buttonTextCancel = "Cancel";
 
   // Constructor ///////////////////////////////////////////////////////////////
   const FormReview({super.key});
@@ -33,7 +32,7 @@ class FormReview extends StatelessWidget {
       PdfButton(area: formData, landowner: landowner),
       DOCXButton(formData, landowner),
       const SaveButton(),
-      _buildButtonCancel(context)
+      const CancelFormSummaryButton(),
     ];
 
     return ForestryScaffold(
@@ -50,18 +49,5 @@ class FormReview extends StatelessWidget {
             ),
           ],
         ));
-  }
-
-  Widget _buildButtonCancel(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {
-        Provider.of<Area>(context, listen: false).clearForNewForm();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AreaIndex()),
-        );
-      },
-      child: const Text(_buttonTextCancel),
-    );
   }
 }
