@@ -43,8 +43,8 @@ class DAOLandowner {
   /// Remove an existing landowner record from the database.
   ///
   /// Assumes [id] is a valid ID of an existing landowner record.
-  static void deleteLandowner(int id) =>
-      DatabaseManager.getInstance().deleteLandowner([id]);
+  static Future<int> deleteLandowner(int id) async =>
+      await DatabaseManager.getInstance().deleteLandowner([id]);
 
   // Helpers ///////////////////////////////////////////////////////////////////
   static List<String> _getNonIDFields(DTOLandowner dto) =>

@@ -122,7 +122,6 @@ class DatabaseManager {
       await databaseFactory.deleteDatabase(_filenameDatabase);
     }
 
-
     final db = await openDatabase(
       _filenameDatabase,
       version: 1,
@@ -224,10 +223,10 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlDeleteLandowner] in the correct order.
-  void deleteLandowner(List<dynamic> queryArgs) async {
+  Future<int> deleteLandowner(List<dynamic> queryArgs) async {
     return _db.transaction(
       (transaction) async {
-        await transaction.rawDelete(_sqlDeleteLandowner, queryArgs);
+        return await transaction.rawDelete(_sqlDeleteLandowner, queryArgs);
       },
     );
   }

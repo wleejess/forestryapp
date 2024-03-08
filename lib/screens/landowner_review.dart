@@ -262,7 +262,8 @@ class LandownerReview extends StatelessWidget {
   }
 
   void _deleteLandowner(BuildContext context, Landowner landowner) async {
-    DAOLandowner.deleteLandowner(landowner.id);
+    await DAOLandowner.deleteLandowner(landowner.id);
+    if (!context.mounted) return;
     // Refetch areas too because when an landowner gets deleted so do its
     // areas. See "on delete cascade" option in schema
     // [assets/database/schema/areas.sql].
