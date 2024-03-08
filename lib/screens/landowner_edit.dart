@@ -160,7 +160,7 @@ class _LandownerEditState extends State<LandownerEdit> {
       await DAOLandowner.saveNewLandowner(_dto);
     } else {
       _dto.id = widget._landowner!.id; // non-null because of [if] condition.
-      DAOLandowner.updateExistingLandowner(_dto);
+      await DAOLandowner.updateExistingLandowner(_dto);
     }
     if (!context.mounted) return;
 

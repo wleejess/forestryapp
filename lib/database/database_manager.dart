@@ -211,10 +211,13 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlUpdateExitsingLandowner] in the correct order.
-  void updateExistingLandowner(List<dynamic> queryArgs) async {
+  Future<int> updateExistingLandowner(List<dynamic> queryArgs) async {
     return _db.transaction(
       (transaction) async {
-        await transaction.rawUpdate(_sqlUpdateExitsingLandowner, queryArgs);
+        return await transaction.rawUpdate(
+          _sqlUpdateExitsingLandowner,
+          queryArgs,
+        );
       },
     );
   }

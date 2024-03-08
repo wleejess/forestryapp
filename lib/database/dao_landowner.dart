@@ -35,8 +35,8 @@ class DAOLandowner {
   /// Edit an existing landowner record alreay on the database.
   ///
   /// Assumes [dto.id] is a valid ID for an existing landowner.
-  static void updateExistingLandowner(DTOLandowner dto) =>
-      DatabaseManager.getInstance().updateExistingLandowner(
+  static Future<int> updateExistingLandowner(DTOLandowner dto) async =>
+      await DatabaseManager.getInstance().updateExistingLandowner(
         [..._getNonIDFields(dto), dto.id],
       );
 
