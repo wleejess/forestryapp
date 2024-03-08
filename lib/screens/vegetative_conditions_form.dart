@@ -146,7 +146,7 @@ class VegetativeConditionsForm extends StatelessWidget {
 
     const historyTitle = "Stand/Area History";
     const historyHelp =
-        "Describe prior management activities and/or disturbances"
+        "Describe prior management activities and/or disturbances "
         "that have shaped or influenced the stand as it appears today";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
