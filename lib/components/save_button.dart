@@ -112,15 +112,16 @@ class SaveButton extends StatelessWidget {
     );
   }
 
-  void _navigateAfterSave(context, formArea) {
+  void _navigateAfterSave(context, Area formArea) {
+    final id = formArea.id;
     final Widget Function(BuildContext) destination;
 
     // ASSUMPTION: Area Provider ID should be set for (1) newly created areas
     // from `_saveArea` and (2) already set for areas being updated. Hence the
     // `else` is just a safeguard to fail elegantly if for some reason the ID is
     // not set.
-    if (formArea.id != null) {
-      destination = (context) => AreaReview(formArea.id);
+    if (id != null) {
+      destination = (context) => AreaReview(id);
     } else {
       destination = (context) => const AreaIndex();
     }
