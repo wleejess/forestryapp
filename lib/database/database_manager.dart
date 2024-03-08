@@ -265,10 +265,10 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlDeleteArea] in the correct order.
-  Future<void> deleteArea(List<dynamic> queryArgs) async {
+  Future<int> deleteArea(List<dynamic> queryArgs) async {
     return _db.transaction(
       (transaction) async {
-        await transaction.rawDelete(_sqlDeleteArea, queryArgs);
+        return await transaction.rawDelete(_sqlDeleteArea, queryArgs);
       },
     );
   }
