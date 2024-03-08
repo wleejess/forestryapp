@@ -111,11 +111,11 @@ class VegetativeConditionsForm extends StatelessWidget {
         RadioOptions(
           header: density,
           enumValues: StandDensity.values,
-          initialValue: title == 'Overstory Stand Info'
+          initialValue: title == _overstoryInfo
               ? vegConData.overstoryDensity
               : vegConData.understoryDensity,
           onSelected: (selectedOption) {
-            title == 'Overstory Stand Info'
+            title == _overstoryInfo
                 ? vegConData.overstoryDensity = selectedOption
                 : vegConData.understoryDensity = selectedOption;
             unsavedChangesNotifier.setUnsavedChanges(true);
@@ -124,13 +124,13 @@ class VegetativeConditionsForm extends StatelessWidget {
         TextFormField(
           decoration: const InputDecoration(
               labelText: "Species Composition", hintText: "Enter a % value"),
-          initialValue: title == 'Overstory Stand Info'
+          initialValue: title == _overstoryInfo
               ? vegConData.overstorySpeciesComposition?.toString()
               : vegConData.understorySpeciesComposition?.toString(),
           keyboardType: TextInputType.number,
           validator: Validation.isValidPercentage,
           onChanged: (text) {
-            title == 'Overstory Stand Info'
+            title == _overstoryInfo
                 ? vegConData.overstorySpeciesComposition = int.tryParse(text)
                 : vegConData.understorySpeciesComposition = int.tryParse(text);
             unsavedChangesNotifier.setUnsavedChanges(true);
