@@ -95,7 +95,10 @@ class BasicInformationForm extends StatelessWidget {
           }
           return basicInfoData.acres.toString();
         }(),
+        validator: Validation.isValidAcres,
         onChanged: (text) {
+          if (!_formKey.currentState!.validate()) return;
+
           if (text.isNotEmpty) {
             basicInfoData.acres = double.tryParse(text);
             unsavedChangesNotifier.setUnsavedChanges(true);
