@@ -182,11 +182,6 @@ class LandownerReview extends StatelessWidget {
   Future<void> _tapOnArea(BuildContext context, Area area) async {
     final areaID = area.id;
 
-    await Provider.of<LandownerCollection>(
-      context,
-      listen: false,
-    ).setLandownerOfAreaBeingReviewed(_landownerID);
-
     if (!context.mounted) return;
 
     final Widget destination;
