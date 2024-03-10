@@ -12,7 +12,8 @@ class Home extends StatelessWidget {
   static const _title = "Home";
   static const _welcomeText = "Welcome to the Forest Wellness Checkup App!";
   static const _stepOneText = "Step 1: Enter your contact information.";
-  static const _stepTwoText = "Step 2: Enter the landower's contact information.";
+  static const _stepTwoText =
+      "Step 2: Enter the landower's contact information.";
   static const _stepThreeText = "Step 3: Fill out the checklist.";
   static const _labelSettingsButton = "Update Settings";
   static const _labelLandowerButton = "Add New Landowner";
@@ -35,19 +36,27 @@ class Home extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(_welcomeText, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium),
+                child: Text(_welcomeText,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displayMedium),
               ),
               const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Image(image: AssetImage('assets/images/brand.png')),
-              ),
+                  padding: EdgeInsets.all(8.0),
+                  child: Image(
+                    image: AssetImage('assets/images/forestry_logo.png'),
+                    width: 100, // Set the desired width
+                    height: 100, // Set the desired height
+                    fit: BoxFit.cover, // Maintain aspect ratio),
+                  )),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Card(child: Padding(
+                child: Card(
+                    child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Text(_stepOneText, style: Theme.of(context).textTheme.displaySmall),
+                      Text(_stepOneText,
+                          style: Theme.of(context).textTheme.displaySmall),
                       _buildSettingsButton(context),
                     ],
                   ),
@@ -55,11 +64,13 @@ class Home extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Card(child: Padding(
+                child: Card(
+                    child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Text(_stepTwoText, style: Theme.of(context).textTheme.displaySmall),
+                      Text(_stepTwoText,
+                          style: Theme.of(context).textTheme.displaySmall),
                       _buildLandownerButton(context),
                     ],
                   ),
@@ -67,11 +78,13 @@ class Home extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Card(child: Padding(
+                child: Card(
+                    child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Text(_stepThreeText, style: Theme.of(context).textTheme.displaySmall),
+                      Text(_stepThreeText,
+                          style: Theme.of(context).textTheme.displaySmall),
                       _buildAreaButton(context),
                     ],
                   ),
@@ -100,13 +113,13 @@ class Home extends StatelessWidget {
       },
       style: OutlinedButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        backgroundColor:  Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       child: const Text(_labelSettingsButton),
     );
   }
 
-    OutlinedButton _buildLandownerButton(BuildContext context) {
+  OutlinedButton _buildLandownerButton(BuildContext context) {
     return OutlinedButton(
       onPressed: () {
         Navigator.push(
@@ -116,13 +129,13 @@ class Home extends StatelessWidget {
       },
       style: OutlinedButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        backgroundColor:  Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       child: const Text(_labelLandowerButton),
     );
   }
 
-    OutlinedButton _buildAreaButton(BuildContext context) {
+  OutlinedButton _buildAreaButton(BuildContext context) {
     return OutlinedButton(
       onPressed: () {
         Provider.of<Area>(context, listen: false).clearForNewForm();
@@ -134,7 +147,7 @@ class Home extends StatelessWidget {
       },
       style: OutlinedButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        backgroundColor:  Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       child: const Text(_labelAreaButton),
     );
