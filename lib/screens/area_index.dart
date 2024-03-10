@@ -6,7 +6,6 @@ import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/navigable_list_tile.dart";
 import "package:forestryapp/models/area.dart";
 import "package:forestryapp/models/area_collection.dart";
-import "package:forestryapp/models/landowner_collection.dart";
 import "package:forestryapp/screens/area_review.dart";
 import "package:forestryapp/screens/basic_information_form.dart";
 import "package:provider/provider.dart";
@@ -71,10 +70,6 @@ class AreaIndex extends StatelessWidget {
       destination =
           ErrorScaffold(title: _errorTitle, bodyText: "$_errorBody$id");
     } else {
-      // Fetch landowner of given area.
-      await Provider.of<LandownerCollection>(context, listen: false)
-          .setLandownerOfAreaBeingReviewed(id);
-      if (!context.mounted) return;
       destination = AreaReview(id);
     }
 
@@ -85,7 +80,7 @@ class AreaIndex extends StatelessWidget {
   }
 
   // Area Creation /////////////////////////////////////////////////////////////
-  void _startFormForNewArea(BuildContext context)  {
+  void _startFormForNewArea(BuildContext context) {
     Provider.of<Area>(context, listen: false).clearForNewForm();
 
     Navigator.push(

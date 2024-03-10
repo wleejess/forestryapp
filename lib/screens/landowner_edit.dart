@@ -132,15 +132,16 @@ class _LandownerEditState extends State<LandownerEdit> {
     return Align(
       alignment: Alignment.bottomRight,
       child: OutlinedButton(
-        onPressed: () => _submitForm(context),
+        onPressed: () async => await _submitForm(context),
         child: const Text(LandownerEdit._labelSaveButton),
       ),
     );
   }
 
-  void _submitForm(BuildContext context) {
+  Future<void> _submitForm(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
-      _persist(context);
+      await _persist(context);
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -153,19 +154,21 @@ class _LandownerEditState extends State<LandownerEdit> {
     }
   }
 
-  void _persist(BuildContext context) async {
+  Future<void> _persist(BuildContext context) async {
     _collectFormData();
 
     if (widget._landowner == null) {
-      DAOLandowner.saveNewLandowner(_dto);
+      await DAOLandowner.saveNewLandowner(_dto);
     } else {
       _dto.id = widget._landowner!.id; // non-null because of [if] condition.
-      DAOLandowner.updateExistingLandowner(_dto);
+      await DAOLandowner.updateExistingLandowner(_dto);
     }
+    if (!context.mounted) return;
 
     // Update landowners to include newly saved landowner.
-    Provider.of<LandownerCollection>(context, listen: false).refetch();
-    Provider.of<AreaCollection>(context, listen: false).refetch();
+    await Provider.of<LandownerCollection>(context, listen: false).refetch();
+    if (!context.mounted) return;
+    await Provider.of<AreaCollection>(context, listen: false).refetch();
   }
 
   /// Transfer form field data into the DTO to prepare it for sendoff to DAO.

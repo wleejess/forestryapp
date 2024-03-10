@@ -64,15 +64,15 @@ class DAOArea {
   /// Edit an existing area record alreay on the database.
   ///
   /// Assumes [area.id] is a valid ID for an existing area.
-  static Future<void> updateExistingArea(Area area) async =>
+  static Future<int> updateExistingArea(Area area) async =>
       await DatabaseManager.getInstance()
           .updateExistingArea([..._getNonIDFields(area), area.id]);
 
   /// Remove an existing area record from the database.
   ///
   /// Assumes [id] is a valid ID of an existing area record.
-  static Future<void> deleteArea(int id) async =>
-      DatabaseManager.getInstance().deleteArea([id]);
+  static Future<int> deleteArea(int id) async =>
+      await DatabaseManager.getInstance().deleteArea([id]);
 
   // Relationship Queries //////////////////////////////////////////////////////
   static Future<List<Area>> readAreasFromLandowner(int landownerID) async {

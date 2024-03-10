@@ -90,7 +90,7 @@ class _AreaReviewState extends State<AreaReview> {
 
   Widget _buildButtonDelete(BuildContext context, Area area) {
     return OutlinedButton(
-      onPressed: () => _deleteArea(context, area),
+      onPressed: () async => await _deleteArea(context, area),
       child: const Text(AreaReview._buttonTextDelete),
     );
   }

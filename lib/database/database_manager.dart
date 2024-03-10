@@ -63,8 +63,6 @@ class DatabaseManager {
       'assets/database/ddl_statements/delete_area.sql';
 
   // Relationship queries
-  static const String _pathReadLandownerFromArea =
-      'assets/database/queries/read_landowner_from_area.sql';
   static const String _pathReadAreasFromLandowner =
       'assets/database/queries/read_areas_from_landowner.sql';
 
@@ -84,7 +82,6 @@ class DatabaseManager {
   static late final String _sqlDeleteArea;
 
   // Relationship queries
-  static late String _sqlReadLandownerFromArea;
   static late String _sqlReadAreasFromLandowner;
 
   /// The single instance of the database manager.
@@ -125,7 +122,6 @@ class DatabaseManager {
       await databaseFactory.deleteDatabase(_filenameDatabase);
     }
 
-
     final db = await openDatabase(
       _filenameDatabase,
       version: 1,
@@ -156,8 +152,6 @@ class DatabaseManager {
     _sqlDeleteArea = await rootBundle.loadString(_pathDeleteArea);
 
     // Relationship queries
-    _sqlReadLandownerFromArea =
-        await rootBundle.loadString(_pathReadLandownerFromArea);
     _sqlReadAreasFromLandowner =
         await rootBundle.loadString(_pathReadAreasFromLandowner);
   }
@@ -207,9 +201,9 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlSaveNewLandowner] in the correct order.
-  void saveNewLandowner(List<String> queryArgs) async {
+  Future<int> saveNewLandowner(List<String> queryArgs) async {
     return _db.transaction((transaction) async {
-      await transaction.rawInsert(_sqlSaveNewLandowner, queryArgs);
+      return await transaction.rawInsert(_sqlSaveNewLandowner, queryArgs);
     });
   }
 
@@ -217,10 +211,13 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlUpdateExitsingLandowner] in the correct order.
-  void updateExistingLandowner(List<dynamic> queryArgs) async {
+  Future<int> updateExistingLandowner(List<dynamic> queryArgs) async {
     return _db.transaction(
       (transaction) async {
-        await transaction.rawUpdate(_sqlUpdateExitsingLandowner, queryArgs);
+        return await transaction.rawUpdate(
+          _sqlUpdateExitsingLandowner,
+          queryArgs,
+        );
       },
     );
   }
@@ -229,10 +226,10 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlDeleteLandowner] in the correct order.
-  void deleteLandowner(List<dynamic> queryArgs) async {
+  Future<int> deleteLandowner(List<dynamic> queryArgs) async {
     return _db.transaction(
       (transaction) async {
-        await transaction.rawDelete(_sqlDeleteLandowner, queryArgs);
+        return await transaction.rawDelete(_sqlDeleteLandowner, queryArgs);
       },
     );
   }
@@ -256,10 +253,10 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlUpdateExitsingArea] in the correct order.
-  Future<void> updateExistingArea(List<dynamic> queryArgs) async {
+  Future<int> updateExistingArea(List<dynamic> queryArgs) async {
     return await _db.transaction(
       (transaction) async {
-        await transaction.rawUpdate(_sqlUpdateExitsingArea, queryArgs);
+        return await transaction.rawUpdate(_sqlUpdateExitsingArea, queryArgs);
       },
     );
   }
@@ -268,23 +265,15 @@ class DatabaseManager {
   ///
   /// [queryArgs] Should be list of ALL values specified in
   /// [_sqlDeleteArea] in the correct order.
-  Future<void> deleteArea(List<dynamic> queryArgs) async {
+  Future<int> deleteArea(List<dynamic> queryArgs) async {
     return _db.transaction(
       (transaction) async {
-        await transaction.rawDelete(_sqlDeleteArea, queryArgs);
+        return await transaction.rawDelete(_sqlDeleteArea, queryArgs);
       },
     );
   }
 
   // Relationship Queries //////////////////////////////////////////////////////
-  /// Given a specific area, find the landowner that owns it.
-  Future<List<Map<String, dynamic>>> readLandownerFromArea(
-    List<int> queryArgs,
-  ) async {
-    return await _db.rawQuery(
-        DatabaseManager._sqlReadLandownerFromArea, queryArgs);
-  }
-
   /// Given a landowner, find all areas that they own.
   Future<List<Map<String, dynamic>>> readAreasFromLandowner(
     List<int> queryArgs,

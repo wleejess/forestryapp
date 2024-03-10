@@ -7,7 +7,6 @@ import 'package:forestryapp/models/landowner.dart';
 class LandownerCollection extends ChangeNotifier {
   // Variables To Provide //////////////////////////////////////////////////////
   List<Landowner> _landowners;
-  Landowner? _landownerOfReviewedArea;
 
   // Constructor ///////////////////////////////////////////////////////////////
 
@@ -15,7 +14,6 @@ class LandownerCollection extends ChangeNotifier {
 
   List<Landowner> get landowners => _landowners;
 
-  Landowner? get landownerOfReviewedArea => _landownerOfReviewedArea;
 
   /// Call this to make sure always have the most recent landowners on hand.
   ///
@@ -24,9 +22,6 @@ class LandownerCollection extends ChangeNotifier {
   /// https://stackoverflow.com/a/58584363.
   Future<void> refetch() async {
     _landowners = await DAOLandowner.fetchFromDatabase();
-    if (_landownerOfReviewedArea != null) {
-      _landownerOfReviewedArea = getByID(_landownerOfReviewedArea!.id);
-    }
     notifyListeners();
   }
 
@@ -44,16 +39,8 @@ class LandownerCollection extends ChangeNotifier {
     final matches =
         _landowners.where((landowner) => landowner.id == id).toList();
 
-    if (matches.isEmpty) null;
+    if (matches.isEmpty) return null;
 
     return matches[0];
-  }
-
-  // Relationship Queries //////////////////////////////////////////////////////
-
-  Future<void> setLandownerOfAreaBeingReviewed(int areaID) async {
-    Landowner? landowner = await DAOLandowner.readLandownerFromArea(areaID);
-    refetch();
-    _landownerOfReviewedArea = landowner;
   }
 }

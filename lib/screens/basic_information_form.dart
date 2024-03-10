@@ -116,8 +116,16 @@ class BasicInformationForm extends StatelessWidget {
 
     Landowner? getInitialValue() {
       if (basicInfoData.landownerID != null) {
-        return landownerOptions
-            .firstWhere((element) => basicInfoData.landownerID == element.id);
+        try {
+          return landownerOptions.firstWhere((element) => basicInfoData.landownerID == element.id);
+        } on StateError catch (_) {
+          // This may occur if user navigated away mid-form and deleted the
+          // matching landowner. While the Basic Information Form page would no
+          // longer be active it would still be attached to the tree, so just
+          // return null even though form is no longer active.
+          return null;
+        }
+
       }
       return null;
     }

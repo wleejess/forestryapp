@@ -28,34 +28,25 @@ class DAOLandowner {
   /// Assumes all fields except of [dto] are set with the exception of
   /// [dto.id]. The latter can take any value as it has no bearing on the
   /// behavior of this method.
-  static void saveNewLandowner(DTOLandowner dto) =>
-      DatabaseManager.getInstance().saveNewLandowner(_getNonIDFields(dto));
+  static Future<int> saveNewLandowner(DTOLandowner dto) async =>
+      await DatabaseManager.getInstance()
+          .saveNewLandowner(_getNonIDFields(dto));
 
   /// Edit an existing landowner record alreay on the database.
   ///
   /// Assumes [dto.id] is a valid ID for an existing landowner.
-  static void updateExistingLandowner(DTOLandowner dto) =>
-      DatabaseManager.getInstance().updateExistingLandowner(
+  static Future<int> updateExistingLandowner(DTOLandowner dto) async =>
+      await DatabaseManager.getInstance().updateExistingLandowner(
         [..._getNonIDFields(dto), dto.id],
       );
 
   /// Remove an existing landowner record from the database.
   ///
   /// Assumes [id] is a valid ID of an existing landowner record.
-  static void deleteLandowner(int id) =>
-      DatabaseManager.getInstance().deleteLandowner([id]);
+  static Future<int> deleteLandowner(int id) async =>
+      await DatabaseManager.getInstance().deleteLandowner([id]);
 
   // Helpers ///////////////////////////////////////////////////////////////////
   static List<String> _getNonIDFields(DTOLandowner dto) =>
       [dto.name, dto.email, dto.address, dto.city, dto.usState.label, dto.zip];
-
-  // Relationship Queries //////////////////////////////////////////////////////
-  static Future<Landowner?> readLandownerFromArea(int areaID) async {
-    final dbRecords =
-        await DatabaseManager.getInstance().readLandownerFromArea([areaID]);
-
-    if (dbRecords.isEmpty) return null;
-
-    return Landowner.fromMap(dbRecords[0]);
-  }
 }
