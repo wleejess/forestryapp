@@ -62,6 +62,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
           }
         },
         validator: Validation.isValidElevation,
+        keyboardType: TextInputType.number,
       ),
     );
   }
