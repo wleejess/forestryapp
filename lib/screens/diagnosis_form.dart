@@ -10,9 +10,9 @@ import 'package:forestryapp/models/area.dart';
 class DiagnosisForm extends StatelessWidget {
   static const _title = "Diagnosis & Suggestions";
   static const _diagnosisDescription =
-      "Outline or list any issues or problems you see for the stand or area."
-      "Provide ideas for action, if needed. Help prioritize what those actions might be."
-      "Should the actions occur sooner or later?";
+      "Outline any issues you see for the stand or area. "
+      "Provide ideas for action, if needed.\n"
+      "Help prioritize the actions: Should they occur sooner or later?";
 
   const DiagnosisForm({super.key});
 
