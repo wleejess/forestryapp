@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:forestryapp/components/area_properties.dart";
+import "package:forestryapp/components/cancel_form_summary_button.dart";
 import "package:forestryapp/components/docx_button.dart";
 import "package:forestryapp/components/forestry_scaffold.dart";
 import "package:forestryapp/components/bottom_button_builder.dart";
@@ -16,7 +17,6 @@ import "package:provider/provider.dart";
 class FormReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Summary";
-  static const _buttonTextCancel = "Cancel";
 
   // Constructor ///////////////////////////////////////////////////////////////
   const FormReview({super.key});
@@ -32,7 +32,7 @@ class FormReview extends StatelessWidget {
       PdfButton(area: formData, landowner: landowner),
       DOCXButton(formData, landowner),
       const SaveButton(),
-      _buildButtonCancel(context)
+      const CancelFormSummaryButton(),
     ];
 
     return ForestryScaffold(
@@ -49,14 +49,5 @@ class FormReview extends StatelessWidget {
             ),
           ],
         ));
-  }
-
-  Widget _buildButtonCancel(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () => {
-        // TODO: Clear the Area provider and navigate out of the form section.
-      },
-      child: const Text(_buttonTextCancel),
-    );
   }
 }
