@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(_welcomeText, style: Theme.of(context).textTheme.displayMedium),
+                child: Text(_welcomeText, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
