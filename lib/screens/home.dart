@@ -29,54 +29,56 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForestryScaffold(
       title: _title,
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(_welcomeText, style: Theme.of(context).textTheme.displayMedium),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Image(image: AssetImage('assets/images/brand.png')),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text(_stepOneText, style: Theme.of(context).textTheme.displaySmall),
-                    _buildSettingsButton(context),
-                  ],
-                ),
-              )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text(_stepTwoText, style: Theme.of(context).textTheme.displaySmall),
-                    _buildLandownerButton(context),
-                  ],
-                ),
-              )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text(_stepThreeText, style: Theme.of(context).textTheme.displaySmall),
-                    _buildAreaButton(context),
-                  ],
-                ),
-              )),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(_welcomeText, style: Theme.of(context).textTheme.displayMedium),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Image(image: AssetImage('assets/images/brand.png')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(_stepOneText, style: Theme.of(context).textTheme.displaySmall),
+                      _buildSettingsButton(context),
+                    ],
+                  ),
+                )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(_stepTwoText, style: Theme.of(context).textTheme.displaySmall),
+                      _buildLandownerButton(context),
+                    ],
+                  ),
+                )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(_stepThreeText, style: Theme.of(context).textTheme.displaySmall),
+                      _buildAreaButton(context),
+                    ],
+                  ),
+                )),
+              )
+            ],
+          ),
         ),
       ),
     );
