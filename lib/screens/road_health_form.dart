@@ -12,7 +12,7 @@ class RoadHealthForm extends StatelessWidget {
   static const _title = "Road Health";
   static const _roadDescription =
       "Make note of any road related problems for the stand or area.\n"
-      "Example: Erosion, slumps, sediment delviery into streams or other waterways, "
+      "Example: Erosion, slumps, sediment delivery into streams or other waterways, "
       "culvert & ditch problems, etc";
 
   const RoadHealthForm({super.key});
