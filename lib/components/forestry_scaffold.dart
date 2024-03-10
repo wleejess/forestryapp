@@ -134,7 +134,7 @@ class ForestryScaffold extends StatelessWidget {
         },
       ),
       ListTile(
-        title: const Text('Invasive & Wildlife'),
+        title: const Text('Invasives & Wildlife'),
         leading: const Icon(Icons.pest_control_rodent),
         onTap: () {
           Navigator.push(context,
