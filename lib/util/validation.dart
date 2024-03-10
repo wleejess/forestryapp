@@ -36,18 +36,6 @@ class Validation {
     return 'Please enter an elevation from -5000 to 50000.';
   }
 
-  /// Returns an error message if the value is not an integer.
-  static String? isInteger(String? value) {
-    if (value == null || value.isEmpty) {
-      return null;
-    }
-    int? number = int.tryParse(value);
-    if (number != null) {
-      return null;
-    }
-    return 'Please enter a whole number.';
-  }
-
   /// Returns an error message if the value is not a positive double.
   static String? isValidAcres(String? value) {
     if (value == null || value.isEmpty) {
@@ -58,17 +46,5 @@ class Validation {
       return null;
     }
     return 'Please enter a positive decimal number.';
-  }
-
-  /// Returns an error message if the value is not a landowner id. 
-  static String? isLandownerId(String? value) {
-    if (value == null || value.isEmpty) {
-      return null;
-    }
-    int? number = int.tryParse(value);
-    if (number != null) {
-      return null;
-    }
-    return 'Please select a pre-defined landowner.';
   }
 }
