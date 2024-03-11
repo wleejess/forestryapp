@@ -5,7 +5,7 @@ import 'package:forestryapp/models/landowner.dart';
 import 'package:forestryapp/models/landowner_collection.dart';
 import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/models/area.dart';
-import 'package:forestryapp/screens/landowner_index.dart';
+import 'package:forestryapp/screens/home.dart';
 import 'package:forestryapp/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
@@ -59,7 +59,7 @@ class ForestryApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Forestry Wellness Checkup App',
         theme: Styles.makeTheme(),
-        home: const LandownerIndex(),
+        home: const Home(),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:forestryapp/models/settings.dart';
 import 'package:forestryapp/screens/area_index.dart';
 import 'package:forestryapp/screens/basic_information_form.dart';
 import 'package:forestryapp/screens/form_review.dart';
+import 'package:forestryapp/screens/home.dart';
 import 'package:forestryapp/screens/invasive_form.dart';
 import 'package:forestryapp/screens/landowner_index.dart';
 import 'package:forestryapp/screens/mistletoe_form.dart';
@@ -60,6 +61,17 @@ class ForestryScaffold extends StatelessWidget {
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context,
         listen: false); // Access the UnsavedChangesNotifier
     List<Widget> mainLinks = [
+        ListTile(
+        title: const Text('Home'),
+        leading: const Icon(Icons.home),
+        onTap: () {
+          _navigateWithUnsavedChanges(
+            context,
+            unsavedChangesNotifier,
+            const Home(),
+          );
+        },
+      ),
       ListTile(
         title: const Text('Settings'),
         leading: const Icon(Icons.settings),
