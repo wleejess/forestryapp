@@ -86,7 +86,6 @@ flutter:
     - assets/database/ddl_statements/
     - assets/database/queries/
     - assets/templates/ # Templates for DOCX and PDF file creation.
-    - assets/images/brand.png
     - assets/images/forestry_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
