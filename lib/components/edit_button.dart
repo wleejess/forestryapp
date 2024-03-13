@@ -3,6 +3,7 @@ import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/screens/basic_information_form.dart';
 import 'package:provider/provider.dart';
 
+/// Widget used to navigate from viewing current area to editing an existing area.
 class EditButton extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
   static const _buttonTextEdit = "Edit";

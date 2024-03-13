@@ -8,6 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for assessing fire risk within a forestry context.
+///
+/// This form enables users to note the level of fuel on the ground (high, medium, low),
+/// assess the density and structure of the forest, and evaluate factors such as the presence
+/// of ladder fuels and the potential for ignition. It includes a description field for entering
+/// observations and assessments related to fire risk, along with options to navigate to other
+/// form pages.
 class FireRiskForm extends StatelessWidget {
   static const _title = "Fire Risk";
   static const _fireDescription =
@@ -15,6 +22,10 @@ class FireRiskForm extends StatelessWidget {
       "as well as the density and structure of the forest.\n"
       "Are there abundant ladder fuels? What is the potential for ignition?";
 
+  // Constructor ////////////////////////////////////////////////////////////////
+  /// Constructs a FireRiskForm widget.
+  ///
+  /// Key is an optional parameter used to identify the widget.
   const FireRiskForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -31,6 +42,11 @@ class FireRiskForm extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds the description input field for assessing fire risk.
+  ///
+  /// Retrieves fire risk data from the provider and initializes the FreeTextBox widget
+  /// with appropriate labels, description, initial value, and onChanged callback.
+  /// Also updates the unsaved changes notifier when changes are made.
   Widget _buildDescription(BuildContext context) {
     final fireRiskData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);

@@ -12,6 +12,11 @@ import "package:forestryapp/components/free_text.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for capturing basic information about a forestry area.
+///
+/// This form allows users to input the name of the area, its acreage, select the landowner
+/// associated with the area, and specify the goals and objectives set by the landowner.
+/// It includes validation for ensuring the name is not empty and the acreage is a valid number.
 class BasicInformationForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Basic Information";
@@ -54,6 +59,7 @@ class BasicInformationForm extends StatelessWidget {
             )));
   }
 
+  // Inputs ////////////////////////////////////////////////////////////////////
   /// Builds a text input field to enter the stand/area name.
   Widget _buildNameInput(BuildContext context) {
     final basicInfoData = Provider.of<Area>(context);
@@ -125,7 +131,8 @@ class BasicInformationForm extends StatelessWidget {
     Landowner? getInitialValue() {
       if (basicInfoData.landownerID != null) {
         try {
-          return landownerOptions.firstWhere((element) => basicInfoData.landownerID == element.id);
+          return landownerOptions
+              .firstWhere((element) => basicInfoData.landownerID == element.id);
         } on StateError catch (_) {
           // This may occur if user navigated away mid-form and deleted the
           // matching landowner. While the Basic Information Form page would no
@@ -133,7 +140,6 @@ class BasicInformationForm extends StatelessWidget {
           // return null even though form is no longer active.
           return null;
         }
-
       }
       return null;
     }

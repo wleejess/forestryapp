@@ -1,3 +1,5 @@
+/// Enum representing different types of land cover.
+/// Forestry professionals will know what this refers to.
 enum CoverType {
   na("N/A"),
   forest("Forest"),

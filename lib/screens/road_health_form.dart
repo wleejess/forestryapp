@@ -8,6 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for capturing information about road-related issues in the area.
+///
+/// This form allows users to note any road-related problems they observe in the stand or area.
+/// It includes a text input field for providing details, along with a description for guidance.
 class RoadHealthForm extends StatelessWidget {
   static const _title = "Road Health";
   static const _roadDescription =
@@ -15,6 +19,8 @@ class RoadHealthForm extends StatelessWidget {
       "Example: Erosion, slumps, sediment delivery into streams or other waterways, "
       "culvert & ditch problems, etc";
 
+  // Constructor ////////////////////////////////////////////////////////////////
+  /// Creates a screen to enter information about road-related issues.
   const RoadHealthForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -31,6 +37,7 @@ class RoadHealthForm extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds a text input field to enter details about road-related issues observed in the area.
   Widget _buildDescription(BuildContext context) {
     final roadHealthData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);

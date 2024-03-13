@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+/// Component to store contact information containing: name, email, and address.
 class ContactInfo extends StatelessWidget {
   // Instance Variables ////////////////////////////////////////////////////////
   final String _name;

@@ -8,6 +8,10 @@ import "package:forestryapp/screens/vegetative_conditions_form.dart";
 import 'package:forestryapp/components/unsaved_changes.dart';
 import "package:provider/provider.dart";
 
+/// Represents a form for capturing information about insects and diseases present in the area.
+///
+/// This form allows users to input details about insects and diseases observed in the stand or area.
+/// It includes text input fields for listing insects and diseases, along with descriptions for guidance.
 class InsectsForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Insects & Diseases";
@@ -42,6 +46,7 @@ class InsectsForm extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds a text input field to enter details about insects observed in the area.
   Widget _buildInsectsInput(BuildContext context) {
     final insectsData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -56,6 +61,7 @@ class InsectsForm extends StatelessWidget {
         });
   }
 
+  /// Builds a text input field to enter details about diseases observed in the area.
   Widget _buildDiseasesInput(BuildContext context) {
     final insectsData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);

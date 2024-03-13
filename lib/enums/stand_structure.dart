@@ -1,3 +1,6 @@
+/// Describes the arrangement of trees within a forest stand.
+///
+/// Stand structure includes tree size, age distribution, and spatial arrangement.
 enum StandStructure {
   na("N/A"),
   evenAged("Even-aged"),

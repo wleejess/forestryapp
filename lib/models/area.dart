@@ -8,6 +8,14 @@ import 'package:forestryapp/enums/hawksworth.dart';
 import 'package:forestryapp/enums/mistletoe_uniformity.dart';
 import 'package:forestryapp/database/dao_area.dart';
 
+/// Represents an area within a forestry context.
+///
+/// This class encapsulates various attributes and characteristics of a forested
+/// area, including basic information such as landowner ID, name, and acreage;
+/// site characteristics like elevation, aspect, and slope; vegetative conditions
+/// such as cover type, stand structure, and density; damages from insects, diseases,
+/// invasives, and wildlife; mistletoe presence and its uniformity; as well as free
+/// response fields for road health, water health, fire risk, and other issues.
 class Area extends ChangeNotifier {
   Area({
     int? id,
