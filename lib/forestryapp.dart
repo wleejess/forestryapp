@@ -21,6 +21,16 @@ class ForestryApp extends StatelessWidget {
   /// checklist template file multiple times
   final DOCXConverter _docxConverter;
 
+  /// Create instance of the app.
+  ///
+  /// Takes all data that needs to be initialized before the app starts. All
+  /// parameters are items that involve async work that can be done before the
+  /// app starts up. Uses [sharedPreferences] to store user settings such as
+  /// evaluator contact info and font size. Assumes database calls for models
+  /// have already been made and their results have been stored in
+  /// [initialLandowners] and [initialAreas]. Assumes the [DOCXConverter] has
+  /// already been initialized (and hence the the file IO reading
+  /// assets/templates/checklist-template.docx has been performed).
   const ForestryApp(
     SharedPreferences sharedPreferences,
     LandownerCollection initialLandowners,
