@@ -105,4 +105,4 @@ To build the API documentation use the [dart doc](https://dart.dev/tools/dart-do
 dart doc # Will generate API documentation in the directory `doc/api/`
 ```
 
-Then the API documentation can be viewed by opening `doc/api/index.html`.
+Then the API documentation can be viewed by opening `doc/api/index.html` in a web browser of your choice.
