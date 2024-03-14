@@ -12,6 +12,11 @@ import "package:forestryapp/screens/road_health_form.dart";
 import "package:provider/provider.dart";
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for capturing information about mistletoe data in the
+/// area.
+///
+/// The form on this screen allows users to input details about mistletoe
+/// uniformity, Hawksworth infection rating, and tree species infected.
 class MistletoeForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Mistletoe Infections";

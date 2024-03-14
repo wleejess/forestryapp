@@ -8,11 +8,17 @@ import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for capturing information about other health-related issues observed in the area.
+///
+/// This form allows users to describe any other health-related issues they observed in the stand or area.
+/// It includes a text input field for providing details, along with a description for guidance.
 class OtherIssuesForm extends StatelessWidget {
   static const _title = "Other Issues";
   static const _otherDescription =
       "Describe any other health related issues you observed.";
 
+  // Constructor ////////////////////////////////////////////////////////////////
+  /// Creates a screen to enter information about other health-related issues.
   const OtherIssuesForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -29,6 +35,7 @@ class OtherIssuesForm extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds a text input field to enter details about other health-related issues observed in the area.
   Widget _buildDescription(BuildContext context) {
     final otherIssuesData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);

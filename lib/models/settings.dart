@@ -2,7 +2,8 @@ import 'package:forestryapp/enums/settings_key.dart';
 import 'package:forestryapp/enums/us_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Class to interact with settings stored in SharedPreferences.
+/// Class to interact with settings stored in SharedPreferences. 
+/// Settings include evaluator information and font size.
 class Settings {
   // Static Variables //////////////////////////////////////////////////////////
   static const double defaultFontSize = 100;

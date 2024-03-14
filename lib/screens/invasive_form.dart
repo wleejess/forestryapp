@@ -9,6 +9,8 @@ import 'package:forestryapp/components/unsaved_changes.dart';
 
 import "package:provider/provider.dart";
 
+/// Screen for capturing information about invasive plants and animals present
+/// in an area.
 class InvasiveForm extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Invasives & Wildlife Damages";

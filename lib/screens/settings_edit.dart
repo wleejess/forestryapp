@@ -4,6 +4,9 @@ import 'package:forestryapp/components/person_fieldset.dart';
 import 'package:forestryapp/enums/us_state.dart';
 import 'package:forestryapp/models/settings.dart';
 
+/// Screen for a user (evaluator) to input/update their settings.
+///
+/// Settings include user's contact information as well as current font size.
 class SettingsEdit extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Edit Settings";
@@ -17,6 +20,10 @@ class SettingsEdit extends StatefulWidget {
   final Settings _settings;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Create screen for user (evaluator) to input/update their settings.
+  ///
+  /// [settings] is assumed to be initialized and used for retrieving/storing
+  /// user settings.
   const SettingsEdit({required Settings settings, super.key})
       : _settings = settings;
 
@@ -52,6 +59,7 @@ class _SettingsEditState extends State<SettingsEdit> {
 
   @override
   void dispose() {
+    // Controllers must be disposed properly.
     _nameController.dispose();
     _emailController.dispose();
     _addressController.dispose();

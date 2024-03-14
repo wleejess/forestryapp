@@ -1,4 +1,6 @@
 /// Callback functions to provide form validation error messages.
+/// These functions are passed to the validator parameter of a
+/// TextFormField widget.
 class Validation {
   /// Returns an error message if no value was entered.
   static String? isNotEmpty(String? value) {

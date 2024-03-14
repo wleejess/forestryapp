@@ -15,6 +15,10 @@ import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for capturing vegetative conditions of the area.
+///
+/// This form allows users to input information about cover type, stand structure,
+/// overstory and understory stand densities, species composition, and stand history.
 class VegetativeConditionsForm extends StatelessWidget {
   // Instance Variables
   final _title = "Vegetative Conditions";
@@ -26,8 +30,11 @@ class VegetativeConditionsForm extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  // Constructor ////////////////////////////////////////////////////////////////
+  /// Creates a screen for capturing vegetative conditions.
   VegetativeConditionsForm({super.key});
 
+  // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
@@ -55,6 +62,8 @@ class VegetativeConditionsForm extends StatelessWidget {
         ));
   }
 
+  // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds widgets to select cover type and other cover type details.
   Widget _buildCoverType(BuildContext context, header) {
     final vegConData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -83,6 +92,7 @@ class VegetativeConditionsForm extends StatelessWidget {
     );
   }
 
+  /// Builds radio options to select the stand structure of the area.
   Widget _buildStandStructure(BuildContext context, header) {
     final vegConData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -98,6 +108,7 @@ class VegetativeConditionsForm extends StatelessWidget {
     );
   }
 
+  /// Builds expansion tiles to input stand density and species composition details.
   Widget _buildStoryInfo(BuildContext context, title, density) {
     final vegConData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -142,6 +153,7 @@ class VegetativeConditionsForm extends StatelessWidget {
     );
   }
 
+  /// Builds a text input field to enter stand history information.
   Widget _buildStandHistory(BuildContext context) {
     final vegConData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);

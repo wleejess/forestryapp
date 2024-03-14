@@ -13,14 +13,21 @@ import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 import 'package:forestryapp/components/unsaved_changes.dart';
 
+/// Represents a form for capturing site characteristics of the area.
+///
+/// This form allows users to input various site characteristics such as elevation,
+/// aspect, slope percentage, slope position, and soil information.
 class SiteCharacteristicsForm extends StatelessWidget {
   // Static Variables
   static const _title = "Site Characteristics";
 
   final _formKey = GlobalKey<FormState>();
 
+  // Constructor ////////////////////////////////////////////////////////////////
+  /// Creates a screen for capturing site characteristics.
   SiteCharacteristicsForm({super.key});
 
+  // Methods ///////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return ForestryScaffold(
@@ -43,6 +50,8 @@ class SiteCharacteristicsForm extends StatelessWidget {
             )));
   }
 
+  // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds a text input field to enter the elevation of the area.
   Widget _buildElevation(BuildContext context) {
     final elevationData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -67,6 +76,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
     );
   }
 
+  /// Builds a dropdown menu to select the aspect of the area.
   Widget _buildAspect(BuildContext context) {
     final aspectData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -85,6 +95,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
     );
   }
 
+  /// Builds a text input field to enter the slope percentage of the area.
   Widget _buildPercentSlope(BuildContext context) {
     final percentSlopeData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -109,6 +120,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
     );
   }
 
+  /// Builds radio options to select the slope position of the area.
   Widget _buildSlopePosition(BuildContext context) {
     final slopePositionData = Provider.of<Area>(context);
     final unsavedChangesNotifier = Provider.of<UnsavedChangesNotifier>(context);
@@ -123,6 +135,7 @@ class SiteCharacteristicsForm extends StatelessWidget {
         });
   }
 
+  /// Builds a text input field to enter soil information of the area.
   Widget _buildSoilInformation(BuildContext context) {
     const soilHelp =
         "Add any information about the soils that is available to you."

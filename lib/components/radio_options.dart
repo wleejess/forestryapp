@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 /// Widget for creating radio options, can be reused in different pages.
 class RadioOptions extends StatefulWidget {
+  // Instance variables ////////////////////////////////////////////////////////
   final String header;
   final List<dynamic> enumValues;
   final dynamic initialValue;
@@ -66,7 +67,7 @@ class _RadioOptionsState extends State<RadioOptions> {
   }
 
   // Radio /////////////////////////////////////////////////////////////////////
-  /// build radio buttons from the provided enums.
+  /// Build radio buttons from the provided enums.
   List<Widget> _createRadios(BuildContext context) {
     // Uses Dart's control-flow operator "collection for" (similar to a Python
     // list comprehension). See

@@ -14,6 +14,13 @@ import "package:forestryapp/screens/landowner_edit.dart";
 import "package:forestryapp/util/break_points.dart";
 import "package:provider/provider.dart";
 
+
+/// Screen for displaying information about a [Landowner] saved to the database.
+///
+/// This screen will list contact information of said [Landowner] as well as a
+/// scrollable [ListView] of any areas they may own. If users choose to create
+/// an [Area] its landowner will be set to the [Landowner] associated with this
+/// screen.
 class LandownerReview extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Landowner Review";

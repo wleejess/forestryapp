@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:forestryapp/components/portrait_handling_sized_box.dart";
 import "package:forestryapp/enums/us_state.dart";
 
+/// Form fields to collect either Landowner or Evaluator information.
 class PersonFieldSet extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
   static const _hintNameEvaluator = "Evaluator Name";
@@ -66,6 +67,11 @@ class PersonFieldSet extends StatelessWidget {
   final void Function(dynamic)? _dropdownOnChanged;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Create fields to collect landowner/evaluator information.
+  ///
+  /// Assumes a the relevant person being whose information is being input is a
+  /// landowner unless [editingEvaluator] is set to true. [dropdownOnChanged] is
+  /// the callback to run when the dropdown for the US State changes.
   const PersonFieldSet({
     required TextEditingController nameController,
     required TextEditingController emailController,

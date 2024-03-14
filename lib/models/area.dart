@@ -8,7 +8,19 @@ import 'package:forestryapp/enums/hawksworth.dart';
 import 'package:forestryapp/enums/mistletoe_uniformity.dart';
 import 'package:forestryapp/database/dao_area.dart';
 
+/// Represents an area within a forestry context.
+///
+/// This class encapsulates various attributes and characteristics of a forested
+/// area, including basic information such as landowner ID, name, and acreage;
+/// site characteristics like elevation, aspect, and slope; vegetative conditions
+/// such as cover type, stand structure, and density; damages from insects, diseases,
+/// invasives, and wildlife; mistletoe presence and its uniformity; as well as free
+/// response fields for road health, water health, fire risk, and other issues.
 class Area extends ChangeNotifier {
+  /// Create a model of an area.
+  ///
+  /// When [id] is left null, it is assumed the the model represents an area
+  /// that is not yet stored in the database.
   Area({
     int? id,
 
@@ -94,6 +106,8 @@ class Area extends ChangeNotifier {
         _otherIssues = otherIssues,
         _diagnosis = diagnosis;
 
+  /// Named constructor to convert a database record (which is in the form of a
+  /// [Map]) to an instance of of the model class.
   Area.fromMap(Map dbRecord)
       : this(
             id: dbRecord[DAOArea.colID],

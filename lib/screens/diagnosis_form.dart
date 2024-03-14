@@ -7,6 +7,12 @@ import 'package:forestryapp/screens/other_issues_form.dart';
 import 'package:provider/provider.dart';
 import 'package:forestryapp/models/area.dart';
 
+/// Represents a form for diagnosing issues and providing suggestions within a forestry context.
+///
+/// This form allows users to outline any issues observed in a forest stand or area and
+/// provide suggestions for actions, if needed. It includes a description field for entering
+/// diagnoses and suggestions, along with options to navigate to other form pages and review
+/// the form contents.
 class DiagnosisForm extends StatelessWidget {
   static const _title = "Diagnosis & Suggestions";
   static const _diagnosisDescription =
@@ -14,6 +20,10 @@ class DiagnosisForm extends StatelessWidget {
       "Provide ideas for action, if needed.\n"
       "Help prioritize the actions: Should they occur sooner or later?";
 
+  // Constructor ////////////////////////////////////////////////////////////////
+  /// Constructs a DiagnosisForm widget.
+  ///
+  /// Key is an optional parameter used to identify the widget.
   const DiagnosisForm({super.key});
 
   // Methods ///////////////////////////////////////////////////////////////////
@@ -30,6 +40,10 @@ class DiagnosisForm extends StatelessWidget {
   }
 
   // Inputs ////////////////////////////////////////////////////////////////////
+  /// Builds the description input field for diagnosing issues and providing suggestions.
+  ///
+  /// Retrieves diagnosis data from the provider and initializes the FreeTextBox widget
+  /// with appropriate labels, description, initial value, and onChanged callback.
   Widget _buildDescription(BuildContext context) {
     final diagnosisData = Provider.of<Area>(context);
 

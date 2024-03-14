@@ -1,3 +1,4 @@
+/// Enum representing various directions.
 enum Direction {
   na("N/A"),
   north("North"),

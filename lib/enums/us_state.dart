@@ -1,3 +1,4 @@
+/// Describes various US States and territories.
 enum USState {
   // Use full state name because Indiana's two letter abbreviation (in) is a
   // Dart reserved keyword and can't be used as an enum value.
