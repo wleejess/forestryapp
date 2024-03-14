@@ -5,6 +5,7 @@ import "package:forestryapp/models/settings.dart";
 
 import "package:forestryapp/screens/settings_edit.dart";
 
+/// Screen for user (evaluator) to input/update their settings.
 class SettingsReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Settings";
@@ -18,6 +19,10 @@ class SettingsReview extends StatefulWidget {
   final Settings _settings;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Create screen for user (evaluator) to input/update their settings.
+  ///
+  /// [settings] is assumed to be initialized and used for storing/retrieving
+  /// user settings.
   const SettingsReview({required Settings settings, super.key})
       : _settings = settings;
 
