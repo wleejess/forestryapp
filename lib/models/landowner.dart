@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:forestryapp/database/dao_landowner.dart';
 import "package:forestryapp/enums/us_state.dart";
 
+/// Model class to represent landowners.
+///
+/// The main purpose of this class is to hold data from the the SQLite database
+/// records for the landowners table.
 class Landowner extends ChangeNotifier {
   /// Create a model of an landowner.
   ///
