@@ -13,6 +13,16 @@ import "package:forestryapp/models/area_collection.dart";
 import "package:forestryapp/models/landowner_collection.dart";
 import "package:provider/provider.dart";
 
+/// Screen to view details of a given area saved to the database.
+///
+/// While this screen is similar to [FormReview] in that PDF/DOCX can be
+/// generate4d here, it is differs in that it is only for a saved area while
+/// [FormReview] is for an area currently being created/updated.
+///
+/// Contains an edit button which will set the provided
+/// [ChangeNotifierProvider<Area>] to have all the data in the reviewed
+/// area. Also contains a deletion button to fully delete the [Area] from the
+/// database.
 class AreaReview extends StatefulWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _titlePrefix = "Area Review";
@@ -25,6 +35,9 @@ class AreaReview extends StatefulWidget {
   final int _areaID;
 
   // Constructor ///////////////////////////////////////////////////////////////
+  /// Create screen for an existing [Area].
+  ///
+  /// [areaID] must be an ID for an area saved to the database.
   const AreaReview(int areaID, {super.key}) : _areaID = areaID;
 
   @override
