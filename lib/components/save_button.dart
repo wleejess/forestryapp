@@ -9,6 +9,7 @@ import 'package:forestryapp/components/unsaved_changes.dart';
 import "package:provider/provider.dart";
 import "package:sqflite/sqflite.dart";
 
+/// Button for saving an [Area] that is being created/edited.
 class SaveButton extends StatelessWidget {
   // Static Variables //////////////////////////////////////////////////////////
   static const _buttonTextSave = Text("Save");
