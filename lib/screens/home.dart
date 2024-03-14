@@ -7,6 +7,12 @@ import 'package:provider/provider.dart';
 import "package:forestryapp/models/settings.dart";
 import "package:forestryapp/screens/settings_edit.dart";
 
+
+/// Landing page to help orient user when they open the app.
+///
+/// This is screen helps to direct the user (evaluator) to enter their contact
+/// information as soon as possible as it is needed to create any area document
+/// (PDF/DOCX). It also helps to convey the typical usage to the user as well.
 class Home extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _title = "Home";
