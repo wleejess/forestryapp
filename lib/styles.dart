@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// Class used for styles for the app.
+///
+/// This should not be instantiated and only acts as a central location for
+/// defined styles.
 class Styles {
   static final _colorScheme = ColorScheme.fromSeed(seedColor: Colors.green);
 
