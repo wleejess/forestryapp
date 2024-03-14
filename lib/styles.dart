@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Class used for styles for the app.
 class Styles {
   static final _colorScheme = ColorScheme.fromSeed(seedColor: Colors.green);
 
@@ -19,6 +20,10 @@ class Styles {
         TextStyle(fontSize: 32, color: _colorScheme.onSecondaryContainer),
   );
 
+  /// Configure overall app theme.
+  ///
+  /// Note that this is only using a Material app theme so should be used with
+  /// [MaterialApp] and not [CupertinoApp].
   static ThemeData makeTheme() {
     return ThemeData(
       useMaterial3: true,
