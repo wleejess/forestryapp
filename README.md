@@ -1,15 +1,16 @@
 # Forestry Wellness Checkup App
 
-- [Description](#orgb2e3b07)
-- [Deploying](#orgbdeac15)
-  - [Web (Separate Repo With GitHub Pages)](#org5a4adfa)
-    - [Step By Step](#orgc796c05)
-    - [One-Liner](#orge477680)
-  - [Android (apk file)](#org10c6e90)
+- [Description](#org2d97f03)
+- [Deploying](#orgea3b804)
+  - [Web (Separate Repo With GitHub Pages)](#orge884844)
+    - [Step By Step](#org5d2c073)
+    - [One-Liner](#org14f599a)
+  - [Android (apk file)](#org8ee66c3)
+- [Documentation](#org8322473)
 
 
 
-<a id="orgb2e3b07"></a>
+<a id="org2d97f03"></a>
 
 # Description
 
@@ -18,17 +19,17 @@ Owning forested land comes with many responsibilities. With the ever growing iss
 Our team will build the Forest Wellness Checkup Application (FWCA) for The Oregon State University (OSU) Extension Service in order to help the above professionals during their surveys. Under the guidance of OSU Extension Professors Fitzgerald, Punches, and Ahrens we will develop a checklist that the professionals can use on their tablets when inspecting the forests.
 
 
-<a id="orgbdeac15"></a>
+<a id="orgea3b804"></a>
 
 # Deploying
 
 
-<a id="org5a4adfa"></a>
+<a id="orge884844"></a>
 
 ## Web (Separate Repo With GitHub Pages)
 
 
-<a id="orgc796c05"></a>
+<a id="org5d2c073"></a>
 
 ### Step By Step
 
@@ -65,7 +66,7 @@ Our team will build the Forest Wellness Checkup Application (FWCA) for The Orego
 4.  Configure GitHub. Go to "Setting" > "Pages" and then configure the "Build and deployment" section as follows. ![img](docs/images/github-pages.png)
 
 
-<a id="orge477680"></a>
+<a id="org14f599a"></a>
 
 ### One-Liner
 
@@ -77,7 +78,7 @@ rm -rf build/web \
 ```
 
 
-<a id="org10c6e90"></a>
+<a id="org8ee66c3"></a>
 
 ## Android (apk file)
 
@@ -92,3 +93,16 @@ rm -rf build/web \
 -   Install the apk on Android device. This may require enabling "Allowing app installs from Unknown Sources in Android" or an equivalent setting.
 
 -   NOTE: This process generates a [fat apk](https://docs.flutter.dev/deployment/android#what-is-a-fat-apk). While it is larger, the reason for choosing this is mainly for improved portability. If the file size is a deal breaker then look into [splitting the release per abi](https://docs.flutter.dev/deployment/android#build-an-apk).
+
+
+<a id="org8322473"></a>
+
+# Documentation
+
+To build the API documentation use the [dart doc](https://dart.dev/tools/dart-doc) tool
+
+```shell
+dart doc # Will generate API documentation in the directory `doc/api/`
+```
+
+Then the API documentation can be viewed by opening `doc/api/index.html` in a web browser of your choice.
