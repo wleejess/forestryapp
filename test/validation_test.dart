@@ -1,7 +1,7 @@
 import 'package:forestryapp/util/validation.dart';
 import 'package:test/test.dart';
 
-/// Test the Validation class, which provides Form widget validation errors.
+/// Class used to test the Validation class, which provides Form widget validation errors.
 void main() {
     group('isNotEmpty', () {
         test('isNotEmpty detects empty input', () {

@@ -3,6 +3,7 @@ import 'package:forestryapp/models/area.dart';
 import 'package:provider/provider.dart';
 
 /// A component to ensure common layout accross the form screens.
+/// Contains the current area heading and previous / next buttons
 class FormScaffold extends StatelessWidget {
   // Static variables //////////////////////////////////////////////////////////
   static const _buttonLabelPrevious = "Previous";

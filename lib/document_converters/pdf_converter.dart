@@ -4,7 +4,7 @@ import 'package:forestryapp/models/settings.dart';
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pw;
 
-/// Fills out the PDF template and returns a pdf object
+/// Class to manage creating a PDF version of the checklist.
 class PdfConverter {
   pw.Document create(Area area, Landowner landowner, Settings evaluator,) {
     final pdf = pw.Document(
