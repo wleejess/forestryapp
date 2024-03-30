@@ -1,4 +1,0 @@
-#Wed Mar 13 21:15:22 PDT 2024
-base.0=/Users/skywired/Documents/wleejess/class/CS467 Capstone/forestryapp/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

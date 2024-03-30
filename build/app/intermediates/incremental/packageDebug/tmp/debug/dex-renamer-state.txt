@@ -1,4 +1,0 @@
-#Mon Mar 04 19:56:08 PST 2024
-base.0=/Users/skywired/Documents/wleejess/class/CS467 Capstone/forestryapp/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
